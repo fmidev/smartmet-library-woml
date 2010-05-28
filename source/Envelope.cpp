@@ -5,9 +5,22 @@
 // ======================================================================
 
 #include "Envelope.h"
+#include <cassert>
 
 namespace woml
 {
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Default constructor
+ */
+// ----------------------------------------------------------------------
+
+Envelope::Envelope()
+  : itsBounded(false)
+  , itsLowerCorner(0,0)
+  , itsUpperCorner(0,0)
+{ }
 
 // ----------------------------------------------------------------------
 /*!
@@ -15,10 +28,23 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-Envelope::Envelope(const Point & theLowerCorner, const Point & theUpperCorner)
-  : itsLowerCorner(theLowerCorner)
+Envelope::Envelope(const Point & theLowerCorner,
+				   const Point & theUpperCorner)
+  : itsBounded(true)
+  , itsLowerCorner(theLowerCorner)
   , itsUpperCorner(theUpperCorner)
 { }
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief True if envelope is bounded
+ */
+//  ----------------------------------------------------------------------
+
+bool Envelope::bounded() const
+{
+  return itsBounded;
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -29,6 +55,7 @@ Envelope::Envelope(const Point & theLowerCorner, const Point & theUpperCorner)
 
 const Point & Envelope::lowerCorner() const
 {
+  assert(itsBounded);
   return itsLowerCorner;
 }
 
@@ -40,6 +67,7 @@ const Point & Envelope::lowerCorner() const
 
 const Point & Envelope::upperCorner() const
 {
+  assert(itsBounded);
   return itsUpperCorner;
 }
 

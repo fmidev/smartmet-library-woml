@@ -16,7 +16,9 @@ namespace woml
   class MeteorologicalAnalysis
   {
   public:
-	
+	MeteorologicalAnalysis();
+	void addFeature(Feature * theFeature);
+
   private:
 
 	boost::ptr_list<Feature> itsFeatureMembers;

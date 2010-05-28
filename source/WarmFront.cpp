@@ -21,4 +21,15 @@ void WarmFront::visit(FeatureVisitor & theVisitor) const
   theVisitor.visit(*this);
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the envelope
+ */
+// ----------------------------------------------------------------------
+
+void WarmFront::envelope(const Envelope & theEnvelope)
+{
+  itsBoundedBy = theEnvelope;
+}
+
 } // namespace woml

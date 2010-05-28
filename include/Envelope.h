@@ -14,14 +14,15 @@ namespace woml
   class Envelope
   {
   public:
-
+	Envelope();
 	Envelope(const Point & theLowerCorner, const Point & theUpperCorner);
+	bool bounded() const;
 	const Point & lowerCorner() const;
 	const Point & upperCorner() const;
 
   private:
 
-	Envelope();
+	bool itsBounded;
 	Point itsLowerCorner;
 	Point itsUpperCorner;
 
