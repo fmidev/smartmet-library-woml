@@ -7,6 +7,7 @@
 #ifndef WOML_SIMPLECUBICSPLINE_H
 #define WOML_SIMPLECUBICSPLINE_H
 
+#include "Point.h"
 #include <vector>
 
 namespace woml

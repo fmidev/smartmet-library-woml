@@ -11,10 +11,13 @@
 
 namespace woml
 {
+  class FeatureVisitor;
+
   class Feature
   {
   public:
-	virtual ~Feature();
+	virtual ~Feature() {}
+	virtual void visit(FeatureVisitor & visitor) const = 0;
 
   private:
 

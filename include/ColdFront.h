@@ -15,9 +15,12 @@
 
 namespace woml
 {
-  class ColdFront : public Feature;
+  class FeatureVisitor;
+
+  class ColdFront : public Feature
   {
   public:
+	virtual void visit(FeatureVisitor & visitor) const;
   private:
 	Envelope boundedBy;
 	std::map<std::string,std::string> shortInfo;
