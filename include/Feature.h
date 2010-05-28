@@ -17,7 +17,7 @@ namespace woml
   {
   public:
 	virtual ~Feature() {}
-	virtual void visit(FeatureVisitor & visitor) const = 0;
+	virtual void visit(FeatureVisitor & theVisitor) const = 0;
 
   private:
 

@@ -16,9 +16,9 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-void CloudAreaBorder::visit(FeatureVisitor & visitor) const
+void CloudAreaBorder::visit(FeatureVisitor & theVisitor) const
 {
-  visitor.visit(*this);
+  theVisitor.visit(*this);
 }
 
 } // namespace woml

@@ -20,11 +20,11 @@ namespace woml
 	
   private:
 
-	std::list<FeaturePtr> featureMembers;
-	boost::posix_time::time_period validTime;
-	boost::posix_time::ptime creationTime;
-	boost::posix_time::ptime latestModificationTime;
-	boost::posix_time::ptime analysisTime;
+	std::list<FeaturePtr> itsFeatureMembers;
+	boost::posix_time::time_period itsValidTime;
+	boost::posix_time::ptime itsCreationTime;
+	boost::posix_time::ptime itsLatestModificationTime;
+	boost::posix_time::ptime itsAnalysisTime;
 
   }; // class MeteorologicalAnalysis
 } // namespace woml

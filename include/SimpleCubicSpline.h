@@ -16,7 +16,7 @@ namespace woml
   {
   public:
   private:
-	std::vector<Point> posList;
+	std::vector<Point> itsPosList;
 
   }; // SimpleCubicSpline
 } // namespace woml

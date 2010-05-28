@@ -17,7 +17,7 @@ namespace woml
   public:
 
   private:
-	std::list<SimpleCubicSpline> cubicSplineSegments;
+	std::list<SimpleCubicSpline> itsCubicSplineSegments;
 
   }; // class CubicSplineCurve
 } // namespace woml

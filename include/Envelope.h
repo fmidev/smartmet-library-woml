@@ -15,16 +15,15 @@ namespace woml
   {
   public:
 
-	Envelope(const Point & p1, const Point & p2)
-	  : lowerCorner(p1)
-	  , upperCorner(p2)
-	{ }
-
-	Point lowerCorner;
-	Point upperCorner;
+	Envelope(const Point & theLowerCorner, const Point & theUpperCorner);
+	const Point & lowerCorner() const;
+	const Point & upperCorner() const;
 
   private:
+
 	Envelope();
+	Point itsLowerCorner;
+	Point itsUpperCorner;
 
   }; // class Envelope
 } // namespace woml

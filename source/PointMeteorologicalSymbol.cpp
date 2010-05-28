@@ -16,9 +16,9 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-void PointMeteorologicalSymbol::visit(FeatureVisitor & visitor) const
+void PointMeteorologicalSymbol::visit(FeatureVisitor & theVisitor) const
 {
-  visitor.visit(*this);
+  theVisitor.visit(*this);
 }
 
 } // namespace woml

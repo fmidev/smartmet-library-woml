@@ -20,12 +20,12 @@ namespace woml
   class WarmFront : public Feature
   {
   public:
-	virtual void visit(FeatureVisitor & visitor) const;
+	virtual void visit(FeatureVisitor & theVisitor) const;
   private:
-	Envelope boundedBy;
-	std::map<std::string,std::string> shortInfo;
-	std::map<std::string,std::string> longInfo;
-	CubicSplineCurve controlCurve;
+	Envelope itsBoundedBy;
+	std::map<std::string,std::string> itsShortInfo;
+	std::map<std::string,std::string> itsLongInfo;
+	CubicSplineCurve itsControlCurve;
 
   }; // class WarmFront
 

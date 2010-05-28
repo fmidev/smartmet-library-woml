@@ -16,9 +16,9 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-void ColdFront::visit(FeatureVisitor & visitor) const
+void ColdFront::visit(FeatureVisitor & theVisitor) const
 {
-  visitor.visit(*this);
+  theVisitor.visit(*this);
 }
 
 } // namespace woml

@@ -22,13 +22,13 @@ namespace woml
   class PointMeteorologicalSymbol : public Feature
   {
   public:
-	virtual void visit(FeatureVisitor & visitor) const;
+	virtual void visit(FeatureVisitor & theVisitor) const;
   private:
-	Envelope boundedBy;
-	std::map<std::string,std::string> shortInfo;
-	std::map<std::string,std::string> longInfo;
+	Envelope itsBoundedBy;
+	std::map<std::string,std::string> itsShortInfo;
+	std::map<std::string,std::string> itsLongInfo;
 	Point point;
-	boost::scoped_ptr<MeteorologicalSymbol> meteorologicalSymbol;
+	boost::scoped_ptr<MeteorologicalSymbol> itsMeteorologicalSymbol;
 
   }; // class PointMeteorologicalSymbol
 

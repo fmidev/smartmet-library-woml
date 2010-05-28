@@ -13,12 +13,14 @@ namespace woml
   {
   public:
 
-	Point(double x, double y) : lon(x), lat(y) { }
-	double lon;
-	double lat;
+	Point(double theLon, double theLat) : itsLon(theLon), itsLat(theLat) { }
+	double lon() const { return itsLon; }
+	double lat() const { return itsLat; }
 
   private:
 	Point();
+	double itsLon;
+	double itsLat;
 
   }; // class Point
 } // namespace woml

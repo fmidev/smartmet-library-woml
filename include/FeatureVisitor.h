@@ -23,10 +23,10 @@ namespace woml
   public:
 	virtual ~FeatureVisitor() {}
 
-	virtual void visit(const CloudAreaBorder & feature) = 0;
-	virtual void visit(const ColdFront & feature) = 0;
-	virtual void visit(const PointMeteorologicalSymbol & feature) = 0;
-	virtual void visit(const WarmFront & feature) = 0;
+	virtual void visit(const CloudAreaBorder & theFeature) = 0;
+	virtual void visit(const ColdFront & theFeature) = 0;
+	virtual void visit(const PointMeteorologicalSymbol & theFeature) = 0;
+	virtual void visit(const WarmFront & theFeature) = 0;
 
   }; // class FeatureVisitor
 } // namespace woml
