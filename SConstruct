@@ -35,6 +35,8 @@ env = Environment( )
 
 env.Append(LIBS="smartmet_macgyver-mt")
 
+env.ParseConfig( "(pkg-config --exists libxml++-2.6 && pkg-config libxml++-2.6 --cflags --libs)" )
+
 env.Append( CPPPATH= [ "./include" ] )
 env.Append( CPPDEFINES= ["UNIX"] )
 env.Append( CXXFLAGS= [
@@ -113,11 +115,10 @@ else:
 
         e_noerror= env    # anyways no -Werror
 
-    	for fn in Glob("source/*.cpp"): 
-        	s= os.path.basename( str(fn) )
-        	obj_s= OBJDIR+"/"+ s.replace(".cpp","")
-    
-        	objs += env.Object( obj_s, fn )
+for fn in Glob("source/*.cpp"): 
+	s= os.path.basename( str(fn) )
+	obj_s= OBJDIR+"/"+ s.replace(".cpp","")
+	objs += env.Object( obj_s, fn )
 
  # Make just the static lib
 

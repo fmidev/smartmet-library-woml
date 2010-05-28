@@ -1,11 +1,11 @@
 // ======================================================================
 /*!
- * \brief woml::MeteorologicalAnalysis
+ * \brief woml::WeatherForecast
  */
 // ======================================================================
 
-#ifndef WOML_METEOROLOGICAL_ANALYSIS_H
-#define WOML_METEOROLOGICAL_ANALYSIS_H
+#ifndef WOML_WEATHER_FORECAST_H
+#define WOML_WEATHER_FORECAST_H
 
 #include "Feature.h"
 #include <boost/date_time/posix_time/posix_time_types.hpp>
@@ -13,7 +13,7 @@
 
 namespace woml
 {
-  class MeteorologicalAnalysis
+  class WeatherForecast
   {
   public:
 	
@@ -24,13 +24,13 @@ namespace woml
 	boost::posix_time::ptime itsCreationTime;
 	boost::posix_time::ptime itsLatestModificationTime;
 
-	// This part is different from WeatherForecast
-	boost::posix_time::ptime itsAnalysisTime;
+	// This part is different from MeteorologicalAnalysis
+	boost::posix_time::ptime itsForecastTime;
 
-  }; // class MeteorologicalAnalysis
+  }; // class WeatherForecast
 } // namespace woml
 
-#endif // WOML_METEOROLOGICAL_ANALYSIS_H
+#endif // WOML_WEATHERFORECAST_H
 
 
 
