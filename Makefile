@@ -23,9 +23,14 @@ else
   libdir = $(PREFIX)/lib
 endif
 
-bindir = $(PREFIX)/bin
 includedir = $(PREFIX)/include/smartmet
 objdir = obj
+
+ifeq ($(origin BINDIR), undefined)
+  bindir = $(PREFIX)/bin
+else
+  bindir = $(BINDIR)
+endif
 
 # rpm variables
 
@@ -65,7 +70,7 @@ profile:
 
 clean:
 	@#scons -c objdir=$(objdir)
-	-rm -f $(LIBFILE) $(LIBFILE_MT) *~ source/*~ include/*~
+	-rm -f $(LIBFILE) *~ source/*~ include/*~
 	-rm -rf $(objdir)
 
 install:
@@ -77,6 +82,7 @@ install:
 	done
 	@mkdir -p $(libdir)
 	$(INSTALL_DATA) $(LIBFILE) $(libdir)/$(LIBFILE)
+	mkdir -p $(bindir)
 
 test:
 	cd test && make test
