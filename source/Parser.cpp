@@ -31,12 +31,10 @@ void require_whitespace(const xmlpp::TextReader & theReader)
   if(!theReader.has_value())
 	return;
 
-#if 0
-  // TODO: Does not compile
   std::string text = theReader.get_value();
-  if(!boost::algorithm::all(text,boost::algorithm::is_space))
-	throw std::runtime_error("Non whitespace between XML tags");
-#endif
+  if(!boost::algorithm::all(text,boost::algorithm::is_space()))
+	throw std::runtime_error("Non whitespace between XML tags: "+text);
+
 }
 
 // ----------------------------------------------------------------------
@@ -72,7 +70,7 @@ Envelope parse_envelope(xmlpp::TextReader & theReader)
 		  lc = parse_point(theReader);
 		  lc_ok = true;
 		}
-	  else if(name == "gml::upperCorner")
+	  else if(name == "gml:upperCorner")
 		{
 		  uc = parse_point(theReader);
 		  uc_ok = true;
@@ -103,13 +101,16 @@ Envelope parse_boundedby(xmlpp::TextReader & theReader)
 	  std::string name = theReader.get_name();
 	  if(name == "#text")
 		require_whitespace(theReader);
-	  else if(name == "gml::Envelope")
+	  else if(name == "gml:Envelope")
 		return parse_envelope(theReader);
-	  else if(name == "gml::Null")
+	  else if(name == "gml:Null")
 		return Envelope();
-	  throw std::runtime_error("Unexpected tag <"
-							   + name
-							   + "> in bounderBy");
+	  else if(name == "#text")
+		require_whitespace(theReader);
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in boundedBy");
 	}
   throw std::runtime_error("boundedBy not fully defined");
 
