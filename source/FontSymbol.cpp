@@ -16,9 +16,11 @@ namespace woml
 // ----------------------------------------------------------------------
 
 FontSymbol::FontSymbol(const std::string & theFontName,
+					   double theFontSize,
 					   int theSymbolIndex,
 					   const SRGBColor & theColor)
   : itsFontName(theFontName)
+  , itsFontSize(theFontSize)
   , itsSymbolIndex(theSymbolIndex)
   , itsColor(theColor)
 {

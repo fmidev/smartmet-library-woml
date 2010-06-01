@@ -6,7 +6,10 @@
 
 #include "Parser.h"
 #include "ColdFront.h"
+#include "FontSymbol.h"
+#include "GraphicSymbol.h"
 #include "MeteorologicalAnalysis.h"
+#include "PointMeteorologicalSymbol.h"
 #include "WarmFront.h"
 #include "Weather.h"
 #include "WeatherForecast.h"
@@ -31,7 +34,8 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-void require_whitespace(const xmlpp::TextReader & theReader)
+void
+require_whitespace(const xmlpp::TextReader & theReader)
 {
   if(!theReader.has_value())
 	return;
@@ -44,11 +48,26 @@ void require_whitespace(const xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Read the value field coming up
+ */
+// ----------------------------------------------------------------------
+
+std::string read_text_value(xmlpp::TextReader & theReader)
+{
+  theReader.read();
+  std::string value = theReader.get_value();
+  theReader.next();
+  return value;
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Parse #text XML time
  */
 // ----------------------------------------------------------------------
 
-boost::posix_time::ptime parse_text_time(xmlpp::TextReader & theReader)
+boost::posix_time::ptime
+parse_text_time(xmlpp::TextReader & theReader)
 {
   if(!theReader.read())
 	throw std::runtime_error("Time element missing from XML");
@@ -63,11 +82,42 @@ boost::posix_time::ptime parse_text_time(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Parse a point
+ */
+// ----------------------------------------------------------------------
+
+Point
+parse_text_point(xmlpp::TextReader & theReader)
+{
+  if(!theReader.read())
+	throw std::runtime_error("Error in coordinate specifications");
+
+  if(theReader.get_name() != "#text")
+	throw std::runtime_error("Error in coordinate specifications, text part missing");
+
+  if(!theReader.has_value())
+	throw std::runtime_error("Text part missing from coordinate element");
+
+  std::stringstream s;
+  s.str(theReader.get_value());
+  double lat, lon;
+  s >> lat >> lon;
+  if(s.fail())
+	throw std::runtime_error("Failed to parse coordinate element");
+
+  theReader.next();
+
+  return Point(lon,lat);
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Parse gml:TimeInstant
  */
 // ----------------------------------------------------------------------
 
-boost::posix_time::ptime parse_timeinstant(xmlpp::TextReader & theReader)
+boost::posix_time::ptime
+parse_gml_time_instant(xmlpp::TextReader & theReader)
 {
   boost::posix_time::ptime t(boost::posix_time::not_a_date_time);
 
@@ -100,7 +150,8 @@ boost::posix_time::ptime parse_timeinstant(xmlpp::TextReader & theReader)
  */
 // ----------------------------------------------------------------------
 
-boost::posix_time::time_period parse_timeperiod(xmlpp::TextReader & theReader)
+boost::posix_time::time_period
+parse_gml_time_period(xmlpp::TextReader & theReader)
 {
   boost::posix_time::ptime starttime(boost::posix_time::not_a_date_time);
   boost::posix_time::ptime endtime(boost::posix_time::not_a_date_time);
@@ -134,7 +185,8 @@ boost::posix_time::time_period parse_timeperiod(xmlpp::TextReader & theReader)
  */
 // ----------------------------------------------------------------------
 
-boost::posix_time::time_period parse_validtime(xmlpp::TextReader & theReader)
+boost::posix_time::time_period
+parse_gml_valid_time(xmlpp::TextReader & theReader)
 {
   boost::posix_time::ptime badtime(boost::posix_time::not_a_date_time);
   boost::posix_time::time_period period(badtime,badtime);
@@ -149,11 +201,11 @@ boost::posix_time::time_period parse_validtime(xmlpp::TextReader & theReader)
 		theReader.next();
 	  else if(name == "gml:TimeInstant")
 		{
-		  boost::posix_time::ptime t = parse_timeinstant(theReader);
+		  boost::posix_time::ptime t = parse_gml_time_instant(theReader);
 		  period = boost::posix_time::time_period(t,t);
 		}
 	  else if(name == "gml:TimePeriod")
-		period = parse_timeperiod(theReader);
+		period = parse_gml_time_period(theReader);
 	  else if(name == "gml:validTime")
 		break;
 	  else
@@ -167,24 +219,12 @@ boost::posix_time::time_period parse_validtime(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Parse metobj:latestModificationTime
- */
-// ----------------------------------------------------------------------
-
-boost::posix_time::ptime parse_latestmodificationtime(xmlpp::TextReader & theReader)
-{
-  boost::posix_time::ptime t = Fmi::TimeParser::parse_xml(theReader.get_value());
-  theReader.next();
-  return t;
-}
-
-// ----------------------------------------------------------------------
-/*!
  * \brief Parse metobj:shortInfo
  */
 // ----------------------------------------------------------------------
 
-std::pair<std::string,std::string> parse_shortinfo(xmlpp::TextReader & theReader)
+std::pair<std::string,std::string>
+parse_metobj_short_info(xmlpp::TextReader & theReader)
 {
   std::string lang = theReader.get_attribute("xml:lang");
   std::string value = theReader.get_value();
@@ -198,7 +238,8 @@ std::pair<std::string,std::string> parse_shortinfo(xmlpp::TextReader & theReader
  */
 // ----------------------------------------------------------------------
 
-std::pair<std::string,std::string> parse_longinfo(xmlpp::TextReader & theReader)
+std::pair<std::string,std::string>
+parse_metobj_long_info(xmlpp::TextReader & theReader)
 {
   std::string lang = theReader.get_attribute("xml:lang");
   std::string value = theReader.get_value();
@@ -208,31 +249,67 @@ std::pair<std::string,std::string> parse_longinfo(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Parse a point
+ * \brief Parse gml:Point
  */
 // ----------------------------------------------------------------------
 
-Point parse_point(xmlpp::TextReader & theReader)
+Point
+parse_gml_point(xmlpp::TextReader & theReader)
 {
-  if(!theReader.read())
-	throw std::runtime_error("Error in coordinate specifications");
+  Point p(0,0);
 
-  if(theReader.get_name() != "#text")
-	throw std::runtime_error("Error in coordinate specifications, text part missing");
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+	  
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "gml:pos")
+		p = parse_text_point(theReader);
+	  else if(name == "gml:Point")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in Point");
+	}
 
-  if(!theReader.has_value())
-	throw std::runtime_error("Text part missing from coordinate element");
+  return p;
+}
 
-  std::stringstream s;
-  s.str(theReader.get_value());
-  double lat, lon;
-  s >> lat >> lon;
-  if(s.fail())
-	throw std::runtime_error("Failed to parse coordinate element");
 
-  theReader.next();
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse gml:pointProperty
+ */
+// ----------------------------------------------------------------------
 
-  return Point(lon,lat);
+Point
+parse_gml_point_property(xmlpp::TextReader & theReader)
+{
+  Point p(0,0);
+  
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+	  
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "gml:Point")
+		p = parse_gml_point(theReader);
+	  else if(name == "gml:pointProperty")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in pointProperty");
+	}
+
+  return p;
 }
 
 // ----------------------------------------------------------------------
@@ -241,7 +318,8 @@ Point parse_point(xmlpp::TextReader & theReader)
  */
 // ----------------------------------------------------------------------
 
-Envelope parse_envelope(xmlpp::TextReader & theReader)
+Envelope
+parse_gml_envelope(xmlpp::TextReader & theReader)
 {
   Point lc(0,0), uc(0,0);
   bool lc_ok = false, uc_ok = false;
@@ -255,12 +333,12 @@ Envelope parse_envelope(xmlpp::TextReader & theReader)
 		theReader.next();
 	  else if(name == "gml:lowerCorner")
 		{
-		  lc = parse_point(theReader);
+		  lc = parse_text_point(theReader);
 		  lc_ok = true;
 		}
 	  else if(name == "gml:upperCorner")
 		{
-		  uc = parse_point(theReader);
+		  uc = parse_text_point(theReader);
 		  uc_ok = true;
 		}
 	  else if(name == "gml:Envelope")
@@ -284,7 +362,8 @@ Envelope parse_envelope(xmlpp::TextReader & theReader)
  */
 // ----------------------------------------------------------------------
 
-Envelope parse_boundedby(xmlpp::TextReader & theReader)
+Envelope
+parse_gml_bounded_by(xmlpp::TextReader & theReader)
 {
   Envelope env;
 
@@ -296,7 +375,7 @@ Envelope parse_boundedby(xmlpp::TextReader & theReader)
 	  else if(name == "#comment")
 		theReader.next();
 	  else if(name == "gml:Envelope")
-		env = parse_envelope(theReader);
+		env = parse_gml_envelope(theReader);
 	  else if(name == "gml:Null")
 		;
 	  else if(name == "gml:boundedBy")
@@ -316,7 +395,8 @@ Envelope parse_boundedby(xmlpp::TextReader & theReader)
  */
 // ----------------------------------------------------------------------
 
-SimpleCubicSpline parse_simplecubicspline(xmlpp::TextReader & theReader)
+SimpleCubicSpline
+parse_metobj_simple_cubic_spline(xmlpp::TextReader & theReader)
 {
   SimpleCubicSpline spline;
 
@@ -336,7 +416,6 @@ SimpleCubicSpline parse_simplecubicspline(xmlpp::TextReader & theReader)
 		  
 		  if(!theReader.has_value())
 			throw std::runtime_error("Text part missing from simple cubic spline");
-
 		  std::stringstream s;
 
 		  s.str(theReader.get_value());
@@ -372,7 +451,8 @@ SimpleCubicSpline parse_simplecubicspline(xmlpp::TextReader & theReader)
  */
 // ----------------------------------------------------------------------
 
-CubicSplineCurve parse_cubicsplinesegments(xmlpp::TextReader & theReader)
+CubicSplineCurve
+parse_metobj_cubic_spline_segments(xmlpp::TextReader & theReader)
 {
   CubicSplineCurve curve;
 
@@ -385,7 +465,7 @@ CubicSplineCurve parse_cubicsplinesegments(xmlpp::TextReader & theReader)
 	  else if(name == "#comment")
 		theReader.next();
 	  else if(name == "metobj:SimpleCubicSpline")
-		curve.add(parse_simplecubicspline(theReader));
+		curve.add(parse_metobj_simple_cubic_spline(theReader));
 	  else if(name == "metobj:cubicSplineSegments")
 		break;
 	  else
@@ -403,7 +483,8 @@ CubicSplineCurve parse_cubicsplinesegments(xmlpp::TextReader & theReader)
  */
 // ----------------------------------------------------------------------
 
-CubicSplineCurve parse_cubicsplinecurve(xmlpp::TextReader & theReader)
+CubicSplineCurve
+parse_metobj_cubic_spline_curve(xmlpp::TextReader & theReader)
 {
   CubicSplineCurve curve;
 
@@ -416,7 +497,7 @@ CubicSplineCurve parse_cubicsplinecurve(xmlpp::TextReader & theReader)
 	  else if(name == "#comment")
 		theReader.next();
 	  else if(name == "metobj:cubicSplineSegments")
-		curve = parse_cubicsplinesegments(theReader);
+		curve = parse_metobj_cubic_spline_segments(theReader);
 	  else if(name == "metobj:CubicSplineCurve")
 		break;
 	  else
@@ -434,7 +515,8 @@ CubicSplineCurve parse_cubicsplinecurve(xmlpp::TextReader & theReader)
  */
 // ----------------------------------------------------------------------
 
-CubicSplineCurve parse_controlcurve(xmlpp::TextReader & theReader)
+CubicSplineCurve
+parse_metobj_control_curve(xmlpp::TextReader & theReader)
 {
   CubicSplineCurve curve;
 
@@ -447,7 +529,7 @@ CubicSplineCurve parse_controlcurve(xmlpp::TextReader & theReader)
 	  else if(name == "#comment")
 		theReader.next();
 	  else if(name == "metobj:CubicSplineCurve")
-		curve = parse_cubicsplinecurve(theReader);
+		curve = parse_metobj_cubic_spline_curve(theReader);
 	  else if(name == "metobj:controlCurve")
 		break;
 	  else
@@ -461,11 +543,188 @@ CubicSplineCurve parse_controlcurve(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Parse metobj:SRGBColor
+ */
+// ----------------------------------------------------------------------
+
+SRGBColor
+parse_metobj_srgb_color(xmlpp::TextReader & theReader)
+{
+  int r = 0;
+  int g = 0;
+  int b = 0;
+  int a = 255;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:red")
+		r = boost::lexical_cast<int>(read_text_value(theReader));
+	  else if(name == "metobj:green")
+		g = boost::lexical_cast<int>(read_text_value(theReader));
+	  else if(name == "metobj:blue")
+		b = boost::lexical_cast<int>(read_text_value(theReader));
+	  else if(name == "metobj:alpha")
+		a = boost::lexical_cast<int>(read_text_value(theReader));
+	  else if(name == "metobj:SRGBColor")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in SRGBColor");
+	}
+  
+  return SRGBColor(r,g,b,a);
+
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:color
+ */
+// ----------------------------------------------------------------------
+
+SRGBColor
+parse_metobj_color(xmlpp::TextReader & theReader)
+{
+  SRGBColor color(0,0,0,255);
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:SRGBColor")
+		color = parse_metobj_srgb_color(theReader);
+	  else if(name == "metobj:color")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in color");
+	}
+  
+  return color;
+
+}
+
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:FontSymbol
+ */
+// ----------------------------------------------------------------------
+
+FontSymbol *
+parse_metobj_font_symbol(xmlpp::TextReader & theReader)
+{
+  std::string fontname;
+  int symbolindex = 0;
+  double fontsize = 0;
+  SRGBColor color(0,0,0,0);
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:knownSymbol")
+		theReader.next();
+	  else if(name == "metobj:localizedSymbolName")
+		theReader.next();
+	  else if(name == "metobj:fontName")
+		fontname = read_text_value(theReader);
+	  else if(name == "metobj:symbolIndex")
+		symbolindex = boost::lexical_cast<int>(read_text_value(theReader));
+	  else if(name == "metobj:fontSizePoints")
+		fontsize = boost::lexical_cast<double>(read_text_value(theReader));
+	  else if(name == "metobj:color")
+		color = parse_metobj_color(theReader);
+	  else if(name == "metobj:FontSymbol")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in FontSymbol");
+	}
+
+  return new FontSymbol(fontname,fontsize,symbolindex,color);
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:GraphicSymbol
+ */
+// ----------------------------------------------------------------------
+
+GraphicSymbol *
+parse_metobj_graphic_symbol(xmlpp::TextReader & theReader)
+{
+  return 0; // TODO
+}
+
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:meteorologicalSymbolProperty
+ */
+// ----------------------------------------------------------------------
+
+MeteorologicalSymbol *
+parse_metobj_meteorological_symbol_property(xmlpp::TextReader & theReader)
+{
+  MeteorologicalSymbol * symbol = 0;
+  
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:FontSymbol")
+		{
+		  if(symbol) delete symbol;
+		  symbol = parse_metobj_font_symbol(theReader);
+		}
+	  else if(name == "metobj:GraphicSymbol")
+		{
+		  if(symbol) delete symbol;
+		  symbol = parse_metobj_graphic_symbol(theReader);
+		}
+	  else if(name == "metobj:meteorologicalSymbolProperty")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in meteorologicalSymbolProperty");
+	}
+
+  return symbol;
+}
+
+
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Parse a warm front description
  */
 // ----------------------------------------------------------------------
 
-WarmFront * parse_warmfront(xmlpp::TextReader & theReader)
+WarmFront *
+parse_metobj_warm_front(xmlpp::TextReader & theReader)
 {
   WarmFront * front = new WarmFront;
 
@@ -480,19 +739,19 @@ WarmFront * parse_warmfront(xmlpp::TextReader & theReader)
 	  else if(name == "gml:name")
 		theReader.next();
 	  else if(name == "gml:boundedBy")
-		front->envelope(parse_boundedby(theReader));
+		front->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		parse_validtime(theReader);
+		parse_gml_valid_time(theReader);
 	  else if(name == "metobj:creationTime")
 		parse_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")
 		parse_text_time(theReader);
 	  else if(name == "metobj:shortInfo")
-		parse_shortinfo(theReader);
+		parse_metobj_short_info(theReader);
 	  else if(name == "metobj:longInfo")
-		parse_longinfo(theReader);
+		parse_metobj_long_info(theReader);
 	  else if(name == "metobj:controlCurve")
-		front->controlCurve(parse_controlcurve(theReader));
+		front->controlCurve(parse_metobj_control_curve(theReader));
 	  else if(name == "metobj:startPointConnectsTo")
 		front->connectStartPoint(theReader.get_attribute("xlin:href"));
 	  else if(name == "metobj:endPointConnectsTo")
@@ -516,7 +775,8 @@ WarmFront * parse_warmfront(xmlpp::TextReader & theReader)
  */
 // ----------------------------------------------------------------------
 
-ColdFront * parse_coldfront(xmlpp::TextReader & theReader)
+ColdFront *
+parse_metobj_cold_front(xmlpp::TextReader & theReader)
 {
   ColdFront * front = new ColdFront;
 
@@ -531,19 +791,19 @@ ColdFront * parse_coldfront(xmlpp::TextReader & theReader)
 	  else if(name == "gml:name")
 		theReader.next();
 	  else if(name == "gml:boundedBy")
-		front->envelope(parse_boundedby(theReader));
+		front->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		parse_validtime(theReader);
+		parse_gml_valid_time(theReader);
 	  else if(name == "metobj:creationTime")
 		parse_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")
 		parse_text_time(theReader);
 	  else if(name == "metobj:shortInfo")
-		parse_shortinfo(theReader);
+		parse_metobj_short_info(theReader);
 	  else if(name == "metobj:longInfo")
-		parse_longinfo(theReader);
+		parse_metobj_long_info(theReader);
 	  else if(name == "metobj:controlCurve")
-		front->controlCurve(parse_controlcurve(theReader));
+		front->controlCurve(parse_metobj_control_curve(theReader));
 	  else if(name == "metobj:startPointConnectsTo")
 		front->connectStartPoint(theReader.get_attribute("xlin:href"));
 	  else if(name == "metobj:endPointConnectsTo")
@@ -563,11 +823,61 @@ ColdFront * parse_coldfront(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Parse a point meteorologial symbol
+ */
+// ----------------------------------------------------------------------
+
+PointMeteorologicalSymbol *
+parse_metobj_point_meteorological_symbol(xmlpp::TextReader & theReader)
+{
+  PointMeteorologicalSymbol * symbol = new PointMeteorologicalSymbol;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "gml:name")
+		theReader.next();
+	  else if(name == "gml:boundedBy")
+		symbol->envelope(parse_gml_bounded_by(theReader));
+	  else if(name == "gml:validTime")
+		parse_gml_valid_time(theReader);
+	  else if(name == "metobj:creationTime")
+		parse_text_time(theReader);
+	  else if(name == "metobj:latestModificationTime")
+		parse_text_time(theReader);
+	  else if(name == "metobj:shortInfo")
+		parse_metobj_short_info(theReader);
+	  else if(name == "metobj:longInfo")
+		parse_metobj_long_info(theReader);
+	  else if(name == "metobj:interpolatedCurve")
+		theReader.next();
+	  else if(name == "gml:pointProperty")
+		symbol->point(parse_gml_point_property(theReader));
+	  else if(name == "metobj:meteorologicalSymbolProperty")
+		symbol->symbol(parse_metobj_meteorological_symbol_property(theReader));
+	  else if(name == "metobj:PointMeteorologicalSymbol")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in PointMeteorologicalSymbol");
+	}
+  return symbol;
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Parse a meteorological feature
  */
 // ----------------------------------------------------------------------
 
-void parse_featuremember(MeteorologicalAnalysis & theAnalysis,
+void
+parse_gml_feature_member(MeteorologicalAnalysis & theAnalysis,
 						 xmlpp::TextReader & theReader)
 {
   while(theReader.read())
@@ -580,9 +890,11 @@ void parse_featuremember(MeteorologicalAnalysis & theAnalysis,
 	  else if(name == "gml:name")
 		theReader.next();
 	  else if(name == "metobj:WarmFront")
-		theAnalysis.addFeature(parse_warmfront(theReader));
+		theAnalysis.addFeature(parse_metobj_warm_front(theReader));
 	  else if(name == "metobj:ColdFront")
-		theAnalysis.addFeature(parse_coldfront(theReader));
+		theAnalysis.addFeature(parse_metobj_cold_front(theReader));
+	  else if(name == "metobj:PointMeteorologicalSymbol")
+		theAnalysis.addFeature(parse_metobj_point_meteorological_symbol(theReader));
 	  else if(name == "gml:featureMember")
 		break;
 	  else
@@ -599,7 +911,8 @@ void parse_featuremember(MeteorologicalAnalysis & theAnalysis,
  */
 // ----------------------------------------------------------------------
 
-void parse_featuremember(WeatherForecast & theForecast,
+void
+parse_gml_feature_member(WeatherForecast & theForecast,
 						 xmlpp::TextReader & theReader)
 {
   while(theReader.read())
@@ -610,7 +923,7 @@ void parse_featuremember(WeatherForecast & theForecast,
 	  else if(name == "#comment")
 		theReader.next();
 	  else if(name == "metobj:WarmFront")
-		theForecast.addFeature(parse_warmfront(theReader));
+		theForecast.addFeature(parse_metobj_warm_front(theReader));
 	  else if(name == "gml:featureMember")
 		break;
 	  else
@@ -626,7 +939,8 @@ void parse_featuremember(WeatherForecast & theForecast,
  */
 // ----------------------------------------------------------------------
 
-SharedConnectionPoints::value_type parse_connectionpoint(xmlpp::TextReader & theReader)
+SharedConnectionPoints::value_type
+parse_metobj_connection_point(xmlpp::TextReader & theReader)
 {
   std::string id = theReader.get_attribute("gml:id");
   Point p(0,0);
@@ -640,7 +954,7 @@ SharedConnectionPoints::value_type parse_connectionpoint(xmlpp::TextReader & the
 	  else if(name == "#comment")
 		theReader.next();
 	  else if(name == "gml:pos")
-		p = parse_point(theReader);
+		p = parse_text_point(theReader);
 	  else if(name == "metobj:ConnectionPoint")
 		break;
 	  else
@@ -659,7 +973,8 @@ SharedConnectionPoints::value_type parse_connectionpoint(xmlpp::TextReader & the
  */
 // ----------------------------------------------------------------------
 
-SharedConnectionPoints parse_sharedconnectionpoints(xmlpp::TextReader & theReader)
+SharedConnectionPoints
+parse_metobj_shared_connection_points(xmlpp::TextReader & theReader)
 {
   SharedConnectionPoints points;
 
@@ -672,7 +987,7 @@ SharedConnectionPoints parse_sharedconnectionpoints(xmlpp::TextReader & theReade
 	  else if(name == "#comment")
 		theReader.next();
 	  else if(name == "metobj:ConnectionPoint")
-		points.insert(parse_connectionpoint(theReader));
+		points.insert(parse_metobj_connection_point(theReader));
 	  else if(name == "metobj:sharedConnectionPoints")
 		break;
 	  else
@@ -691,7 +1006,7 @@ SharedConnectionPoints parse_sharedconnectionpoints(xmlpp::TextReader & theReade
 // ----------------------------------------------------------------------
 
 boost::shared_ptr<MeteorologicalAnalysis>
-parse_weatheranalysis(xmlpp::TextReader & theReader)
+parse_metobj_meteorological_analysis(xmlpp::TextReader & theReader)
 {
   boost::shared_ptr<MeteorologicalAnalysis>
 	analysis(new MeteorologicalAnalysis());
@@ -706,9 +1021,9 @@ parse_weatheranalysis(xmlpp::TextReader & theReader)
 	  else if(name == "gml:name")
 		theReader.next();
 	  else if(name == "gml:featureMember")
-		parse_featuremember(*analysis,theReader);
+		parse_gml_feature_member(*analysis,theReader);
 	  else if(name == "gml:validTime")
-		analysis->validTime(parse_validtime(theReader));
+		analysis->validTime(parse_gml_valid_time(theReader));
 	  else if(name == "metobj:metaData")
 		theReader.next();
 	  else if(name == "metobj:creationTime")
@@ -718,7 +1033,7 @@ parse_weatheranalysis(xmlpp::TextReader & theReader)
 	  else if(name == "metobj:latestModificationTime")
 		analysis->latestModificationTime(parse_text_time(theReader));
 	  else if(name == "metobj:sharedConnectionPoints")
-		analysis->addConnectionPoints(parse_sharedconnectionpoints(theReader));
+		analysis->addConnectionPoints(parse_metobj_shared_connection_points(theReader));
 	  else if(name == "metobj:shortInfo")
 		theReader.next();
 	  else if(name == "metobj:longInfo")
@@ -744,7 +1059,7 @@ parse_weatheranalysis(xmlpp::TextReader & theReader)
 // ----------------------------------------------------------------------
 
 boost::shared_ptr<WeatherForecast>
-parse_weatherforecast(xmlpp::TextReader & theReader)
+parse_metobj_weather_forecast(xmlpp::TextReader & theReader)
 {
   boost::shared_ptr<WeatherForecast>
 	forecast(new WeatherForecast());
@@ -759,9 +1074,9 @@ parse_weatherforecast(xmlpp::TextReader & theReader)
 	  else if(name == "gml:name")
 		theReader.next();
 	  else if(name == "gml:featureMember")
-		parse_featuremember(*forecast,theReader);
+		parse_gml_feature_member(*forecast,theReader);
 	  else if(name == "gml:validTime")
-		forecast->validTime(parse_validtime(theReader));
+		forecast->validTime(parse_gml_valid_time(theReader));
 	  else if(name == "metobj:metaData")
 		theReader.next();
 	  else if(name == "metobj:creationTime")
@@ -773,7 +1088,7 @@ parse_weatherforecast(xmlpp::TextReader & theReader)
 	  else if(name == "metobj:latestModificationTime")
 		forecast->latestModificationTime(parse_text_time(theReader));
 	  else if(name == "metobj:sharedConnectionPoints")
-		forecast->addConnectionPoints(parse_sharedconnectionpoints(theReader));
+		forecast->addConnectionPoints(parse_metobj_shared_connection_points(theReader));
 	  else if(name == "metobj:shortInfo")
 		theReader.next();
 	  else if(name == "metobj:longInfo")
@@ -797,7 +1112,8 @@ parse_weatherforecast(xmlpp::TextReader & theReader)
  */
 // ----------------------------------------------------------------------
 
-Weather parse(const boost::filesystem::path & thePath)
+Weather
+parse(const boost::filesystem::path & thePath)
 {
   xmlpp::TextReader reader(thePath.file_string());
 
@@ -815,13 +1131,13 @@ Weather parse(const boost::filesystem::path & thePath)
 		{
 		  if(!weather.empty())
 			throw std::runtime_error("Multiple meteorological objects in " + thePath.file_string());
-		  weather.forecast(parse_weatherforecast(reader));
+		  weather.forecast(parse_metobj_weather_forecast(reader));
 		}
 	  else if(name == "metobj:MeteorologicalAnalysis")
 		{
 		  if(!weather.empty())
 			throw std::runtime_error("Multiple meteorological objects in " + thePath.file_string());
-		  weather.analysis(parse_weatheranalysis(reader));
+		  weather.analysis(parse_metobj_meteorological_analysis(reader));
 		}
 	  else if(name == "#text")
 		require_whitespace(reader);

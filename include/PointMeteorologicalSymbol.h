@@ -11,9 +11,8 @@
 #include "Envelope.h"
 #include "Feature.h"
 #include "MeteorologicalSymbol.h"
+#include "Point.h"
 #include <boost/scoped_ptr.hpp>
-#include <map>
-#include <string>
 
 namespace woml
 {
@@ -22,12 +21,15 @@ namespace woml
   class PointMeteorologicalSymbol : public Feature
   {
   public:
+	PointMeteorologicalSymbol();
 	virtual void visit(FeatureVisitor & theVisitor) const;
+	void envelope(const Envelope & theEnvelope);
+	void point(const Point & thePoint);
+	void symbol(MeteorologicalSymbol * theSymbol);
+
   private:
 	Envelope itsBoundedBy;
-	std::map<std::string,std::string> itsShortInfo;
-	std::map<std::string,std::string> itsLongInfo;
-	Point point;
+	Point itsPoint;
 	boost::scoped_ptr<MeteorologicalSymbol> itsMeteorologicalSymbol;
 
   }; // class PointMeteorologicalSymbol

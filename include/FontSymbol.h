@@ -17,6 +17,7 @@ namespace woml
   {
   public:
 	FontSymbol(const std::string & theFontName,
+			   double theFontSize,
 			   int theSymbolIndex,
 			   const SRGBColor & theColor);
 
@@ -27,6 +28,7 @@ namespace woml
   private:
 	FontSymbol();
 	std::string itsFontName;
+	double itsFontSize;
 	int itsSymbolIndex;
 	SRGBColor itsColor;
 
