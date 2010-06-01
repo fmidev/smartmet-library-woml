@@ -9,8 +9,12 @@
 #include "ColdFront.h"
 #include "FontSymbol.h"
 #include "GraphicSymbol.h"
+#include "Jet.h"
 #include "MeteorologicalAnalysis.h"
+#include "OccludedFront.h"
 #include "PointMeteorologicalSymbol.h"
+#include "Trough.h"
+#include "UpperTrough.h"
 #include "WarmFront.h"
 #include "Weather.h"
 #include "WeatherForecast.h"
@@ -772,6 +776,58 @@ parse_metobj_warm_front(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Parse a occluded front description
+ */
+// ----------------------------------------------------------------------
+
+OccludedFront *
+parse_metobj_occluded_front(xmlpp::TextReader & theReader)
+{
+  OccludedFront * front = new OccludedFront;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "gml:name")
+		theReader.next();
+	  else if(name == "gml:boundedBy")
+		front->envelope(parse_gml_bounded_by(theReader));
+	  else if(name == "gml:validTime")
+		parse_gml_valid_time(theReader);
+	  else if(name == "metobj:creationTime")
+		parse_text_time(theReader);
+	  else if(name == "metobj:latestModificationTime")
+		parse_text_time(theReader);
+	  else if(name == "metobj:shortInfo")
+		parse_metobj_short_info(theReader);
+	  else if(name == "metobj:longInfo")
+		parse_metobj_long_info(theReader);
+	  else if(name == "metobj:controlCurve")
+		front->controlCurve(parse_metobj_control_curve(theReader));
+	  else if(name == "metobj:startPointConnectsTo")
+		front->connectStartPoint(theReader.get_attribute("xlin:href"));
+	  else if(name == "metobj:endPointConnectsTo")
+		front->connectEndPoint(theReader.get_attribute("xlin:href"));
+	  else if(name == "metobj:interpolatedCurve")
+		theReader.next();
+	  else if(name == "metobj:OccludedFront")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in OccludedFront");
+	}
+  return front;
+}
+
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Parse metobj:ColdFront
  */
 // ----------------------------------------------------------------------
@@ -873,6 +929,159 @@ parse_metobj_cloud_area_border(xmlpp::TextReader & theReader)
   return cloud;
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:Jet
+ */
+// ----------------------------------------------------------------------
+
+Jet *
+parse_metobj_jet(xmlpp::TextReader & theReader)
+{
+  Jet * jet = new Jet;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "gml:name")
+		theReader.next();
+	  else if(name == "gml:boundedBy")
+		jet->envelope(parse_gml_bounded_by(theReader));
+	  else if(name == "gml:validTime")
+		parse_gml_valid_time(theReader);
+	  else if(name == "metobj:creationTime")
+		parse_text_time(theReader);
+	  else if(name == "metobj:latestModificationTime")
+		parse_text_time(theReader);
+	  else if(name == "metobj:shortInfo")
+		parse_metobj_short_info(theReader);
+	  else if(name == "metobj:longInfo")
+		parse_metobj_long_info(theReader);
+	  else if(name == "metobj:controlCurve")
+		jet->controlCurve(parse_metobj_control_curve(theReader));
+	  else if(name == "metobj:startPointConnectsTo")
+		jet->connectStartPoint(theReader.get_attribute("xlin:href"));
+	  else if(name == "metobj:endPointConnectsTo")
+		jet->connectEndPoint(theReader.get_attribute("xlin:href"));
+	  else if(name == "metobj:interpolatedCurve")
+		theReader.next();
+	  else if(name == "metobj:Jet")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in Jet");
+	}
+  return jet;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:Trough
+ */
+// ----------------------------------------------------------------------
+
+Trough *
+parse_metobj_trough(xmlpp::TextReader & theReader)
+{
+  Trough * trough = new Trough;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "gml:name")
+		theReader.next();
+	  else if(name == "gml:boundedBy")
+		trough->envelope(parse_gml_bounded_by(theReader));
+	  else if(name == "gml:validTime")
+		parse_gml_valid_time(theReader);
+	  else if(name == "metobj:creationTime")
+		parse_text_time(theReader);
+	  else if(name == "metobj:latestModificationTime")
+		parse_text_time(theReader);
+	  else if(name == "metobj:shortInfo")
+		parse_metobj_short_info(theReader);
+	  else if(name == "metobj:longInfo")
+		parse_metobj_long_info(theReader);
+	  else if(name == "metobj:controlCurve")
+		trough->controlCurve(parse_metobj_control_curve(theReader));
+	  else if(name == "metobj:startPointConnectsTo")
+		trough->connectStartPoint(theReader.get_attribute("xlin:href"));
+	  else if(name == "metobj:endPointConnectsTo")
+		trough->connectEndPoint(theReader.get_attribute("xlin:href"));
+	  else if(name == "metobj:interpolatedCurve")
+		theReader.next();
+	  else if(name == "metobj:Trough")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in Trough");
+	}
+  return trough;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:UpperTrough
+ */
+// ----------------------------------------------------------------------
+
+UpperTrough *
+parse_metobj_upper_trough(xmlpp::TextReader & theReader)
+{
+  UpperTrough * trough = new UpperTrough;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "gml:name")
+		theReader.next();
+	  else if(name == "gml:boundedBy")
+		trough->envelope(parse_gml_bounded_by(theReader));
+	  else if(name == "gml:validTime")
+		parse_gml_valid_time(theReader);
+	  else if(name == "metobj:creationTime")
+		parse_text_time(theReader);
+	  else if(name == "metobj:latestModificationTime")
+		parse_text_time(theReader);
+	  else if(name == "metobj:shortInfo")
+		parse_metobj_short_info(theReader);
+	  else if(name == "metobj:longInfo")
+		parse_metobj_long_info(theReader);
+	  else if(name == "metobj:controlCurve")
+		trough->controlCurve(parse_metobj_control_curve(theReader));
+	  else if(name == "metobj:startPointConnectsTo")
+		trough->connectStartPoint(theReader.get_attribute("xlin:href"));
+	  else if(name == "metobj:endPointConnectsTo")
+		trough->connectEndPoint(theReader.get_attribute("xlin:href"));
+	  else if(name == "metobj:interpolatedCurve")
+		theReader.next();
+	  else if(name == "metobj:UpperTrough")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in UpperTrough");
+	}
+  return trough;
+}
+
 
 // ----------------------------------------------------------------------
 /*!
@@ -947,8 +1156,16 @@ parse_gml_feature_member(T & theWeatherObject,
 		theWeatherObject.addFeature(parse_metobj_warm_front(theReader));
 	  else if(name == "metobj:ColdFront")
 		theWeatherObject.addFeature(parse_metobj_cold_front(theReader));
+	  else if(name == "metobj:OccludedFront")
+		theWeatherObject.addFeature(parse_metobj_occluded_front(theReader));
 	  else if(name == "metobj:CloudAreaBorder")
 		theWeatherObject.addFeature(parse_metobj_cloud_area_border(theReader));
+	  else if(name == "metobj:Jet")
+		theWeatherObject.addFeature(parse_metobj_jet(theReader));
+	  else if(name == "metobj:Trough")
+		theWeatherObject.addFeature(parse_metobj_trough(theReader));
+	  else if(name == "metobj:UpperTrough")
+		theWeatherObject.addFeature(parse_metobj_upper_trough(theReader));
 	  else if(name == "metobj:PointMeteorologicalSymbol")
 		theWeatherObject.addFeature(parse_metobj_point_meteorological_symbol(theReader));
 	  else if(name == "gml:featureMember")
