@@ -18,43 +18,44 @@ namespace WomlTest
 {
   void empty()
   {
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "empty.xml");
+	TEST_PASSED();
   }
 
   void warmfront()
   {
-	path infile = inputdir / "warmfront.xml";
-	path outfile = outputdir / "warmfront";
-	path resultsfile = resultsdir / "warmfront";
-
-	woml::Weather weather = woml::parse(infile);
-
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "warmfront.xml");
+	TEST_PASSED();
   }
 
   void coldfront()
   {
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "coldfront.xml");
+	TEST_PASSED();
   }
 
   void coldandwarmfront()
   {
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "coldandwarmfront.xml");
+	TEST_PASSED();
   }
 
   void warmfronts()
   {
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "warmfronts.xml");
+	TEST_PASSED();
   }
 
   void signs()
   {
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "signs.xml");
+	TEST_PASSED();
   }
 
   void cloud()
   {
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "cloud.xml");
+	TEST_PASSED();
   }
 
   //! The actual test driver

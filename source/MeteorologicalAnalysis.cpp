@@ -37,5 +37,49 @@ void MeteorologicalAnalysis::addFeature(Feature * theFeature)
   itsFeatureMembers.push_back(theFeature);
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the valid time
+ */
+// ----------------------------------------------------------------------
+
+void MeteorologicalAnalysis::validTime(const boost::posix_time::time_period & thePeriod)
+{
+  itsValidTime = thePeriod;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the creation time
+ */
+// ----------------------------------------------------------------------
+
+void MeteorologicalAnalysis::creationTime(const boost::posix_time::ptime & theTime)
+{
+  itsCreationTime = theTime;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the latest modification time
+ */
+// ----------------------------------------------------------------------
+
+void MeteorologicalAnalysis::latestModificationTime(const boost::posix_time::ptime & theTime)
+{
+  itsLatestModificationTime = theTime;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the analysis time
+ */
+// ----------------------------------------------------------------------
+
+void MeteorologicalAnalysis::analysisTime(const boost::posix_time::ptime & theTime)
+{
+  itsAnalysisTime = theTime;
+}
+
 
 } // namespace woml

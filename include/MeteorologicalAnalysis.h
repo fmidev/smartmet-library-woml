@@ -18,6 +18,11 @@ namespace woml
   public:
 	MeteorologicalAnalysis();
 	void addFeature(Feature * theFeature);
+	void validTime(const boost::posix_time::time_period & thePeriod);
+	void creationTime(const boost::posix_time::ptime & theTime);
+	void latestModificationTime(const boost::posix_time::ptime & theTime);
+	void analysisTime(const boost::posix_time::ptime & theTime);
+
 
   private:
 

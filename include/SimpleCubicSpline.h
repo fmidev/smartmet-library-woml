@@ -15,6 +15,7 @@ namespace woml
   class SimpleCubicSpline
   {
   public:
+	void add(const Point & thePoint);
   private:
 	std::vector<Point> itsPosList;
 

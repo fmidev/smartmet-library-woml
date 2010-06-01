@@ -10,22 +10,21 @@
 #include "CubicSplineCurve.h"
 #include "Envelope.h"
 #include "Feature.h"
-#include <map>
 #include <string>
 
 namespace woml
 {
+  class Envelope;
   class FeatureVisitor;
 
   class ColdFront : public Feature
   {
   public:
 	virtual void visit(FeatureVisitor & theVisitor) const;
-
+	void envelope(const Envelope & theEnvelope);
+	void controlCurve(const CubicSplineCurve & theControlCurve);
   private:
 	Envelope itsBoundedBy;
-	std::map<std::string,std::string> itsShortInfo;
-	std::map<std::string,std::string> itsLongInfo;
 	CubicSplineCurve itsControlCurve;
 
   }; // class ColdFront

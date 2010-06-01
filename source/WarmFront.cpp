@@ -32,4 +32,16 @@ void WarmFront::envelope(const Envelope & theEnvelope)
   itsBoundedBy = theEnvelope;
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the control curve
+ */
+// ----------------------------------------------------------------------
+
+void WarmFront::controlCurve(const CubicSplineCurve & theControlCurve)
+{
+  itsControlCurve = theControlCurve;
+}
+
+
 } // namespace woml

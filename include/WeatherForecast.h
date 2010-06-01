@@ -16,6 +16,8 @@ namespace woml
   class WeatherForecast
   {
   public:
+	WeatherForecast();
+	void addFeature(Feature * theFeature);
 	
   private:
 
