@@ -5,6 +5,7 @@
 // ======================================================================
 
 #include "MeteorologicalAnalysis.h"
+#include <boost/foreach.hpp>
 
 namespace woml
 {
@@ -81,5 +82,30 @@ void MeteorologicalAnalysis::analysisTime(const boost::posix_time::ptime & theTi
   itsAnalysisTime = theTime;
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Add connection point
+ */
+// ----------------------------------------------------------------------
+
+void MeteorologicalAnalysis::addConnectionPoint(const std::string & theName,
+												const Point & thePoint)
+{
+  itsSharedConnectionPoints.insert(std::make_pair(theName,thePoint));
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Add connection points
+ */
+// ----------------------------------------------------------------------
+
+void MeteorologicalAnalysis::addConnectionPoints(const std::map<std::string,Point> & thePoints)
+{
+  BOOST_FOREACH(const SharedConnectionPoints::value_type & name_point, thePoints)
+	{
+	  addConnectionPoint(name_point.first, name_point.second);
+	}
+}
 
 } // namespace woml

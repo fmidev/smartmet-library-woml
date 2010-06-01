@@ -43,5 +43,26 @@ void ColdFront::controlCurve(const CubicSplineCurve & theControlCurve)
   itsControlCurve = theControlCurve;
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Connect the start point
+ */
+// ----------------------------------------------------------------------
+
+void ColdFront::connectStartPoint(const std::string & theName)
+{
+  itsStartPointConnectsTo = theName;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Connect the end point
+ */
+// ----------------------------------------------------------------------
+
+void ColdFront::connectEndPoint(const std::string & theName)
+{
+  itsEndPointConnectsTo = theName;
+}
 
 } // namespace woml
