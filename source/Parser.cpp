@@ -5,6 +5,7 @@
 // ======================================================================
 
 #include "Parser.h"
+#include "CloudAreaBorder.h"
 #include "ColdFront.h"
 #include "FontSymbol.h"
 #include "GraphicSymbol.h"
@@ -771,7 +772,7 @@ parse_metobj_warm_front(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Parse a cold front description
+ * \brief Parse metobj:ColdFront
  */
 // ----------------------------------------------------------------------
 
@@ -818,6 +819,58 @@ parse_metobj_cold_front(xmlpp::TextReader & theReader)
 								 + "> in ColdFront");
 	}
   return front;
+}
+
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:CloudAreaBorder
+ */
+// ----------------------------------------------------------------------
+
+CloudAreaBorder *
+parse_metobj_cloud_area_border(xmlpp::TextReader & theReader)
+{
+  CloudAreaBorder * cloud = new CloudAreaBorder;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "gml:name")
+		theReader.next();
+	  else if(name == "gml:boundedBy")
+		cloud->envelope(parse_gml_bounded_by(theReader));
+	  else if(name == "gml:validTime")
+		parse_gml_valid_time(theReader);
+	  else if(name == "metobj:creationTime")
+		parse_text_time(theReader);
+	  else if(name == "metobj:latestModificationTime")
+		parse_text_time(theReader);
+	  else if(name == "metobj:shortInfo")
+		parse_metobj_short_info(theReader);
+	  else if(name == "metobj:longInfo")
+		parse_metobj_long_info(theReader);
+	  else if(name == "metobj:controlCurve")
+		cloud->controlCurve(parse_metobj_control_curve(theReader));
+	  else if(name == "metobj:startPointConnectsTo")
+		cloud->connectStartPoint(theReader.get_attribute("xlin:href"));
+	  else if(name == "metobj:endPointConnectsTo")
+		cloud->connectEndPoint(theReader.get_attribute("xlin:href"));
+	  else if(name == "metobj:interpolatedCurve")
+		theReader.next();
+	  else if(name == "metobj:CloudAreaBorder")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in CloudAreaBorder");
+	}
+  return cloud;
 }
 
 
@@ -876,8 +929,9 @@ parse_metobj_point_meteorological_symbol(xmlpp::TextReader & theReader)
  */
 // ----------------------------------------------------------------------
 
+template <typename T>
 void
-parse_gml_feature_member(MeteorologicalAnalysis & theAnalysis,
+parse_gml_feature_member(T & theWeatherObject,
 						 xmlpp::TextReader & theReader)
 {
   while(theReader.read())
@@ -890,40 +944,13 @@ parse_gml_feature_member(MeteorologicalAnalysis & theAnalysis,
 	  else if(name == "gml:name")
 		theReader.next();
 	  else if(name == "metobj:WarmFront")
-		theAnalysis.addFeature(parse_metobj_warm_front(theReader));
+		theWeatherObject.addFeature(parse_metobj_warm_front(theReader));
 	  else if(name == "metobj:ColdFront")
-		theAnalysis.addFeature(parse_metobj_cold_front(theReader));
+		theWeatherObject.addFeature(parse_metobj_cold_front(theReader));
+	  else if(name == "metobj:CloudAreaBorder")
+		theWeatherObject.addFeature(parse_metobj_cloud_area_border(theReader));
 	  else if(name == "metobj:PointMeteorologicalSymbol")
-		theAnalysis.addFeature(parse_metobj_point_meteorological_symbol(theReader));
-	  else if(name == "gml:featureMember")
-		break;
-	  else
-		throw std::runtime_error("Unexpected tag <"
-								 + name
-								 + "> in featureMember");
-	}
-}
-
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Parse a meteorological feature
- */
-// ----------------------------------------------------------------------
-
-void
-parse_gml_feature_member(WeatherForecast & theForecast,
-						 xmlpp::TextReader & theReader)
-{
-  while(theReader.read())
-	{
-	  std::string name = theReader.get_name();
-	  if(name == "#text")
-		require_whitespace(theReader);
-	  else if(name == "#comment")
-		theReader.next();
-	  else if(name == "metobj:WarmFront")
-		theForecast.addFeature(parse_metobj_warm_front(theReader));
+		theWeatherObject.addFeature(parse_metobj_point_meteorological_symbol(theReader));
 	  else if(name == "gml:featureMember")
 		break;
 	  else
