@@ -31,10 +31,10 @@ CC = g++
 CFLAGS = -DUNIX -O0 -g $(MAINFLAGS)
 
 INCLUDES = -I../include \
-	-I/usr/include/smartmet \
 	`pkg-config --cflags libxml++-2.6`
 
 LIBS = -L.. -lsmartmet_woml \
+	-lsmartmet_macgyver \
 	`pkg-config --libs libxml++-2.6` \
 	-lboost_filesystem \
 	-lboost_system
