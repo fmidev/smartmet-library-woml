@@ -8,14 +8,21 @@
 #define WOML_GRAPHICSYMBOL_H
 
 #include "MeteorologicalSymbol.h"
+#include <list>
+#include <string>
 
 namespace woml
 {
   class GraphicSymbol : public MeteorologicalSymbol
   {
   public:
-	// TODO
+	GraphicSymbol();
+	void scaleFactor(double theFactor);
+	void addImage(const std::string & theImage);
+
   private:
+	std::list<std::string> itsImages;
+	double itsScaleFactor;
 
   }; // class GraphicSymbol
 } // namespace woml
