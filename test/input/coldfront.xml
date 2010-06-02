@@ -1,0 +1,102 @@
+<metobj:MeteorologicalAnalysis xsi:schemaLocation="http://www.opengis.net/gml http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/gml311-part.xsd http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09 http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/metobjects-all.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" gml:id="fct-id359506" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:metobj="http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09">
+  <gml:name codeSpace="urn:metobject:gml:fi:fmi:analysis">foo-12345</gml:name>
+  <gml:featureMember>
+    <metobj:ColdFront xsi:schemaLocation="http://www.opengis.net/gml http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/gml311-part.xsd http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09 http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/metobjects-all.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" gml:id="temp-50b6bc12-b263-49e2-ba8f-99926ede9199" orientation="+" xsi:type="metobj:ColdFrontObjectType">
+      <gml:name codeSpace="urn:metobject:gml:fi:fmi:front">bar</gml:name>
+      <gml:boundedBy>
+        <gml:Envelope srsName="epsg:4326">
+          <gml:lowerCorner srsName="EPSG:4326" srsDimension="2">57.8763 -8.4453</gml:lowerCorner>
+          <gml:upperCorner srsName="EPSG:4326" srsDimension="2">67.82486635264058 23.837627919970572</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <gml:validTime>
+        <gml:TimeInstant gml:id="temp-b4688765-4ccc-4d44-806b-80c571a485cc">
+          <gml:timePosition>2010-05-27T12:00:00Z</gml:timePosition>
+        </gml:TimeInstant>
+      </gml:validTime>
+      <metobj:creationTime>2010-05-27T13:22:02.255Z</metobj:creationTime>
+      <metobj:latestModificationTime>2010-05-27T13:22:02.255Z</metobj:latestModificationTime>
+      <metobj:shortInfo xml:lang="En-en">Front Cold</metobj:shortInfo>
+      <metobj:shortInfo xml:lang="FI-fi">Kylm%C3%A4 rintama</metobj:shortInfo>
+      <metobj:longInfo xml:lang="FI-fi">INFO(Created 2009-09-18T18:50:20+0000):</metobj:longInfo>
+      <metobj:controlCurve>
+        <metobj:CubicSplineCurve gml:id="temp-4b60f387-d6f5-424a-84e7-26295248d8b7" srsName="epsg:4326" srsDimension="2">
+          <metobj:cubicSplineSegments>
+            <metobj:SimpleCubicSpline interpolation="cubicSpline" degree="3">
+              <gml:posList>67.82355743329667 16.966800128854203 64.20927038259525 23.30495167684316 59.76500618856329 21.646001838773714 58.00092474244976 18.108630130556406</gml:posList>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:SimpleCubicSpline>
+          </metobj:cubicSplineSegments>
+        </metobj:CubicSplineCurve>
+      </metobj:controlCurve>
+      <metobj:interpolatedCurve>
+        <metobj:LineStringInterpolationCurve srsName="epsg:4326" srsDimension="2" samplingFrequencyUOM="http://sweet.jpl.nasa.gov/1.1/units.owl#meter" samplingFrequencyValue="15.0">
+          <metobj:lineStringSegments>
+            <metobj:SimpleLineStringSegment>
+              <gml:posList>67.82355744504824 16.966800128854203 67.62176745386573 17.584264565682304 67.41681474372623 18.1868649477359 67.20801358520774 18.77134542988702 66.99473097038131 19.33450993361251 66.77638275982649 19.873234662385954 66.5524290176739 20.384480765199896 66.32236857297345 20.865306843283236 66.08573285872312 21.312881051907738 65.8420790919369 21.724492609506086 65.59098286893335 22.09756258781499 65.33203025946608 22.42965391687818 65.06480949138498 22.718480594952297 64.7889023243173 22.96191614327833 64.50387521657203 23.15800138723054 64.20927039434682 23.30495167684316 63.90505961366656 23.40215752931229 63.59301579108782 23.453081772607135 63.27531232013381 23.462100711989876 62.95406896562266 23.433448469697453 62.63136226716684 23.371185840118073 62.309234761757324 23.27917866134095 61.989703044788826 23.16108420748222 61.6747647328422 23.020344239436213 61.36640442151102 22.86018350318875 61.066598750108156 22.68361262133405 60.77732069457395 22.49343447643372 60.50054321239818 22.292253329266345 60.23824236061397 22.08248604822691 59.99240000136301 21.866374947237603 59.76500620031486 21.646001838773714 59.55748341757677 21.422991782977448 59.368953787080976 21.197646518507185 59.19797243478392 20.969976889831656 59.04310459565734 20.740027789482355 58.902924852427404 20.507878462052247 58.776016444864865 20.27364301153142 58.660970656054964 20.037471053297025 58.55638628041216 19.799548455090445 58.460869176643335 19.560098112859777 58.3730319073957 19.319380707834455 58.29149346594317 19.077695390979102 58.21487908896603 18.83538034036752 58.14182015326714 18.59281313632397 58.07095415315287 18.35041089868875 58.00092475420132 18.108630130556406</gml:posList>
+            </metobj:SimpleLineStringSegment>
+          </metobj:lineStringSegments>
+        </metobj:LineStringInterpolationCurve>
+      </metobj:interpolatedCurve>
+    </metobj:ColdFront>
+  </gml:featureMember>
+  <gml:validTime>
+    <gml:TimePeriod gml:id="time-id359506">
+      <gml:beginPosition>2010-05-27T12:00:00Z</gml:beginPosition>
+      <gml:endPosition>2010-05-27T12:00:00Z</gml:endPosition>
+    </gml:TimePeriod>
+  </gml:validTime>
+  <metobj:metaData>
+    <metobj:MeteorologicalObjectMetaData>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">???</dc:creator>
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Finnish Meteorological Institute (FMI)</dc:publisher>
+      <dc:date xmlns:dc="http://purl.org/dc/elements/1.1/">1274966522255</dc:date>
+      <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">text/xml</dc:format>
+      <metobj:keyword fixedVocabulary="generic">meteorology</metobj:keyword>
+      <metobj:keyword fixedVocabulary="generic">conceptual model</metobj:keyword>
+      <metobj:keyword fixedVocabulary="generic">meteorological object</metobj:keyword>
+      <metobj:keyword fixedVocabulary="generic">human-generated</metobj:keyword>
+    </metobj:MeteorologicalObjectMetaData>
+  </metobj:metaData>
+  <metobj:creationTime>2010-05-27T13:22:02.255Z</metobj:creationTime>
+  <metobj:latestModificationTime>2010-05-27T13:22:02.255Z</metobj:latestModificationTime>
+  <metobj:shortInfo xml:lang="FI-fi"/>
+  <metobj:longInfo xml:lang="FI-fi"/>
+  <metobj:targetRegion>
+    <metobj:GeographicRegion gml:id="reg-europe">
+      <gml:name codeSpace="urn:metobject:gml:fi:fmi:region">europe</gml:name>
+      <gml:boundedBy>
+        <gml:Envelope srsName="EPSG:4326">
+          <gml:lowerCorner>45.000 35.00</gml:lowerCorner>
+          <gml:upperCorner>-40.000 65.00</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <metobj:boundary>
+        <gml:LinearRing>
+          <!--This should be a real boundary ring-->
+          <gml:posList>45.000 65.00 -40.000 65.00 -40.000 35.00 45.000 35.00 45.000 65.00</gml:posList>
+        </gml:LinearRing>
+      </metobj:boundary>
+      <metobj:regionId scheme="whatnot">europe</metobj:regionId>
+      <metobj:localizedName xml:lang="FI-fi">Eurooppa</metobj:localizedName>
+      <metobj:localizedName xml:lang="EN-en">Europe</metobj:localizedName>
+      <metobj:localizedName xml:lang="SE-sv">Europa</metobj:localizedName>
+    </metobj:GeographicRegion>
+  </metobj:targetRegion>
+  <metobj:analysisTime>2009-10-07T09:52:09Z</metobj:analysisTime>
+  <metobj:usedReferenceData>
+    <metobj:DataSource>
+      <metobj:numericalModelRun>
+        <metobj:NumericalModelRun>
+          <metobj:model>
+            <metobj:NumericalWeatherModel>
+              <metobj:model>HirlamMBE</metobj:model>
+            </metobj:NumericalWeatherModel>
+          </metobj:model>
+          <metobj:originTime>2010-05-27T12:00:00.000Z</metobj:originTime>
+        </metobj:NumericalModelRun>
+      </metobj:numericalModelRun>
+    </metobj:DataSource>
+  </metobj:usedReferenceData>
+</metobj:MeteorologicalAnalysis>

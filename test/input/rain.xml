@@ -1,0 +1,643 @@
+<metobj:MeteorologicalAnalysis xsi:schemaLocation="http://www.opengis.net/gml http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/gml311-part.xsd http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09 http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/metobjects-all.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" gml:id="fct-id359506" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:metobj="http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09">
+  <gml:name codeSpace="urn:metobject:gml:fi:fmi:analysis">foo-12345</gml:name>
+  <gml:featureMember>
+    <metobj:SurfacePrecipitationArea xsi:schemaLocation="http://www.opengis.net/gml http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/gml311-part.xsd http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09 http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/metobjects-all.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" gml:id="temp-69bd79ad-84b5-494c-8054-3cc2418ebfc1" xsi:type="metobj:SurfacePrecipitationAreaType">
+      <gml:name codeSpace="urn:metobject:gml:fi:fmi:preciparea">bar</gml:name>
+      <gml:boundedBy>
+        <gml:Envelope srsName="epsg:4326">
+          <gml:lowerCorner srsName="EPSG:4326" srsDimension="2">57.8298 9.084275370372012</gml:lowerCorner>
+          <gml:upperCorner srsName="EPSG:4326" srsDimension="2">69.22160831581435 35.01742018905708</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <gml:validTime>
+        <gml:TimeInstant gml:id="temp-ab7aa2e6-e8d4-4c13-af41-3a570f24461f">
+          <gml:timePosition>2010-06-02T06:00:00Z</gml:timePosition>
+        </gml:TimeInstant>
+      </gml:validTime>
+      <metobj:creationTime>2010-06-02T05:27:24.134Z</metobj:creationTime>
+      <metobj:latestModificationTime>2010-06-02T05:27:24.134Z</metobj:latestModificationTime>
+      <metobj:shortInfo xml:lang="EN-en">Rain</metobj:shortInfo>
+      <metobj:shortInfo xml:lang="FI-fi">Sadealue</metobj:shortInfo>
+      <metobj:longInfo xml:lang="FI-fi">INFO(Created 2009-09-18T05:40:33+0000):</metobj:longInfo>
+      <metobj:controlSurface>
+        <metobj:CubicSplineSurface gml:id="temp-7cfa39f2-99a9-43bb-b391-3bbbc812bfb5" srsName="epsg:4326" srsDimension="2" interpolation="polynomialSpline">
+          <metobj:exterior>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3" gml:id="temp-ab20f981-fa0f-4bf7-a1b5-2362a18953c9">
+              <gml:posList>65.07959751548157 10.342900823059097 62.31166818594176 18.486321331171865 65.76212138845966 31.568451502699418 69.1974846650484 22.137055940929002</gml:posList>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+            <metobj:CubicSplineRing interpolation="cubicSpline" degree="3">
+              <gml:posList/>
+              <metobj:vectorAtStart/>
+              <metobj:vectorAtEnd/>
+            </metobj:CubicSplineRing>
+          </metobj:exterior>
+        </metobj:CubicSplineSurface>
+      </metobj:controlSurface>
+      <metobj:interpolatedSurface>
+        <metobj:LinearRingInterpolationSurface srsName="epsg:4326" srsDimension="2" samplingFrequencyUOM="http://sweet.jpl.nasa.gov/1.1/units.owl#meter" samplingFrequencyValue="15.0">
+          <metobj:exterior>
+            <gml:LinearRing>
+              <gml:posList>65.07959751548157 10.342900823059097 64.73470625611952 10.363230256114832 64.40430715834825 10.490508791838721 64.09064739929494 10.714722510665553 63.79578256838837 11.026804428737819 63.521630080433525 11.418593078073854 63.270013760388785 11.88278614946313 63.04270072248504 12.412893768988567 62.84143158227549 13.003194435016894 62.66794493226381 13.648695609337835 62.52399689496092 14.345100302885555 62.411376449601654 15.08878062495728 62.33191711380894 15.876759105336419 62.28750544981216 16.706698605227984 62.280086755038155 17.57690177922609 62.311668186190836 18.48632132762964 62.38320504648987 19.4333868616294 62.491329000283244 20.412084301010907 62.631828209220046 21.41486197270001 62.800801318133395 22.433621149887642 62.994677575198075 23.459609813988266 63.21023299033863 24.483330507492724 63.44460085723686 25.49446035360006 63.69527470555561 26.481781175662633 63.96010153205378 27.433117290339766 64.23726297717207 28.335278096274607 64.52524195660328 29.174002197662276 64.82277210845201 29.93389969883691 65.12876725463728 30.598389751596272 65.44222787953142 31.14963177946035 65.76212138860461 31.568451496129484 66.08711274695484 31.838377080517546 66.4149961670706 31.958374858364124 66.74292540318717 31.93138812367289 67.06757475512221 31.760523582092333 67.38520046652704 31.449279090445856 67.69170432429615 31.00180573315049 67.98270154413457 30.423195775817845 68.25359470975943 29.719783590794748 68.49965494831974 28.899441242548193 68.71611063311708 27.971844733430856 68.89824270195528 26.948682054943106 69.04148422270163 25.843771642951765 69.14152026827799 24.673061198920863 69.19438271203197 23.454483401657285 69.1965335171842 22.20765720975706 69.14586106730117 20.9531079024012 69.04448994155749 19.710261123812245 68.89594185611867 18.49711096968386 68.70415631263903 17.330022001971543 68.47343019494869 16.223451443530735 68.20834637941286 15.189813488778611 67.91369700677345 14.239474634087827 67.59440630602455 13.380858577523782 67.25545672496914 12.620633820003633 66.90182085103531 11.9639562119645 66.5384003934905 11.41474120793788 66.16997246681709 10.975945148400797 65.80114261751531 10.649840231528316 65.43630347189178 10.438273025983477 65.07959751589853 10.342900828710583</gml:posList>
+            </gml:LinearRing>
+          </metobj:exterior>
+        </metobj:LinearRingInterpolationSurface>
+      </metobj:interpolatedSurface>
+      <metobj:rainPhase>unknown</metobj:rainPhase>
+    </metobj:SurfacePrecipitationArea>
+  </gml:featureMember>
+  <gml:validTime>
+    <gml:TimePeriod gml:id="time-id359506">
+      <gml:beginPosition>2010-06-02T06:00:00Z</gml:beginPosition>
+      <gml:endPosition>2010-06-02T06:00:00Z</gml:endPosition>
+    </gml:TimePeriod>
+  </gml:validTime>
+  <metobj:metaData>
+    <metobj:MeteorologicalObjectMetaData>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">???</dc:creator>
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Finnish Meteorological Institute (FMI)</dc:publisher>
+      <dc:date xmlns:dc="http://purl.org/dc/elements/1.1/">1275456444134</dc:date>
+      <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">text/xml</dc:format>
+      <metobj:keyword fixedVocabulary="generic">meteorology</metobj:keyword>
+      <metobj:keyword fixedVocabulary="generic">conceptual model</metobj:keyword>
+      <metobj:keyword fixedVocabulary="generic">meteorological object</metobj:keyword>
+      <metobj:keyword fixedVocabulary="generic">human-generated</metobj:keyword>
+    </metobj:MeteorologicalObjectMetaData>
+  </metobj:metaData>
+  <metobj:creationTime>2010-06-02T05:27:24.134Z</metobj:creationTime>
+  <metobj:latestModificationTime>2010-06-02T05:27:24.134Z</metobj:latestModificationTime>
+  <metobj:shortInfo xml:lang="FI-fi"/>
+  <metobj:longInfo xml:lang="FI-fi"/>
+  <metobj:targetRegion>
+    <metobj:GeographicRegion gml:id="reg-europe">
+      <gml:name codeSpace="urn:metobject:gml:fi:fmi:region">europe</gml:name>
+      <gml:boundedBy>
+        <gml:Envelope srsName="EPSG:4326">
+          <gml:lowerCorner>45.000 35.00</gml:lowerCorner>
+          <gml:upperCorner>-40.000 65.00</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <metobj:boundary>
+        <gml:LinearRing>
+          <!--This should be a real boundary ring-->
+          <gml:posList>45.000 65.00 -40.000 65.00 -40.000 35.00 45.000 35.00 45.000 65.00</gml:posList>
+        </gml:LinearRing>
+      </metobj:boundary>
+      <metobj:regionId scheme="whatnot">europe</metobj:regionId>
+      <metobj:localizedName xml:lang="FI-fi">Eurooppa</metobj:localizedName>
+      <metobj:localizedName xml:lang="EN-en">Europe</metobj:localizedName>
+      <metobj:localizedName xml:lang="SE-sv">Europa</metobj:localizedName>
+    </metobj:GeographicRegion>
+  </metobj:targetRegion>
+  <metobj:analysisTime>2009-10-07T09:52:09Z</metobj:analysisTime>
+  <metobj:usedReferenceData>
+    <metobj:DataSource>
+      <metobj:numericalModelRun>
+        <metobj:NumericalModelRun>
+          <metobj:model>
+            <metobj:NumericalWeatherModel>
+              <metobj:model>HirlamMBE</metobj:model>
+            </metobj:NumericalWeatherModel>
+          </metobj:model>
+          <metobj:originTime>2010-06-02T00:00:00.000Z</metobj:originTime>
+        </metobj:NumericalModelRun>
+      </metobj:numericalModelRun>
+    </metobj:DataSource>
+  </metobj:usedReferenceData>
+</metobj:MeteorologicalAnalysis>

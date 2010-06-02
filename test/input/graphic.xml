@@ -1,0 +1,176 @@
+<metobj:MeteorologicalAnalysis xsi:schemaLocation="http://www.opengis.net/gml http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/gml311-part.xsd http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09 http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/metobjects-all.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" gml:id="fct-id359506" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:metobj="http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09">
+  <gml:name codeSpace="urn:metobject:gml:fi:fmi:analysis">foo-12345</gml:name>
+  <gml:featureMember>
+    <metobj:PointMeteorologicalSymbol xsi:schemaLocation="http://www.opengis.net/gml http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/gml311-part.xsd http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09 http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/metobjects-all.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" gml:id="temp-2582f7e7-ad9e-48ae-bf86-f9aee0cd382e" xsi:type="metobj:PointMeteorologicalSymbolType">
+      <gml:name codeSpace="urn:metobject:gml:fi:fmi:symbol">bar</gml:name>
+      <gml:boundedBy>
+        <gml:Envelope srsName="EPSG:4326" srsDimension="2">
+          <gml:lowerCorner srsName="EPSG:4326" srsDimension="2">64.02528295483557 25.984899181676724</gml:lowerCorner>
+          <gml:upperCorner srsName="EPSG:4326" srsDimension="2">64.02528295483557 25.984899181676724</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <gml:validTime>
+        <gml:TimeInstant gml:id="temp-7993f683-77f5-41a5-85a5-e31695d9e7a3">
+          <gml:timePosition>2010-06-02T06:00:00Z</gml:timePosition>
+        </gml:TimeInstant>
+      </gml:validTime>
+      <metobj:creationTime>2010-06-02T05:22:18.612Z</metobj:creationTime>
+      <metobj:latestModificationTime>2010-06-02T05:22:18.612Z</metobj:latestModificationTime>
+      <metobj:shortInfo xml:lang="FI-fi"/>
+      <metobj:longInfo xml:lang="FI-fi">9</metobj:longInfo>
+      <gml:pointProperty>
+        <gml:Point gml:id="temp-a1f4f2c9-9c5f-4298-abd6-3076d849aee0" srsName="EPSG:4326" srsDimension="2">
+          <gml:pos srsName="EPSG:4326" srsDimension="2">64.02528295483557 25.984899181676724</gml:pos>
+        </gml:Point>
+      </gml:pointProperty>
+      <metobj:meteorologicalSymbolProperty>
+        <metobj:GraphicSymbol gml:id="temp-4bbe1fdd-47f8-469e-86cf-0b4cf94dabff">
+          <metobj:knownSymbol scheme="fmi">urn:meteorologicalsymbol:hessaa_1</metobj:knownSymbol>
+          <metobj:localizedSymbolName xml:lang="Fi-fi">Hessaa 1, Aurinkoista</metobj:localizedSymbolName>
+          <metobj:localizedSymbolName xml:lang="En-en">Hessaa 1, Sun</metobj:localizedSymbolName>
+          <metobj:image>
+            <metobj:ResourceReference gml:id="temp-3758ebff-4045-47e9-87d6-78839120a146">
+              <metobj:mimeType>image/gif</metobj:mimeType>
+              <metobj:uri>http://kopla.fmi.fi/symbolit/hessaa/set1/weatherSymbol_1.gif</metobj:uri>
+            </metobj:ResourceReference>
+          </metobj:image>
+          <metobj:scaleFactor>1.0</metobj:scaleFactor>
+        </metobj:GraphicSymbol>
+      </metobj:meteorologicalSymbolProperty>
+    </metobj:PointMeteorologicalSymbol>
+  </gml:featureMember>
+  <gml:featureMember>
+    <metobj:PointMeteorologicalSymbol xsi:schemaLocation="http://www.opengis.net/gml http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/gml311-part.xsd http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09 http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/metobjects-all.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" gml:id="temp-121627ce-f7e6-4aaf-81f4-92c16f0dfa92" xsi:type="metobj:PointMeteorologicalSymbolType">
+      <gml:name codeSpace="urn:metobject:gml:fi:fmi:symbol">bar</gml:name>
+      <gml:boundedBy>
+        <gml:Envelope srsName="EPSG:4326" srsDimension="2">
+          <gml:lowerCorner srsName="EPSG:4326" srsDimension="2">62.55476410317378 25.75828545537189</gml:lowerCorner>
+          <gml:upperCorner srsName="EPSG:4326" srsDimension="2">62.55476410317378 25.75828545537189</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <gml:validTime>
+        <gml:TimeInstant gml:id="temp-f1630640-ee7a-46cf-8511-e0fa7c96d8d8">
+          <gml:timePosition>2010-06-02T06:00:00Z</gml:timePosition>
+        </gml:TimeInstant>
+      </gml:validTime>
+      <metobj:creationTime>2010-06-02T05:22:24.234Z</metobj:creationTime>
+      <metobj:latestModificationTime>2010-06-02T05:22:24.234Z</metobj:latestModificationTime>
+      <metobj:shortInfo xml:lang="FI-fi"/>
+      <metobj:longInfo xml:lang="FI-fi">9</metobj:longInfo>
+      <gml:pointProperty>
+        <gml:Point gml:id="temp-8e561c33-509c-4022-aca4-1516c0d8e3cc" srsName="EPSG:4326" srsDimension="2">
+          <gml:pos srsName="EPSG:4326" srsDimension="2">62.55476410317378 25.75828545537189</gml:pos>
+        </gml:Point>
+      </gml:pointProperty>
+      <metobj:meteorologicalSymbolProperty>
+        <metobj:GraphicSymbol gml:id="temp-7ce8a144-7c23-4003-a3e3-f677e786c3f9">
+          <metobj:knownSymbol scheme="fmi">urn:meteorologicalsymbol:hessaa_31</metobj:knownSymbol>
+          <metobj:localizedSymbolName xml:lang="En-en">Hessaa 31, xxx</metobj:localizedSymbolName>
+          <metobj:image>
+            <metobj:ResourceReference gml:id="temp-b855ed46-d55b-4bf6-af43-9394a7941e22">
+              <metobj:mimeType>image/gif</metobj:mimeType>
+              <metobj:uri>http://kopla.fmi.fi/symbolit/hessaa/set1/weatherSymbol_31.gif</metobj:uri>
+            </metobj:ResourceReference>
+          </metobj:image>
+          <metobj:scaleFactor>1.0</metobj:scaleFactor>
+        </metobj:GraphicSymbol>
+      </metobj:meteorologicalSymbolProperty>
+    </metobj:PointMeteorologicalSymbol>
+  </gml:featureMember>
+  <gml:featureMember>
+    <metobj:PointMeteorologicalSymbol xsi:schemaLocation="http://www.opengis.net/gml http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/gml311-part.xsd http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09 http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/metobjects-all.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" gml:id="temp-2a3b432f-92d2-4294-945a-8603c61e4500" xsi:type="metobj:PointMeteorologicalSymbolType">
+      <gml:name codeSpace="urn:metobject:gml:fi:fmi:symbol">bar</gml:name>
+      <gml:boundedBy>
+        <gml:Envelope srsName="EPSG:4326" srsDimension="2">
+          <gml:lowerCorner srsName="EPSG:4326" srsDimension="2">60.954760853557566 25.37693847529303</gml:lowerCorner>
+          <gml:upperCorner srsName="EPSG:4326" srsDimension="2">60.954760853557566 25.37693847529303</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <gml:validTime>
+        <gml:TimeInstant gml:id="temp-23da8e91-80bf-413c-b10b-b35607853f99">
+          <gml:timePosition>2010-06-02T06:00:00Z</gml:timePosition>
+        </gml:TimeInstant>
+      </gml:validTime>
+      <metobj:creationTime>2010-06-02T05:22:29.601Z</metobj:creationTime>
+      <metobj:latestModificationTime>2010-06-02T05:22:29.601Z</metobj:latestModificationTime>
+      <metobj:shortInfo xml:lang="FI-fi"/>
+      <metobj:longInfo xml:lang="FI-fi">9</metobj:longInfo>
+      <gml:pointProperty>
+        <gml:Point gml:id="temp-108e7da3-9f6c-4c03-ae3a-0091eba85d1f" srsName="EPSG:4326" srsDimension="2">
+          <gml:pos srsName="EPSG:4326" srsDimension="2">60.954760853557566 25.37693847529303</gml:pos>
+        </gml:Point>
+      </gml:pointProperty>
+      <metobj:meteorologicalSymbolProperty>
+        <metobj:GraphicSymbol gml:id="temp-a32ec720-8b7a-4026-ba55-30acc39ecaf9">
+          <metobj:knownSymbol scheme="fmi">urn:meteorologicalsymbol:hessaa_64</metobj:knownSymbol>
+          <metobj:localizedSymbolName xml:lang="En-en">Hessaa 64, xxx</metobj:localizedSymbolName>
+          <metobj:image>
+            <metobj:ResourceReference gml:id="temp-337699fc-367a-49d6-ae5b-d293bbaf1325">
+              <metobj:mimeType>image/gif</metobj:mimeType>
+              <metobj:uri>http://kopla.fmi.fi/symbolit/hessaa/set1/weatherSymbol_64.gif</metobj:uri>
+            </metobj:ResourceReference>
+          </metobj:image>
+          <metobj:scaleFactor>1.0</metobj:scaleFactor>
+        </metobj:GraphicSymbol>
+      </metobj:meteorologicalSymbolProperty>
+    </metobj:PointMeteorologicalSymbol>
+  </gml:featureMember>
+  <gml:validTime>
+    <gml:TimePeriod gml:id="time-id359506">
+      <gml:beginPosition>2010-06-02T06:00:00Z</gml:beginPosition>
+      <gml:endPosition>2010-06-02T06:00:00Z</gml:endPosition>
+    </gml:TimePeriod>
+  </gml:validTime>
+  <metobj:metaData>
+    <metobj:MeteorologicalObjectMetaData>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">???</dc:creator>
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Finnish Meteorological Institute (FMI)</dc:publisher>
+      <dc:date xmlns:dc="http://purl.org/dc/elements/1.1/">1275456138612</dc:date>
+      <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">text/xml</dc:format>
+      <metobj:keyword fixedVocabulary="generic">meteorology</metobj:keyword>
+      <metobj:keyword fixedVocabulary="generic">conceptual model</metobj:keyword>
+      <metobj:keyword fixedVocabulary="generic">meteorological object</metobj:keyword>
+      <metobj:keyword fixedVocabulary="generic">human-generated</metobj:keyword>
+    </metobj:MeteorologicalObjectMetaData>
+  </metobj:metaData>
+  <metobj:creationTime>2010-06-02T05:22:18.612Z</metobj:creationTime>
+  <metobj:latestModificationTime>2010-06-02T05:22:29.601Z</metobj:latestModificationTime>
+  <metobj:shortInfo xml:lang="FI-fi"/>
+  <metobj:longInfo xml:lang="FI-fi"/>
+  <metobj:targetRegion>
+    <metobj:GeographicRegion gml:id="reg-europe">
+      <gml:name codeSpace="urn:metobject:gml:fi:fmi:region">europe</gml:name>
+      <gml:boundedBy>
+        <gml:Envelope srsName="EPSG:4326">
+          <gml:lowerCorner>45.000 35.00</gml:lowerCorner>
+          <gml:upperCorner>-40.000 65.00</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <metobj:boundary>
+        <gml:LinearRing>
+          <!--This should be a real boundary ring-->
+          <gml:posList>45.000 65.00 -40.000 65.00 -40.000 35.00 45.000 35.00 45.000 65.00</gml:posList>
+        </gml:LinearRing>
+      </metobj:boundary>
+      <metobj:regionId scheme="whatnot">europe</metobj:regionId>
+      <metobj:localizedName xml:lang="FI-fi">Eurooppa</metobj:localizedName>
+      <metobj:localizedName xml:lang="EN-en">Europe</metobj:localizedName>
+      <metobj:localizedName xml:lang="SE-sv">Europa</metobj:localizedName>
+    </metobj:GeographicRegion>
+  </metobj:targetRegion>
+  <metobj:analysisTime>2009-10-07T09:52:09Z</metobj:analysisTime>
+  <metobj:usedReferenceData>
+    <metobj:DataSource>
+      <metobj:numericalModelRun>
+        <metobj:NumericalModelRun>
+          <metobj:model>
+            <metobj:NumericalWeatherModel>
+              <metobj:model>HirlamMBE</metobj:model>
+            </metobj:NumericalWeatherModel>
+          </metobj:model>
+          <metobj:originTime>2010-06-02T00:00:00.000Z</metobj:originTime>
+        </metobj:NumericalModelRun>
+      </metobj:numericalModelRun>
+    </metobj:DataSource>
+  </metobj:usedReferenceData>
+</metobj:MeteorologicalAnalysis>
