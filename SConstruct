@@ -29,8 +29,6 @@ RELEASE=    (not DEBUG) and (not PROFILE)     # default
 
 OBJDIR=     ARGUMENTS.get("objdir","obj")
 
-BOOST_POSTFIX= "-mt"
-
 env = Environment( )
 
 env.Append(LIBS="smartmet_macgyver-mt")
