@@ -2,3 +2,4 @@
 obj/
 libsmartmet_woml.a
 test/WomlTest
+*~
