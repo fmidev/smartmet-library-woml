@@ -840,7 +840,7 @@ parse_metobj_abstract_line(xmlpp::TextReader & theReader,
 	  else if(name == "gml:boundedBy")
 		line->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		parse_gml_valid_time(theReader);
+		line->validTime(parse_gml_valid_time(theReader));
 	  else if(name == "metobj:creationTime")
 		read_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")
@@ -959,7 +959,7 @@ parse_metobj_occluded_front(xmlpp::TextReader & theReader)
 	  else if(name == "gml:boundedBy")
 		front->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		parse_gml_valid_time(theReader);
+		front->validTime(parse_gml_valid_time(theReader));
 	  else if(name == "metobj:creationTime")
 		read_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")
@@ -1014,7 +1014,7 @@ parse_metobj_jet(xmlpp::TextReader & theReader)
 	  else if(name == "gml:boundedBy")
 		jet->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		parse_gml_valid_time(theReader);
+		jet->validTime(parse_gml_valid_time(theReader));
 	  else if(name == "metobj:creationTime")
 		read_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")
@@ -1066,7 +1066,7 @@ parse_metobj_point_meteorological_symbol(xmlpp::TextReader & theReader)
 	  else if(name == "gml:boundedBy")
 		symbol->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		parse_gml_valid_time(theReader);
+		symbol->validTime(parse_gml_valid_time(theReader));
 	  else if(name == "metobj:creationTime")
 		read_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")
@@ -1127,6 +1127,14 @@ parse_gml_feature_member(T & theWeatherObject,
 		theWeatherObject.addFeature(parse_metobj_upper_trough(theReader));
 	  else if(name == "metobj:PointMeteorologicalSymbol")
 		theWeatherObject.addFeature(parse_metobj_point_meteorological_symbol(theReader));
+#if 0
+	  else if(name == "metobj:PointNote")
+		theWeatherObject.addFeature(parse_metobj_point_note(theReader));
+	  else if(name == "metobj:PointGeophysicalParameterValueSet")
+		theWeatherObject.addFeature(parse_metobj_point_geophysical_parameter_value_set(theReader));
+	  else if(name == "metobj:SurfacePrecipitationArea")
+		theWeatherObject.addFeature(parse_metobj_surface_precipitation_area(theReader));
+#endif
 	  else if(name == "gml:featureMember")
 		break;
 	  else
