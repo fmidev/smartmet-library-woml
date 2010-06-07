@@ -84,38 +84,44 @@ namespace WomlTest
 
   void rain()
   {
-	woml::Weather weather = woml::parse(inputdir / "rain.xml");
-	TEST_PASSED();
+	// woml::Weather weather = woml::parse(inputdir / "rain.xml");
+	// TEST_PASSED();
+	TEST_NOT_IMPLEMENTED();
   }
 
   void heavyrain()
   {
-	woml::Weather weather = woml::parse(inputdir / "heavyrain.xml");
-	TEST_PASSED();
+	// woml::Weather weather = woml::parse(inputdir / "heavyrain.xml");
+	// TEST_PASSED();
+	TEST_NOT_IMPLEMENTED();
   }
 
   void snow()
   {
-	woml::Weather weather = woml::parse(inputdir / "snow.xml");
-	TEST_PASSED();
+	// woml::Weather weather = woml::parse(inputdir / "snow.xml");
+	// TEST_PASSED();
+	TEST_NOT_IMPLEMENTED();
   }
 
   void value()
   {
-	woml::Weather weather = woml::parse(inputdir / "value.xml");
-	TEST_PASSED();
+	// woml::Weather weather = woml::parse(inputdir / "value.xml");
+	// TEST_PASSED();
+	TEST_NOT_IMPLEMENTED();
   }
 
   void values()
   {
-	woml::Weather weather = woml::parse(inputdir / "values.xml");
-	TEST_PASSED();
+	// woml::Weather weather = woml::parse(inputdir / "values.xml");
+	// TEST_PASSED();
+	TEST_NOT_IMPLEMENTED();
   }
 
   void pointnote()
   {
-	woml::Weather weather = woml::parse(inputdir / "pointnote.xml");
-	TEST_PASSED();
+	// woml::Weather weather = woml::parse(inputdir / "pointnote.xml");
+	// TEST_PASSED();
+	TEST_NOT_IMPLEMENTED();
   }
 
   void graphic()

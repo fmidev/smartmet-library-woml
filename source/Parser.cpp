@@ -1127,14 +1127,15 @@ parse_gml_feature_member(T & theWeatherObject,
 		theWeatherObject.addFeature(parse_metobj_upper_trough(theReader));
 	  else if(name == "metobj:PointMeteorologicalSymbol")
 		theWeatherObject.addFeature(parse_metobj_point_meteorological_symbol(theReader));
-#if 0
 	  else if(name == "metobj:PointNote")
-		theWeatherObject.addFeature(parse_metobj_point_note(theReader));
+		// theWeatherObject.addFeature(parse_metobj_point_note(theReader));
+		theReader.next(); // TODO
 	  else if(name == "metobj:PointGeophysicalParameterValueSet")
-		theWeatherObject.addFeature(parse_metobj_point_geophysical_parameter_value_set(theReader));
+		// theWeatherObject.addFeature(parse_metobj_point_geophysical_parameter_value_set(theReader));
+		theReader.next(); // TODO
 	  else if(name == "metobj:SurfacePrecipitationArea")
-		theWeatherObject.addFeature(parse_metobj_surface_precipitation_area(theReader));
-#endif
+		// theWeatherObject.addFeature(parse_metobj_surface_precipitation_area(theReader));
+		theReader.next(); // TODO
 	  else if(name == "gml:featureMember")
 		break;
 	  else
