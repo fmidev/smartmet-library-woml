@@ -12,6 +12,7 @@
 #include "Jet.h"
 #include "MeteorologicalAnalysis.h"
 #include "OccludedFront.h"
+#include "PointGeophysicalParameterValueSet.h"
 #include "PointMeteorologicalSymbol.h"
 #include "Trough.h"
 #include "UpperTrough.h"
@@ -1093,6 +1094,55 @@ parse_metobj_point_meteorological_symbol(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Parse a point geophysical parameter value set
+ */
+// ----------------------------------------------------------------------
+
+PointGeophysicalParameterValueSet *
+parse_metobj_point_geophysical_parameter_value_set(xmlpp::TextReader & theReader)
+{
+  PointGeophysicalParameterValueSet * param = new PointGeophysicalParameterValueSet;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "gml:name")
+		theReader.next();
+	  else if(name == "gml:boundedBy")
+		param->envelope(parse_gml_bounded_by(theReader));
+	  else if(name == "gml:validTime")
+		param->validTime(parse_gml_valid_time(theReader));
+	  else if(name == "metobj:creationTime")
+		read_text_time(theReader);
+	  else if(name == "metobj:latestModificationTime")
+		read_text_time(theReader);
+	  else if(name == "metobj:shortInfo")
+		parse_metobj_short_info(theReader);
+	  else if(name == "metobj:longInfo")
+		parse_metobj_long_info(theReader);
+	  else if(name == "gml:pointProperty")
+		param->point(parse_gml_point_property(theReader));
+	  else if(name == "metobj:GeophysicalParameterValue")
+		theReader.next(); // TODO
+	  else if(name == "metobj:GeophysicalParameterValueRange")
+		theReader.next(); // TODO
+	  else if(name == "metobj:PointGeophysicalParameterValueSet")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:PointGeophysicalParameterValueSet");
+	}
+  return param;
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Parse a meteorological feature
  */
 // ----------------------------------------------------------------------
@@ -1131,8 +1181,7 @@ parse_gml_feature_member(T & theWeatherObject,
 		// theWeatherObject.addFeature(parse_metobj_point_note(theReader));
 		theReader.next(); // TODO
 	  else if(name == "metobj:PointGeophysicalParameterValueSet")
-		// theWeatherObject.addFeature(parse_metobj_point_geophysical_parameter_value_set(theReader));
-		theReader.next(); // TODO
+		theWeatherObject.addFeature(parse_metobj_point_geophysical_parameter_value_set(theReader));
 	  else if(name == "metobj:SurfacePrecipitationArea")
 		// theWeatherObject.addFeature(parse_metobj_surface_precipitation_area(theReader));
 		theReader.next(); // TODO
