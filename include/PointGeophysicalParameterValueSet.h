@@ -24,11 +24,13 @@ namespace woml
 	virtual void visit(FeatureVisitor & theVisitor) const;
 	void envelope(const Envelope & theEnvelope);
 	void point(const Point & thePoint);
+	void priority(int thePriority);
 	void param(GeophysicalParameterValueSet * theParameterValueSet);
 
   private:
 	Envelope itsBoundedBy;
 	Point itsPoint;
+	int itsPriority;
 	boost::scoped_ptr<GeophysicalParameterValueSet> itsParameterValueSet;
 
   }; // class PointGeophysicalParameterValueSet

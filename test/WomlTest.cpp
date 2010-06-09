@@ -105,16 +105,14 @@ namespace WomlTest
 
   void value()
   {
-	// woml::Weather weather = woml::parse(inputdir / "value.xml");
-	// TEST_PASSED();
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "value.xml");
+	TEST_PASSED();
   }
 
   void values()
   {
-	// woml::Weather weather = woml::parse(inputdir / "values.xml");
-	// TEST_PASSED();
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "values.xml");
+	TEST_PASSED();
   }
 
   void pointnote()

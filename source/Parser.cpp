@@ -15,6 +15,7 @@
 #include "OccludedFront.h"
 #include "PointGeophysicalParameterValueSet.h"
 #include "PointMeteorologicalSymbol.h"
+#include "SurfacePrecipitationArea.h"
 #include "Trough.h"
 #include "UpperTrough.h"
 #include "WarmFront.h"
@@ -985,6 +986,51 @@ parse_metobj_occluded_front(xmlpp::TextReader & theReader)
   return front;
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:SurfacePrecipitationArea
+ */
+// ----------------------------------------------------------------------
+
+SurfacePrecipitationArea *
+parse_metobj_surface_precipitation_area(xmlpp::TextReader & theReader)
+{
+  SurfacePrecipitationArea * area = new SurfacePrecipitationArea;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "gml:name")
+		theReader.next();
+	  else if(name == "gml:boundedBy")
+		area->envelope(parse_gml_bounded_by(theReader));
+	  else if(name == "gml:validTime")
+		area->validTime(parse_gml_valid_time(theReader));
+	  else if(name == "metobj:creationTime")
+		read_text_time(theReader);
+	  else if(name == "metobj:latestModificationTime")
+		read_text_time(theReader);
+	  else if(name == "metobj:shortInfo")
+		parse_metobj_short_info(theReader);
+	  else if(name == "metobj:longInfo")
+		parse_metobj_long_info(theReader);
+	  // TODO
+
+	  else if(name == "metobj:SurfacePrecipitationArea")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:SurfacePrecipitationArea");
+	}
+  return area;
+}
+
 
 
 // ----------------------------------------------------------------------
@@ -1099,7 +1145,7 @@ parse_metobj_point_meteorological_symbol(xmlpp::TextReader & theReader)
 GeophysicalParameter
 parse_metobj_geophysical_parameter(xmlpp::TextReader & theReader)
 {
-  GeophysicalParameter param;
+  boost::optional<GeophysicalParameter> param;
 
   while(theReader.read())
 	{
@@ -1116,17 +1162,19 @@ parse_metobj_geophysical_parameter(xmlpp::TextReader & theReader)
 	  else if(name == "metobj:reference")
 		{
 		  std::string scheme = theReader.get_attribute("scheme");
+		  std::string value = read_text_value(theReader);
 		  if(scheme == "fmi")
-			param = GeophysicalParameter(boost::lexical_cast<int>(read_text_value(theReader)));
+			param = GeophysicalParameter(boost::lexical_cast<int>(value));
+		  
 		}
-	  else if(name == "metobj:GeophysicalParamteter")
+	  else if(name == "metobj:GeophysicalParameter")
 		break;
 	  else
 		throw std::runtime_error("Unexpected tag <"
 								 + name
-								 + "> in metobj:parameter");
+								 + "> in metobj:GeophysicalParameter");
 	}
-  return param;
+  return *param;
 
 }
 
@@ -1139,7 +1187,7 @@ parse_metobj_geophysical_parameter(xmlpp::TextReader & theReader)
 GeophysicalParameter
 parse_metobj_parameter(xmlpp::TextReader & theReader)
 {
-  GeophysicalParameter param;
+  boost::optional<GeophysicalParameter> param;
 
   while(theReader.read())
 	{
@@ -1158,7 +1206,7 @@ parse_metobj_parameter(xmlpp::TextReader & theReader)
 								 + name
 								 + "> in metobj:parameter");
 	}
-  return param;
+  return *param;
 }
 
 
@@ -1182,6 +1230,8 @@ parse_metobj_geophysical_parameter_value(xmlpp::TextReader & theReader)
 		require_whitespace(theReader);
 	  else if(name == "#comment")
 		theReader.next();
+	  
+
 	  else if(name == "metobj:parameter")
 		param = parse_metobj_parameter(theReader);
 	  else if(name == "metobj:value")
@@ -1340,6 +1390,37 @@ parse_metobj_geophysical_parameter_value_set(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Parse metobj:GeophysicalParameterValueSet
+ */
+// ----------------------------------------------------------------------
+
+GeophysicalParameterValueSet *
+parse_metobj_parameter_value_set(xmlpp::TextReader & theReader)
+{
+  GeophysicalParameterValueSet * values = 0;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:GeophysicalParameterValueSet")
+		values = parse_metobj_geophysical_parameter_value_set(theReader);
+	  else if(name == "metobj:parameterValueSet")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:parameterValueSet");
+	}
+  return values;
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Parse metobj:PointGeophysicalParameterValueSet
  */
 // ----------------------------------------------------------------------
@@ -1373,8 +1454,10 @@ parse_metobj_point_geophysical_parameter_value_set(xmlpp::TextReader & theReader
 		parse_metobj_long_info(theReader);
 	  else if(name == "gml:pointProperty")
 		param->point(parse_gml_point_property(theReader));
-	  else if(name == "metobj:GeophysicalParameterValueSet")
-		param->param(parse_metobj_geophysical_parameter_value_set(theReader));
+	  else if(name == "metobj:parameterValueSet")
+		param->param(parse_metobj_parameter_value_set(theReader));
+	  else if(name == "metobj:priority")
+		param->priority(boost::lexical_cast<int>(read_text_value(theReader)));
 	  else if(name == "metobj:PointGeophysicalParameterValueSet")
 		break;
 	  else
@@ -1421,13 +1504,11 @@ parse_gml_feature_member(T & theWeatherObject,
 		theWeatherObject.addFeature(parse_metobj_upper_trough(theReader));
 	  else if(name == "metobj:PointMeteorologicalSymbol")
 		theWeatherObject.addFeature(parse_metobj_point_meteorological_symbol(theReader));
-	  else if(name == "metobj:PointNote")
-		// theWeatherObject.addFeature(parse_metobj_point_note(theReader));
-		theReader.next(); // TODO
 	  else if(name == "metobj:PointGeophysicalParameterValueSet")
 		theWeatherObject.addFeature(parse_metobj_point_geophysical_parameter_value_set(theReader));
 	  else if(name == "metobj:SurfacePrecipitationArea")
-		// theWeatherObject.addFeature(parse_metobj_surface_precipitation_area(theReader));
+		theWeatherObject.addFeature(parse_metobj_surface_precipitation_area(theReader));
+	  else if(name == "metobj:PointNote")
 		theReader.next(); // TODO
 	  else if(name == "gml:featureMember")
 		break;

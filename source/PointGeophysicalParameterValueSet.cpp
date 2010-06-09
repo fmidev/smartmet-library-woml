@@ -20,6 +20,7 @@ namespace woml
 PointGeophysicalParameterValueSet::PointGeophysicalParameterValueSet()
   : itsBoundedBy()
   , itsPoint(0,0)
+  , itsPriority(0)
   , itsParameterValueSet()
 { }
 
@@ -55,6 +56,17 @@ void PointGeophysicalParameterValueSet::envelope(const Envelope & theEnvelope)
 void PointGeophysicalParameterValueSet::point(const Point & thePoint)
 {
   itsPoint = thePoint;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the priority
+ */
+// ----------------------------------------------------------------------
+
+void PointGeophysicalParameterValueSet::priority(int thePriority)
+{
+  itsPriority = thePriority;
 }
 
 // ----------------------------------------------------------------------
