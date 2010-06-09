@@ -19,6 +19,7 @@ namespace woml
   class OccludedFront;
   class PointGeophysicalParameterValueSet;
   class PointMeteorologicalSymbol;
+  class SurfacePrecipitationArea;
   class Trough;
   class UpperTrough;
   class WarmFront;
@@ -34,6 +35,7 @@ namespace woml
 	virtual void visit(const OccludedFront & theFeature) = 0;
 	virtual void visit(const PointGeophysicalParameterValueSet & theFeature) = 0;
 	virtual void visit(const PointMeteorologicalSymbol & theFeature) = 0;
+	virtual void visit(const SurfacePrecipitationArea & theFeature) = 0;
 	virtual void visit(const Trough & theFeature) = 0;
 	virtual void visit(const UpperTrough & theFeature) = 0;
 	virtual void visit(const WarmFront & theFeature) = 0;

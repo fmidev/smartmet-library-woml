@@ -84,23 +84,20 @@ namespace WomlTest
 
   void rain()
   {
-	// woml::Weather weather = woml::parse(inputdir / "rain.xml");
-	// TEST_PASSED();
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "rain.xml");
+	TEST_PASSED();
   }
 
   void heavyrain()
   {
-	// woml::Weather weather = woml::parse(inputdir / "heavyrain.xml");
-	// TEST_PASSED();
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "heavyrain.xml");
+	TEST_PASSED();
   }
 
   void snow()
   {
-	// woml::Weather weather = woml::parse(inputdir / "snow.xml");
-	// TEST_PASSED();
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "snow.xml");
+	TEST_PASSED();
   }
 
   void value()

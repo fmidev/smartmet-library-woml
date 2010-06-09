@@ -544,6 +544,192 @@ parse_metobj_control_curve(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Parse metobj:CubicSplineRing
+ */
+// ----------------------------------------------------------------------
+
+CubicSplineRing
+parse_metobj_cubic_spline_ring(xmlpp::TextReader & theReader)
+{
+  CubicSplineRing spline;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:vectorAtStart")
+		theReader.next(); // DEPRECATED
+	  else if(name == "metobj:vectorAtEnd")
+		theReader.next(); // DEPRECATED
+	  else if(name == "gml:posList")
+		{
+		  theReader.read();
+		  if(theReader.get_name() != "#text")
+			throw std::runtime_error("#text missing from metobj:CubicSplineRing");
+		  
+		  if(!theReader.has_value())
+			throw std::runtime_error("Text part missing from metobj:CubicSplineRing");
+		  std::stringstream s;
+
+		  s.str(theReader.get_value());
+		  while(s.good())
+			{
+			  double lon, lat;
+			  s >> lat >> lon;
+			  if(s.fail())
+				throw std::runtime_error("Error parsing "+theReader.get_value());
+			  spline.add(Point(lon,lat));
+			}
+
+		  theReader.next();
+		}
+	  else if(name == "metobj:CubicSplineRing")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:CubicSplineRing");
+	}
+
+  return spline;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:exterior
+ */
+// ----------------------------------------------------------------------
+
+CubicSplineRing
+parse_metobj_exterior(xmlpp::TextReader & theReader)
+{
+  boost::optional<CubicSplineRing> spline;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:CubicSplineRing")
+		spline = parse_metobj_cubic_spline_ring(theReader);
+	  else if(name == "metobj:exterior")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:exterior");
+	}
+
+  return *spline;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:interior
+ */
+// ----------------------------------------------------------------------
+
+CubicSplineRing
+parse_metobj_interior(xmlpp::TextReader & theReader)
+{
+  boost::optional<CubicSplineRing> spline;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:CubicSplineRing")
+		spline = parse_metobj_cubic_spline_ring(theReader);
+	  else if(name == "metobj:interior")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:interior");
+	}
+
+  return *spline;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:CubicSplineSurface
+ */
+// ----------------------------------------------------------------------
+
+CubicSplineSurface
+parse_metobj_cubic_spline_surface(xmlpp::TextReader & theReader)
+{
+  CubicSplineSurface surface;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:exterior")
+		surface.exterior(parse_metobj_exterior(theReader));
+	  else if(name == "metobj:interior")
+		surface.interior(parse_metobj_interior(theReader));
+	  else if(name == "metobj:CubicSplineSurface")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:CubicSplineSurface");
+	}
+
+  return surface;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:controlSurface
+ */
+// ----------------------------------------------------------------------
+
+CubicSplineSurface
+parse_metobj_control_surface(xmlpp::TextReader & theReader)
+{
+  boost::optional<CubicSplineSurface> surface;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:CubicSplineSurface")
+		surface = parse_metobj_cubic_spline_surface(theReader);
+	  else if(name == "metobj:controlSurface")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:controlSurface");
+	}
+
+  return *surface;
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Parse metobj:SRGBColor
  *
  * Note: scheme permits missing alpha
@@ -988,6 +1174,41 @@ parse_metobj_occluded_front(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Parse metobj:innerArea
+ */
+// ----------------------------------------------------------------------
+
+SurfacePrecipitationArea *
+parse_metobj_surface_precipitation_area(xmlpp::TextReader & theReader);
+
+SurfacePrecipitationArea *
+parse_metobj_inner_area(xmlpp::TextReader & theReader)
+{
+  SurfacePrecipitationArea * area = 0;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:SurfacePrecipitationArea")
+		area = parse_metobj_surface_precipitation_area(theReader);
+	  else if(name == "metobj:innerArea")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:innerArea");
+	}
+  return area;
+}
+
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Parse metobj:SurfacePrecipitationArea
  */
 // ----------------------------------------------------------------------
@@ -1019,8 +1240,18 @@ parse_metobj_surface_precipitation_area(xmlpp::TextReader & theReader)
 		parse_metobj_short_info(theReader);
 	  else if(name == "metobj:longInfo")
 		parse_metobj_long_info(theReader);
-	  // TODO
-
+	  else if(name == "metobj:controlSurface")
+		area->controlSurface(parse_metobj_control_surface(theReader));
+	  else if(name == "metobj:interpolatedSurface")
+		theReader.next();
+	  else if(name == "metobj:rainPhase")
+		area->rainPhase(parseRainPhase(read_text_value(theReader)));
+	  else if(name == "metobj:continuity")
+		area->continuity(boost::lexical_cast<double>(read_text_value(theReader)));
+	  else if(name == "metobj:approximateRainFall")
+		area->approximateRainFall(boost::lexical_cast<double>(read_text_value(theReader)));
+	  else if(name == "metobj:innerArea")
+		area->innerArea(parse_metobj_inner_area(theReader));
 	  else if(name == "metobj:SurfacePrecipitationArea")
 		break;
 	  else
