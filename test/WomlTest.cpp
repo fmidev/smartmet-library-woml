@@ -114,9 +114,8 @@ namespace WomlTest
 
   void pointnote()
   {
-	// woml::Weather weather = woml::parse(inputdir / "pointnote.xml");
-	// TEST_PASSED();
-	TEST_NOT_IMPLEMENTED();
+	woml::Weather weather = woml::parse(inputdir / "pointnote.xml");
+	TEST_PASSED();
   }
 
   void graphic()
