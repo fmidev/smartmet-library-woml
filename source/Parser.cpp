@@ -127,7 +127,7 @@ read_text_point(xmlpp::TextReader & theReader)
 boost::posix_time::ptime
 parse_gml_time_instant(xmlpp::TextReader & theReader)
 {
-  boost::posix_time::ptime t(boost::posix_time::not_a_date_time);
+  boost::optional<boost::posix_time::ptime> t;
 
   while(theReader.read())
 	{
@@ -146,10 +146,10 @@ parse_gml_time_instant(xmlpp::TextReader & theReader)
 								 + "> in gml:TimeInstant");
 	}
 
-  if(t.is_not_a_date_time())
+  if(t->is_not_a_date_time())
 	throw std::runtime_error("Invalid gml:TimeInstant");
 
-  return t;
+  return *t;
 }
 
 // ----------------------------------------------------------------------
@@ -161,8 +161,8 @@ parse_gml_time_instant(xmlpp::TextReader & theReader)
 boost::posix_time::time_period
 parse_gml_time_period(xmlpp::TextReader & theReader)
 {
-  boost::posix_time::ptime starttime(boost::posix_time::not_a_date_time);
-  boost::posix_time::ptime endtime(boost::posix_time::not_a_date_time);
+  boost::optional<boost::posix_time::ptime> starttime;
+  boost::optional<boost::posix_time::ptime> endtime;
   
   while(theReader.read())
 	{
@@ -184,7 +184,7 @@ parse_gml_time_period(xmlpp::TextReader & theReader)
 								 + "> in gml:TimePeriod");
 	}
 
-  return boost::posix_time::time_period(starttime,endtime);
+  return boost::posix_time::time_period(*starttime,*endtime);
 }
 
 // ----------------------------------------------------------------------
@@ -196,8 +196,7 @@ parse_gml_time_period(xmlpp::TextReader & theReader)
 boost::posix_time::time_period
 parse_gml_valid_time(xmlpp::TextReader & theReader)
 {
-  boost::posix_time::ptime badtime(boost::posix_time::not_a_date_time);
-  boost::posix_time::time_period period(badtime,badtime);
+  boost::optional<boost::posix_time::time_period> period;
 
   while(theReader.read())
 	{
@@ -222,7 +221,7 @@ parse_gml_valid_time(xmlpp::TextReader & theReader)
 								 + "> in gml:validTime");
 	}
 
-  return period;
+  return *period;
 }
 
 // ----------------------------------------------------------------------
@@ -264,7 +263,7 @@ parse_metobj_long_info(xmlpp::TextReader & theReader)
 Point
 parse_gml_point(xmlpp::TextReader & theReader)
 {
-  Point p(0,0);
+  boost::optional<Point> p;
 
   while(theReader.read())
 	{
@@ -284,7 +283,7 @@ parse_gml_point(xmlpp::TextReader & theReader)
 								 + "> in gml:Point");
 	}
 
-  return p;
+  return *p;
 }
 
 
@@ -297,7 +296,7 @@ parse_gml_point(xmlpp::TextReader & theReader)
 Point
 parse_gml_point_property(xmlpp::TextReader & theReader)
 {
-  Point p(0,0);
+  boost::optional<Point> p;
   
   while(theReader.read())
 	{
@@ -317,7 +316,7 @@ parse_gml_point_property(xmlpp::TextReader & theReader)
 								 + "> in gml:pointProperty");
 	}
 
-  return p;
+  return *p;
 }
 
 // ----------------------------------------------------------------------
@@ -329,8 +328,7 @@ parse_gml_point_property(xmlpp::TextReader & theReader)
 Envelope
 parse_gml_envelope(xmlpp::TextReader & theReader)
 {
-  Point lc(0,0), uc(0,0);
-  bool lc_ok = false, uc_ok = false;
+  boost::optional<Point> lc, uc;
 
   while(theReader.read())
 	{
@@ -340,15 +338,9 @@ parse_gml_envelope(xmlpp::TextReader & theReader)
 	  else if(name == "#comment")
 		theReader.next();
 	  else if(name == "gml:lowerCorner")
-		{
-		  lc = read_text_point(theReader);
-		  lc_ok = true;
-		}
+		lc = read_text_point(theReader);
 	  else if(name == "gml:upperCorner")
-		{
-		  uc = read_text_point(theReader);
-		  uc_ok = true;
-		}
+		uc = read_text_point(theReader);
 	  else if(name == "gml:Envelope")
 		break;
 	  else
@@ -357,8 +349,8 @@ parse_gml_envelope(xmlpp::TextReader & theReader)
 								 + "> in gml:Envelope");
 	}
 
-  if(lc_ok & uc_ok)
-	return Envelope(lc,uc);
+  if(lc && uc)
+	return Envelope(*lc,*uc);
   else
 	throw std::runtime_error("Invalid corner spec in Envelope");
 
@@ -373,7 +365,7 @@ parse_gml_envelope(xmlpp::TextReader & theReader)
 Envelope
 parse_gml_bounded_by(xmlpp::TextReader & theReader)
 {
-  Envelope env;
+  boost::optional<Envelope> env;
 
   while(theReader.read())
 	{
@@ -393,7 +385,7 @@ parse_gml_bounded_by(xmlpp::TextReader & theReader)
 								 + name
 								 + "> in gml:boundedBy");
 	}
-  return env;
+  return *env;
 
 }
 
@@ -494,7 +486,7 @@ parse_metobj_cubic_spline_segments(xmlpp::TextReader & theReader)
 CubicSplineCurve
 parse_metobj_cubic_spline_curve(xmlpp::TextReader & theReader)
 {
-  CubicSplineCurve curve;
+  boost::optional<CubicSplineCurve> curve;
 
   while(theReader.read())
 	{
@@ -514,7 +506,7 @@ parse_metobj_cubic_spline_curve(xmlpp::TextReader & theReader)
 								 + "> in metobj:CubicSplineCurve");
 	}
 
-  return curve;
+  return *curve;
 }
 
 // ----------------------------------------------------------------------
@@ -526,7 +518,7 @@ parse_metobj_cubic_spline_curve(xmlpp::TextReader & theReader)
 CubicSplineCurve
 parse_metobj_control_curve(xmlpp::TextReader & theReader)
 {
-  CubicSplineCurve curve;
+  boost::optional<CubicSplineCurve> curve;
 
   while(theReader.read())
 	{
@@ -546,22 +538,21 @@ parse_metobj_control_curve(xmlpp::TextReader & theReader)
 								 + "> in metobj:controlCurve");
 	}
 
-  return curve;
+  return *curve;
 }
 
 // ----------------------------------------------------------------------
 /*!
  * \brief Parse metobj:SRGBColor
+ *
+ * Note: scheme permits missing alpha
  */
 // ----------------------------------------------------------------------
 
 SRGBColor
 parse_metobj_srgb_color(xmlpp::TextReader & theReader)
 {
-  int r = 0;
-  int g = 0;
-  int b = 0;
-  int a = 255;
+  boost::optional<int> r, g, b, a;
 
   while(theReader.read())
 	{
@@ -586,8 +577,13 @@ parse_metobj_srgb_color(xmlpp::TextReader & theReader)
 								 + name
 								 + "> in metobj:SRGBColor");
 	}
-  
-  return SRGBColor(r,g,b,a);
+
+  if(r && b && g && a)
+	return SRGBColor(*r,*g,*b,*a);
+  else if(r && b && g)
+	return SRGBColor(*r,*g,*b,255);
+  else
+	throw std::runtime_error("Missing color components in metobj:SRGBColor");
 
 }
 
@@ -600,7 +596,7 @@ parse_metobj_srgb_color(xmlpp::TextReader & theReader)
 SRGBColor
 parse_metobj_color(xmlpp::TextReader & theReader)
 {
-  SRGBColor color(0,0,0,255);
+  boost::optional<SRGBColor> color;
 
   while(theReader.read())
 	{
@@ -620,7 +616,7 @@ parse_metobj_color(xmlpp::TextReader & theReader)
 								 + "> in metobj:color");
 	}
   
-  return color;
+  return *color;
 
 }
 
