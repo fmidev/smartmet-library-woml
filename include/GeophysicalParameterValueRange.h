@@ -14,7 +14,13 @@ namespace woml
   class GeophysicalParameterValueRange
   {
   public:
+	GeophysicalParameterValueRange(const GeophysicalParameter & theParam,
+								   double theLowerLimit,
+								   double theUpperLimit);
+
   private:
+	GeophysicalParameterValueRange();
+
 	GeophysicalParameter itsParameter;
 	double itsLowerLimit;
 	double itsUpperLimit;

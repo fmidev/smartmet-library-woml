@@ -14,7 +14,12 @@ namespace woml
   class GeophysicalParameterValue
   {
   public:
+	GeophysicalParameterValue(const GeophysicalParameter & theParam,
+							  double theValue);
+
   private:
+
+	GeophysicalParameterValue();
 	GeophysicalParameter itsParameter;
 	double itsValue;
 	

@@ -5,7 +5,8 @@ LIB = woml
 #
 # To build serially (helps get the error messages right): make debug SCONS_FLAGS=""
 
-SCONS_FLAGS=-j 4
+# SCONS_FLAGS=-j 4
+SCONS_FLAGS=
 
 # Installation directories
 

@@ -8,6 +8,7 @@
 #include "CloudAreaBorder.h"
 #include "ColdFront.h"
 #include "FontSymbol.h"
+#include "GeophysicalParameterValueSet.h"
 #include "GraphicSymbol.h"
 #include "Jet.h"
 #include "MeteorologicalAnalysis.h"
@@ -22,6 +23,7 @@
 
 #include <smartmet/macgyver/TimeParser.h>
 
+#include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string.hpp>
 
@@ -1094,7 +1096,255 @@ parse_metobj_point_meteorological_symbol(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Parse a point geophysical parameter value set
+ * \brief Parse metobj:GeophysicalParameter
+ */
+// ----------------------------------------------------------------------
+
+GeophysicalParameter
+parse_metobj_geophysical_parameter(xmlpp::TextReader & theReader)
+{
+  GeophysicalParameter param;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:localizedName")
+		theReader.next();
+	  else if(name == "metobj:abbreviation")
+		theReader.next();
+	  else if(name == "metobj:reference")
+		{
+		  std::string scheme = theReader.get_attribute("scheme");
+		  if(scheme == "fmi")
+			param = GeophysicalParameter(boost::lexical_cast<int>(read_text_value(theReader)));
+		}
+	  else if(name == "metobj:GeophysicalParamteter")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:parameter");
+	}
+  return param;
+
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:parameter
+ */
+// ----------------------------------------------------------------------
+
+GeophysicalParameter
+parse_metobj_parameter(xmlpp::TextReader & theReader)
+{
+  GeophysicalParameter param;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:GeophysicalParameter")
+		param = parse_metobj_geophysical_parameter(theReader);
+	  else if(name == "metobj:parameter")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:parameter");
+	}
+  return param;
+}
+
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:GeophysicalParameterValue
+ */
+// ----------------------------------------------------------------------
+
+GeophysicalParameterValue
+parse_metobj_geophysical_parameter_value(xmlpp::TextReader & theReader)
+{
+  GeophysicalParameter param;
+  double value;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:parameter")
+		param = parse_metobj_parameter(theReader);
+	  else if(name == "metobj:value")
+		value = boost::lexical_cast<double>(read_text_value(theReader));
+	  else if(name == "metobj:elevation")
+		theReader.next(); // TODO
+	  else if(name == "metobj:symbol")
+		theReader.next(); // TODO
+	  else if(name == "metobj:GeophysicalParameterValue")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:GeophysicalParameterValue");
+	}
+  return GeophysicalParameterValue(param,value);
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:GeophysicalParameterValueRange
+ */
+// ----------------------------------------------------------------------
+
+GeophysicalParameterValueRange
+parse_metobj_geophysical_parameter_value_range(xmlpp::TextReader & theReader)
+{
+  GeophysicalParameter param;
+  double lowerlimit = 0;
+  double upperlimit = 0;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:parameter")
+		param = parse_metobj_parameter(theReader);
+	  else if(name == "metobj:lowerLimit")
+		lowerlimit = boost::lexical_cast<double>(read_text_value(theReader));
+	  else if(name == "metobj:upperLimit")
+		upperlimit = boost::lexical_cast<double>(read_text_value(theReader));
+	  else if(name == "metobj:elevation")
+		theReader.next(); // TODO
+	  else if(name == "metobj:symbol")
+		theReader.next(); // TODO
+	  else if(name == "metobj:GeophysicalParameterValueRange")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:GeophysicalParameterValueRange");
+	}
+  return GeophysicalParameterValueRange(param,lowerlimit,upperlimit);
+}
+
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:singleValue
+ */
+// ----------------------------------------------------------------------
+
+GeophysicalParameterValue
+parse_metobj_single_value(xmlpp::TextReader & theReader)
+{
+  boost::optional<GeophysicalParameterValue> value;
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:GeophysicalParameterValue")
+		value.reset(parse_metobj_geophysical_parameter_value(theReader));
+	  else if(name == "metobj:singleValue")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:singleValue");
+	}
+  return *value;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:valueRange
+ */
+// ----------------------------------------------------------------------
+
+GeophysicalParameterValueRange
+parse_metobj_value_range(xmlpp::TextReader & theReader)
+{
+  boost::optional<GeophysicalParameterValueRange> value;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:GeophysicalParameterValueRange")
+		value.reset(parse_metobj_geophysical_parameter_value_range(theReader));
+	  else if(name == "metobj:valueRange")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:valueRange");
+	}
+  return *value;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:GeophysicalParameterValueSet
+ */
+// ----------------------------------------------------------------------
+
+GeophysicalParameterValueSet *
+parse_metobj_geophysical_parameter_value_set(xmlpp::TextReader & theReader)
+{
+  GeophysicalParameterValueSet * values = new GeophysicalParameterValueSet;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:singleValue")
+		values->add(parse_metobj_single_value(theReader));
+	  else if(name == "metobj:valueRange")
+		values->add(parse_metobj_value_range(theReader));
+	  else if(name == "metobj:elevation")
+		theReader.next(); // TODO
+	  else if(name == "metobj:GeophysicalParameterValueSet")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:GeophysicalParameterValueSet");
+	}
+  return values;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:PointGeophysicalParameterValueSet
  */
 // ----------------------------------------------------------------------
 
@@ -1127,10 +1377,8 @@ parse_metobj_point_geophysical_parameter_value_set(xmlpp::TextReader & theReader
 		parse_metobj_long_info(theReader);
 	  else if(name == "gml:pointProperty")
 		param->point(parse_gml_point_property(theReader));
-	  else if(name == "metobj:GeophysicalParameterValue")
-		theReader.next(); // TODO
-	  else if(name == "metobj:GeophysicalParameterValueRange")
-		theReader.next(); // TODO
+	  else if(name == "metobj:GeophysicalParameterValueSet")
+		param->param(parse_metobj_geophysical_parameter_value_set(theReader));
 	  else if(name == "metobj:PointGeophysicalParameterValueSet")
 		break;
 	  else
