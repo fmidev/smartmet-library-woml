@@ -11,7 +11,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: boost-devel >= 1.41
 BuildRequires: libsmartmet-macgyver >= 10.6.1-1
 Provides: %{LIBNAME}
-Provides: %{LIBNAME}-mt
 
 %description
 FMI WOML library
