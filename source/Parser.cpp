@@ -28,6 +28,7 @@
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/filesystem.hpp>
 
 #include <libxml++/libxml++.h>
 #include <libxml++/parsers/textreader.h>
@@ -1985,6 +1986,9 @@ parse_metobj_weather_forecast(xmlpp::TextReader & theReader)
 Weather
 parse(const boost::filesystem::path & thePath)
 {
+  if(!boost::filesystem::exists(thePath))
+	throw std::runtime_error("The file '"+thePath.file_string()+"' does not exist");
+
   xmlpp::TextReader reader(thePath.file_string());
 
   Weather weather;

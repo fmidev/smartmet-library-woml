@@ -1,7 +1,7 @@
 %define LIBNAME woml
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
-Version: 10.6.1
+Version: 10.6.15
 Release: 1.el5.fmi
 License: FMI
 Group: Development/Libraries
@@ -23,6 +23,7 @@ rm -rf $RPM_BUILD_ROOT
  
 %build
 make %{_smp_mflags}
+make test
 
 %install
 %makeinstall includedir=%{buildroot}%{_includedir}/smartmet
@@ -37,5 +38,5 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Wed Apr  7 2010 Mika Heiskanen <mika.heiskanen@fmi.fi> - 10.4.7-1.el5.fmi
+* Tue Jun 15 2010 Mika Heiskanen <mika.heiskanen@fmi.fi> - 10.6.15-1.el5.fmi
 - Initial build
