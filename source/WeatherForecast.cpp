@@ -121,4 +121,29 @@ void WeatherForecast::addConnectionPoints(const std::map<std::string,Point> & th
 	}
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Iterator over the feature members
+ */
+// ----------------------------------------------------------------------
+
+WeatherForecast::const_iterator
+WeatherForecast::begin() const
+{
+  return itsFeatureMembers.begin();
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief End iterator over the feature members
+ */
+// ----------------------------------------------------------------------
+
+WeatherForecast::const_iterator
+WeatherForecast::end() const
+{
+  return itsFeatureMembers.end();
+}
+
+
 } // namespace woml

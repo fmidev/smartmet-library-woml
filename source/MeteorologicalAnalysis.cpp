@@ -108,4 +108,29 @@ void MeteorologicalAnalysis::addConnectionPoints(const std::map<std::string,Poin
 	}
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Iterator over the feature members
+ */
+// ----------------------------------------------------------------------
+
+MeteorologicalAnalysis::const_iterator
+MeteorologicalAnalysis::begin() const
+{
+  return itsFeatureMembers.begin();
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief End iterator over the feature members
+ */
+// ----------------------------------------------------------------------
+
+MeteorologicalAnalysis::const_iterator
+MeteorologicalAnalysis::end() const
+{
+  return itsFeatureMembers.end();
+}
+
+
 } // namespace woml

@@ -29,6 +29,10 @@ namespace woml
 	void latestModificationTime(const boost::posix_time::ptime & theTime);
 	void analysisTime(const boost::posix_time::ptime & theTime);
 	void forecastTime(const boost::posix_time::ptime & theTime);
+
+	typedef boost::ptr_list<Feature>::const_iterator const_iterator;
+	const_iterator begin() const;
+	const_iterator end() const;
 	
   private:
 
