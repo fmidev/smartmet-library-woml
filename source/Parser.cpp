@@ -427,7 +427,7 @@ parse_metobj_simple_cubic_spline(xmlpp::TextReader & theReader)
 			  double lon, lat;
 			  s >> lat >> lon;
 			  if(s.fail())
-				throw std::runtime_error("Error parsing "+theReader.get_value());
+				throw std::runtime_error("Error parsing value '"+theReader.get_value()+"' in metobj:SimpleCubicSpline" );
 			  spline.add(Point(lon,lat));
 			}
 
@@ -583,7 +583,7 @@ parse_metobj_cubic_spline_ring(xmlpp::TextReader & theReader)
 			  double lon, lat;
 			  s >> lat >> lon;
 			  if(s.fail())
-				throw std::runtime_error("Error parsing "+theReader.get_value());
+				throw std::runtime_error("Error parsing value '"+theReader.get_value()+"' in metobj:CubicSplineRing");
 			  spline.add(Point(lon,lat));
 			}
 

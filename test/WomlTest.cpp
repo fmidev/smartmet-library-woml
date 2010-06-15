@@ -124,6 +124,12 @@ namespace WomlTest
 	TEST_PASSED();
   }
 
+  void suomitv()
+  {
+	woml::Weather weather = woml::parse(inputdir / "suomitv.xml");
+	TEST_PASSED();
+  }
+
   //! The actual test driver
   class tests : public tframe::tests
   {
@@ -154,6 +160,7 @@ namespace WomlTest
 	  TEST(values);
 	  TEST(pointnote);
 	  TEST(graphic);
+	  TEST(suomitv);
 	}
 
   }; // class tests
