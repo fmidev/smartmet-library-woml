@@ -65,4 +65,15 @@ void ColdFront::connectEndPoint(const std::string & theName)
   itsEndPointConnectsTo = theName;
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the control curve
+ */
+// ----------------------------------------------------------------------
+
+const CubicSplineCurve & ColdFront::controlCurve() const
+{
+  return itsControlCurve;
+}
+
 } // namespace woml

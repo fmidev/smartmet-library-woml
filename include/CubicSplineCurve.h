@@ -17,6 +17,10 @@ namespace woml
   public:
 	void add(const SimpleCubicSpline & theSpline);
 
+	typedef std::list<SimpleCubicSpline>::const_iterator const_iterator;
+	const_iterator begin() const;
+	const_iterator end() const;
+
   private:
 	std::list<SimpleCubicSpline> itsCubicSplineSegments;
 

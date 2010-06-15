@@ -65,5 +65,16 @@ void Trough::connectEndPoint(const std::string & theName)
   itsEndPointConnectsTo = theName;
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the control curve
+ */
+// ----------------------------------------------------------------------
+
+const CubicSplineCurve & Trough::controlCurve() const
+{
+  return itsControlCurve;
+}
+
 
 } // namespace woml

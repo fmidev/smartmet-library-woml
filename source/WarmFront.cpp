@@ -65,5 +65,15 @@ void WarmFront::connectEndPoint(const std::string & theName)
   itsEndPointConnectsTo = theName;
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the control curve
+ */
+// ----------------------------------------------------------------------
+
+const CubicSplineCurve & WarmFront::controlCurve() const
+{
+  return itsControlCurve;
+}
 
 } // namespace woml

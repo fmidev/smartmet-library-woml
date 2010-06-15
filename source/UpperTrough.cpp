@@ -65,5 +65,16 @@ void UpperTrough::connectEndPoint(const std::string & theName)
   itsEndPointConnectsTo = theName;
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the control curve
+ */
+// ----------------------------------------------------------------------
+
+const CubicSplineCurve & UpperTrough::controlCurve() const
+{
+  return itsControlCurve;
+}
+
 
 } // namespace woml
