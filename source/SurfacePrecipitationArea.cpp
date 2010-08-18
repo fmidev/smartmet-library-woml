@@ -24,6 +24,16 @@ SurfacePrecipitationArea::SurfacePrecipitationArea()
 {
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the control surface
+ */
+// ----------------------------------------------------------------------
+
+const CubicSplineSurface & SurfacePrecipitationArea::controlSurface() const
+{
+  return itsControlSurface;
+}
 
 // ----------------------------------------------------------------------
 /*!

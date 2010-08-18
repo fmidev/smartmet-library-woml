@@ -33,6 +33,8 @@ namespace woml
 	void approximateRainFall(double theAmount);
 	void innerArea(SurfacePrecipitationArea * theArea);
 
+	const CubicSplineSurface & controlSurface() const;
+
   private:
 	Envelope itsBoundedBy;
 	CubicSplineSurface itsControlSurface;
