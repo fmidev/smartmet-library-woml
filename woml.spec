@@ -1,7 +1,7 @@
 %define LIBNAME woml
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
-Version: 10.6.15
+Version: 10.8.18
 Release: 1.el5.fmi
 License: FMI
 Group: Development/Libraries
@@ -38,5 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 18 2010 Mika Heiskanen <mika.heiskanen@fmi.fi> - 10.8.18-1.el5.fmi
+- Added accessors required by the frontier program
 * Tue Jun 15 2010 Mika Heiskanen <mika.heiskanen@fmi.fi> - 10.6.15-1.el5.fmi
 - Initial build
