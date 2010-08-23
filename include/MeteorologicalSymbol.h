@@ -9,6 +9,8 @@
 
 namespace woml
 {
+  class FeatureVisitor;
+
   class MeteorologicalSymbol
   {
   public:

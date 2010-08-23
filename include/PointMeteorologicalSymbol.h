@@ -12,7 +12,7 @@
 #include "Feature.h"
 #include "MeteorologicalSymbol.h"
 #include "Point.h"
-#include <boost/scoped_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 
 namespace woml
 {
@@ -27,10 +27,13 @@ namespace woml
 	void point(const Point & thePoint);
 	void symbol(MeteorologicalSymbol * theSymbol);
 
+	const Point & point() const;
+	boost::shared_ptr<MeteorologicalSymbol> symbol() const;
+
   private:
 	Envelope itsBoundedBy;
 	Point itsPoint;
-	boost::scoped_ptr<MeteorologicalSymbol> itsMeteorologicalSymbol;
+	boost::shared_ptr<MeteorologicalSymbol> itsMeteorologicalSymbol;
 
   }; // class PointMeteorologicalSymbol
 

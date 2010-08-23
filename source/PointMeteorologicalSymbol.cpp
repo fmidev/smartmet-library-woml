@@ -67,4 +67,27 @@ void PointMeteorologicalSymbol::symbol(MeteorologicalSymbol * theSymbol)
   itsMeteorologicalSymbol.reset(theSymbol);
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the coordinate for the symbol
+ */
+// ----------------------------------------------------------------------
+
+const Point & PointMeteorologicalSymbol::point() const
+{
+  return itsPoint;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the symbol
+ */
+// ----------------------------------------------------------------------
+
+boost::shared_ptr<MeteorologicalSymbol>
+PointMeteorologicalSymbol::symbol() const
+{
+  return itsMeteorologicalSymbol;
+}
+
 } // namespace woml
