@@ -946,7 +946,7 @@ parse_metobj_graphic_symbol(xmlpp::TextReader & theReader)
 	  else if(name == "metobj:localizedSymbolName")
 		theReader.next();
 	  else if(name == "metobj:image")
-		symbol->addImage(parse_metobj_image(theReader));
+		symbol->addURI(parse_metobj_image(theReader));
 	  else if(name == "metobj:scaleFactor")
 		symbol->scaleFactor(boost::lexical_cast<double>(read_text_value(theReader)));
 	  else if(name == "metobj:GraphicSymbol")

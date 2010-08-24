@@ -13,15 +13,20 @@
 
 namespace woml
 {
+  typedef std::list<std::string> URIList;
+
   class GraphicSymbol : public MeteorologicalSymbol
   {
   public:
 	GraphicSymbol();
 	void scaleFactor(double theFactor);
-	void addImage(const std::string & theImage);
+	void addURI(const std::string & theURI);
+
+	double scaleFactor() const;
+	const URIList & URIs() const;
 
   private:
-	std::list<std::string> itsImages;
+	URIList itsURIs;
 	double itsScaleFactor;
 
   }; // class GraphicSymbol

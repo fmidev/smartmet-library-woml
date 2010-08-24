@@ -16,7 +16,7 @@ namespace woml
 // ----------------------------------------------------------------------
 
 GraphicSymbol::GraphicSymbol()
-  : itsImages()
+  : itsURIs()
   , itsScaleFactor(1.0)
 {
 }
@@ -38,9 +38,31 @@ void GraphicSymbol::scaleFactor(double theFactor)
  */
 // ----------------------------------------------------------------------
 
-void GraphicSymbol::addImage(const std::string & theImage)
+void GraphicSymbol::addURI(const std::string & theURI)
 {
-  itsImages.push_back(theImage);
+  itsURIs.push_back(theURI);
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Get the scale factor
+ */
+// ----------------------------------------------------------------------
+
+double GraphicSymbol::scaleFactor() const
+{
+  return itsScaleFactor;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Get the URI list
+ */
+// ----------------------------------------------------------------------
+
+const URIList & GraphicSymbol::URIs() const
+{
+  return itsURIs;
 }
 
 
