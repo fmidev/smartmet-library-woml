@@ -59,5 +59,30 @@ GeophysicalParameterValueSet::add(const GeophysicalParameterValueRange & theRang
   itsValueRanges.push_back(theRange);
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the values
+ */
+// ----------------------------------------------------------------------
+
+const GeophysicalParameterValueList &
+GeophysicalParameterValueSet::values() const
+{
+  return itsSingleValues;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the ranges
+ */
+// ----------------------------------------------------------------------
+
+const GeophysicalParameterValueRangeList &
+GeophysicalParameterValueSet::ranges() const
+{
+  return itsValueRanges;
+}
+
+
 
 } // namespace woml

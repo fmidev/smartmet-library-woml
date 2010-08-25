@@ -13,6 +13,9 @@
 
 namespace woml
 {
+  typedef std::list<GeophysicalParameterValue> GeophysicalParameterValueList;
+  typedef std::list<GeophysicalParameterValueRange> GeophysicalParameterValueRangeList;
+
   class GeophysicalParameterValueSet
   {
   public:
@@ -21,11 +24,14 @@ namespace woml
 	void add(const GeophysicalParameterValue & theSingleValue);
 	void add(const GeophysicalParameterValueRange & theValueRange);
 
+	const GeophysicalParameterValueList & values() const;
+	const GeophysicalParameterValueRangeList & ranges() const;
+
   private:
 
 	double itsElevation;
-	std::list<GeophysicalParameterValue> itsSingleValues;
-	std::list<GeophysicalParameterValueRange> itsValueRanges;
+	GeophysicalParameterValueList itsSingleValues;
+	GeophysicalParameterValueRangeList itsValueRanges;
 
   }; // class GeophysicalParameterValueSet
 

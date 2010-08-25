@@ -10,7 +10,7 @@
 #include "Envelope.h"
 #include "Feature.h"
 #include "Point.h"
-#include <boost/scoped_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 
 namespace woml
 {
@@ -27,11 +27,14 @@ namespace woml
 	void priority(int thePriority);
 	void param(GeophysicalParameterValueSet * theParameterValueSet);
 
+	const Point & point() const;
+	boost::shared_ptr<GeophysicalParameterValueSet> parameters() const;
+
   private:
 	Envelope itsBoundedBy;
 	Point itsPoint;
 	int itsPriority;
-	boost::scoped_ptr<GeophysicalParameterValueSet> itsParameterValueSet;
+	boost::shared_ptr<GeophysicalParameterValueSet> itsParameterValueSet;
 
   }; // class PointGeophysicalParameterValueSet
 

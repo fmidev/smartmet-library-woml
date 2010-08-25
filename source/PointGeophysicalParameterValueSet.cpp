@@ -80,4 +80,27 @@ void PointGeophysicalParameterValueSet::param(GeophysicalParameterValueSet * the
   itsParameterValueSet.reset(theParameterValueSet);
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the coordinate
+ */
+// ----------------------------------------------------------------------
+
+const Point & PointGeophysicalParameterValueSet::point() const
+{
+  return itsPoint;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the parameter values
+ */
+// ----------------------------------------------------------------------
+
+boost::shared_ptr<GeophysicalParameterValueSet>
+PointGeophysicalParameterValueSet::parameters() const
+{
+  return itsParameterValueSet;
+}
+
 } // namespace woml
