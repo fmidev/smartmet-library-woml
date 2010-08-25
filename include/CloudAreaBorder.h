@@ -26,6 +26,8 @@ namespace woml
 	void connectStartPoint(const std::string & theName);
 	void connectEndPoint(const std::string & theName);
 
+	const CubicSplineCurve & controlCurve() const;
+
   private:
 	Envelope itsBoundedBy;
 	CubicSplineCurve itsControlCurve;
