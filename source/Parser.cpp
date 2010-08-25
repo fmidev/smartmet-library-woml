@@ -1378,8 +1378,8 @@ parse_metobj_point_meteorological_symbol(xmlpp::TextReader & theReader)
 GeophysicalParameter
 parse_metobj_geophysical_parameter(xmlpp::TextReader & theReader)
 {
-  boost::optional<std::string> name;
-  boost::optional<int> number;
+  std::string param = "";
+  int number = -1;
 
   while(theReader.read())
 	{
@@ -1401,8 +1401,7 @@ parse_metobj_geophysical_parameter(xmlpp::TextReader & theReader)
 		  if(scheme == "fmi")
 			number = boost::lexical_cast<int>(value);
 		  else if(scheme == "wmo")
-			name = value;
-		  
+			param = value;
 		}
 	  else if(name == "metobj:GeophysicalParameter")
 		break;
@@ -1412,12 +1411,7 @@ parse_metobj_geophysical_parameter(xmlpp::TextReader & theReader)
 								 + "> in metobj:GeophysicalParameter");
 	}
 
-  if(number && name)
-	return GeophysicalParameter(*name,*number);
-  else if(!name)
-	throw std::runtime_error("Name missing from GeophysicalParameter");
-  else
-	return GeophysicalParameter(*name,-1);
+  return GeophysicalParameter(param,number);
 }
 
 // ----------------------------------------------------------------------
