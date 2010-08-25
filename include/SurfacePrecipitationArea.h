@@ -34,6 +34,7 @@ namespace woml
 	void innerArea(SurfacePrecipitationArea * theArea);
 
 	const CubicSplineSurface & controlSurface() const;
+	RainPhase rainPhase() const;
 
   private:
 	Envelope itsBoundedBy;

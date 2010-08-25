@@ -123,5 +123,16 @@ void SurfacePrecipitationArea::innerArea(SurfacePrecipitationArea * theArea)
   itsInnerArea.push_back(theArea);
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Get precipitation phase
+ */
+// ----------------------------------------------------------------------
+
+RainPhase SurfacePrecipitationArea::rainPhase() const
+{
+  return itsRainPhase;
+}
+
 
 } // namespace woml
