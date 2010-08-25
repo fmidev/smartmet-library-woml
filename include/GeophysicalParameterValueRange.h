@@ -18,6 +18,10 @@ namespace woml
 								   double theLowerLimit,
 								   double theUpperLimit);
 
+	const GeophysicalParameter & parameter() const { return itsParameter; }
+	double lowerLimit() const { return itsLowerLimit; }
+	double upperLimit() const { return itsUpperLimit; }
+
   private:
 	GeophysicalParameterValueRange();
 

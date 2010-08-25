@@ -17,6 +17,9 @@ namespace woml
 	GeophysicalParameterValue(const GeophysicalParameter & theParam,
 							  double theValue);
 
+	const GeophysicalParameter & parameter() const { return itsParameter; }
+	double value() const { return itsValue; }
+
   private:
 
 	GeophysicalParameterValue();

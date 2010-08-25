@@ -11,16 +11,30 @@
 #ifndef WOML_GEOPHYSICALPARAMETER_H
 #define WOML_GEOPHYSICALPARAMETER_H
 
+#include <string>
+
 namespace woml
 {
   class GeophysicalParameter
   {
   public:
-	GeophysicalParameter(int theNumber) : itsNumber(theNumber) {}
-	GeophysicalParameter() : itsNumber(-1) {}
+	GeophysicalParameter(const std::string & theName,
+						 int theNumber
+						 )
+	  : itsName(theName)
+	  , itsNumber(theNumber)
+	{}
+
+	GeophysicalParameter()
+	  : itsName("")
+	  , itsNumber(-1)
+	{}
+
+	const std::string & name() const { return itsName; }
 	int number() const { return itsNumber; }
 
   private:
+	std::string itsName;
 	int itsNumber;
 
   }; // class GeophysicalParameter

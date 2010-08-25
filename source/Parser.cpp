@@ -1378,7 +1378,8 @@ parse_metobj_point_meteorological_symbol(xmlpp::TextReader & theReader)
 GeophysicalParameter
 parse_metobj_geophysical_parameter(xmlpp::TextReader & theReader)
 {
-  boost::optional<GeophysicalParameter> param;
+  boost::optional<std::string> name;
+  boost::optional<int> number;
 
   while(theReader.read())
 	{
@@ -1396,8 +1397,11 @@ parse_metobj_geophysical_parameter(xmlpp::TextReader & theReader)
 		{
 		  std::string scheme = theReader.get_attribute("scheme");
 		  std::string value = read_text_value(theReader);
+
 		  if(scheme == "fmi")
-			param = GeophysicalParameter(boost::lexical_cast<int>(value));
+			number = boost::lexical_cast<int>(value);
+		  else if(scheme == "wmo")
+			name = value;
 		  
 		}
 	  else if(name == "metobj:GeophysicalParameter")
@@ -1407,8 +1411,13 @@ parse_metobj_geophysical_parameter(xmlpp::TextReader & theReader)
 								 + name
 								 + "> in metobj:GeophysicalParameter");
 	}
-  return *param;
 
+  if(number && name)
+	return GeophysicalParameter(*name,*number);
+  else if(!name)
+	throw std::runtime_error("Name missing from GeophysicalParameter");
+  else
+	return GeophysicalParameter(*name,-1);
 }
 
 // ----------------------------------------------------------------------
@@ -1420,7 +1429,7 @@ parse_metobj_geophysical_parameter(xmlpp::TextReader & theReader)
 GeophysicalParameter
 parse_metobj_parameter(xmlpp::TextReader & theReader)
 {
-  boost::optional<GeophysicalParameter> param;
+  GeophysicalParameter param;
 
   while(theReader.read())
 	{
@@ -1439,7 +1448,7 @@ parse_metobj_parameter(xmlpp::TextReader & theReader)
 								 + name
 								 + "> in metobj:parameter");
 	}
-  return *param;
+  return param;
 }
 
 
