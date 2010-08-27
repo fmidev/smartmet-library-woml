@@ -7,6 +7,7 @@
 #ifndef WOML_WEATHER_FORECAST_H
 #define WOML_WEATHER_FORECAST_H
 
+#include "DataSource.h"
 #include "Feature.h"
 #include "Point.h"
 #include "SharedConnectionPoints.h"
@@ -30,6 +31,9 @@ namespace woml
 	void analysisTime(const boost::posix_time::ptime & theTime);
 	void forecastTime(const boost::posix_time::ptime & theTime);
 
+	void dataSource(const DataSource & theSource);
+	const DataSource & dataSource() const;
+
 	typedef boost::ptr_list<Feature>::const_iterator const_iterator;
 	const_iterator begin() const;
 	const_iterator end() const;
@@ -40,8 +44,10 @@ namespace woml
 	boost::posix_time::time_period itsValidTime;
 	boost::posix_time::ptime itsCreationTime;
 	boost::posix_time::ptime itsLatestModificationTime;
-	SharedConnectionPoints itsSharedConnectionPoints;
 	boost::posix_time::ptime itsAnalysisTime;
+
+	DataSource itsDataSource;
+	SharedConnectionPoints itsSharedConnectionPoints;
 
 	// This part is different from MeteorologicalAnalysis
 	boost::posix_time::ptime itsForecastTime;

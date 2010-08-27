@@ -145,5 +145,26 @@ WeatherForecast::end() const
   return itsFeatureMembers.end();
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the data source
+ */
+// ----------------------------------------------------------------------
+
+void WeatherForecast::dataSource(const DataSource & theSource)
+{
+  itsDataSource = theSource;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Get the data source
+ */
+// ----------------------------------------------------------------------
+
+const DataSource & WeatherForecast::dataSource() const
+{
+  return itsDataSource;
+}
 
 } // namespace woml

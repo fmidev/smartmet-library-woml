@@ -7,11 +7,13 @@
 #include "Parser.h"
 #include "CloudAreaBorder.h"
 #include "ColdFront.h"
+#include "DataSource.h"
 #include "FontSymbol.h"
 #include "GeophysicalParameterValueSet.h"
 #include "GraphicSymbol.h"
 #include "Jet.h"
 #include "MeteorologicalAnalysis.h"
+#include "NumericalModelRun.h"
 #include "OccludedFront.h"
 #include "PointGeophysicalParameterValueSet.h"
 #include "PointMeteorologicalSymbol.h"
@@ -25,10 +27,11 @@
 
 #include <smartmet/macgyver/TimeParser.h>
 
+#include <boost/algorithm/string.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/algorithm/string.hpp>
-#include <boost/filesystem.hpp>
 
 #include <libxml++/libxml++.h>
 #include <libxml++/parsers/textreader.h>
@@ -1056,9 +1059,217 @@ parse_metobj_abstract_line(xmlpp::TextReader & theReader,
   return line;
 }
 
-  
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:NumericalWeatherModel
+ */
+// ----------------------------------------------------------------------
 
+std::string
+parse_metobj_numerical_weather_model(xmlpp::TextReader & theReader)
+{
+  std::string model;
 
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:model")
+		model = read_text_value(theReader);
+	  else if(name == "metobj:specifier")
+		theReader.next();
+	  else if(name == "metobj:NumericalWeatherModel")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:NumericalWeatherModel");
+	}
+
+  return model;
+
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:model
+ */
+// ----------------------------------------------------------------------
+
+std::string
+parse_metobj_model(xmlpp::TextReader & theReader)
+{
+  std::string model;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:NumericalWeatherModel")
+		model = parse_metobj_numerical_weather_model(theReader);
+	  else if(name == "metobj:model")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:model");
+	}
+
+  return model;
+
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:NumericalModelRun
+ */
+// ----------------------------------------------------------------------
+
+NumericalModelRun
+parse_metobj_Numerical_model_run(xmlpp::TextReader & theReader)
+{
+  std::string model;
+  boost::optional<boost::posix_time::ptime> origintime;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:model")
+		model = parse_metobj_model(theReader);
+	  else if(name == "metobj:originTime")
+		origintime = read_text_time(theReader);
+	  else if(name == "metobj:NumericalModelRun")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:NumericalModelRun");
+	}
+  if(!origintime)
+	throw std::runtime_error("No origintime specified for NumericalModelRun");
+
+  return NumericalModelRun(model,*origintime);
+
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:numericalModelRun
+ */
+// ----------------------------------------------------------------------
+
+NumericalModelRun
+parse_metobj_numerical_model_run(xmlpp::TextReader & theReader)
+{
+  boost::optional<NumericalModelRun> model;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:NumericalModelRun")
+		model = parse_metobj_Numerical_model_run(theReader);
+	  else if(name == "metobj:numericalModelRun")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:numericalModelRun");
+	}
+  if(!model)
+	throw std::runtime_error("No model specified for numericalModelRun");
+
+  return *model;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:DataSource
+ */
+// ----------------------------------------------------------------------
+
+DataSource
+parse_metobj_data_source(xmlpp::TextReader & theReader)
+{
+  DataSource source;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:numericalModelRun")
+		source.numericalModelRun(parse_metobj_numerical_model_run(theReader));
+	  else if(name == "metobj:observationsCollectedUntil")
+		theReader.next();
+	  else if(name == "metobj:meteorologicalAnalysis")
+		theReader.next();
+	  else if(name == "metobj:weatherForecast")
+		theReader.next();
+	  else if(name == "metobj:satelliteImage")
+		theReader.next();
+	  else if(name == "metobj:radarImage")
+		theReader.next();
+	  else if(name == "metobj:DataSource")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:DataSource");
+	}
+
+  return source;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse metobj:usedReferenceData
+ */
+// ----------------------------------------------------------------------
+
+DataSource parse_metobj_used_reference_data(xmlpp::TextReader & theReader)
+{
+  DataSource source;
+
+  while(theReader.read())
+	{
+	  std::string name = theReader.get_name();
+
+	  if(name == "#text")
+		require_whitespace(theReader);
+	  else if(name == "#comment")
+		theReader.next();
+	  else if(name == "metobj:DataSource")
+		source = parse_metobj_data_source(theReader);
+	  else if(name == "metobj:usedReferenceData")
+		break;
+	  else
+		throw std::runtime_error("Unexpected tag <"
+								 + name
+								 + "> in metobj:usedReferenceData");
+	}
+  return source;
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -1915,7 +2126,7 @@ parse_metobj_meteorological_analysis(xmlpp::TextReader & theReader)
 	  else if(name == "metobj:targetRegion")
 		theReader.next();
 	  else if(name == "metobj:usedReferenceData")
-		theReader.next();
+		analysis->dataSource(parse_metobj_used_reference_data(theReader));
 	  else if(name == "metobj:MeteorologicalAnalysis")
 		break;
 	  else
@@ -1963,6 +2174,8 @@ parse_metobj_weather_forecast(xmlpp::TextReader & theReader)
 		forecast->latestModificationTime(read_text_time(theReader));
 	  else if(name == "metobj:sharedConnectionPoints")
 		forecast->addConnectionPoints(parse_metobj_shared_connection_points(theReader));
+	  else if(name == "metobj:usedReferenceData")
+		forecast->dataSource(parse_metobj_used_reference_data(theReader));
 	  else if(name == "metobj:shortInfo")
 		theReader.next();
 	  else if(name == "metobj:longInfo")

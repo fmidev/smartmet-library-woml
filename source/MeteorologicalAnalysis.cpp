@@ -132,5 +132,26 @@ MeteorologicalAnalysis::end() const
   return itsFeatureMembers.end();
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the data source
+ */
+// ----------------------------------------------------------------------
+
+void MeteorologicalAnalysis::dataSource(const DataSource & theSource)
+{
+  itsDataSource = theSource;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Get the data source
+ */
+// ----------------------------------------------------------------------
+
+const DataSource & MeteorologicalAnalysis::dataSource() const
+{
+  return itsDataSource;
+}
 
 } // namespace woml
