@@ -232,6 +232,25 @@ parse_gml_valid_time(xmlpp::TextReader & theReader)
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Parse gml:validTime expecting time instant only!
+ */
+// ----------------------------------------------------------------------
+
+boost::posix_time::ptime
+parse_gml_valid_time_instant(xmlpp::TextReader & theReader)
+{
+  boost::posix_time::time_period p = parse_gml_valid_time(theReader);
+
+  if(!p.is_null())
+	{
+	  throw std::runtime_error("Meteorological features should not have time periods but time instants");
+	}
+
+  return p.begin();
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Parse metobj:shortInfo
  */
 // ----------------------------------------------------------------------
@@ -1031,7 +1050,7 @@ parse_metobj_abstract_line(xmlpp::TextReader & theReader,
 	  else if(name == "gml:boundedBy")
 		line->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		line->validTime(parse_gml_valid_time(theReader));
+		line->validTime(parse_gml_valid_time_instant(theReader));
 	  else if(name == "metobj:creationTime")
 		read_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")
@@ -1358,7 +1377,7 @@ parse_metobj_occluded_front(xmlpp::TextReader & theReader)
 	  else if(name == "gml:boundedBy")
 		front->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		front->validTime(parse_gml_valid_time(theReader));
+		front->validTime(parse_gml_valid_time_instant(theReader));
 	  else if(name == "metobj:creationTime")
 		read_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")
@@ -1444,7 +1463,7 @@ parse_metobj_surface_precipitation_area(xmlpp::TextReader & theReader)
 	  else if(name == "gml:boundedBy")
 		area->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		area->validTime(parse_gml_valid_time(theReader));
+		area->validTime(parse_gml_valid_time_instant(theReader));
 	  else if(name == "metobj:creationTime")
 		read_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")
@@ -1503,7 +1522,7 @@ parse_metobj_jet(xmlpp::TextReader & theReader)
 	  else if(name == "gml:boundedBy")
 		jet->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		jet->validTime(parse_gml_valid_time(theReader));
+		jet->validTime(parse_gml_valid_time_instant(theReader));
 	  else if(name == "metobj:creationTime")
 		read_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")
@@ -1555,7 +1574,7 @@ parse_metobj_point_meteorological_symbol(xmlpp::TextReader & theReader)
 	  else if(name == "gml:boundedBy")
 		symbol->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		symbol->validTime(parse_gml_valid_time(theReader));
+		symbol->validTime(parse_gml_valid_time_instant(theReader));
 	  else if(name == "metobj:creationTime")
 		read_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")
@@ -1890,7 +1909,7 @@ parse_metobj_point_geophysical_parameter_value_set(xmlpp::TextReader & theReader
 	  else if(name == "gml:boundedBy")
 		param->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		param->validTime(parse_gml_valid_time(theReader));
+		param->validTime(parse_gml_valid_time_instant(theReader));
 	  else if(name == "metobj:creationTime")
 		read_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")
@@ -1939,7 +1958,7 @@ parse_metobj_point_note(xmlpp::TextReader & theReader)
 	  else if(name == "gml:boundedBy")
 		note->envelope(parse_gml_bounded_by(theReader));
 	  else if(name == "gml:validTime")
-		note->validTime(parse_gml_valid_time(theReader));
+		note->validTime(parse_gml_valid_time_instant(theReader));
 	  else if(name == "metobj:creationTime")
 		read_text_time(theReader);
 	  else if(name == "metobj:latestModificationTime")

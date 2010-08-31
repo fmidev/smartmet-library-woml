@@ -16,8 +16,7 @@ namespace woml
 // ----------------------------------------------------------------------
 
 Feature::Feature()
-  : itsValidTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time),
-				 boost::posix_time::ptime(boost::posix_time::not_a_date_time))
+  : itsValidTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time))
 {
 }
 
@@ -27,7 +26,7 @@ Feature::Feature()
  */
 // ----------------------------------------------------------------------
 
-void Feature::validTime(const boost::posix_time::time_period & theTime)
+void Feature::validTime(const boost::posix_time::ptime & theTime)
 {
   itsValidTime = theTime;
 }
@@ -38,7 +37,7 @@ void Feature::validTime(const boost::posix_time::time_period & theTime)
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::time_period & Feature::validTime() const
+const boost::posix_time::ptime & Feature::validTime() const
 {
   return itsValidTime;
 }

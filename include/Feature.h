@@ -20,12 +20,12 @@ namespace woml
 	virtual ~Feature() {}
 	Feature();
 	virtual void visit(FeatureVisitor & theVisitor) const = 0;
-	void validTime(const boost::posix_time::time_period & theTime);
-	const boost::posix_time::time_period & validTime() const;
+	void validTime(const boost::posix_time::ptime & theTime);
+	const boost::posix_time::ptime & validTime() const;
 
   private:
 
-	boost::posix_time::time_period itsValidTime;
+	boost::posix_time::ptime itsValidTime;
 
   }; // class Feature
 
