@@ -2222,9 +2222,9 @@ Weather
 parse(const boost::filesystem::path & thePath)
 {
   if(!boost::filesystem::exists(thePath))
-	throw std::runtime_error("The file '"+thePath.file_string()+"' does not exist");
+	throw std::runtime_error("The file '"+thePath.string()+"' does not exist");
 
-  xmlpp::TextReader reader(thePath.file_string());
+  xmlpp::TextReader reader(thePath.string());
 
   Weather weather;
 
@@ -2239,13 +2239,13 @@ parse(const boost::filesystem::path & thePath)
 	  if(name == "metobj:WeatherForecast")
 		{
 		  if(!weather.empty())
-			throw std::runtime_error("Multiple meteorological objects in " + thePath.file_string());
+			throw std::runtime_error("Multiple meteorological objects in " + thePath.string());
 		  weather.forecast(parse_metobj_weather_forecast(reader));
 		}
 	  else if(name == "metobj:MeteorologicalAnalysis")
 		{
 		  if(!weather.empty())
-			throw std::runtime_error("Multiple meteorological objects in " + thePath.file_string());
+			throw std::runtime_error("Multiple meteorological objects in " + thePath.string());
 		  weather.analysis(parse_metobj_meteorological_analysis(reader));
 		}
 	  else if(name == "#text")
@@ -2254,7 +2254,7 @@ parse(const boost::filesystem::path & thePath)
 		throw std::runtime_error("Unexpected tag <"
 								 + name
 								 + "> at top level of "
-								 + thePath.file_string());
+								 + thePath.string());
 
 	}
 
