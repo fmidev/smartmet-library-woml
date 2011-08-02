@@ -30,7 +30,7 @@ endif
 CC = g++
 CFLAGS = -DUNIX -O0 -g $(MAINFLAGS)
 
-INCLUDES = -I../include \
+INCLUDES = -I../include -I/usr/include/smartmet \
 	`pkg-config --cflags libxml++-2.6`
 
 LIBS = -L.. -lsmartmet_woml \
