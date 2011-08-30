@@ -1686,7 +1686,7 @@ GeophysicalParameterValue
 parse_metobj_geophysical_parameter_value(xmlpp::TextReader & theReader)
 {
   GeophysicalParameter param;
-  double value;
+  double value = 0.0;
 
   while(theReader.read())
 	{
