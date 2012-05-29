@@ -17,22 +17,13 @@ namespace woml
 // ----------------------------------------------------------------------
 
 SurfacePrecipitationArea::SurfacePrecipitationArea()
-  : itsBoundedBy()
-  , itsControlSurface()
+  : AbstractSurfaceObject()
   , itsRainPhase(unknown)
-  , itsContinuity(0.0)
+  , itsRainPhaseName("")
+  , itsContinuity()
+  , itsShoweriness()
+  , itsApproximateRainFall()
 {
-}
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Return the control surface
- */
-// ----------------------------------------------------------------------
-
-const CubicSplineSurface & SurfacePrecipitationArea::controlSurface() const
-{
-  return itsControlSurface;
 }
 
 // ----------------------------------------------------------------------
@@ -48,35 +39,14 @@ void SurfacePrecipitationArea::visit(FeatureVisitor & theVisitor) const
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the envelope
- */
-// ----------------------------------------------------------------------
-
-void SurfacePrecipitationArea::envelope(const Envelope & theEnvelope)
-{
-  itsBoundedBy = theEnvelope;
-}
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Set the control curve
- */
-// ----------------------------------------------------------------------
-
-void SurfacePrecipitationArea::controlSurface(const CubicSplineSurface & theControlSurface)
-{
-  itsControlSurface = theControlSurface;
-}
-
-// ----------------------------------------------------------------------
-/*!
  * \brief Set the rain phase
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::rainPhase(RainPhase thePhase)
+void SurfacePrecipitationArea::rainPhase(RainPhase thePhase,const std::string & thePhaseName)
 {
   itsRainPhase = thePhase;
+  itsRainPhaseName = thePhaseName;
 }
 
 // ----------------------------------------------------------------------
@@ -85,7 +55,7 @@ void SurfacePrecipitationArea::rainPhase(RainPhase thePhase)
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::continuity(double thePercentage)
+void SurfacePrecipitationArea::continuity(boost::optional<double> thePercentage)
 {
   itsContinuity = thePercentage;
 }
@@ -96,7 +66,7 @@ void SurfacePrecipitationArea::continuity(double thePercentage)
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::showeriness(double thePercentage)
+void SurfacePrecipitationArea::showeriness(boost::optional<double> thePercentage)
 {
   itsShoweriness = thePercentage;
 }
@@ -107,7 +77,7 @@ void SurfacePrecipitationArea::showeriness(double thePercentage)
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::approximateRainFall(double theAmount)
+void SurfacePrecipitationArea::approximateRainFall(const boost::optional<NumericalSingleValueMeasure> & theAmount)
 {
   itsApproximateRainFall = theAmount;
 }
@@ -134,5 +104,15 @@ RainPhase SurfacePrecipitationArea::rainPhase() const
   return itsRainPhase;
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Get precipitation phase name
+ */
+// ----------------------------------------------------------------------
+
+const std::string & SurfacePrecipitationArea::rainPhaseName() const
+{
+  return itsRainPhaseName;
+}
 
 } // namespace woml

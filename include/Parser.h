@@ -9,6 +9,7 @@
 
 #include "Weather.h"
 #include <boost/filesystem/path.hpp>
+//#include <libxml++/parsers/textreader.h>
 
 namespace woml
 {

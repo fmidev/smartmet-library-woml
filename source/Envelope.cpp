@@ -18,8 +18,10 @@ namespace woml
 
 Envelope::Envelope()
   : itsBounded(false)
-  , itsLowerCorner(0,0)
-  , itsUpperCorner(0,0)
+  , itsPoint()
+  , itsRect()
+  , itsSrsName()
+  , itsSrsDimension()
 { }
 
 // ----------------------------------------------------------------------
@@ -28,11 +30,26 @@ Envelope::Envelope()
  */
 // ----------------------------------------------------------------------
 
-Envelope::Envelope(const Point & theLowerCorner,
-				   const Point & theUpperCorner)
-  : itsBounded(true)
-  , itsLowerCorner(theLowerCorner)
-  , itsUpperCorner(theUpperCorner)
+Envelope::Envelope(const boost::optional<Point> & thePoint,std::string theSrsName,std::string theSrsDimension)
+  : itsBounded(false)
+  , itsPoint(thePoint)
+  , itsRect()
+  , itsSrsName(theSrsName)
+  , itsSrsDimension(theSrsDimension)
+{ }
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Constructor
+ */
+// ----------------------------------------------------------------------
+
+Envelope::Envelope(const boost::optional<Rect> & theRect,std::string theSrsName,std::string theSrsDimension)
+  : itsBounded(theRect ? true : false)
+  , itsPoint()
+  , itsRect(theRect)
+  , itsSrsName(theSrsName)
+  , itsSrsDimension(theSrsDimension)
 { }
 
 // ----------------------------------------------------------------------
@@ -48,27 +65,45 @@ bool Envelope::bounded() const
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Lower corner accessor18
-
+ * \brief Point accessor
  */
 // ----------------------------------------------------------------------
 
-const Point & Envelope::lowerCorner() const
+const boost::optional<Point> & Envelope::point() const
 {
-  assert(itsBounded);
-  return itsLowerCorner;
+  return itsPoint;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief upper corner accessor
+ * \brief Lower corner accessor
  */
 // ----------------------------------------------------------------------
 
-const Point & Envelope::upperCorner() const
+const boost::optional<Point> Envelope::lowerCorner() const
 {
-  assert(itsBounded);
-  return itsUpperCorner;
+  boost::optional<Point> lc;
+
+  if (itsRect)
+	  lc = itsRect->lowerCorner();
+
+  return lc;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Upper corner accessor
+ */
+// ----------------------------------------------------------------------
+
+const boost::optional<Point> Envelope::upperCorner() const
+{
+  boost::optional<Point> uc;
+
+  if (itsRect)
+	  uc = itsRect->upperCorner();
+
+  return uc;
 }
 
 } // namespace woml

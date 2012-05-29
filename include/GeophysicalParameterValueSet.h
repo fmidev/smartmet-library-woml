@@ -8,30 +8,28 @@
 #define WOML_GEOPHYSICALPARAMETERVALUESET_H
 
 #include "GeophysicalParameterValue.h"
-#include "GeophysicalParameterValueRange.h"
+#include "Elevation.h"
 #include <list>
 
 namespace woml
 {
   typedef std::list<GeophysicalParameterValue> GeophysicalParameterValueList;
-  typedef std::list<GeophysicalParameterValueRange> GeophysicalParameterValueRangeList;
 
   class GeophysicalParameterValueSet
   {
   public:
 	GeophysicalParameterValueSet();
-	void elevation(double theElevation);
-	void add(const GeophysicalParameterValue & theSingleValue);
-	void add(const GeophysicalParameterValueRange & theValueRange);
 
+	void elevation(const boost::optional<Elevation> & theElevation);
+	const boost::optional<Elevation> & elevation() const;
+
+	void add(const GeophysicalParameterValue & theValue);
 	const GeophysicalParameterValueList & values() const;
-	const GeophysicalParameterValueRangeList & ranges() const;
 
   private:
 
-	double itsElevation;
-	GeophysicalParameterValueList itsSingleValues;
-	GeophysicalParameterValueRangeList itsValueRanges;
+	boost::optional<Elevation> itsElevation;
+	GeophysicalParameterValueList itsValues;
 
   }; // class GeophysicalParameterValueSet
 

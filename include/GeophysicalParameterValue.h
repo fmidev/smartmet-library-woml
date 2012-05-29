@@ -8,6 +8,9 @@
 #define WOML_GEOPHYSICALPARAMETERVALUE_H
 
 #include "GeophysicalParameter.h"
+#include "MeasureValue.h"
+#include "Elevation.h"
+#include <boost/shared_ptr.hpp>
 
 namespace woml
 {
@@ -15,16 +18,19 @@ namespace woml
   {
   public:
 	GeophysicalParameterValue(const GeophysicalParameter & theParam,
-							  double theValue);
+							  const MeasureValue * theValue,
+							  const Elevation & theElevation);
 
 	const GeophysicalParameter & parameter() const { return itsParameter; }
-	double value() const { return itsValue; }
+	const MeasureValue * value() const { return itsValue.get(); }
+	const Elevation & elevation() const { return itsElevation; }
 
   private:
-
 	GeophysicalParameterValue();
-	GeophysicalParameter itsParameter;
-	double itsValue;
+
+	const GeophysicalParameter itsParameter;
+	const boost::shared_ptr<const MeasureValue> itsValue;
+	const Elevation itsElevation;
 	
   }; // class GeophysicalParamterValue
 

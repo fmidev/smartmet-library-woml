@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "OccludedFront.h"
-#include "FeatureVisitor.h"
 
 namespace woml
 {
@@ -23,58 +22,24 @@ void OccludedFront::visit(FeatureVisitor & theVisitor) const
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the envelope
+ * \brief Set the stationary
  */
 // ----------------------------------------------------------------------
 
-void OccludedFront::envelope(const Envelope & theEnvelope)
+void OccludedFront::stationary(bool theStationary)
 {
-  itsBoundedBy = theEnvelope;
+  itsStationary = theStationary;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the control curve
+ * \brief Return the stationary
  */
 // ----------------------------------------------------------------------
 
-void OccludedFront::controlCurve(const CubicSplineCurve & theControlCurve)
+bool OccludedFront::stationary() const
 {
-  itsControlCurve = theControlCurve;
+  return itsStationary;
 }
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Connect the start point
- */
-// ----------------------------------------------------------------------
-
-void OccludedFront::connectStartPoint(const std::string & theName)
-{
-  itsStartPointConnectsTo = theName;
-}
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Connect the end point
- */
-// ----------------------------------------------------------------------
-
-void OccludedFront::connectEndPoint(const std::string & theName)
-{
-  itsEndPointConnectsTo = theName;
-}
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Return the control curve
- */
-// ----------------------------------------------------------------------
-
-const CubicSplineCurve & OccludedFront::controlCurve() const
-{
-  return itsControlCurve;
-}
-
 
 } // namespace woml

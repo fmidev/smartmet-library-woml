@@ -17,9 +17,8 @@ namespace woml
 // ----------------------------------------------------------------------
 
 GeophysicalParameterValueSet::GeophysicalParameterValueSet()
-  : itsElevation(0)
-  , itsSingleValues()
-  , itsValueRanges()
+  : itsElevation()
+  , itsValues()
 {
 }
 
@@ -30,9 +29,20 @@ GeophysicalParameterValueSet::GeophysicalParameterValueSet()
 // ----------------------------------------------------------------------
 
 void
-GeophysicalParameterValueSet::elevation(double theElevation)
+GeophysicalParameterValueSet::elevation(const boost::optional<Elevation> & theElevation)
 {
   itsElevation = theElevation;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the elevation
+ */
+// ----------------------------------------------------------------------
+
+const boost::optional<Elevation> & GeophysicalParameterValueSet::elevation() const
+{
+  return itsElevation;
 }
 
 // ----------------------------------------------------------------------
@@ -44,19 +54,7 @@ GeophysicalParameterValueSet::elevation(double theElevation)
 void
 GeophysicalParameterValueSet::add(const GeophysicalParameterValue & theValue)
 {
-  itsSingleValues.push_back(theValue);
-}
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Add a parameter range
- */
-// ----------------------------------------------------------------------
-
-void
-GeophysicalParameterValueSet::add(const GeophysicalParameterValueRange & theRange)
-{
-  itsValueRanges.push_back(theRange);
+  itsValues.push_back(theValue);
 }
 
 // ----------------------------------------------------------------------
@@ -68,21 +66,7 @@ GeophysicalParameterValueSet::add(const GeophysicalParameterValueRange & theRang
 const GeophysicalParameterValueList &
 GeophysicalParameterValueSet::values() const
 {
-  return itsSingleValues;
+  return itsValues;
 }
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Return the ranges
- */
-// ----------------------------------------------------------------------
-
-const GeophysicalParameterValueRangeList &
-GeophysicalParameterValueSet::ranges() const
-{
-  return itsValueRanges;
-}
-
-
 
 } // namespace woml

@@ -16,6 +16,8 @@ namespace woml
   {
   public:
 	void add(const SimpleCubicSpline & theSpline);
+	void lineString(const SimpleCubicSpline & theLineStringPoints);
+	const SimpleCubicSpline & lineString() const;
 
 	typedef std::list<SimpleCubicSpline>::const_iterator const_iterator;
 	const_iterator begin() const;
@@ -23,6 +25,7 @@ namespace woml
 
   private:
 	std::list<SimpleCubicSpline> itsCubicSplineSegments;
+	SimpleCubicSpline itsLineStringPoints;
 
   }; // class CubicSplineCurve
 } // namespace woml

@@ -16,7 +16,7 @@ namespace woml
   {
   public:
 
-	void numericalModelRun(const NumericalModelRun & theRun)
+	void numericalModelRun(const boost::optional<NumericalModelRun> & theRun)
 	{ itsNumericalModelRun = theRun; }
 
 	const boost::optional<NumericalModelRun> & numericalModelRun() const

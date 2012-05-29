@@ -35,9 +35,11 @@ INCLUDES = -I../include -I/usr/include/smartmet \
 
 LIBS = -L.. -lsmartmet_woml \
 	-lsmartmet_macgyver \
-	`pkg-config --libs libxml++-2.6` \
 	-lboost_filesystem \
-	-lboost_system
+	-lboost_system \
+	-lxerces-c-3.1 \
+ 	-lxqilla-6.0 \
+	-lboost_date_time
 
 all: $(PROG)
 clean:
