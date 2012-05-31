@@ -37,8 +37,8 @@ LIBS = -L.. -lsmartmet_woml \
 	-lsmartmet_macgyver \
 	-lboost_filesystem \
 	-lboost_system \
-	-lxerces-c-3.1 \
- 	-lxqilla-6.0 \
+	-lxerces-c-3.0 \
+ 	-lxqilla \
 	-lboost_date_time
 
 all: $(PROG)
