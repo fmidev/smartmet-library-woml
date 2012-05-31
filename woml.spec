@@ -11,6 +11,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: boost-devel >= 1.47
 BuildRequires: libsmartmet-macgyver >= 11.4.19-1
 BuildRequires: libxml++-devel >= 2.20.0-1
+BuildRequires: libsmartmet-regression >= 11.6.15-1
 Provides: %{LIBNAME}
 
 %description
