@@ -12,6 +12,9 @@ BuildRequires: boost-devel >= 1.47
 BuildRequires: libsmartmet-macgyver >= 11.4.19-1
 BuildRequires: libxml++-devel >= 2.20.0-1
 BuildRequires: libsmartmet-regression >= 11.6.15-1
+Requires: xqilla >= 2.2.3-8
+Requires: xerces-c >= 3.0.1-20
+Requires: cairo >= 1.8.8-3.1
 Provides: %{LIBNAME}
 
 %description
