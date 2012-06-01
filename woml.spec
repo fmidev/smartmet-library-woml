@@ -1,14 +1,14 @@
 %define LIBNAME woml
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
-Version: 11.8.3
-Release: 1.el5.fmi
+Version: 12.6.1
+Release: 1.el6.fmi
 License: FMI
 Group: Development/Libraries
 URL: http://www.weatherproof.fi
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: boost-devel >= 1.47
+BuildRequires: boost-devel >= 1.49
 BuildRequires: libsmartmet-macgyver >= 11.4.19-1
 BuildRequires: libxml++-devel >= 2.20.0-1
 BuildRequires: libsmartmet-regression >= 11.6.15-1
