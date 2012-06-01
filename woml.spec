@@ -42,6 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Fri Jun  1 2012 Mikko Visa <mikko.visa@fmi.fi> - 12.6.1-1.el6.fmi
+- First version supporting WOML schema instead of metobjects schema.
 * Wed Aug  3 2011 Mika Heiskanen <mika.heiskanen@fmi.fi> - 11.8.3-1.el5.fmi
 - Upgraded to boost 1.47
 * Tue Aug  2 2011 Mika Heiskanen <mika.heiskanen@fmi.fi> - 11.8.2-1.el5.fmi
