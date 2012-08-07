@@ -2,7 +2,7 @@
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
 Version: 11.8.3
-Release: 1.el5.fmi
+Release: 1.el6.fmi
 License: FMI
 Group: Development/Libraries
 URL: http://www.weatherproof.fi
