@@ -1,11 +1,10 @@
 // ======================================================================
 /*!
- * \brief class woml::PointGeophysicalParameterValueSet
+ * \brief class woml::AbstractSurfaceObject
  */
 // ======================================================================
 
-#include "PointGeophysicalParameterValueSet.h"
-#include "GeophysicalParameterValueSet.h"
+#include "AbstractSurfaceObject.h"
 #include "FeatureVisitor.h"
 
 namespace woml
@@ -13,28 +12,16 @@ namespace woml
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Constructor
+ * \brief Default constructor
  */
 // ----------------------------------------------------------------------
 
-PointGeophysicalParameterValueSet::PointGeophysicalParameterValueSet()
+AbstractSurfaceObject::AbstractSurfaceObject()
   : itsBoundedBy()
-  , itsPoint(0,0)
-  , itsPriority(0)
-  , itsParameterValueSet()
+  , itsElevation()
+  , itsControlSurface()
+  , itsTargetRegions()
 { }
-
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Visit handler
- */
-// ----------------------------------------------------------------------
-
-void PointGeophysicalParameterValueSet::visit(FeatureVisitor & theVisitor) const
-{
-  theVisitor.visit(*this);
-}
 
 // ----------------------------------------------------------------------
 /*!
@@ -42,65 +29,78 @@ void PointGeophysicalParameterValueSet::visit(FeatureVisitor & theVisitor) const
  */
 // ----------------------------------------------------------------------
 
-void PointGeophysicalParameterValueSet::envelope(const Envelope & theEnvelope)
+void AbstractSurfaceObject::envelope(const boost::optional<Envelope> & theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the coordinate for the symbol
+ * \brief Set the elevation
  */
 // ----------------------------------------------------------------------
 
-void PointGeophysicalParameterValueSet::point(const Point & thePoint)
+void AbstractSurfaceObject::elevation(const boost::optional<Elevation> & theElevation)
 {
-  itsPoint = thePoint;
+  itsElevation = theElevation;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the priority
+ * \brief Set the control surface
  */
 // ----------------------------------------------------------------------
 
-void PointGeophysicalParameterValueSet::priority(int thePriority)
+void AbstractSurfaceObject::controlSurface(const CubicSplineSurface & theControlSurface)
 {
-  itsPriority = thePriority;
+  itsControlSurface = theControlSurface;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the symbol
+ * \brief Return the control surface
  */
 // ----------------------------------------------------------------------
 
-void PointGeophysicalParameterValueSet::param(GeophysicalParameterValueSet * theParameterValueSet)
+const CubicSplineSurface & AbstractSurfaceObject::controlSurface() const
 {
-  itsParameterValueSet.reset(theParameterValueSet);
+  return itsControlSurface;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Return the coordinate
+ * \brief Add a target region
  */
 // ----------------------------------------------------------------------
 
-const Point & PointGeophysicalParameterValueSet::point() const
+void AbstractSurfaceObject::addTargetRegion(const TargetRegion & theTargetRegion)
 {
-  return itsPoint;
+	if (theTargetRegion.RegionIds_begin() != theTargetRegion.RegionIds_end())
+		itsTargetRegions.push_back(theTargetRegion);
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Return the parameter values
+ * \brief Iterator over the target regions
  */
 // ----------------------------------------------------------------------
 
-boost::shared_ptr<GeophysicalParameterValueSet>
-PointGeophysicalParameterValueSet::parameters() const
+AbstractSurfaceObject::TargetRegions_const_iterator
+AbstractSurfaceObject::TargetRegions_begin() const
 {
-  return itsParameterValueSet;
+  return itsTargetRegions.begin();
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief End iterator over the target regions
+ */
+// ----------------------------------------------------------------------
+
+AbstractSurfaceObject::TargetRegions_const_iterator
+AbstractSurfaceObject::TargetRegions_end() const
+{
+  return itsTargetRegions.end();
 }
 
 } // namespace woml

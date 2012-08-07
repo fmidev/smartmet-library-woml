@@ -1,10 +1,11 @@
 // ======================================================================
 /*!
- * \brief class woml::WarmFront
+ * \brief class woml::TimeGeophysicalParameterValueSet
  */
 // ======================================================================
 
-#include "WarmFront.h"
+#include "TimeGeophysicalParameterValueSet.h"
+#include "GeophysicalParameterValueSet.h"
 #include "FeatureVisitor.h"
 
 namespace woml
@@ -12,11 +13,25 @@ namespace woml
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Constructor
+ */
+// ----------------------------------------------------------------------
+
+TimeGeophysicalParameterValueSet::TimeGeophysicalParameterValueSet()
+  : itsBoundedBy()
+  , itsParameterValueSet()
+{
+  itsTimePeriod.b = itsTimePeriod.e = 0;
+}
+
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Visit handler
  */
 // ----------------------------------------------------------------------
 
-void WarmFront::visit(FeatureVisitor & theVisitor) const
+void TimeGeophysicalParameterValueSet::visit(FeatureVisitor & theVisitor) const
 {
   theVisitor.visit(*this);
 }
@@ -27,53 +42,54 @@ void WarmFront::visit(FeatureVisitor & theVisitor) const
  */
 // ----------------------------------------------------------------------
 
-void WarmFront::envelope(const Envelope & theEnvelope)
+void TimeGeophysicalParameterValueSet::envelope(const Envelope & theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the control curve
+ * \brief Set the time for the value
  */
 // ----------------------------------------------------------------------
 
-void WarmFront::controlCurve(const CubicSplineCurve & theControlCurve)
+void TimeGeophysicalParameterValueSet::timePeriod(const TimePeriod & theTimePeriod)
 {
-  itsControlCurve = theControlCurve;
+  itsTimePeriod = theTimePeriod;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Connect the start point
+ * \brief Set the parameter values
  */
 // ----------------------------------------------------------------------
 
-void WarmFront::connectStartPoint(const std::string & theName)
+void TimeGeophysicalParameterValueSet::param(GeophysicalParameterValueSet * theParameterValueSet)
 {
-  itsStartPointConnectsTo = theName;
+  itsParameterValueSet.reset(theParameterValueSet);
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Connect the end point
+ * \brief Return the time period
  */
 // ----------------------------------------------------------------------
 
-void WarmFront::connectEndPoint(const std::string & theName)
+const TimePeriod & TimeGeophysicalParameterValueSet::timePeriod() const
 {
-  itsEndPointConnectsTo = theName;
+  return itsTimePeriod;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Return the control curve
+ * \brief Return the parameter values
  */
 // ----------------------------------------------------------------------
 
-const CubicSplineCurve & WarmFront::controlCurve() const
+boost::shared_ptr<GeophysicalParameterValueSet>
+TimeGeophysicalParameterValueSet::parameters() const
 {
-  return itsControlCurve;
+  return itsParameterValueSet;
 }
 
 } // namespace woml

@@ -1,11 +1,12 @@
 // ======================================================================
 /*!
- * \brief woml::Envelope
+ * \brief woml::Elevation
  */
 // ======================================================================
 
-#include "Envelope.h"
+#include "Elevation.h"
 #include <cassert>
+#include <boost/optional.hpp>
 
 namespace woml
 {
@@ -16,12 +17,10 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-Envelope::Envelope()
+Elevation::Elevation()
   : itsBounded(false)
-  , itsPoint()
-  , itsRect()
-  , itsSrsName()
-  , itsSrsDimension()
+  , itsValue()
+  , itsRange()
 { }
 
 // ----------------------------------------------------------------------
@@ -30,12 +29,10 @@ Envelope::Envelope()
  */
 // ----------------------------------------------------------------------
 
-Envelope::Envelope(const boost::optional<Point> & thePoint,std::string theSrsName,std::string theSrsDimension)
+Elevation::Elevation(const boost::optional<NumericalSingleValueMeasure> & theValue)
   : itsBounded(false)
-  , itsPoint(thePoint)
-  , itsRect()
-  , itsSrsName(theSrsName)
-  , itsSrsDimension(theSrsDimension)
+  , itsValue(theValue)
+  , itsRange()
 { }
 
 // ----------------------------------------------------------------------
@@ -44,66 +41,67 @@ Envelope::Envelope(const boost::optional<Point> & thePoint,std::string theSrsNam
  */
 // ----------------------------------------------------------------------
 
-Envelope::Envelope(const boost::optional<Rect> & theRect,std::string theSrsName,std::string theSrsDimension)
-  : itsBounded(theRect ? true : false)
-  , itsPoint()
-  , itsRect(theRect)
-  , itsSrsName(theSrsName)
-  , itsSrsDimension(theSrsDimension)
+Elevation::Elevation(const boost::optional<NumericalValueRangeMeasure> & theRange)
+  : itsBounded(theRange ? true : false)
+  , itsValue()
+  , itsRange(theRange)
 { }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief True if envelope is bounded
+ * \brief True if elevation is bounded
  */
 //  ----------------------------------------------------------------------
 
-bool Envelope::bounded() const
+bool Elevation::bounded() const
 {
   return itsBounded;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Point accessor
+ * \brief Value accessor
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Point> & Envelope::point() const
+const boost::optional<NumericalSingleValueMeasure> & Elevation::value() const
 {
-  return itsPoint;
+  assert(itsValue);
+  return itsValue;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Lower corner accessor
+ * \brief Lower limit accessor
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Point> Envelope::lowerCorner() const
+const boost::optional<NumericalSingleValueMeasure> Elevation::lowerLimit() const
 {
-  boost::optional<Point> lc;
+  assert(itsBounded);
 
-  if (itsRect)
-	  lc = itsRect->lowerCorner();
+  boost::optional<NumericalSingleValueMeasure> limit;
+  if (itsRange)
+    limit = itsRange->lowerLimit();
 
-  return lc;
+  return limit;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Upper corner accessor
+ * \brief Upper limit accessor
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Point> Envelope::upperCorner() const
+const boost::optional<NumericalSingleValueMeasure> Elevation::upperLimit() const
 {
-  boost::optional<Point> uc;
+  assert(itsBounded);
 
-  if (itsRect)
-	  uc = itsRect->upperCorner();
+  boost::optional<NumericalSingleValueMeasure> limit;
+  if (itsRange)
+    limit = itsRange->upperLimit();
 
-  return uc;
+  return limit;
 }
 
 } // namespace woml

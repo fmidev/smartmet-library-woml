@@ -20,9 +20,13 @@ WeatherForecast::WeatherForecast()
   : itsFeatureMembers()
   , itsValidTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time),
 				 boost::posix_time::ptime(boost::posix_time::not_a_date_time))
+  , itsCreator()
   , itsCreationTime(boost::posix_time::not_a_date_time)
   , itsLatestModificationTime(boost::posix_time::not_a_date_time)
   , itsForecastTime(boost::posix_time::not_a_date_time)
+  , itsTargetRegions()
+//, itsShortInfos()
+//, itsLongInfos()
 {
 }
 
@@ -39,6 +43,16 @@ void WeatherForecast::addFeature(Feature * theFeature)
   itsFeatureMembers.push_back(theFeature);
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the envelope
+ */
+// ----------------------------------------------------------------------
+
+void WeatherForecast::envelope(const boost::optional<Envelope> & theEnvelope)
+{
+  itsBoundedBy = theEnvelope;
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -49,6 +63,17 @@ void WeatherForecast::addFeature(Feature * theFeature)
 void WeatherForecast::validTime(const boost::posix_time::time_period & thePeriod)
 {
   itsValidTime = thePeriod;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the creator
+ */
+// ----------------------------------------------------------------------
+
+void WeatherForecast::creator(const std::string & theCreator)
+{
+  itsCreator = theCreator;
 }
 
 // ----------------------------------------------------------------------
@@ -68,20 +93,9 @@ void WeatherForecast::creationTime(const boost::posix_time::ptime & theTime)
  */
 // ----------------------------------------------------------------------
 
-void WeatherForecast::latestModificationTime(const boost::posix_time::ptime & theTime)
+void WeatherForecast::latestModificationTime(const boost::optional<boost::posix_time::ptime> & theTime)
 {
   itsLatestModificationTime = theTime;
-}
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Set the analysis time
- */
-// ----------------------------------------------------------------------
-
-void WeatherForecast::analysisTime(const boost::posix_time::ptime & theTime)
-{
-  itsAnalysisTime = theTime;
 }
 
 // ----------------------------------------------------------------------
@@ -97,28 +111,98 @@ void WeatherForecast::forecastTime(const boost::posix_time::ptime & theTime)
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Add connection point
+ * \brief Add a target region
  */
 // ----------------------------------------------------------------------
 
-void WeatherForecast::addConnectionPoint(const std::string & theName,
-										 const Point & thePoint)
+void WeatherForecast::addTargetRegion(const TargetRegion & theTargetRegion)
 {
-  itsSharedConnectionPoints.insert(std::make_pair(theName,thePoint));
+	if (theTargetRegion.RegionIds_begin() != theTargetRegion.RegionIds_end())
+		itsTargetRegions.push_back(theTargetRegion);
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Add connection points
+ * \brief Iterator over the target regions
  */
 // ----------------------------------------------------------------------
 
-void WeatherForecast::addConnectionPoints(const std::map<std::string,Point> & thePoints)
+WeatherForecast::TargetRegions_const_iterator
+WeatherForecast::TargetRegions_begin() const
 {
-  BOOST_FOREACH(const SharedConnectionPoints::value_type & name_point, thePoints)
-	{
-	  addConnectionPoint(name_point.first, name_point.second);
-	}
+  return itsTargetRegions.begin();
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief End iterator over the target regions
+ */
+// ----------------------------------------------------------------------
+
+WeatherForecast::TargetRegions_const_iterator
+WeatherForecast::TargetRegions_end() const
+{
+  return itsTargetRegions.end();
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Add short info
+ */
+// ----------------------------------------------------------------------
+
+//void WeatherForecast::addShortInfo(const std::string & theLanguage,const std::string & theShortInfo)
+//{
+//	if ((theLanguage.length() > 0) && (theShortInfo.length() > 0))
+//		itsShortInfos.insert(std::make_pair(theLanguage,theShortInfo));
+//}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Add short infos
+ */
+// ----------------------------------------------------------------------
+
+void WeatherForecast::addShortInfos(const WeatherForecastInfo & theShortInfos)
+{
+	// shortInfos is stored as a feature
+
+//  BOOST_FOREACH(const WeatherForecastInfo::value_type & shortInfo, theShortInfos)
+//	{
+//	  addShortInfo(shortInfo.first, shortInfo.second);
+//	}
+
+	addFeature(new InfoText("shortInfo",theShortInfos));
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Add long info
+ */
+// ----------------------------------------------------------------------
+
+//void WeatherForecast::addLongInfo(const std::string & theLanguage,const std::string & theLongInfo)
+//{
+//	if ((theLanguage.length() > 0) && (theLongInfo.length() > 0))
+//		itsLongInfos.insert(std::make_pair(theLanguage,theLongInfo));
+//}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Add long info
+ */
+// ----------------------------------------------------------------------
+
+void WeatherForecast::addLongInfos(const WeatherForecastInfo & theLongInfos)
+{
+	// longInfos is stored as a feature
+
+//  BOOST_FOREACH(const WeatherForecastInfo::value_type & longInfo, theLongInfos)
+//	{
+//	  addLongInfo(longInfo.first, longInfo.second);
+//	}
+
+	addFeature(new InfoText("longInfo",theLongInfos));
 }
 
 // ----------------------------------------------------------------------

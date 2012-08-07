@@ -1,10 +1,10 @@
 // ======================================================================
 /*!
- * \brief class woml::SurfacePrecipitationArea
+ * \brief class woml::CloudArea
  */
 // ======================================================================
 
-#include "SurfacePrecipitationArea.h"
+#include "CloudArea.h"
 #include "FeatureVisitor.h"
 
 namespace woml
@@ -16,13 +16,12 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-SurfacePrecipitationArea::SurfacePrecipitationArea()
+CloudArea::CloudArea()
   : AbstractSurfaceObject()
-  , itsRainPhase(unknown)
-  , itsRainPhaseName("")
-  , itsContinuity()
-  , itsShoweriness()
-  , itsApproximateRainFall()
+  , itsCloudType(UNKNOWN)
+  , itsCloudTypeName("")
+  , itsCloudCoverPercent()
+  , itsCloudCoverEighths()
 {
 }
 
@@ -32,87 +31,87 @@ SurfacePrecipitationArea::SurfacePrecipitationArea()
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::visit(FeatureVisitor & theVisitor) const
+void CloudArea::visit(FeatureVisitor & theVisitor) const
 {
   theVisitor.visit(*this);
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the rain phase
+ * \brief Set the cloud type
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::rainPhase(RainPhase thePhase,const std::string & thePhaseName)
+void CloudArea::cloudType(CloudType theCloudType,const std::string & theCloudTypeName)
 {
-  itsRainPhase = thePhase;
-  itsRainPhaseName = thePhaseName;
+  itsCloudType = theCloudType;
+  itsCloudTypeName = theCloudTypeName;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the rain continuity
+ * \brief Return the cloud type
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::continuity(boost::optional<double> thePercentage)
+CloudType CloudArea::cloudType() const
 {
-  itsContinuity = thePercentage;
+  return itsCloudType;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the rain showeriness
+ * \brief Return the cloud type name
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::showeriness(boost::optional<double> thePercentage)
+const std::string & CloudArea::cloudTypeName() const
 {
-  itsShoweriness = thePercentage;
+  return itsCloudTypeName;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the approximate rain fall
+ * \brief Set the cloud cover percent
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::approximateRainFall(const boost::optional<NumericalSingleValueMeasure> & theAmount)
+void CloudArea::cloudCoverPercent(const boost::optional<double> & theCloudCoverPercent)
 {
-  itsApproximateRainFall = theAmount;
+  itsCloudCoverPercent = theCloudCoverPercent;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Add an inner precipitation area
+ * \brief Return the cloud cover percent
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::innerArea(SurfacePrecipitationArea * theArea)
+const boost::optional<double> & CloudArea::cloudCoverPercent() const
 {
-  itsInnerArea.push_back(theArea);
+  return itsCloudCoverPercent;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Get precipitation phase
+ * \brief Set the cloud cover eighths
  */
 // ----------------------------------------------------------------------
 
-RainPhase SurfacePrecipitationArea::rainPhase() const
+void CloudArea::cloudCoverEighths(const std::string & theCloudCoverEighths)
 {
-  return itsRainPhase;
+  itsCloudCoverEighths = theCloudCoverEighths;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Get precipitation phase name
+ * \brief Return the cloud cover eighths
  */
 // ----------------------------------------------------------------------
 
-const std::string & SurfacePrecipitationArea::rainPhaseName() const
+const std::string & CloudArea::cloudCoverEighths() const
 {
-  return itsRainPhaseName;
+  return itsCloudCoverEighths;
 }
 
 } // namespace woml

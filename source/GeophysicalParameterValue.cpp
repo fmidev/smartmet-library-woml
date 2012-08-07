@@ -16,11 +16,12 @@ namespace woml
 // ----------------------------------------------------------------------
 
 GeophysicalParameterValue::GeophysicalParameterValue(const GeophysicalParameter & theParam,
-													 double theValue)
+													 const MeasureValue * theValue,
+													 const Elevation & theElevation)
 	: itsParameter(theParam)
 	, itsValue(theValue)
+	, itsElevation(theElevation)
   {
   }
-
 
 } // namespace woml

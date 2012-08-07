@@ -7,42 +7,42 @@
 #ifndef WOML_SURFACEPRECIPITATIONAREA_H
 #define WOML_SURFACEPRECIPITATIONAREA_H
 
-#include "CubicSplineSurface.h"
-#include "Envelope.h"
+#include "AbstractSurfaceObject.h"
+#include "BSplineCurve.h"
 #include "Feature.h"
 #include "RainPhase.h"
+#include "MeasureValue.h"
 #include <boost/ptr_container/ptr_list.hpp>
 #include <list>
 #include <string>
 
 namespace woml
 {
-  class Envelope;
   class FeatureVisitor;
 
-  class SurfacePrecipitationArea : public Feature
+  class SurfacePrecipitationArea : public AbstractSurfaceObject
   {
   public:
 	SurfacePrecipitationArea();
+
 	virtual void visit(FeatureVisitor & theVisitor) const;
-	void envelope(const Envelope & theEnvelope);
-	void controlSurface(const CubicSplineSurface & theControlSurface);
-	void rainPhase(RainPhase thePhase);
-	void continuity(double thePercentage);
-	void showeriness(double thePercentage);
-	void approximateRainFall(double theAmount);
+
+	void rainPhase(RainPhase thePhase,const std::string & thePhaseName);
+	RainPhase rainPhase() const;
+	const std::string & rainPhaseName() const;
+
+	void continuity(boost::optional<double> thePercentage);
+	void showeriness(boost::optional<double> thePercentage);
+	void approximateRainFall(const boost::optional<NumericalSingleValueMeasure> & theAmount);
+
 	void innerArea(SurfacePrecipitationArea * theArea);
 
-	const CubicSplineSurface & controlSurface() const;
-	RainPhase rainPhase() const;
-
   private:
-	Envelope itsBoundedBy;
-	CubicSplineSurface itsControlSurface;
 	RainPhase itsRainPhase;
-	double itsContinuity;
-	double itsShoweriness; 
-	double itsApproximateRainFall;
+	std::string itsRainPhaseName;
+	boost::optional<double> itsContinuity;
+	boost::optional<double> itsShoweriness; 
+	boost::optional<NumericalSingleValueMeasure> itsApproximateRainFall;
 
 	boost::ptr_list<SurfacePrecipitationArea> itsInnerArea;
 

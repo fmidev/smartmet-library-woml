@@ -1,80 +1,88 @@
 // ======================================================================
 /*!
- * \brief class woml::UpperTrough
+ * \brief class woml::StormType
  */
 // ======================================================================
 
-#include "UpperTrough.h"
-#include "FeatureVisitor.h"
+#include "StormType.h"
 
 namespace woml
 {
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Visit handler
+ * \brief Constructor
  */
 // ----------------------------------------------------------------------
 
-void UpperTrough::visit(FeatureVisitor & theVisitor) const
+StormType::StormType()
+  : AbstractPointObject()
+{ }
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the rainphase
+ */
+// ----------------------------------------------------------------------
+
+void StormType::rainPhase(RainPhase theRainPhase)
 {
-  theVisitor.visit(*this);
+  itsRainPhase = theRainPhase;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the envelope
- */
+ * \brief Return the rainphase
+*/
 // ----------------------------------------------------------------------
 
-void UpperTrough::envelope(const Envelope & theEnvelope)
+RainPhase StormType::rainPhase() const
 {
-  itsBoundedBy = theEnvelope;
+  return itsRainPhase;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the control curve
+ * \brief Set the approximate rainfall
  */
 // ----------------------------------------------------------------------
 
-void UpperTrough::controlCurve(const CubicSplineCurve & theControlCurve)
+void StormType::approximateRainFall(const boost::optional<NumericalSingleValueMeasure> & theApproximateRainFall)
 {
-  itsControlCurve = theControlCurve;
+  itsApproximateRainFall = theApproximateRainFall;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Connect the start point
- */
+ * \brief Return the approximate rainfall
+*/
 // ----------------------------------------------------------------------
 
-void UpperTrough::connectStartPoint(const std::string & theName)
+const boost::optional<NumericalSingleValueMeasure> & StormType::approximateRainFall() const
 {
-  itsStartPointConnectsTo = theName;
+  return itsApproximateRainFall;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Connect the end point
+ * \brief Set thunderstorm flag
  */
 // ----------------------------------------------------------------------
 
-void UpperTrough::connectEndPoint(const std::string & theName)
+void StormType::isThunderStorm(const boost::optional<bool> & theIsThunderStorm)
 {
-  itsEndPointConnectsTo = theName;
+  itsIsThunderStorm = theIsThunderStorm;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Return the control curve
- */
+ * \brief Return the max wind speed
+*/
 // ----------------------------------------------------------------------
 
-const CubicSplineCurve & UpperTrough::controlCurve() const
+const boost::optional<bool> & StormType::isThunderStorm() const
 {
-  return itsControlCurve;
+  return itsIsThunderStorm;
 }
-
 
 } // namespace woml

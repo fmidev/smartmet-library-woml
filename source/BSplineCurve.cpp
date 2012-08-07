@@ -1,69 +1,67 @@
 // ======================================================================
 /*!
- * \brief woml::GraphicSymbol
+ * \brief woml::BSplineCurve
  */
 // ======================================================================
 
-#include "GraphicSymbol.h"
+#include "BSplineCurve.h"
 
 namespace woml
 {
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Constructor
+ * \brief Add segment to the spline
  */
 // ----------------------------------------------------------------------
 
-GraphicSymbol::GraphicSymbol()
-  : itsURIs()
-  , itsScaleFactor(1.0)
+void BSplineCurve::add(const BSpline & theSpline)
 {
+  itsBSplineSegments.push_back(theSpline);
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the scale factor
+ * \brief Set line string points
  */
 // ----------------------------------------------------------------------
 
-void GraphicSymbol::scaleFactor(double theFactor)
+void BSplineCurve::lineString(const BSpline & theLineStringPoints)
 {
-  itsScaleFactor = theFactor;
+  itsLineStringPoints = theLineStringPoints;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Add an image source
+ * \brief Return line string points
  */
 // ----------------------------------------------------------------------
 
-void GraphicSymbol::addURI(const std::string & theURI)
+const BSpline & BSplineCurve::lineString() const
 {
-  itsURIs.push_back(theURI);
+  return itsLineStringPoints;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Get the scale factor
+ * \brief Iterator over the line segments
  */
 // ----------------------------------------------------------------------
 
-double GraphicSymbol::scaleFactor() const
+BSplineCurve::BSplines_const_iterator BSplineCurve::BSplines_begin() const
 {
-  return itsScaleFactor;
+  return itsBSplineSegments.begin();
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Get the URI list
+ * \brief End iterator over the line segments
  */
 // ----------------------------------------------------------------------
 
-const URIList & GraphicSymbol::URIs() const
+BSplineCurve::BSplines_const_iterator BSplineCurve::BSplines_end() const
 {
-  return itsURIs;
+  return itsBSplineSegments.end();
 }
-
 
 } // namespace woml

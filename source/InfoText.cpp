@@ -1,13 +1,26 @@
 // ======================================================================
 /*!
- * \brief class woml::OccludedFront
+ * \brief class woml::InfoText
  */
 // ======================================================================
 
-#include "OccludedFront.h"
+#include "InfoText.h"
+#include "FeatureVisitor.h"
 
 namespace woml
 {
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Constructor
+ */
+// ----------------------------------------------------------------------
+
+InfoText::InfoText(const std::string & theName,const MeteorologicalObjectInfo & theLangTexts)
+  : itsName(theName)
+{
+  addShortInfos(theLangTexts);
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -15,31 +28,20 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-void OccludedFront::visit(FeatureVisitor & theVisitor) const
+void InfoText::visit(FeatureVisitor & theVisitor) const
 {
   theVisitor.visit(*this);
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the stationary
+ * \brief Name accessor
  */
 // ----------------------------------------------------------------------
 
-void OccludedFront::stationary(bool theStationary)
+const std::string & InfoText::name() const
 {
-  itsStationary = theStationary;
-}
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Return the stationary
- */
-// ----------------------------------------------------------------------
-
-bool OccludedFront::stationary() const
-{
-  return itsStationary;
+  return itsName;
 }
 
 } // namespace woml

@@ -1,15 +1,14 @@
 // ======================================================================
 /*!
- * \brief woml::PointGeophysicalParameterValueSet
+ * \brief woml::TimeGeophysicalParameterValueSet
  */
 // ======================================================================
 
-#ifndef WOML_POINTGEOPHYSICALPARAMETERVALUESET_H
-#define WOML_POINTGEOPHYSICALPARAMETERVALUESET_H
+#ifndef WOML_TIMEGEOPHYSICALPARAMETERVALUESET_H
+#define WOML_TIMEGEOPHYSICALPARAMETERVALUESET_H
 
 #include "Envelope.h"
 #include "Feature.h"
-#include "Point.h"
 #include <boost/shared_ptr.hpp>
 
 namespace woml
@@ -17,27 +16,28 @@ namespace woml
   class FeatureVisitor;
   class GeophysicalParameterValueSet;
 
-  class PointGeophysicalParameterValueSet : public Feature
+  typedef struct { int b; int e; } TimePeriod;
+
+  class TimeGeophysicalParameterValueSet : public Feature
   {
   public:
-	PointGeophysicalParameterValueSet();
+	TimeGeophysicalParameterValueSet();
 	virtual void visit(FeatureVisitor & theVisitor) const;
 	void envelope(const Envelope & theEnvelope);
-	void point(const Point & thePoint);
-	void priority(int thePriority);
+	void timePeriod(const TimePeriod & theTimePeriod);
 	void param(GeophysicalParameterValueSet * theParameterValueSet);
 
-	const Point & point() const;
+	const TimePeriod & timePeriod() const;
 	boost::shared_ptr<GeophysicalParameterValueSet> parameters() const;
 
   private:
 	Envelope itsBoundedBy;
-	Point itsPoint;
+	TimePeriod itsTimePeriod;
 	int itsPriority;
 	boost::shared_ptr<GeophysicalParameterValueSet> itsParameterValueSet;
 
-  }; // class PointGeophysicalParameterValueSet
+  }; // class TimeGeophysicalParameterValueSet
 
 } // namespace woml
 
-#endif // WOML_POINTGEOPHYSICALPARAMETERVALUESET_H
+#endif // WOML_TIMEGEOPHYSICALPARAMETERVALUESET_H

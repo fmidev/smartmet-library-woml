@@ -1,25 +1,13 @@
 // ======================================================================
 /*!
- * \brief class woml::PointMeteorologicalSymbol
+ * \brief class woml::JetStream
  */
 // ======================================================================
 
-#include "PointMeteorologicalSymbol.h"
-#include "FeatureVisitor.h"
+#include "JetStream.h"
 
 namespace woml
 {
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Constructor
- */
-// ----------------------------------------------------------------------
-
-PointMeteorologicalSymbol::PointMeteorologicalSymbol()
-  : AbstractPointObject()
-  , itsMeteorologicalSymbol()
-{ }
 
 // ----------------------------------------------------------------------
 /*!
@@ -27,31 +15,44 @@ PointMeteorologicalSymbol::PointMeteorologicalSymbol()
  */
 // ----------------------------------------------------------------------
 
-void PointMeteorologicalSymbol::visit(FeatureVisitor & theVisitor) const
+void JetStream::visit(FeatureVisitor & theVisitor) const
 {
   theVisitor.visit(*this);
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the symbol
+ * \brief Set the maximum wind speed
  */
 // ----------------------------------------------------------------------
 
-void PointMeteorologicalSymbol::symbol(const MeteorologicalSymbol & theSymbol)
+void JetStream::maximumWindSpeed(const int segmentIndex,const NumericalSingleValueMeasure & theMaximumWindSpeed)
 {
-  itsMeteorologicalSymbol = theSymbol;
+  itsMaximumWindSpeeds.push_back(std::make_pair(segmentIndex,theMaximumWindSpeed));
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Return the symbol
+ * \brief Iterator over the maximum wind speeds
  */
 // ----------------------------------------------------------------------
 
-const MeteorologicalSymbol & PointMeteorologicalSymbol::symbol() const
+JetStream::MaximumWindSpeeds_const_iterator
+JetStream::MaximumWindSpeeds_begin() const
 {
-  return itsMeteorologicalSymbol;
+  return itsMaximumWindSpeeds.begin();
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief End iterator over the maximum wind speeds
+ */
+// ----------------------------------------------------------------------
+
+JetStream::MaximumWindSpeeds_const_iterator
+JetStream::MaximumWindSpeeds_end() const
+{
+  return itsMaximumWindSpeeds.end();
 }
 
 } // namespace woml

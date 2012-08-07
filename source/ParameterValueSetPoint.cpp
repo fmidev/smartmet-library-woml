@@ -1,10 +1,10 @@
 // ======================================================================
 /*!
- * \brief class woml::OccludedFront
+ * \brief class woml::ParameterValueSetPoint
  */
 // ======================================================================
 
-#include "OccludedFront.h"
+#include "ParameterValueSetPoint.h"
 
 namespace woml
 {
@@ -15,31 +15,32 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-void OccludedFront::visit(FeatureVisitor & theVisitor) const
+void ParameterValueSetPoint::visit(FeatureVisitor & theVisitor) const
 {
   theVisitor.visit(*this);
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the stationary
+ * \brief Set the parameter values
  */
 // ----------------------------------------------------------------------
 
-void OccludedFront::stationary(bool theStationary)
+void ParameterValueSetPoint::param(GeophysicalParameterValueSet * theParameterValueSet)
 {
-  itsStationary = theStationary;
+  itsParameterValueSet.reset(theParameterValueSet);
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Return the stationary
+ * \brief Return the parameter values
  */
 // ----------------------------------------------------------------------
 
-bool OccludedFront::stationary() const
+boost::shared_ptr<GeophysicalParameterValueSet>
+ParameterValueSetPoint::parameters() const
 {
-  return itsStationary;
+  return itsParameterValueSet;
 }
 
 } // namespace woml

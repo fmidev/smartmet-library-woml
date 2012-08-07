@@ -1,45 +1,46 @@
 // ======================================================================
 /*!
- * \brief class woml::OccludedFront
+ * \brief class woml::AbstractPointObject
  */
 // ======================================================================
 
-#include "OccludedFront.h"
+#include "AbstractPointObject.h"
+#include "FeatureVisitor.h"
 
 namespace woml
 {
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Visit handler
+ * \brief Set the envelope
  */
 // ----------------------------------------------------------------------
 
-void OccludedFront::visit(FeatureVisitor & theVisitor) const
+void AbstractPointObject::envelope(const boost::optional<Envelope> & theEnvelope)
 {
-  theVisitor.visit(*this);
+  itsBoundedBy = theEnvelope;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the stationary
+ * \brief Set the point
  */
 // ----------------------------------------------------------------------
 
-void OccludedFront::stationary(bool theStationary)
+void AbstractPointObject::point(const boost::optional<Point> & thePoint)
 {
-  itsStationary = theStationary;
+  itsPoint = thePoint;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Return the stationary
+ * \brief Return the point
  */
 // ----------------------------------------------------------------------
 
-bool OccludedFront::stationary() const
+const boost::optional<Point> & AbstractPointObject::point() const
 {
-  return itsStationary;
+  return itsPoint;
 }
 
 } // namespace woml

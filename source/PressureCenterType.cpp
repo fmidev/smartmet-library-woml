@@ -1,11 +1,10 @@
 // ======================================================================
 /*!
- * \brief woml::SRGBColor
+ * \brief class woml::PressureCenterType
  */
 // ======================================================================
 
-#include "SRGBColor.h"
-#include <cassert>
+#include "PressureCenterType.h"
 
 namespace woml
 {
@@ -16,60 +15,52 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-SRGBColor::SRGBColor(int theRed, int theGreen, int theBlue, int theAlpha)
-  : itsRed(theRed)
-  , itsGreen(theGreen)
-  , itsBlue(theBlue)
-  , itsAlpha(theAlpha)
+PressureCenterType::PressureCenterType()
+  : AbstractPointObject()
+{ }
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the tendency
+ */
+// ----------------------------------------------------------------------
+
+void PressureCenterType::tendency(const std::string & theTendency)
 {
-  assert(itsRed >= 0 && itsRed <= 255);
-  assert(itsGreen >= 0 && itsGreen <= 255);
-  assert(itsBlue >= 0 && itsBlue <= 255);
-  assert(itsAlpha >= 0 && itsAlpha <= 255);
+  itsTendency = theTendency;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Red accessor
- */
+ * \brief Return the tendency
+*/
 // ----------------------------------------------------------------------
 
-int SRGBColor::red() const
+const std::string & PressureCenterType::tendency() const
 {
-  return itsRed;
+  return itsTendency;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Green accessor
+ * \brief Set the max wind speed
  */
 // ----------------------------------------------------------------------
 
-int SRGBColor::green() const
+void PressureCenterType::maxwindspeed(const boost::optional<NumericalSingleValueMeasure> & theMaxWindSpeed)
 {
-  return itsGreen;
+  itsMaxWindSpeed = theMaxWindSpeed;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Blue accessor
- */
+ * \brief Return the max wind speed
+*/
 // ----------------------------------------------------------------------
 
-int SRGBColor::blue() const
+const boost::optional<NumericalSingleValueMeasure> & PressureCenterType::maxwindspeed() const
 {
-  return itsBlue;
-}
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Alpha accessor
- */
-// ----------------------------------------------------------------------
-
-int SRGBColor::alpha() const
-{
-  return itsAlpha;
+  return itsMaxWindSpeed;
 }
 
 } // namespace woml

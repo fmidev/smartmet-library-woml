@@ -1,10 +1,10 @@
 // ======================================================================
 /*!
- * \brief class woml::PointNote
+ * \brief class woml::AbstractLineObject
  */
 // ======================================================================
 
-#include "PointNote.h"
+#include "AbstractLineObject.h"
 #include "FeatureVisitor.h"
 
 namespace woml
@@ -12,27 +12,24 @@ namespace woml
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Constructor
+ * \brief Set the orientation
  */
 // ----------------------------------------------------------------------
 
-PointNote::PointNote()
-  : itsBoundedBy()
-  , itsPoint(0,0)
-  , itsPriority(0)
-  , itsNoteText()
-{ }
-
+void AbstractLineObject::orientation(const boost::optional<std::string> & theOrientation)
+{
+  itsOrientation = (theOrientation ? *theOrientation : "+");
+}
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Visit handler
+ * \brief Return the orientation
  */
 // ----------------------------------------------------------------------
 
-void PointNote::visit(FeatureVisitor & theVisitor) const
+const std::string & AbstractLineObject::orientation() const
 {
-  theVisitor.visit(*this);
+  return *itsOrientation;
 }
 
 // ----------------------------------------------------------------------
@@ -41,43 +38,53 @@ void PointNote::visit(FeatureVisitor & theVisitor) const
  */
 // ----------------------------------------------------------------------
 
-void PointNote::envelope(const Envelope & theEnvelope)
+void AbstractLineObject::envelope(const boost::optional<Envelope> & theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the coordinate for the symbol
+ * \brief Set the control curve
  */
 // ----------------------------------------------------------------------
 
-void PointNote::point(const Point & thePoint)
+void AbstractLineObject::controlCurve(const CubicSplineCurve & theControlCurve)
 {
-  itsPoint = thePoint;
+  itsControlCurve = theControlCurve;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the priority
+ * \brief Connect the start point
  */
 // ----------------------------------------------------------------------
 
-void PointNote::priority(int thePriority)
+void AbstractLineObject::connectStartPoint(const std::string & theName)
 {
-  itsPriority = thePriority;
+  itsStartPointConnectsTo = theName;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Add a note text
+ * \brief Connect the end point
  */
 // ----------------------------------------------------------------------
 
-  void PointNote::noteText(const std::string & theLanguage,
-						   const std::string & theText)
+void AbstractLineObject::connectEndPoint(const std::string & theName)
 {
-  itsNoteText[theLanguage] = theText;
+  itsEndPointConnectsTo = theName;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the control curve
+ */
+// ----------------------------------------------------------------------
+
+const CubicSplineCurve & AbstractLineObject::controlCurve() const
+{
+  return itsControlCurve;
 }
 
 } // namespace woml

@@ -1,62 +1,57 @@
 // ======================================================================
 /*!
- * \brief woml::FontSymbol
+ * \brief woml::BSpline
  */
 // ======================================================================
 
-#include "FontSymbol.h"
+#include "BSpline.h"
 
 namespace woml
 {
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Constructor
+ * \brief Add new control point
  */
 // ----------------------------------------------------------------------
 
-FontSymbol::FontSymbol(const std::string & theFontName,
-					   double theFontSize,
-					   int theSymbolIndex,
-					   const SRGBColor & theColor)
-  : itsFontName(theFontName)
-  , itsFontSize(theFontSize)
-  , itsSymbolIndex(theSymbolIndex)
-  , itsColor(theColor)
+void BSpline::add(const Point & thePoint)
 {
+  itsPosList.push_back(thePoint);
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Font accessor
+ * \brief Test if the container is empty
  */
 // ----------------------------------------------------------------------
 
-const std::string & FontSymbol::fontName() const
+bool BSpline::empty() const
 {
-  return itsFontName;
+  return itsPosList.empty();
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Symbol index accessor
+ * \brief Return the size of the spline
  */
 // ----------------------------------------------------------------------
 
-int FontSymbol::symbolIndex() const
+BSpline::size_type BSpline::size() const
 {
-  return itsSymbolIndex;
+  return itsPosList.size();
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Color accessor
+ * \brief Return the coordinates at the given position
  */
 // ----------------------------------------------------------------------
 
-const SRGBColor & FontSymbol::color() const
+const Point & BSpline::operator[](size_type theIndex) const
 {
-  return itsColor;
+  return itsPosList[theIndex];
 }
+
 
 } // namespace woml

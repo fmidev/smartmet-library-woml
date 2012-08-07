@@ -1,118 +1,120 @@
 // ======================================================================
 /*!
- * \brief class woml::SurfacePrecipitationArea
+ * \brief woml::TargetRegion
  */
 // ======================================================================
 
-#include "SurfacePrecipitationArea.h"
-#include "FeatureVisitor.h"
+#include "TargetRegion.h"
 
 namespace woml
 {
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Constructor
+ * \brief Default constructor
  */
 // ----------------------------------------------------------------------
 
-SurfacePrecipitationArea::SurfacePrecipitationArea()
-  : AbstractSurfaceObject()
-  , itsRainPhase(unknown)
-  , itsRainPhaseName("")
-  , itsContinuity()
-  , itsShoweriness()
-  , itsApproximateRainFall()
+TargetRegion::TargetRegion()
+  : itsBoundedBy()
+  , itsRegionIds()
+  , itsLocalizedNames()
+{ }
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the envelope
+ */
+// ----------------------------------------------------------------------
+
+void TargetRegion::envelope(const boost::optional<Envelope> & theEnvelope)
 {
+	itsBoundedBy = theEnvelope;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Visit handler
+ * \brief Return the envelope
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::visit(FeatureVisitor & theVisitor) const
+const boost::optional<Envelope> & TargetRegion::envelope() const
 {
-  theVisitor.visit(*this);
+	return itsBoundedBy;
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the rain phase
+ * \brief Add a region id
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::rainPhase(RainPhase thePhase,const std::string & thePhaseName)
+void TargetRegion::addRegionId(const std::string & theScheme,
+							   const std::string & theRegionId)
 {
-  itsRainPhase = thePhase;
-  itsRainPhaseName = thePhaseName;
+	if ((theScheme.length() > 0) && (theRegionId.length() > 0))
+		itsRegionIds.push_back(std::make_pair(theScheme,theRegionId));
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the rain continuity
+ * \brief Iterator over the region ids
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::continuity(boost::optional<double> thePercentage)
+TargetRegion::RegionIds_const_iterator
+TargetRegion::RegionIds_begin() const
 {
-  itsContinuity = thePercentage;
+  return itsRegionIds.begin();
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the rain showeriness
+ * \brief End iterator over the region ids
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::showeriness(boost::optional<double> thePercentage)
+TargetRegion::RegionIds_const_iterator
+TargetRegion::RegionIds_end() const
 {
-  itsShoweriness = thePercentage;
+  return itsRegionIds.end();
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the approximate rain fall
+ * \brief Add a localized name
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::approximateRainFall(const boost::optional<NumericalSingleValueMeasure> & theAmount)
+void TargetRegion::addLocalizedName(const std::string & theLanguage,
+									const std::string & theLocalizedName)
 {
-  itsApproximateRainFall = theAmount;
+	if ((theLanguage.length() > 0) && (theLocalizedName.length() > 0))
+		itsLocalizedNames.push_back(std::make_pair(theLanguage,theLocalizedName));
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Add an inner precipitation area
+ * \brief Iterator over the localized names
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::innerArea(SurfacePrecipitationArea * theArea)
+TargetRegion::LocalizedNames_const_iterator
+TargetRegion::LocalizedNames_begin() const
 {
-  itsInnerArea.push_back(theArea);
+  return itsLocalizedNames.begin();
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Get precipitation phase
+ * \brief End iterator over the localized names
  */
 // ----------------------------------------------------------------------
 
-RainPhase SurfacePrecipitationArea::rainPhase() const
+TargetRegion::LocalizedNames_const_iterator
+TargetRegion::LocalizedNames_end() const
 {
-  return itsRainPhase;
-}
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Get precipitation phase name
- */
-// ----------------------------------------------------------------------
-
-const std::string & SurfacePrecipitationArea::rainPhaseName() const
-{
-  return itsRainPhaseName;
+  return itsLocalizedNames.end();
 }
 
 } // namespace woml

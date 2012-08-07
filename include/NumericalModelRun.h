@@ -16,22 +16,28 @@ namespace woml
   {
   public:
 	NumericalModelRun(const std::string & theName,
-					  const boost::posix_time::ptime & theOriginTime)
+					  const std::string & theSpecifier,
+					  const boost::posix_time::ptime & theAnalysisTime)
 	  : itsName(theName)
-	  , itsOriginTime(theOriginTime)
+	  , itsSpecifier(theSpecifier)
+	  , itsAnalysisTime(theAnalysisTime)
 	{
 	}
 
 	const std::string & name() const
 	{ return itsName; }
 
-	const boost::posix_time::ptime & originTime() const
-	{ return itsOriginTime; }
+	const std::string & specifier() const
+	{ return itsSpecifier; }
+
+	const boost::posix_time::ptime & analysisTime() const
+	{ return itsAnalysisTime; }
 
   private:
 	NumericalModelRun();
 	std::string itsName;
-	boost::posix_time::ptime itsOriginTime;
+	std::string itsSpecifier;
+	boost::posix_time::ptime itsAnalysisTime;
 
   }; // NumericalModelRun
 }
