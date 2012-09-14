@@ -24,7 +24,9 @@ namespace woml
 	const boost::optional<Elevation> & elevation() const;
 
 	void add(const GeophysicalParameterValue & theValue);
+	void sort();
 	const GeophysicalParameterValueList & values() const;
+	GeophysicalParameterValueList & editableValues();
 
   private:
 

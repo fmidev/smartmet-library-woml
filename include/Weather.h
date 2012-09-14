@@ -15,6 +15,8 @@
 
 namespace woml
 {
+  enum documentType { conceptualmodelanalysis,conceptualmodelforecast,aerodromeforecast };
+
   class MeteorologicalAnalysis;
   class WeatherForecast;
 

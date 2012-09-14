@@ -76,7 +76,7 @@ const boost::optional<NumericalSingleValueMeasure> & Elevation::value() const
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<NumericalSingleValueMeasure> Elevation::lowerLimit() const
+boost::optional<NumericalSingleValueMeasure> Elevation::lowerLimit() const
 {
   assert(itsBounded);
 
@@ -93,7 +93,7 @@ const boost::optional<NumericalSingleValueMeasure> Elevation::lowerLimit() const
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<NumericalSingleValueMeasure> Elevation::upperLimit() const
+boost::optional<NumericalSingleValueMeasure> Elevation::upperLimit() const
 {
   assert(itsBounded);
 

@@ -27,6 +27,7 @@ namespace woml
 	void addFeature(Feature * theFeature);
 	void envelope(const boost::optional<Envelope> & theEnvelope);
 	void validTime(const boost::posix_time::time_period & thePeriod);
+	const boost::posix_time::time_period & validTime();
 	void creator(const std::string & theCreator);
 	void creationTime(const boost::posix_time::ptime & theTime);
 	void latestModificationTime(const boost::optional<boost::posix_time::ptime> & theTime);

@@ -67,6 +67,17 @@ void WeatherForecast::validTime(const boost::posix_time::time_period & thePeriod
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Return the valid time
+ */
+// ----------------------------------------------------------------------
+
+const boost::posix_time::time_period & WeatherForecast::validTime()
+{
+  return itsValidTime;
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Set the creator
  */
 // ----------------------------------------------------------------------

@@ -13,10 +13,12 @@
 #include "NumericalModelRun.h"
 #include "OccludedFront.h"
 #include "ParameterValueSetPoint.h"
+#include "ParameterTimeSeriesPoint.h"
 #include "PointMeteorologicalSymbol.h"
 #include "PressureCenterType.h"
 #include "SurfacePrecipitationArea.h"
 #include "StormType.h"
+#include "TimeSeriesSlot.h"
 #include "Weather.h"
 #include "WeatherForecast.h"
 
@@ -28,7 +30,6 @@
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 
-#include <libxml++/libxml++.h>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -1344,18 +1345,17 @@ parse_woml_geophysical_parameter(DOMNode * node,const char * pathExpr = "womlqty
 		AutoRelease<DOMXPathResult> result(expression->evaluate(node,DOMXPathResult::ITERATOR_RESULT_TYPE,0));
 
 		DOMText * text;
-		if((node = getResultNode(result,&text)))
-		{
-			DOMElement *elem = (DOMElement *) node;
+		if((node = getResultNode(result,&text,false)))
+			if (text)
+			{
+				param = XMLChptr2str(text->getNodeValue());
 
-			param = XMLChptr2str(text->getNodeValue());
-			std::string scheme(ATTR(elem,"scheme"));
-
-//			if(scheme == "fmi")
-//				number = boost::lexical_cast<int>(param);
-//			else if(scheme == "wmo")
-//				param = value;
-		}
+//				DOMElement *elem = (DOMElement *) node;
+//				std::string scheme(ATTR(elem,"scheme"));
+//
+//				if(scheme == "fmi")
+//					number = boost::lexical_cast<int>(param);
+			}
 
 		return GeophysicalParameter(param,number);
 	}
@@ -1372,13 +1372,12 @@ MeasureValue *
 parse_woml_category_value_measure(DOMNode * node,const char *pathExpr = "womlqty:category")
 {
 	TRYFA (parse_woml_category_value_measure,pathExpr) {
-		DOMNode *text;
-
-		if ((node = searchNode(node,pathExpr)) && (text = ((DOMText *) searchNode(node,"text()[1]"))))
+		if ((node = searchNode(node,pathExpr)))
 		{
+			DOMNode *text = ((DOMText *) searchNode(node,"text()[1]"));
 			DOMElement *elem = (DOMElement *) node;
 
-			std::string category(XMLChptr2str(text->getNodeValue()));
+			std::string category(text ? XMLChptr2str(text->getNodeValue()) : "");
 			std::string codebase(ATTR(elem,"codebase"));
 
 			return new CategoryValueMeasure(category,codebase);
@@ -1396,18 +1395,25 @@ parse_woml_category_value_measure(DOMNode * node,const char *pathExpr = "womlqty
 // ----------------------------------------------------------------------
 
 MeasureValue *
-parse_woml_flow_direction_measure(DOMNode * theNode,const char *pathExpr = "womlqty:direction/gml:CompassPoint")
+parse_woml_flow_direction_measure(DOMNode * theNode,
+								  const char * compassPointPathExpr = "womlqty:direction/gml:CompassPoint",
+								  const char * directionVectorPathExpr = "womlqty:direction/gml:DirectionVector/gml:vector")
 {
 	TRY (parse_woml_flow_direction_measure) {
 		DOMNode *node;
 		DOMNode *text;
 
-		if ((node = searchNode(theNode,pathExpr)) && (text = ((DOMText *) searchNode(node,"text()[1]"))))
-			return new FlowDirectionMeasure(XMLChptr2str(text->getNodeValue()));
+		std::string compassPoint;
 
-		// intederminedDirection
+		if ((node = searchNode(theNode,compassPointPathExpr)) && (text = ((DOMText *) searchNode(node,"text()[1]"))))
+			compassPoint = XMLChptr2str(text->getNodeValue());
 
-		return new FlowDirectionMeasure("");
+		std::string directionVector;
+
+		if ((node = searchNode(theNode,directionVectorPathExpr)) && (text = ((DOMText *) searchNode(node,"text()[1]"))))
+			directionVector = XMLChptr2str(text->getNodeValue());
+
+		return new FlowDirectionMeasure(compassPoint,directionVector);
 	}
 	CATCH
 }
@@ -1528,17 +1534,15 @@ parse_woml_parameter_value_set_point(DOMNode * node)
  */
 // ----------------------------------------------------------------------
 
-template <typename T>
-void
-parse_woml_parameter_timeseriesslot(T & theWeatherObject,
-									DOMNode * node,
-									const char *pathExpr = "womlqty:parameterValueSet/womlqty:GeophysicalParameterValueSet/womlqty:parameterValue/womlqty:GeophysicalParameterValue")
+GeophysicalParameterValueSet *
+parse_woml_parameter_timeseriesslot(DOMNode * node,
+									boost::optional<boost::posix_time::ptime> & validTime)
 {
 	TRY (parse_woml_parameter_timeseriesslot) {
-		// TimeGeophysicalParameterValueSet * param = new TimeGeophysicalParameterValueSet;
-
+		validTime = parse_gml_valid_time_instant(node);
 		GeophysicalParameterValueSet * values = parse_woml_geophysical_parameter_value_set(node);
-		(void) values;
+
+		return values;
 	}
 	CATCH
 }
@@ -1550,18 +1554,66 @@ parse_woml_parameter_timeseriesslot(T & theWeatherObject,
 // ----------------------------------------------------------------------
 
 template <typename T>
-void
-parse_woml_parameter_timeseriespoint(T & theWeatherObject,
+T *
+parse_woml_parameter_timeseriespoint(const boost::posix_time::time_period & timePeriod,
 									 DOMNode * node,
-									 const char *pathExpr = "womlqty:timeSlots/womlqty:TimeSeriesSlot")
-
+									 const char * pathExpr = "womlqty:timeSlots/womlqty:TimeSeriesSlot")
 {
-	TRYFA (parse_woml_parameter_timeseriesslot,pathExpr) {
+	TRYFA (parse_woml_parameter_timeseriespoint,pathExpr) {
+		T * tsp = new T;
+
+		// Set forecast/analysis time period and feature validtime (validtime is checked but
+		// not actually used by frontier)
+
+		tsp->timePeriod(timePeriod);
+		tsp->validTime(timePeriod.begin());
+
 		AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
 		AutoRelease<DOMXPathResult> result(expression->evaluate(node,DOMXPathResult::ITERATOR_RESULT_TYPE,0));
 
-		while((node = getResultNode(result)))
-			parse_woml_parameter_timeseriesslot(theWeatherObject,node);
+		boost::optional<boost::posix_time::ptime> validTime;
+
+		while((node = getResultNode(result))) {
+			GeophysicalParameterValueSet * values = parse_woml_parameter_timeseriesslot(node,validTime);
+			tsp->add(validTime,values);
+		}
+
+		// Sort the time serie and parameter values (based on elevation) within each time instant
+
+		tsp->sort();
+
+		return tsp;
+	}
+	CATCH
+}
+
+template <typename T>
+void
+parse_woml_parameter_timeseriespoint(T & theWeatherObject,
+									 DOMNode * node)
+{
+	TRY (parse_woml_parameter_timeseriespoint) {
+		// Class is taken from gml:id
+		//
+		DOMElement *elem = (DOMElement *) node;
+		std::string className = ATTR(elem,"gml:id");
+
+		if (className == "cloudLayers")
+			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<CloudLayers>(theWeatherObject.validTime(),node));
+		else if (className == "contrails")
+			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<Contrails>(theWeatherObject.validTime(),node));
+		else if (className == "Icing")
+			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<Icing>(theWeatherObject.validTime(),node));
+		else if (className == "migratoryBirds")
+			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<MigratoryBirds>(theWeatherObject.validTime(),node));
+		else if (className == "surfaceVisibility")
+			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<SurfaceVisibility>(theWeatherObject.validTime(),node));
+		else if (className == "surfaceWeather")
+			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<SurfaceWeather>(theWeatherObject.validTime(),node));
+		else if (className == "winds")
+			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<Winds>(theWeatherObject.validTime(),node));
+		else if (className == "zeroTolerance")
+			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<ZeroTolerance>(theWeatherObject.validTime(),node));
 	}
 	CATCH
 }
@@ -1579,18 +1631,11 @@ parse_woml_meteorologicalobject(T & theWeatherObject,
 {
 	TRY (parse_woml_meteorologicalobject) {
 
-//		DOMXPathExpression> expression(EXPR("womlqty:ParameterTimeSeriesPoint/womlqty:timeSlots/womlqty:TimeSeriesSlot"));
-//	    AutoRelease<DOMXPathResult> result(expression->evaluate(node,DOMXPathResult::ITERATOR_RESULT_TYPE,0));
-//
-//		while((node = getResultNode(result)))
-//			parse_metobj_parameter_timeseriesslot(theWeatherObject,node);
-
 		std::string name = XMLChptr2str(node->getLocalName());
 
 		if(name == /*"womlqty:*/"ParameterTimeSeriesPoint")
 			parse_woml_parameter_timeseriespoint(theWeatherObject,node);
-
-		if(name == /*"womlswo:*/"ColdAdvection")
+		else if(name == /*"womlswo:*/"ColdAdvection")
 			theWeatherObject.addFeature(parse_woml_abstract_line<ColdAdvection>(node));
 		else if(name == /*"womlswo:*/"ColdFront")
 			theWeatherObject.addFeature(parse_woml_abstract_line<ColdFront>(node));
@@ -1689,7 +1734,7 @@ parse_woml_meteorological_analysis(DOMNode * node)
 // ----------------------------------------------------------------------
 
 boost::shared_ptr<WeatherForecast>
-parse_woml_weather_forecast(DOMNode * node)
+parse_woml_weather_forecast(documentType docType,DOMNode * node)
 {
 	TRY (parse_woml_weather_forecast) {
 		boost::shared_ptr<WeatherForecast> forecast(new WeatherForecast());
@@ -1727,7 +1772,7 @@ parse_woml_weather_forecast(DOMNode * node)
 // ----------------------------------------------------------------------
 
 Weather
-parse(const boost::filesystem::path & thePath)
+parse(const boost::filesystem::path & thePath,documentType docType)
 {
 	TRY (parse) {
 		if(!boost::filesystem::exists(thePath))
@@ -1746,7 +1791,7 @@ parse(const boost::filesystem::path & thePath)
 
 		Weather weather;
 
-		// Autoreleases must released before XQillaPlatformUtils::terminate()
+		// Autoreleases must be released before XQillaPlatformUtils::terminate()
 		//
 		TRYA (thePath.string()) {
 			// Create a DOMLSParser object
@@ -1773,14 +1818,14 @@ parse(const boost::filesystem::path & thePath)
 			std::string rootName = XMLChptr2str(root->getLocalName());
 
 			if(rootName == "WeatherForecast") {
-				if(!weather.empty())
-					throw std::runtime_error("Multiple meteorological objects in " + thePath.string());
+				if ((docType != conceptualmodelforecast) && (docType != aerodromeforecast))
+					throw std::runtime_error(rootName + ": document type is not 'conceptualmodelforecast': " + thePath.string());
 
-					weather.forecast(parse_woml_weather_forecast((DOMNode *) root));
+				weather.forecast(parse_woml_weather_forecast(docType,(DOMNode *) root));
 			}
 			else if (rootName == "MeteorologicalAnalysis") {
-				if(!weather.empty())
-					throw std::runtime_error("Multiple meteorological objects in " + thePath.string());
+				if (docType != conceptualmodelanalysis)
+					throw std::runtime_error(rootName + ": document type is not 'conceptualmodelanalysis': " + thePath.string());
 
 				weather.analysis(parse_woml_meteorological_analysis((DOMNode *) root));
 			}

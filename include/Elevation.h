@@ -20,8 +20,8 @@ namespace woml
 	Elevation(const boost::optional<NumericalValueRangeMeasure> & theRange);
 	bool bounded() const;
 	const boost::optional<NumericalSingleValueMeasure> & value() const;
-	const boost::optional<NumericalSingleValueMeasure> lowerLimit() const;
-	const boost::optional<NumericalSingleValueMeasure> upperLimit() const;
+	boost::optional<NumericalSingleValueMeasure> lowerLimit() const;
+	boost::optional<NumericalSingleValueMeasure> upperLimit() const;
 
   private:
 

@@ -1,11 +1,11 @@
 // ======================================================================
 /*!
- * \brief woml::GeophysicalParameterValueSet
+ * \brief class woml::TimeSeriesSlot
  */
 // ======================================================================
 
+#include "TimeSeriesSlot.h"
 #include "GeophysicalParameterValueSet.h"
-#include "FeatureVisitor.h"
 
 namespace woml
 {
@@ -16,57 +16,63 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-GeophysicalParameterValueSet::GeophysicalParameterValueSet()
-  : itsElevation()
+TimeSeriesSlot::TimeSeriesSlot(const boost::posix_time::ptime & theValidTime,
+							   GeophysicalParameterValueSet * theValues)
+  : itsValidTime(theValidTime)
   , itsValues()
 {
+  itsValues.push_back(boost::shared_ptr<GeophysicalParameterValueSet>(theValues));
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Set the elevation
+ * \brief Add parameter values
+ */
+// ----------------------------------------------------------------------
+
+void TimeSeriesSlot::add(GeophysicalParameterValueSet * theValues)
+{
+  itsValues.push_back(boost::shared_ptr<GeophysicalParameterValueSet>(theValues));
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Sort the parameter values based on descending elevation
  */
 // ----------------------------------------------------------------------
 
 void
-GeophysicalParameterValueSet::elevation(const boost::optional<Elevation> & theElevation)
+TimeSeriesSlot::sort()
 {
-  itsElevation = theElevation;
+  std::list<boost::shared_ptr<GeophysicalParameterValueSet> >::iterator it = itsValues.begin();
+
+  for ( ; (it != itsValues.end()); it++)
+	  (*it)->sort();
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Return the elevation
+ * \brief Operator <
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Elevation> & GeophysicalParameterValueSet::elevation() const
+bool TimeSeriesSlot::operator < (const TimeSeriesSlot & theOther) const
 {
-  return itsElevation;
+  // Sort to ascending time
+
+  return (itsValidTime < theOther.itsValidTime);
 }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Add a parameter value
+ * \brief Return the validtime
  */
 // ----------------------------------------------------------------------
 
-void
-GeophysicalParameterValueSet::add(const GeophysicalParameterValue & theValue)
+const boost::posix_time::ptime &
+TimeSeriesSlot::validTime() const
 {
-  itsValues.push_back(theValue);
-}
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Sort the parameter values to have descending elevation
- */
-// ----------------------------------------------------------------------
-
-void
-GeophysicalParameterValueSet::sort()
-{
-  itsValues.sort();
+  return itsValidTime;
 }
 
 // ----------------------------------------------------------------------
@@ -75,14 +81,14 @@ GeophysicalParameterValueSet::sort()
  */
 // ----------------------------------------------------------------------
 
-const GeophysicalParameterValueList &
-GeophysicalParameterValueSet::values() const
+const std::list<boost::shared_ptr<GeophysicalParameterValueSet> > &
+TimeSeriesSlot::values() const
 {
   return itsValues;
 }
 
-GeophysicalParameterValueList &
-GeophysicalParameterValueSet::editableValues()
+std::list<boost::shared_ptr<GeophysicalParameterValueSet> > &
+TimeSeriesSlot::editableValues()
 {
   return itsValues;
 }

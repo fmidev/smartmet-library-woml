@@ -101,14 +101,12 @@ const std::string & Feature::text(const std::string & theLanguage) const
 	MeteorologicalObjectInfo::const_iterator it = itsShortInfos.find(theLanguage);
 
 	if (it == itsShortInfos.end())
-	  {
 		// First text is returned if the queried language is undefined
 		//
 		if (theLanguage.empty() && (itsShortInfos.size() > 0))
 			it = itsShortInfos.begin();
 		else
 			return theLanguage;
-	  }
 
 	return it->second;
 }

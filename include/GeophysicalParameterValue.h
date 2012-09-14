@@ -21,6 +21,8 @@ namespace woml
 							  const MeasureValue * theValue,
 							  const Elevation & theElevation);
 
+	bool operator < (const GeophysicalParameterValue & theOther) const;
+
 	const GeophysicalParameter & parameter() const { return itsParameter; }
 	const MeasureValue * value() const { return itsValue.get(); }
 	const Elevation & elevation() const { return itsElevation; }

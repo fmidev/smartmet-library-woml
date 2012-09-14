@@ -43,7 +43,14 @@ namespace woml
 
   class InfoText;
 
-  class TimeGeophysicalParameterValueSet;
+  class CloudLayers;
+  class Contrails;
+  class Icing;
+  class MigratoryBirds;
+  class SurfaceVisibility;
+  class SurfaceWeather;
+  class Winds;
+  class ZeroTolerance;
 
   class FeatureVisitor
   {
@@ -80,7 +87,14 @@ namespace woml
 
 	virtual void visit(const InfoText & theFeature) = 0;
 
-	virtual void visit(const TimeGeophysicalParameterValueSet & theFeature) = 0;
+	virtual void visit(const CloudLayers & theFeature) = 0;
+	virtual void visit(const Contrails & theFeature) = 0;
+	virtual void visit(const Icing & theFeature) = 0;
+	virtual void visit(const MigratoryBirds & theFeature) = 0;
+	virtual void visit(const SurfaceVisibility & theFeature) = 0;
+	virtual void visit(const SurfaceWeather & theFeature) = 0;
+	virtual void visit(const Winds & theFeature) = 0;
+	virtual void visit(const ZeroTolerance & theFeature) = 0;
 
   }; // class FeatureVisitor
 } // namespace woml

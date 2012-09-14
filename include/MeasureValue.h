@@ -43,14 +43,16 @@ namespace woml
   {
   public:
 	FlowDirectionMeasure();
-	FlowDirectionMeasure(const std::string & theDirection);
+	FlowDirectionMeasure(const std::string & theCompassPoint,const std::string & theDirectionVector);
 
-	const std::string & value() const;		// <==> direction
+	const std::string & value() const;		// <==> compassPoint
 	const std::string & unit() const;		// <==> ""
-	const std::string & direction() const;
+	const std::string & compassPoint() const;
+	const std::string & directionVector() const;
 
   private:
-	std::string itsDirection;
+	std::string itsCompassPoint;
+	std::string itsDirectionVector;
 	std::string itsUnit;
 
   }; // class FlowDirectionMeasure

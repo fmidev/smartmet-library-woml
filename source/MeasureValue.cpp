@@ -88,7 +88,8 @@ const std::string & CategoryValueMeasure::unit() const
 // ----------------------------------------------------------------------
 
 FlowDirectionMeasure::FlowDirectionMeasure()
-  : itsDirection("")
+  : itsCompassPoint("")
+  , itsDirectionVector("")
   , itsUnit("")
 { }
 
@@ -98,20 +99,32 @@ FlowDirectionMeasure::FlowDirectionMeasure()
  */
 // ----------------------------------------------------------------------
 
-FlowDirectionMeasure::FlowDirectionMeasure(const std::string & theDirection)
-  : itsDirection(theDirection)
+FlowDirectionMeasure::FlowDirectionMeasure(const std::string & theCompassPoint,const std::string & theDirectionVector)
+  : itsCompassPoint(theCompassPoint)
+  , itsDirectionVector(theDirectionVector)
   , itsUnit("")
 { }
 
 // ----------------------------------------------------------------------
 /*!
- * \brief Direction accessor
+ * \brief CompassPoint accessor
  */
 // ----------------------------------------------------------------------
 
-const std::string & FlowDirectionMeasure::direction() const
+const std::string & FlowDirectionMeasure::compassPoint() const
 {
-  return itsDirection;
+  return itsCompassPoint;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief DirectionVector accessor
+ */
+// ----------------------------------------------------------------------
+
+const std::string & FlowDirectionMeasure::directionVector() const
+{
+  return itsDirectionVector;
 }
 
 // ----------------------------------------------------------------------
@@ -122,7 +135,7 @@ const std::string & FlowDirectionMeasure::direction() const
 
 const std::string & FlowDirectionMeasure::value() const
 {
-  return direction();
+  return compassPoint();
 }
 
 // ----------------------------------------------------------------------

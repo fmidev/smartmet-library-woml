@@ -24,4 +24,28 @@ GeophysicalParameterValue::GeophysicalParameterValue(const GeophysicalParameter 
   {
   }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Operator <
+ */
+// ----------------------------------------------------------------------
+
+bool GeophysicalParameterValue::operator < (const GeophysicalParameterValue & theOther) const
+{
+	boost::optional<NumericalSingleValueMeasure> itsBoundedUpper = (itsElevation.bounded() ? itsElevation.upperLimit() : NumericalSingleValueMeasure());
+	const boost::optional<NumericalSingleValueMeasure> & itsUpperLimit = (itsElevation.bounded() ? itsBoundedUpper : itsElevation.value());
+
+	boost::optional<NumericalSingleValueMeasure> theBoundedUpper = (theOther.elevation().bounded() ? theOther.elevation().upperLimit() : NumericalSingleValueMeasure());
+	const boost::optional<NumericalSingleValueMeasure> & theUpperLimit = (theOther.elevation().bounded() ? theBoundedUpper : theOther.elevation().value());
+
+	if (!itsUpperLimit)
+		return false;
+	else  if (!theUpperLimit)
+		return true;
+
+	// Sort to descending elevation
+
+	return (itsUpperLimit->numericValue() > theUpperLimit->numericValue());
+}
+
 } // namespace woml

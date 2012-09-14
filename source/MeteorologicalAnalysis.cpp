@@ -67,6 +67,17 @@ void MeteorologicalAnalysis::validTime(const boost::posix_time::time_period & th
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Return the valid time
+ */
+// ----------------------------------------------------------------------
+
+const boost::posix_time::time_period & MeteorologicalAnalysis::validTime()
+{
+  return itsValidTime;
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Set the creator
  */
 // ----------------------------------------------------------------------

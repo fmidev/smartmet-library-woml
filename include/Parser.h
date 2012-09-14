@@ -15,7 +15,7 @@ namespace woml
 {
   class Woml;
 
-  Weather parse(const boost::filesystem::path & thePath);
+  Weather parse(const boost::filesystem::path & thePath,woml::documentType docType);
 
 } // namespace woml
 
