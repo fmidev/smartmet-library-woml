@@ -15,7 +15,7 @@
 #define ParameterTimeSeriesPointDerivedClass(c) \
   class c : public ParameterTimeSeriesPoint { \
     public: \
-      c() : ParameterTimeSeriesPoint() {} \
+      c(const std::string & classNameExt) : ParameterTimeSeriesPoint(classNameExt) {} \
       void visit(FeatureVisitor & theVisitor) const { theVisitor.visit(*this); } \
       const char * className() const { return #c; } \
   }
@@ -27,8 +27,10 @@ namespace woml
   class ParameterTimeSeriesPoint : public Feature
   {
   public:
-	ParameterTimeSeriesPoint();
+	ParameterTimeSeriesPoint(const std::string & theClassNameExt);
 	virtual ~ParameterTimeSeriesPoint() {}
+
+	const std::string & classNameExt() const;
 
 	void timePeriod(const boost::posix_time::time_period & theTimePeriod);
 	const boost::posix_time::time_period & timePeriod() const;
@@ -38,6 +40,7 @@ namespace woml
 	const std::list<TimeSeriesSlot> & timeseries() const;
 
   private:
+	std::string itsClassNameExt;
 	boost::posix_time::time_period itsTimePeriod;
 	std::list<TimeSeriesSlot> itsTimeSeriesSlots;
 

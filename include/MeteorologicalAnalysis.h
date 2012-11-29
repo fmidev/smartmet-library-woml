@@ -13,6 +13,7 @@
 #include "Point.h"
 #include "TargetRegion.h"
 #include "InfoText.h"
+#include "MeteorologicalObject.h"
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 
@@ -20,18 +21,21 @@ typedef std::multimap<std::string,std::string> MeteorologicalAnalysisInfo;
 
 namespace woml
 {
-  class MeteorologicalAnalysis
+  class MeteorologicalAnalysis : public MeteorologicalObject
   {
   public:
 	MeteorologicalAnalysis();
-	void addFeature(Feature * theFeature);
+	void addFeature(Feature * theFeature,bool timeSynchronized = false);
 	void envelope(const boost::optional<Envelope> & theEnvelope);
 	void validTime(const boost::posix_time::time_period & thePeriod);
-	const boost::posix_time::time_period & validTime();
+	const boost::posix_time::time_period & validTime() const;
 	void creator(const std::string & theCreator);
 	void creationTime(const boost::posix_time::ptime & theTime);
+	const boost::posix_time::ptime & creationTime() const;
 	void latestModificationTime(const boost::optional<boost::posix_time::ptime> & theTime);
+	const boost::optional<boost::posix_time::ptime> & latestModificationTime() const;
 	void analysisTime(const boost::posix_time::ptime & theTime);
+	const boost::posix_time::ptime & analysisTime() const;
 //	void addShortInfo(const std::string & theLanguage,const std::string & theShortInfo);
 	void addShortInfos(const MeteorologicalAnalysisInfo & theShortInfos);
 //	void addLongInfo(const std::string & theLanguage,const std::string & theLongInfo);

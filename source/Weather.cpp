@@ -92,4 +92,15 @@ void Weather::forecast(boost::shared_ptr<WeatherForecast> theForecast)
   itsForecast = theForecast;
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Synchronize feature members
+ */
+// ----------------------------------------------------------------------
+
+void Weather::synchronize()
+{
+  hasAnalysis() ?  itsAnalysis->synchronize() : itsForecast->synchronize();
+}
+
 } // namespace woml

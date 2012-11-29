@@ -17,7 +17,8 @@ namespace woml
 // ----------------------------------------------------------------------
 
 MeteorologicalAnalysis::MeteorologicalAnalysis()
-  : itsFeatureMembers()
+  : MeteorologicalObject()
+  , itsFeatureMembers()
   , itsValidTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time),
 				 boost::posix_time::ptime(boost::posix_time::not_a_date_time))
   , itsCreator()
@@ -38,9 +39,12 @@ MeteorologicalAnalysis::MeteorologicalAnalysis()
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::addFeature(Feature * theFeature)
+void MeteorologicalAnalysis::addFeature(Feature * theFeature,bool timeSynchronized)
 {
   itsFeatureMembers.push_back(theFeature);
+
+  if (timeSynchronized)
+	MeteorologicalObject::addTimeSynchronizedFeature(dynamic_cast<woml::ParameterTimeSeriesPoint *>(theFeature));
 }
 
 // ----------------------------------------------------------------------
@@ -71,7 +75,7 @@ void MeteorologicalAnalysis::validTime(const boost::posix_time::time_period & th
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::time_period & MeteorologicalAnalysis::validTime()
+const boost::posix_time::time_period & MeteorologicalAnalysis::validTime() const
 {
   return itsValidTime;
 }
@@ -100,6 +104,17 @@ void MeteorologicalAnalysis::creationTime(const boost::posix_time::ptime & theTi
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Return the creation time
+ */
+// ----------------------------------------------------------------------
+
+const boost::posix_time::ptime & MeteorologicalAnalysis::creationTime() const
+{
+  return itsCreationTime;
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Set the latest modification time
  */
 // ----------------------------------------------------------------------
@@ -111,6 +126,17 @@ void MeteorologicalAnalysis::latestModificationTime(const boost::optional<boost:
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Return the latest modification time
+ */
+// ----------------------------------------------------------------------
+
+const boost::optional<boost::posix_time::ptime> & MeteorologicalAnalysis::latestModificationTime() const
+{
+  return itsLatestModificationTime;
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Set the analysis time
  */
 // ----------------------------------------------------------------------
@@ -118,6 +144,17 @@ void MeteorologicalAnalysis::latestModificationTime(const boost::optional<boost:
 void MeteorologicalAnalysis::analysisTime(const boost::posix_time::ptime & theTime)
 {
   itsAnalysisTime = theTime;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the analysis time
+ */
+// ----------------------------------------------------------------------
+
+const boost::posix_time::ptime & MeteorologicalAnalysis::analysisTime() const
+{
+  return itsAnalysisTime;
 }
 
 // ----------------------------------------------------------------------

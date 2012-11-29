@@ -21,6 +21,7 @@ GeophysicalParameterValue::GeophysicalParameterValue(const GeophysicalParameter 
 	: itsParameter(theParam)
 	, itsValue(theValue)
 	, itsElevation(theElevation)
+	, itsFlagBits(0)
   {
   }
 

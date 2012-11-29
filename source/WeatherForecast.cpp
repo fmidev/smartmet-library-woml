@@ -17,7 +17,8 @@ namespace woml
 // ----------------------------------------------------------------------
 
 WeatherForecast::WeatherForecast()
-  : itsFeatureMembers()
+  : MeteorologicalObject()
+  , itsFeatureMembers()
   , itsValidTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time),
 				 boost::posix_time::ptime(boost::posix_time::not_a_date_time))
   , itsCreator()
@@ -38,9 +39,12 @@ WeatherForecast::WeatherForecast()
  */
 // ----------------------------------------------------------------------
 
-void WeatherForecast::addFeature(Feature * theFeature)
+void WeatherForecast::addFeature(Feature * theFeature,bool timeSynchronized)
 {
   itsFeatureMembers.push_back(theFeature);
+
+  if (timeSynchronized)
+	MeteorologicalObject::addTimeSynchronizedFeature(dynamic_cast<woml::ParameterTimeSeriesPoint *>(theFeature));
 }
 
 // ----------------------------------------------------------------------
@@ -71,7 +75,7 @@ void WeatherForecast::validTime(const boost::posix_time::time_period & thePeriod
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::time_period & WeatherForecast::validTime()
+const boost::posix_time::time_period & WeatherForecast::validTime() const
 {
   return itsValidTime;
 }
@@ -100,6 +104,17 @@ void WeatherForecast::creationTime(const boost::posix_time::ptime & theTime)
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Return the creation time
+ */
+// ----------------------------------------------------------------------
+
+const boost::posix_time::ptime & WeatherForecast::creationTime() const
+{
+  return itsCreationTime;
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Set the latest modification time
  */
 // ----------------------------------------------------------------------
@@ -111,6 +126,17 @@ void WeatherForecast::latestModificationTime(const boost::optional<boost::posix_
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Return the latest modification time
+ */
+// ----------------------------------------------------------------------
+
+const boost::optional<boost::posix_time::ptime> & WeatherForecast::latestModificationTime() const
+{
+  return itsLatestModificationTime;
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Set the forecast time
  */
 // ----------------------------------------------------------------------
@@ -118,6 +144,17 @@ void WeatherForecast::latestModificationTime(const boost::optional<boost::posix_
 void WeatherForecast::forecastTime(const boost::posix_time::ptime & theTime)
 {
   itsForecastTime = theTime;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the forecast time
+ */
+// ----------------------------------------------------------------------
+
+const boost::posix_time::ptime & WeatherForecast::forecastTime() const
+{
+  return itsForecastTime;
 }
 
 // ----------------------------------------------------------------------

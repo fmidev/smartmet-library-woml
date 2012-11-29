@@ -33,6 +33,8 @@ namespace woml
 	void analysis(boost::shared_ptr<MeteorologicalAnalysis> theAnalysis);
 	void forecast(boost::shared_ptr<WeatherForecast> theForecast);
 
+	void synchronize();
+
   private:
 
 	boost::shared_ptr<MeteorologicalAnalysis> itsAnalysis;
