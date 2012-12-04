@@ -561,7 +561,28 @@ read_text_time(DOMNode * node,const char * pathExpr)
 
 		if ((node = getResultNode(result))) {
 			std::string ts(XMLChptr2str(((DOMText *) node)->getNodeValue()));
-			t = Fmi::TimeParser::parse_xml(ts);
+
+			// 03-Dec-2012: Get rid of possible millisecond part (all subsequent digits after period); not supported by TimeParser
+
+			std::string tail;
+			size_t pos = ts.find('.');
+
+			if ((pos > 0) && (pos != std::string::npos)) {
+				size_t tpos = pos + 1;
+				const char * p = (ts.c_str() + tpos);
+
+				for (; ((*p >= '0') && (*p <= '9')); p++)
+					tpos++;
+
+				// Keep whatever follows the millisecond part (e.g. YYYY-MM-DDTHH:MM:SS[.mmm]Z)
+				//
+				if (*p)
+					tail = ts.substr(tpos);
+			}
+			else
+				pos = std::string::npos;
+
+			t = Fmi::TimeParser::parse((pos == std::string::npos) ? ts : ts.substr(0,pos) + tail);
 
 			if(t->is_not_a_date_time())
 				throw std::runtime_error("Invalid datetime: " + ts);
@@ -1820,7 +1841,7 @@ parse(const boost::filesystem::path & thePath,documentType docType)
 			parser->getDomConfig()->setParameter(XMLUni::fgDOMValidateIfSchema, false);
 
 			// Parse the document
-			DOMDocument *doc = parser->parseURI(thePath.c_str());
+			DOMDocument *doc = parser->parseURI(thePath.string().c_str());
 			if(!doc) {
 				throw std::runtime_error("Could not parse '"+thePath.string()+"'");
 			}
