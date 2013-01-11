@@ -1,16 +1,16 @@
 %define LIBNAME woml
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
-Version: 12.8.7
+Version: 13.1.11
 Release: 1.el6.fmi
 License: FMI
 Group: Development/Libraries
 URL: http://www.weatherproof.fi
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: boost-devel >= 1.49
-BuildRequires: libsmartmet-macgyver >= 11.7.20
-BuildRequires: libxml++-devel >= 2.20.0-1
+BuildRequires: boost-devel >= 1.52
+BuildRequires: libsmartmet-macgyver >= 13.1.11
+BuildRequires: libxml++-devel >= 2.30.0-1
 BuildRequires: libsmartmet-regression >= 11.6.15-1
 Requires: xqilla >= 2.2.3-8
 Requires: xerces-c >= 3.0.1
@@ -41,6 +41,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 11 2013 Mikko Visa <mikko.visa@fmi.fi> - 13.1.11-1.el6.fmi
+- RPM building now uses a user specific rpmbuild directory
+- Fixed automatic detection for tar --exclude-cvs option to speed up rpm building
+- Misc additions, changes and bug fixes
 * Tue Aug  7 2012 Mika Heiskanen <mika.heiskanen@fmi.fi> - 12.8.7-1.el6.fmi
 - RHEL6 release
 * Fri Jun  1 2012 Mikko Visa <mikko.visa@fmi.fi> - 12.6.1-1.el6.fmi
