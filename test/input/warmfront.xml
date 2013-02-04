@@ -1,103 +1,128 @@
-<metobj:MeteorologicalAnalysis xsi:schemaLocation="http://www.opengis.net/gml http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/gml311-part.xsd http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09 http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/metobjects-all.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" gml:id="fct-id359506" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:metobj="http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09">
-  <gml:name codeSpace="urn:metobject:gml:fi:fmi:analysis">foo-12345</gml:name>
-  <gml:featureMember>
-    <metobj:WarmFront xsi:schemaLocation="http://www.opengis.net/gml http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/gml311-part.xsd http://xml.fmi.fi/namespace/meteorology/conceptual-model/meteorological-objects/2009/11/09 http://xml.fmi.fi/schema/meteorology/conceptual-model/meteorological-objects/2009/11/09/metobjects-all.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" gml:id="temp-305ae73b-36ca-4aa5-acb9-2c2ebb27147e" orientation="+" xsi:type="metobj:WarmFrontObjectType">
-      <gml:name codeSpace="urn:metobject:gml:fi:fmi:front">bar</gml:name>
+<womlcore:MeteorologicalAnalysis xsi:schemaLocation="http://xml.fmi.fi/namespace/woml/core/2011/11/15 http://xml.fmi.fi/schema/woml/core/2011/11/15/woml-core.xsd http://xml.fmi.fi/namespace/woml/swo/2011/11/15 http://xml.fmi.fi/schema/woml/swo/2011/11/15/woml-swo.xsd http://xml.fmi.fi/namespace/woml/quantity/2011/11/15 http://xml.fmi.fi/schema/woml/quantity/2011/11/15/woml-quantity.xsd http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" gml:id="ma-1234" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:womlcore="http://xml.fmi.fi/namespace/woml/core/2011/11/15" xmlns:womlswo="http://xml.fmi.fi/namespace/woml/swo/2011/11/15" xmlns:womlqty="http://xml.fmi.fi/namespace/woml/quantity/2011/11/15" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <!--members-->
+  <womlcore:member>
+    <womlswo:WarmFront orientation="-" xsi:schemaLocation="http://xml.fmi.fi/namespace/woml/swo/2011/11/15 http://xml.fmi.fi/schema/woml/swo/2011/11/15/woml-swo.xsd" gml:id="temp-d7291e48-a7eb-4103-8ba2-2d460eb80022">
       <gml:boundedBy>
         <gml:Envelope srsName="epsg:4326">
-          <gml:lowerCorner srsName="EPSG:4326" srsDimension="2">55.2084 3.6765</gml:lowerCorner>
-          <gml:upperCorner srsName="EPSG:4326" srsDimension="2">71.359 35.3842</gml:upperCorner>
+          <gml:lowerCorner srsName="epsg:4326" srsDimension="2">55.004638659450315 3.6765</gml:lowerCorner>
+          <gml:upperCorner srsName="epsg:4326" srsDimension="2">71.359 39.634848365187224</gml:upperCorner>
         </gml:Envelope>
       </gml:boundedBy>
       <gml:validTime>
-        <gml:TimeInstant gml:id="temp-e2605c0f-85ee-4363-b2d7-4ba2d9a344bc">
-          <gml:timePosition>2010-05-27T12:00:00Z</gml:timePosition>
+        <gml:TimeInstant>
+          <gml:timePosition>2012-06-28T12:00:00Z</gml:timePosition>
         </gml:TimeInstant>
       </gml:validTime>
-      <metobj:creationTime>2010-05-27T13:23:31.667Z</metobj:creationTime>
-      <metobj:latestModificationTime>2010-05-27T13:23:31.667Z</metobj:latestModificationTime>
-      <metobj:shortInfo xml:lang="EN-en">Warm front</metobj:shortInfo>
-      <metobj:shortInfo xml:lang="FI-fi">L%C3%A4mmin rintama</metobj:shortInfo>
-      <metobj:longInfo xml:lang="FI-fi">INFO(Created
-		2009-09-18T05:38:46+0000):</metobj:longInfo>
-      <metobj:controlCurve>
-        <metobj:CubicSplineCurve gml:id="temp-58680809-81c4-4561-ab85-ab5137a0d0ad" srsName="epsg:4326" srsDimension="2">
-          <metobj:cubicSplineSegments>
-            <metobj:SimpleCubicSpline interpolation="cubicSpline" degree="3">
-              <gml:posList>69.4240960866448 18.228565163684152 65.50632569139671 26.548970467595694 59.76046987989337 21.934227099853956 57.72341192532487 17.452169333851486</gml:posList>
-              <metobj:vectorAtStart/>
-              <metobj:vectorAtEnd/>
-            </metobj:SimpleCubicSpline>
-          </metobj:cubicSplineSegments>
-        </metobj:CubicSplineCurve>
-      </metobj:controlCurve>
-      <metobj:interpolatedCurve>
-        <metobj:LineStringInterpolationCurve srsName="epsg:4326" srsDimension="2" samplingFrequencyUOM="http://sweet.jpl.nasa.gov/1.1/units.owl#meter" samplingFrequencyValue="15.0">
-          <metobj:lineStringSegments>
-            <metobj:SimpleLineStringSegment>
-              <gml:posList>69.42409609839636 18.228565163684152 69.23527201673913 19.12422781206928 69.04016935815058 19.996664266502876 68.8375544020463 20.839417057042112 68.62632728305263 21.64611432106841 68.4055108496358 22.41052183169319 68.17423638263232 23.126594421531394 67.93172635283862 23.78852522171485 67.67727448248156 24.390791497904473 67.41022345015944 24.928196273277592 67.12994064067573 25.39590535069567 66.83579238969541 25.789479749227752 66.52711720946706 26.104903923200027 66.20319850828152 26.338610409427304 65.86323733590717 26.48750173150526 65.50632570314828 26.548970467595694 65.1321730813717 26.52306522876964 64.74334363205053 26.418647874849597 64.34301901657919 26.246371863774584 63.93429030151375 26.016353298055094 63.52019674464596 25.73809577869099 63.10375706576314 25.42044849285932 62.68799380400379 25.071590831798943 62.27595154656999 24.699037876875963 61.87070990205526 24.309662048783593 61.475392110575214 23.909727065774348 61.093170152407744 23.504931102683997 60.727267152853756 23.100456694489793 60.38095779570613 22.701025500990653 60.057567360068035 22.310956558016386 59.760469891644924 21.934227099853956 59.49217360539748 21.573577171370175 59.25156668304688 21.227847121879307 59.03662748867538 20.895129066102356 58.845333979357434 20.573731657916852 58.675664230545564 20.262150742020538 58.525596606989154 19.959045396063573 58.39310969136791 19.663218378623696 58.27618206051923 19.373600203121157 58.17279198165341 19.089236213906077 58.08091708713459 18.809276160007585 57.998534075415506 18.53296585304713 57.92361847691569 18.259640565007686 57.85414451654648 17.988719873768275 57.788085098852676 17.719703703275513 57.72341193707643 17.452169333851486</gml:posList>
-            </metobj:SimpleLineStringSegment>
-          </metobj:lineStringSegments>
-        </metobj:LineStringInterpolationCurve>
-      </metobj:interpolatedCurve>
-    </metobj:WarmFront>
-  </gml:featureMember>
+      <womlcore:creationTime>2012-06-28T09:49:48.921Z</womlcore:creationTime>
+      <womlcore:latestModificationTime>2012-06-28T09:49:48.921Z</womlcore:latestModificationTime>
+      <womlcore:shortInfo xml:lang="EN-en">Warm front</womlcore:shortInfo>
+      <womlcore:controlCurve>
+        <gml:CompositeCurve gml:id="temp-26ec69c1-1b41-4d5d-855d-6f3d4a2bc1f7">
+          <gml:curveMember>
+            <gml:Curve gml:id="temp-3a98e076-e3e4-4ef9-9dae-118618bb95d1">
+              <gml:segments>
+                <gml:Bezier>
+                  <gml:posList>63.1945 -7.6639 63.2023 -7.401 63.2572 -7.2757 63.2772 -7.1757</gml:posList>
+                  <gml:degree>3</gml:degree>
+                  <gml:knot>
+                    <gml:Knot>
+                      <gml:value>1.0</gml:value>
+                      <gml:multiplicity>4</gml:multiplicity>
+                      <gml:weight>1.0</gml:weight>
+                    </gml:Knot>
+                  </gml:knot>
+                  <gml:knot>
+                    <gml:Knot>
+                      <gml:value>2.0</gml:value>
+                      <gml:multiplicity>4</gml:multiplicity>
+                      <gml:weight>1.0</gml:weight>
+                    </gml:Knot>
+                  </gml:knot>
+                </gml:Bezier>
+                <gml:Bezier>
+                  <gml:posList>63.1945 -7.6639 63.2023 -7.401 63.2572 -7.2757 63.2772 -7.1757</gml:posList>
+                  <gml:degree>3</gml:degree>
+                  <gml:knot>
+                    <gml:Knot>
+                      <gml:value>1.0</gml:value>
+                      <gml:multiplicity>4</gml:multiplicity>
+                      <gml:weight>1.0</gml:weight>
+                    </gml:Knot>
+                  </gml:knot>
+                  <gml:knot>
+                    <gml:Knot>
+                      <gml:value>2.0</gml:value>
+                      <gml:multiplicity>4</gml:multiplicity>
+                      <gml:weight>1.0</gml:weight>
+                    </gml:Knot>
+                  </gml:knot>
+                </gml:Bezier>
+              </gml:segments>
+            </gml:Curve>
+          </gml:curveMember>
+          <gml:curveMember>
+            <gml:LineString gml:id="temp-34d59e8b-c9ae-4956-8e7e-a79a33ab5446">
+              <gml:posList>65.46917707796435 13.467116975904872 65.88508749899204 14.110195678141594 66.29621174710289 14.779592550574904 66.699912061312 15.479450308708948 67.09346261171137 16.213843317855577 67.47404681728625 16.986709540314962 67.83875515101265 17.801764487642288 68.18458387393385 18.662396248417764 68.50843523020485 19.57154166355869 68.80711971589905 20.531545182060512 69.07736109006319 21.544003886349003 69.31580480732636 22.609604596969803 69.51903049501473 23.72796171592546 69.68356895270452 24.897467274227097 69.8059239030059 26.115167086960184 69.88259836645513 27.376678430412312 69.91055616909618 28.672990906786822 69.888748206522 29.981257814079243 69.8171965985789 31.2751787398156 69.69661078182318 32.528967125922094 69.52834251142271 33.71806301423675 69.31430203838224 34.81973886749864 69.05684256336673 35.81355454984248 68.75862183772678 36.68164078455115 68.42245022469295 37.408813933445344 68.05113381251832 37.98254430826836 67.64731965638083 38.39281283248391 67.2133483608618 38.63189619992181 66.7511174011809 38.69411980869464 66.26195710831506 38.57561259209683 65.74652026811447 38.274090417021256 65.20483994509146 37.793145420312044 64.63687769446565 37.15465033863464 64.04242203102694 36.38377537436949 63.42117713126878 35.504206637248814 62.77293910724517 34.53806202854511 62.09773307482332 33.50582610926145 61.395913882056945 32.426302141168264 60.66823385440306 31.31658366289676 59.91588133254946 30.192049178167025 59.140494096238235 29.066382812276487 58.344151943604075 27.951622029436805 57.52935270327117 26.85823141424021 56.698975792023944 25.795199618329207 55.85623711354771 24.770155165273763 55.004638659450315 23.789496017616813</gml:posList>
+            </gml:LineString>
+          </gml:curveMember>
+        </gml:CompositeCurve>
+      </womlcore:controlCurve>
+    </womlswo:WarmFront>
+  </womlcore:member>
+  <womlcore:metaData>
+    <womlcore:MeteorologicalObjectMetaData gml:id="momd-1234">
+      <dc:creator>viikkosaa</dc:creator>
+    </womlcore:MeteorologicalObjectMetaData>
+  </womlcore:metaData>
+  <womlcore:creationTime>2012-06-28T09:49:48.921Z</womlcore:creationTime>
+  <womlcore:longInfo xml:lang="FI-fi"/>
+  <womlcore:sharedObjects/>
   <gml:validTime>
-    <gml:TimePeriod gml:id="time-id359506">
-      <gml:beginPosition>2010-05-27T12:00:00Z</gml:beginPosition>
-      <gml:endPosition>2010-05-27T12:00:00Z</gml:endPosition>
+    <gml:TimePeriod gml:id="tp-1234">
+      <gml:beginPosition>2012-06-28T12:00:00Z</gml:beginPosition>
+      <gml:endPosition>2012-06-28T12:00:00Z</gml:endPosition>
     </gml:TimePeriod>
   </gml:validTime>
-  <metobj:metaData>
-    <metobj:MeteorologicalObjectMetaData>
-      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">???</dc:creator>
-      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Finnish Meteorological Institute (FMI)</dc:publisher>
-      <dc:date xmlns:dc="http://purl.org/dc/elements/1.1/">1274966611667</dc:date>
-      <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">text/xml</dc:format>
-      <metobj:keyword fixedVocabulary="generic">meteorology</metobj:keyword>
-      <metobj:keyword fixedVocabulary="generic">conceptual model</metobj:keyword>
-      <metobj:keyword fixedVocabulary="generic">meteorological object</metobj:keyword>
-      <metobj:keyword fixedVocabulary="generic">human-generated</metobj:keyword>
-    </metobj:MeteorologicalObjectMetaData>
-  </metobj:metaData>
-  <metobj:creationTime>2010-05-27T13:23:31.667Z</metobj:creationTime>
-  <metobj:latestModificationTime>2010-05-27T13:23:31.667Z</metobj:latestModificationTime>
-  <metobj:shortInfo xml:lang="FI-fi"/>
-  <metobj:longInfo xml:lang="FI-fi"/>
-  <metobj:targetRegion>
-    <metobj:GeographicRegion gml:id="reg-europe">
-      <gml:name codeSpace="urn:metobject:gml:fi:fmi:region">europe</gml:name>
+  <!--gml:validTime>
+        <gml:TimeInstant gml:id="ti-1234">
+            <gml:timePosition>2012-01-23T09:00:00.00Z</gml:timePosition>
+        </gml:TimeInstant>
+    </gml:validTime-->
+  <!--1..n-->
+  <womlcore:targetRegion>
+    <womlcore:GeographicRegion gml:id="gr-1234">
+      <!--optio-->
       <gml:boundedBy>
-        <gml:Envelope srsName="EPSG:4326">
-          <gml:lowerCorner>45.000 35.00</gml:lowerCorner>
-          <gml:upperCorner>-40.000 65.00</gml:upperCorner>
+        <gml:Envelope srsName="EPSG:4326" srsDimension="">
+          <gml:lowerCorner>45.0 35.0</gml:lowerCorner>
+          <gml:upperCorner>-40.0 65.0</gml:upperCorner>
         </gml:Envelope>
       </gml:boundedBy>
-      <metobj:boundary>
+      <!--0 / 1-->
+      <womlcore:boundary>
         <gml:LinearRing>
-          <!--This should be a real boundary ring-->
-          <gml:posList>45.000 65.00 -40.000 65.00 -40.000 35.00 45.000 35.00 45.000 65.00</gml:posList>
+          <gml:posList>45.0 65.0 -40.0 65.0 -40.0 35.0 45.0 35.0 45.0 65.0</gml:posList>
         </gml:LinearRing>
-      </metobj:boundary>
-      <metobj:regionId scheme="whatnot">europe</metobj:regionId>
-      <metobj:localizedName xml:lang="FI-fi">Eurooppa</metobj:localizedName>
-      <metobj:localizedName xml:lang="EN-en">Europe</metobj:localizedName>
-      <metobj:localizedName xml:lang="SE-sv">Europa</metobj:localizedName>
-    </metobj:GeographicRegion>
-  </metobj:targetRegion>
-  <metobj:analysisTime>2009-10-07T09:52:09Z</metobj:analysisTime>
-  <metobj:usedReferenceData>
-    <metobj:DataSource>
-      <metobj:numericalModelRun>
-        <metobj:NumericalModelRun>
-          <metobj:model>
-            <metobj:NumericalWeatherModel>
-              <metobj:model>HirlamMBE</metobj:model>
-            </metobj:NumericalWeatherModel>
-          </metobj:model>
-          <metobj:originTime>2010-05-27T12:00:00.000Z</metobj:originTime>
-        </metobj:NumericalModelRun>
-      </metobj:numericalModelRun>
-    </metobj:DataSource>
-  </metobj:usedReferenceData>
-</metobj:MeteorologicalAnalysis>
+      </womlcore:boundary>
+      <!--1..n-->
+      <womlcore:regionId scheme="fmi">europe</womlcore:regionId>
+      <!--0..n  optio-->
+      <womlcore:localizedName xml:lang="FI-fi">Eurooppa</womlcore:localizedName>
+      <womlcore:localizedName xml:lang="EN-en">Europe</womlcore:localizedName>
+      <womlcore:localizedName xml:lang="SE-sv">Europa</womlcore:localizedName>
+    </womlcore:GeographicRegion>
+  </womlcore:targetRegion>
+  <womlcore:analysisTime>2009-10-07T09:52:09.000Z</womlcore:analysisTime>
+  <womlcore:usedReferenceData>
+    <womlcore:NumericalModelRunForecastReference gml:id="nmrfr-1234">
+      <womlcore:targetRegion/>
+      <womlcore:analysisTime>2012-06-28T00:00:00.000Z</womlcore:analysisTime>
+      <womlcore:model>
+        <womlcore:NumericalWeatherModel gml:id="nwm-1234">
+          <womlcore:modelIdentifier>HirlamRCR</womlcore:modelIdentifier>
+          <womlcore:specifier>230</womlcore:specifier>
+        </womlcore:NumericalWeatherModel>
+      </womlcore:model>
+    </womlcore:NumericalModelRunForecastReference>
+  </womlcore:usedReferenceData>
+</womlcore:MeteorologicalAnalysis>

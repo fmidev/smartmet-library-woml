@@ -61,11 +61,11 @@ namespace WomlTest
 	TEST_PASSED();
   }
 
-  void signs()
-  {
-	woml::Weather weather = woml::parse(inputdir / "signs.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+//void signs()
+//{
+//	woml::Weather weather = woml::parse(inputdir / "signs.xml",woml::conceptualmodelanalysis);
+//	TEST_PASSED();
+//}
 
 //void cloud()
 //{
@@ -127,11 +127,11 @@ namespace WomlTest
 	TEST_PASSED();
   }
 
-  void text()
-  {
-	woml::Weather weather = woml::parse(inputdir / "text.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+//  void text()
+//  {
+//  woml::Weather weather = woml::parse(inputdir / "text.xml",woml::conceptualmodelanalysis);
+//  TEST_PASSED();
+//  }
 
 //  void graphic()
 //  {
@@ -158,21 +158,21 @@ namespace WomlTest
 	void test(void)
 	{
 	  TEST(empty);
-//	  TEST(warmfront);
-//	  TEST(coldfront);
-//	  TEST(occlusion);
-//	  TEST(coldandwarmfront);
-//	  TEST(jet);
-//	  TEST(warmfronts);
+	  TEST(warmfront);
+	  TEST(coldfront);
+	  TEST(occlusion);
+	  TEST(coldandwarmfront);
+	  TEST(jet);
+	  TEST(warmfronts);
 //	  TEST(signs);
 //	  TEST(cloud);
-//	  TEST(trough);
-//	  TEST(uppertrough);
-//	  TEST(snow);
-//	  TEST(rain);
-//	  TEST(heavyrain);
-//	  TEST(value);
-//	  TEST(values);
+	  TEST(trough);
+	  TEST(uppertrough);
+	  TEST(snow);
+	  TEST(rain);
+	  TEST(heavyrain);
+	  TEST(value);
+	  TEST(values);
 //	  TEST(text);
 //	  TEST(graphic);
 //	  TEST(suomitv);
