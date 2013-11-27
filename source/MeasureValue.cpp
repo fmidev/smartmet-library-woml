@@ -21,6 +21,7 @@ namespace woml
 CategoryValueMeasure::CategoryValueMeasure()
   : itsCategory("")
   , itsCodebase("")
+  , itsGroupNumber(0)
 { }
 
 // ----------------------------------------------------------------------
@@ -33,6 +34,7 @@ CategoryValueMeasure::CategoryValueMeasure(const std::string & theCategory,
 										   const std::string & theCodebase)
   : itsCategory(theCategory)
   , itsCodebase(theCodebase)
+  , itsGroupNumber(0)
 { }
 
 // ----------------------------------------------------------------------
@@ -77,6 +79,28 @@ const std::string & CategoryValueMeasure::codebase() const
 const std::string & CategoryValueMeasure::unit() const
 {
   return codebase();
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Group setter
+ */
+// ----------------------------------------------------------------------
+
+void CategoryValueMeasure::groupNumber(unsigned int group)
+{
+  itsGroupNumber = group;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Group accessor
+ */
+// ----------------------------------------------------------------------
+
+unsigned int CategoryValueMeasure::groupNumber() const
+{
+  return itsGroupNumber;
 }
 
 // ===== FlowDirectionMeasure =====

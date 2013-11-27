@@ -33,9 +33,13 @@ namespace woml
 	const std::string & category() const;
 	const std::string & codebase() const;
 
+	void groupNumber(unsigned int group);
+	unsigned int groupNumber() const;
+
   private:
 	std::string itsCategory;
 	std::string itsCodebase;
+	unsigned int itsGroupNumber;
 
   }; // class CategoryValueMeasure
 
