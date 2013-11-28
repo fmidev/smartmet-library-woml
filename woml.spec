@@ -1,18 +1,18 @@
 %define LIBNAME woml
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
-Version: 13.7.3
+Version: 13.11.28
 Release: 1%{?dist}.fmi
 License: FMI
 Group: Development/Libraries
 URL: http://www.weatherproof.fi
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: boost-devel >= 1.54
-BuildRequires: libsmartmet-macgyver >= 13.7.3
-BuildRequires: libxml++-devel >= 2.30.0-1
-BuildRequires: libsmartmet-regression >= 11.6.15-1
-Requires: xqilla >= 2.2.3-8
+BuildRequires: boost-devel >= 1.54.0
+BuildRequires: libsmartmet-macgyver >= 13.10.8
+BuildRequires: libxml++-devel >= 2.30.0
+BuildRequires: libsmartmet-regression >= 11.6.15
+Requires: xqilla >= 2.2.3
 Requires: xerces-c >= 3.0.1
 Provides: %{LIBNAME}
 
@@ -41,6 +41,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Nov 28 2013 Mikko Visa <mikko.visa@fmi.fi> - 13.11.28-1.fmi
+- Modifications to support elevation hole handling in frontier
 * Wed Jul  3 2013 Mika Heiskanen <mika.heiskanen@fmi.fi> - 13.7.3-1.fmi
 - Update to boost 1.54
 * Fri Jan 11 2013 Mikko Visa <mikko.visa@fmi.fi> - 13.1.11-1.fmi
