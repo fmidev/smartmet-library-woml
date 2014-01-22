@@ -10,6 +10,7 @@
 #include "GeophysicalParameter.h"
 #include "MeasureValue.h"
 #include "Elevation.h"
+
 #include <boost/shared_ptr.hpp>
 
 namespace woml
@@ -28,6 +29,8 @@ namespace woml
 	MeasureValue * editableValue() const { return itsValue.get(); }
 	void elevation(const Elevation & theElevation) { itsElevation = theElevation; }
 	const Elevation & elevation() const { return itsElevation; }
+	void labelElevation(const Elevation & theLabelElevation);
+	const boost::optional<Elevation> & labelElevation() const { return itsLabelElevation; }
 
 	// For externally defined flagbits
 	//
@@ -41,9 +44,10 @@ namespace woml
 	const GeophysicalParameter itsParameter;
 	const boost::shared_ptr<MeasureValue> itsValue;
 	Elevation itsElevation;
+	boost::optional<Elevation> itsLabelElevation;
 
 	unsigned int itsFlagBits;
-	
+
   }; // class GeophysicalParamterValue
 
 } // namespace woml

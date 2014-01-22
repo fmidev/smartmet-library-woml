@@ -6,6 +6,8 @@
 
 #include "GeophysicalParameterValue.h"
 
+#include <stdexcept>
+
 namespace woml
 {
 
@@ -47,6 +49,35 @@ bool GeophysicalParameterValue::operator < (const GeophysicalParameterValue & th
 	// Sort to descending elevation
 
 	return (itsUpperLimit->numericValue() > theUpperLimit->numericValue());
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Keep track of tallest label elevation
+ */
+// ----------------------------------------------------------------------
+
+void GeophysicalParameterValue::labelElevation(const Elevation & theLabelElevation)
+{
+	const woml::Elevation & e = theLabelElevation;
+	boost::optional<woml::NumericalSingleValueMeasure> itsBoundedLo = (e.bounded() ? e.lowerLimit() : woml::NumericalSingleValueMeasure());
+	const boost::optional<woml::NumericalSingleValueMeasure> & itsLoLimit = (e.bounded() ? itsBoundedLo : e.value());
+	boost::optional<woml::NumericalSingleValueMeasure> itsBoundedHi = (e.bounded() ? e.upperLimit() : woml::NumericalSingleValueMeasure());
+	const boost::optional<woml::NumericalSingleValueMeasure> & itsHiLimit = (e.bounded() ? itsBoundedHi : e.value());
+
+	if ((!itsLoLimit) || (!itsHiLimit))
+		throw std::runtime_error("addLabelElevation: Elevation range not set");
+
+	// The label elevation stores scaled px range values (svg y -axis grows downwards; lo > hi)
+
+	if (
+		(!itsLabelElevation) ||
+		(
+		 (itsLoLimit->numericValue() - itsHiLimit->numericValue()) >
+		 (itsLabelElevation->lowerLimit()->numericValue() - itsLabelElevation->upperLimit()->numericValue())
+		)
+	   )
+		itsLabelElevation = theLabelElevation;
 }
 
 } // namespace woml
