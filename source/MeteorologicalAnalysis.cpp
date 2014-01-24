@@ -1,6 +1,9 @@
 // ======================================================================
 /*!
  * \brief woml::MeteorologicalAnalysis
+ *
+ * 		  Note: Should inherit WeatherForecast and MeteorologicalAnalysis
+ *				from new parent; all members and behaviour are equal!
  */
 // ======================================================================
 
@@ -89,6 +92,17 @@ const boost::posix_time::time_period & MeteorologicalAnalysis::validTime() const
 void MeteorologicalAnalysis::creator(const std::string & theCreator)
 {
   itsCreator = theCreator;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Return the creator
+ */
+// ----------------------------------------------------------------------
+
+const std::string & MeteorologicalAnalysis::creator() const
+{
+  return itsCreator;
 }
 
 // ----------------------------------------------------------------------

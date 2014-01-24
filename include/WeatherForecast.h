@@ -1,6 +1,9 @@
 // ======================================================================
 /*!
  * \brief woml::WeatherForecast
+ *
+ * 		  Note: Should inherit WeatherForecast and MeteorologicalAnalysis
+ *				from new parent; all members and behaviour are equal!
  */
 // ======================================================================
 
@@ -30,6 +33,7 @@ namespace woml
 	void validTime(const boost::posix_time::time_period & thePeriod);
 	const boost::posix_time::time_period & validTime() const;
 	void creator(const std::string & theCreator);
+	const std::string & creator() const;
 	void creationTime(const boost::posix_time::ptime & theTime);
 	const boost::posix_time::ptime & creationTime() const;
 	void latestModificationTime(const boost::optional<boost::posix_time::ptime> & theTime);
