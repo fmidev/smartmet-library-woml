@@ -1632,6 +1632,8 @@ parse_woml_parameter_timeseriespoint(T & theWeatherObject,
 			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<Contrails>(theWeatherObject.validTime(),node));
 		else if (className == "Icing")
 			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<Icing>(theWeatherObject.validTime(),node));
+		else if (className == "turbulence")
+			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<Turbulence>(theWeatherObject.validTime(),node));
 		else if (className == "migratoryBirds")
 			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<MigratoryBirds>(theWeatherObject.validTime(),node));
 		else if (className.find(p = "surfaceVisibility") == 0) {

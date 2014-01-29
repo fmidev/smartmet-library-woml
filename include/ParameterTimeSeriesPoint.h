@@ -49,6 +49,7 @@ namespace woml
   ParameterTimeSeriesPointDerivedClass(CloudLayers);
   ParameterTimeSeriesPointDerivedClass(Contrails);
   ParameterTimeSeriesPointDerivedClass(Icing);
+  ParameterTimeSeriesPointDerivedClass(Turbulence);
   ParameterTimeSeriesPointDerivedClass(MigratoryBirds);
   ParameterTimeSeriesPointDerivedClass(SurfaceVisibility);
   ParameterTimeSeriesPointDerivedClass(SurfaceWeather);

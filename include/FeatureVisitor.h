@@ -46,6 +46,7 @@ namespace woml
   class CloudLayers;
   class Contrails;
   class Icing;
+  class Turbulence;
   class MigratoryBirds;
   class SurfaceVisibility;
   class SurfaceWeather;
@@ -90,6 +91,7 @@ namespace woml
 	virtual void visit(const CloudLayers & theFeature) = 0;
 	virtual void visit(const Contrails & theFeature) = 0;
 	virtual void visit(const Icing & theFeature) = 0;
+	virtual void visit(const Turbulence & theFeature) = 0;
 	virtual void visit(const MigratoryBirds & theFeature) = 0;
 	virtual void visit(const SurfaceVisibility & theFeature) = 0;
 	virtual void visit(const SurfaceWeather & theFeature) = 0;
