@@ -40,6 +40,7 @@ namespace woml
 
   class CloudArea;
   class SurfacePrecipitationArea;
+  class ParameterValueSetArea;
 
   class InfoText;
 
@@ -85,6 +86,7 @@ namespace woml
 
 	virtual void visit(const CloudArea & theFeature) = 0;
 	virtual void visit(const SurfacePrecipitationArea & theFeature) = 0;
+	virtual void visit(const ParameterValueSetArea & theFeature) = 0;
 
 	virtual void visit(const InfoText & theFeature) = 0;
 

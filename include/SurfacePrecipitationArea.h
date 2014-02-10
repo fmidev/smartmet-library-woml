@@ -8,12 +8,10 @@
 #define WOML_SURFACEPRECIPITATIONAREA_H
 
 #include "AbstractSurfaceObject.h"
-#include "BSplineCurve.h"
 #include "Feature.h"
 #include "RainPhase.h"
 #include "MeasureValue.h"
 #include <boost/ptr_container/ptr_list.hpp>
-#include <list>
 #include <string>
 
 namespace woml

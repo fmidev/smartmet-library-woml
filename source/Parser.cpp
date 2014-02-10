@@ -17,6 +17,7 @@
 #include "PointMeteorologicalSymbol.h"
 #include "PressureCenterType.h"
 #include "SurfacePrecipitationArea.h"
+#include "ParameterValueSetArea.h"
 #include "StormType.h"
 #include "TimeSeriesSlot.h"
 #include "Weather.h"
@@ -1335,6 +1336,30 @@ parse_woml_surface_precipitation_area(DOMNode * theNode)
 
 // ----------------------------------------------------------------------
 /*!
+ * \brief Parse woml:ParameterValueSetArea
+ */
+// ----------------------------------------------------------------------
+
+GeophysicalParameterValueSet *
+parse_woml_geophysical_parameter_value_set(DOMNode * node,
+										   bool multipleValues = false,
+										   const char * pathExpr = "womlqty:parameterValueSet/womlqty:GeophysicalParameterValueSet/womlqty:parameterValue/womlqty:GeophysicalParameterValue");
+
+ParameterValueSetArea *
+parse_woml_parameter_value_set_area(DOMNode * node)
+{
+	TRY () {
+		ParameterValueSetArea * area = parse_woml_abstract_surface<ParameterValueSetArea>(node);
+
+		area->param(parse_woml_geophysical_parameter_value_set(node,true));
+
+		return area;
+	}
+	CATCH
+}
+
+// ----------------------------------------------------------------------
+/*!
  * \brief Parse a point meteorologial symbol
  */
 // ----------------------------------------------------------------------
@@ -1392,12 +1417,12 @@ parse_woml_geophysical_parameter(DOMNode * node,const char * pathExpr = "womlqty
 // ----------------------------------------------------------------------
 
 MeasureValue *
-parse_woml_category_value_measure(DOMNode * node,const char *pathExpr = "womlqty:category")
+parse_woml_category_value_measure(DOMNode * node,uint nodeIndex,const char *pathExpr = "womlqty:category")
 {
 	TRYFA (pathExpr) {
-		if ((node = searchNode(node,pathExpr)))
+		if ((node = searchNode(node,(std::string(pathExpr) +"[" + boost::lexical_cast<std::string>(nodeIndex) + "]").c_str())))
 		{
-			DOMNode *text = ((DOMText *) searchNode(node,"text()[1]"));
+			DOMNode *text = ((DOMText *) searchNode(node,"text()"));
 			DOMElement *elem = (DOMElement *) node;
 
 			std::string category(text ? XMLChptr2str(text->getNodeValue()) : "");
@@ -1405,8 +1430,10 @@ parse_woml_category_value_measure(DOMNode * node,const char *pathExpr = "womlqty
 
 			return new CategoryValueMeasure(category,codebase);
 		}
-		else
+		else if (nodeIndex == 1)
 			throw std::runtime_error("Required category element missing");
+		else
+			return NULL;
 	}
 	CATCH
 }
@@ -1448,7 +1475,7 @@ parse_woml_flow_direction_measure(DOMNode * theNode,
 // ----------------------------------------------------------------------
 
 MeasureValue *
-parse_woml_parameter_measure_value(DOMNode * node,const char *pathExpr = "womlqty:value/*[1]")
+parse_woml_parameter_measure_value(DOMNode * node,uint nodeIndex,const char *pathExpr = "womlqty:value/*[1]")
 {
 	TRYFA (pathExpr) {
 		AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
@@ -1459,7 +1486,9 @@ parse_woml_parameter_measure_value(DOMNode * node,const char *pathExpr = "womlqt
 			std::string tagName = XMLChptr2str(node->getLocalName());
 
 			if (tagName == "CategoryValueMeasure")
-				return parse_woml_category_value_measure(node);
+				// ParameterValueSetArea can have multiple category values (warning symbols); pass on the node index (1,2, ...)
+				//
+				return parse_woml_category_value_measure(node,nodeIndex);
 			else if (tagName == "FlowDirectionMeasure")
 				return parse_woml_flow_direction_measure(node);
 			else if (tagName == "NumericalSingleValueMeasure")
@@ -1496,14 +1525,22 @@ parse_woml_parameter_measure_value(DOMNode * node,const char *pathExpr = "womlqt
 // ----------------------------------------------------------------------
 
 void
-parse_woml_geophysical_parameter_value(DOMNode * node,GeophysicalParameterValueSet * values)
+parse_woml_geophysical_parameter_value(DOMNode * node,GeophysicalParameterValueSet * values,bool multipleValues = false)
 {
 	TRY () {
 		GeophysicalParameter param(parse_woml_geophysical_parameter(node));
-		MeasureValue *measValue = parse_woml_parameter_measure_value(node);
 		Elevation elevation(parse_woml_elevation(node));
 
-		values->add(GeophysicalParameterValue(param,measValue,elevation));
+		MeasureValue *measValue;
+		uint nodeIndex = 0;
+
+		do {
+			nodeIndex++;
+
+			measValue = parse_woml_parameter_measure_value(node,nodeIndex);
+			values->add(GeophysicalParameterValue(param,measValue,elevation));
+		}
+		while (measValue && multipleValues);
 	}
 	CATCH
 }
@@ -1515,8 +1552,7 @@ parse_woml_geophysical_parameter_value(DOMNode * node,GeophysicalParameterValueS
 // ----------------------------------------------------------------------
 
 GeophysicalParameterValueSet *
-parse_woml_geophysical_parameter_value_set(DOMNode * node,
-										   const char *pathExpr = "womlqty:parameterValueSet/womlqty:GeophysicalParameterValueSet/womlqty:parameterValue/womlqty:GeophysicalParameterValue")
+parse_woml_geophysical_parameter_value_set(DOMNode * node,bool multipleValues,const char * pathExpr)
 {
 	TRYFA (pathExpr) {
 		GeophysicalParameterValueSet * values = new GeophysicalParameterValueSet;
@@ -1525,7 +1561,7 @@ parse_woml_geophysical_parameter_value_set(DOMNode * node,
 		AutoRelease<DOMXPathResult> result(expression->evaluate(node,DOMXPathResult::ITERATOR_RESULT_TYPE,0));
 
 		while((node = getResultNode(result)))
-			parse_woml_geophysical_parameter_value(node,values);
+			parse_woml_geophysical_parameter_value(node,values,multipleValues);
 
 		return values;
 	}
@@ -1727,6 +1763,8 @@ parse_woml_meteorologicalobject(T & theWeatherObject,
 			theWeatherObject.addFeature(parse_woml_cloud_area(node));
 		else if(name == /*"womlswo:*/"SurfacePrecipitationArea")
 			theWeatherObject.addFeature(parse_woml_surface_precipitation_area(node));
+		else if(name == /*"womlswo:*/"ParameterValueSetArea")
+			theWeatherObject.addFeature(parse_woml_parameter_value_set_area(node));
 	}
 	CATCH
 }
