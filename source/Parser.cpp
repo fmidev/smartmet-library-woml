@@ -935,7 +935,7 @@ parse_woml_cubic_spline_surface(DOMNode * theNode,const char * pathExpr)
 
 MeteorologicalSymbol
 parse_woml_meteorological_symbol(DOMNode * theNode,
-								 const char * definitionReferencePathExpr = "womlswo:meteorologicalSymbolProperty/womlswo:MeteorologicalSymbol/womlswo:definitionReference",
+								 const char * definitionReferencePathExpr = "womlswo:meteorologicalSymbolProperty/womlswo:MeteorologicalSymbol/womlswo:definitionReference[@scheme=\"fmi\"]",
 								 const char * localizedSymbolNamePathExpr = "womlswo:meteorologicalSymbolProperty/womlswo:MeteorologicalSymbol/womlswo:localizedSymbolName")
 {
 	TRYFA (definitionReferencePathExpr) {
