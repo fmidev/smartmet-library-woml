@@ -1376,6 +1376,11 @@ parse_woml_point_meteorological_symbol(DOMNode * node)
 		PointMeteorologicalSymbol * symbol = parse_woml_abstract_point<PointMeteorologicalSymbol>(node);
 		symbol->symbol(parse_woml_meteorological_symbol(node));
 
+		// Using 'shortInfos' member to store component info text
+
+		MeteorologicalAnalysisInfo longInfos;
+		symbol->addShortInfos(parse_woml_longinfo(node,longInfos));
+
 		return symbol;
 	}
 	CATCH
@@ -1586,6 +1591,11 @@ parse_woml_parameter_value_set_point(DOMNode * node)
 		ParameterValueSetPoint * point = parse_woml_abstract_point<ParameterValueSetPoint>(node);
 
 		point->param(parse_woml_geophysical_parameter_value_set(node));
+
+		// Using 'shortInfos' member to store component info text
+
+		MeteorologicalAnalysisInfo longInfos;
+		point->addShortInfos(parse_woml_longinfo(node,longInfos));
 
 		return point;
 	}
