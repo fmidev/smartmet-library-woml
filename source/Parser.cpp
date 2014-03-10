@@ -1019,6 +1019,11 @@ parse_woml_pressure_center_type(DOMNode * theNode)
 		pct->tendency(XMLChptr2str(((DOMText *) node)->getNodeValue()));
 		pct->maxwindspeed(parse_woml_numerical_single_value_measure(theNode,"womlswo:maximumWindSpeed"));
 
+		// Using 'shortInfos' member to store component info text
+
+		MeteorologicalAnalysisInfo longInfos;
+		pct->addShortInfos(parse_woml_longinfo(theNode,longInfos));
+
 		return pct;
 	}
 	CATCH
