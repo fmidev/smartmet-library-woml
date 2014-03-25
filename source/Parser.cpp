@@ -1547,8 +1547,8 @@ parse_woml_geophysical_parameter_value(DOMNode * node,GeophysicalParameterValueS
 		do {
 			nodeIndex++;
 
-			measValue = parse_woml_parameter_measure_value(node,nodeIndex);
-			values->add(GeophysicalParameterValue(param,measValue,elevation));
+			if ((measValue = parse_woml_parameter_measure_value(node,nodeIndex)))
+				values->add(GeophysicalParameterValue(param,measValue,elevation));
 		}
 		while (measValue && multipleValues);
 	}
@@ -1610,11 +1610,12 @@ parse_woml_parameter_value_set_point(DOMNode * node)
 
 GeophysicalParameterValueSet *
 parse_woml_parameter_timeseriesslot(DOMNode * node,
-									boost::optional<boost::posix_time::ptime> & validTime)
+									boost::optional<boost::posix_time::ptime> & validTime,
+									bool multipleValues = false)		// By default load only parameter's first value (category)
 {
 	TRY () {
 		validTime = parse_gml_valid_time_instant(node);
-		GeophysicalParameterValueSet * values = parse_woml_geophysical_parameter_value_set(node);
+		GeophysicalParameterValueSet * values = parse_woml_geophysical_parameter_value_set(node,multipleValues);
 
 		return values;
 	}
@@ -1631,6 +1632,7 @@ template <typename T>
 T *
 parse_woml_parameter_timeseriespoint(const boost::posix_time::time_period & timePeriod,
 									 DOMNode * node,
+									 bool multipleValues = false,		// By default load only parameter's first value (category)
 									 const char * classNameExt = NULL,
 									 const char * pathExpr = "womlqty:timeSlots/womlqty:TimeSeriesSlot")
 {
@@ -1649,7 +1651,7 @@ parse_woml_parameter_timeseriespoint(const boost::posix_time::time_period & time
 		boost::optional<boost::posix_time::ptime> validTime;
 
 		while((node = getResultNode(result))) {
-			GeophysicalParameterValueSet * values = parse_woml_parameter_timeseriesslot(node,validTime);
+			GeophysicalParameterValueSet * values = parse_woml_parameter_timeseriesslot(node,validTime,multipleValues);
 			tsp->add(validTime,values);
 		}
 
@@ -1686,14 +1688,14 @@ parse_woml_parameter_timeseriespoint(T & theWeatherObject,
 		else if (className == "turbulence")
 			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<Turbulence>(theWeatherObject.validTime(),node));
 		else if (className == "migratoryBirds")
-			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<MigratoryBirds>(theWeatherObject.validTime(),node));
+			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<MigratoryBirds>(theWeatherObject.validTime(),node,true));
 		else if (className.find(p = "surfaceVisibility") == 0) {
 			// Sync basic symbol with surfaceWeather
 			//
 			// 22-Nov-2012: No sync for surfaceWeather and surfaceVisibility
 			//
 			classNameExt = className.substr(strlen(p));
-			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<SurfaceVisibility>(theWeatherObject.validTime(),node,classNameExt.c_str()),false /* classNameExt.empty() */);
+			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<SurfaceVisibility>(theWeatherObject.validTime(),node,false,classNameExt.c_str()),false /* classNameExt.empty() */);
 		}
 		else if (className.find(p = "surfaceWeather") == 0) {
 			// Sync basic symbol with surfaceVisibility
@@ -1701,7 +1703,7 @@ parse_woml_parameter_timeseriespoint(T & theWeatherObject,
 			// 22-Nov-2012: No sync for surfaceWeather and surfaceVisibility
 			//
 			classNameExt = className.substr(strlen(p));
-			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<SurfaceWeather>(theWeatherObject.validTime(),node,classNameExt.c_str()),false /* classNameExt.empty() */);
+			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<SurfaceWeather>(theWeatherObject.validTime(),node,false,classNameExt.c_str()),false /* classNameExt.empty() */);
 		}
 		else if (className == "winds")
 			theWeatherObject.addFeature(parse_woml_parameter_timeseriespoint<Winds>(theWeatherObject.validTime(),node));
