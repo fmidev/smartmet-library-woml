@@ -1109,8 +1109,8 @@ parse_woml_abstract_surface(DOMNode * node)
 		surface->latestModificationTime(parse_woml_latest_modification_time(node));
 		surface->elevation(parse_woml_elevation(node));
 
-		MeteorologicalObjectInfo shortInfos;
-		surface->addShortInfos(parse_woml_shortinfo(node,shortInfos));
+		MeteorologicalObjectInfo longInfos;
+		surface->addShortInfos(parse_woml_longinfo(node,longInfos));
 
 		surface->controlSurface(parse_woml_cubic_spline_surface(node,"womlcore:controlSurface/gml:CompositeSurface/gml:surfaceMember/gml:Polygon"));
 
