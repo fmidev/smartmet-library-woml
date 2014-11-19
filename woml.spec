@@ -1,7 +1,7 @@
 %define LIBNAME woml
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
-Version: 13.11.28
+Version: 14.11.19
 Release: 1%{?dist}.fmi
 License: FMI
 Group: Development/Libraries
@@ -9,7 +9,7 @@ URL: http://www.weatherproof.fi
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: boost-devel >= 1.54.0
-BuildRequires: libsmartmet-macgyver >= 13.10.8
+BuildRequires: libsmartmet-macgyver >= 14.9.5
 BuildRequires: libxml++-devel >= 2.30.0
 BuildRequires: libsmartmet-regression >= 11.6.15
 Requires: xqilla >= 2.2.3
@@ -41,6 +41,16 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Nov 19 2014 Mikko Visa <mikko.visa@fmi.fi> - 14.11.19-1.fmi
+- MIRWA-894; loading component info text for surfaces
+- LENTOSAA-743; loading multiple values (categories) for migratoryBirds
+- MIRWA-894; loading component info text for ParameterValueSetPoint and PointMeteorologicalSymbol objects too
+- MIRWA-894; loading component info text
+- MIRWA-933; 03_AltocumulusCloud_3_5 not appearing on map
+- MIRWA-892; added parsing for ParameterValueSetArea
+- LENTOSAA-881; Turbulence output
+- added getter for document creator
+- added storage for labeling information
 * Thu Nov 28 2013 Mikko Visa <mikko.visa@fmi.fi> - 13.11.28-1.fmi
 - Modifications to support elevation hole handling in frontier
 * Wed Jul  3 2013 Mika Heiskanen <mika.heiskanen@fmi.fi> - 13.7.3-1.fmi
