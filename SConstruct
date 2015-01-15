@@ -33,7 +33,7 @@ env = Environment( )
 
 env.Append(LIBS="smartmet_macgyver-mt")
 
-env.ParseConfig( "(pkg-config --exists libxml++-2.6 && pkg-config libxml++-2.6 --cflags --libs)" )
+#env.ParseConfig( "(pkg-config --exists libxml++-2.6 && pkg-config libxml++-2.6 --cflags --libs)" )
 
 env.Append( CPPPATH= [ "./include" ] )
 env.Append( CPPDEFINES= ["UNIX"] )
