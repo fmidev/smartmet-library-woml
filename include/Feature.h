@@ -22,7 +22,7 @@ namespace woml
   public:
 	virtual ~Feature() {}
 	Feature();
-	virtual void visit(FeatureVisitor & theVisitor) const = 0;
+	virtual void visit(FeatureVisitor & theVisitor) const {}
 	void creationTime(const boost::posix_time::ptime & theTime);
 	void validTime(const boost::optional<boost::posix_time::ptime> & theTime);
 	const boost::optional<boost::posix_time::ptime> & validTime() const;
