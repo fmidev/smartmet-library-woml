@@ -1,19 +1,19 @@
 %define LIBNAME woml
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
-Version: 14.11.19
+Version: 15.1.15
 Release: 1%{?dist}.fmi
 License: FMI
 Group: Development/Libraries
 URL: http://www.weatherproof.fi
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: boost-devel >= 1.54.0
-BuildRequires: libsmartmet-macgyver >= 14.9.5
-BuildRequires: libxml++-devel >= 2.30.0
+BuildRequires: boost-devel >= 1.55.0
+BuildRequires: libsmartmet-macgyver >= 14.9.23
+BuildRequires: libxml++-devel >= 2.37.1
 BuildRequires: libsmartmet-regression >= 11.6.15
-Requires: xqilla >= 2.2.3
-Requires: xerces-c >= 3.0.1
+Requires: xqilla >= 2.2.4
+Requires: xerces-c >= 3.1.1
 Provides: %{LIBNAME}
 
 %description
@@ -41,6 +41,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 15 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.1.15-1.fmi
+- Rebuild for RHEL7
 * Wed Nov 19 2014 Mikko Visa <mikko.visa@fmi.fi> - 14.11.19-1.fmi
 - MIRWA-894; loading component info text for surfaces
 - LENTOSAA-743; loading multiple values (categories) for migratoryBirds
