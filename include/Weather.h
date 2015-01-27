@@ -35,7 +35,12 @@ namespace woml
 
 	void synchronize();
 
+	static void strictMode(bool strict) { strictParsing = strict; }
+	static bool strictMode() { return strictParsing; }
+
   private:
+
+	static bool strictParsing;	// Terminate on broken/unexpected woml input
 
 	boost::shared_ptr<MeteorologicalAnalysis> itsAnalysis;
 	boost::shared_ptr<WeatherForecast> itsForecast;

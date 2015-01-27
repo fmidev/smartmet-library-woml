@@ -41,6 +41,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Upcoming (Tue Jan 27 2015 Pertti Kinnia <pertti.kinnia@fmi.fi>)
+- MIRWA-1070
 * Thu Jan 15 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.1.15-1.fmi
 - Rebuild for RHEL7
 * Wed Nov 19 2014 Mikko Visa <mikko.visa@fmi.fi> - 14.11.19-1.fmi

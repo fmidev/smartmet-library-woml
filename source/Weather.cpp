@@ -11,6 +11,8 @@
 
 namespace woml
 {
+bool Weather::strictParsing = true;
+
 // ----------------------------------------------------------------------
 /*!
  * \brief True if analysis has been set

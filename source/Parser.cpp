@@ -911,8 +911,10 @@ parse_woml_cubic_spline_surface(DOMNode * theNode,const char * pathExpr)
 		DOMNode * node;
 		if((node = getResultNode(result)))
 			surface.exterior(parse_woml_spline<CubicSplineRing>(node));
-		else
+		else if (Weather::strictMode())
 			throw std::runtime_error("Required exterior element missing");
+		else
+			return surface;
 
 		TRYA (interiorPathExpr.c_str()) {
 			AutoRelease<DOMXPathExpression> expression2(EXPR(interiorPathExpr));
@@ -1869,7 +1871,7 @@ parse_woml_weather_forecast(documentType docType,DOMNode * node)
 // ----------------------------------------------------------------------
 
 Weather
-parse(const boost::filesystem::path & thePath,documentType docType)
+parse(const boost::filesystem::path & thePath,documentType docType,bool strict)
 {
 	TRY () {
 		if(!boost::filesystem::exists(thePath))
@@ -1887,6 +1889,8 @@ parse(const boost::filesystem::path & thePath,documentType docType)
 		}
 
 		Weather weather;
+
+		Weather::strictMode(strict);
 
 		// Autoreleases must be released before XQillaPlatformUtils::terminate()
 		//
