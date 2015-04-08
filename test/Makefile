@@ -35,11 +35,11 @@ INCLUDES = -I../include -I/usr/include/smartmet \
 
 LIBS = -L.. -lsmartmet_woml \
 	-lsmartmet_macgyver \
-	-lboost_filesystem-mt\
-	-lboost_system-mt\
-	-lxerces-c-3.0 \
- 	-lxqilla \
-	-lboost_date_time-mt
+	-lboost_filesystem\
+	-lboost_system \
+	-lxerces-c \
+	-lxqilla \
+	-lboost_date_time
 
 all: $(PROG)
 clean:

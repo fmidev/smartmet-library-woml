@@ -31,7 +31,7 @@ OBJDIR=     ARGUMENTS.get("objdir","obj")
 
 env = Environment( )
 
-env.Append(LIBS="smartmet_macgyver-mt")
+env.Append(LIBS="smartmet_macgyver")
 
 #env.ParseConfig( "(pkg-config --exists libxml++-2.6 && pkg-config libxml++-2.6 --cflags --libs)" )
 
