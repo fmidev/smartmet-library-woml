@@ -13,8 +13,8 @@ BuildRequires: libsmartmet-macgyver-devel >= 14.9.23
 BuildRequires: libxml++-devel
 BuildRequires: libsmartmet-regression >= 11.6.15
 Requires: libsmartmet-macgyver >= 14.9.23
-Requires: xqilla >= 2.2.4
-Requires: xerces-c >= 3.1.1
+Requires: xqilla
+Requires: xerces-c
 Provides: %{LIBNAME}
 
 %description
