@@ -10,7 +10,7 @@ Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: boost-devel >= 1.55.0
 BuildRequires: libsmartmet-macgyver-devel >= 14.9.23
-BuildRequires: libxml++-devel >= 2.37.1
+BuildRequires: libxml++-devel
 BuildRequires: libsmartmet-regression >= 11.6.15
 Requires: libsmartmet-macgyver >= 14.9.23
 Requires: xqilla >= 2.2.4
