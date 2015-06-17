@@ -1,7 +1,7 @@
 %define LIBNAME woml
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
-Version: 15.3.30
+Version: 15.6.17
 Release: 1%{?dist}.fmi
 License: FMI
 Group: Development/Libraries
@@ -9,10 +9,10 @@ URL: http://www.weatherproof.fi
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: boost-devel >= 1.55.0
-BuildRequires: libsmartmet-macgyver-devel >= 14.9.23
+BuildRequires: libsmartmet-macgyver-devel >= 15.5.19
 BuildRequires: libxml++-devel
 BuildRequires: libsmartmet-regression >= 11.6.15
-Requires: libsmartmet-macgyver >= 14.9.23
+Requires: libsmartmet-macgyver >= 15.5.19
 Requires: xqilla
 Requires: xerces-c
 Provides: %{LIBNAME}
@@ -42,6 +42,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jun 17 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.6.17-1.fmi
+- Heiskanen: removed dependency on explicit xqilla version to support multiple RHEL versions
+- Heiskanen: removed dependency on explicit libxml++ version to support multiple RHEL versions
+- Kinniä: updated some failing test input files
+- Heiskanen: ported to RHEL 7
+- Heiskanen: Using dynamic linkage from now on
 * Tue Mar 31 2015 Mika Heiskanen <mika.heiskanen@fmi.fi> - 15.3.30-1.fmi
 - Use dynamic linking of smartmet libraries
 - MIRWA-1070
