@@ -391,13 +391,13 @@ parse_woml_elevation(DOMNode * node)
 /*!
  * \brief Parse target region
  *
- * Note: only 'fmi' scheme region id parsed
+ * Note: only 'ICAO' or 'fmi' scheme region id parsed
  */
 // ----------------------------------------------------------------------
 
 TargetRegion
 parse_woml_target_region(DOMNode * theNode,
-						 const char * regionIdPathExpr = "womlcore:regionId[@scheme=\"fmi\"][1]",
+						 const char * regionIdPathExpr = "womlcore:regionId[@scheme=\"ICAO\" or @scheme=\"fmi\"][1]",
 						 const char * localizedNamePathExpr = "womlcore:localizedName")
 {
 	TRY () {
@@ -441,7 +441,7 @@ parse_woml_target_region(DOMNode * theNode,
 /*!
  * \brief Parse target regions
  *
- * Note: only 1 region (containing "fmi" scheme region id) parsed
+ * Note: only 1 region (containing "ICAO" or "fmi" scheme region id) parsed
  */
 // ----------------------------------------------------------------------
 
@@ -449,7 +449,7 @@ template <typename T>
 void
 parse_woml_target_regions(T & theWeatherObject,
 						  DOMNode * node,
-						  const char * pathExpr = "womlcore:targetRegion[1]/womlcore:GeographicRegion[womlcore:regionId/@scheme=\"fmi\"]")
+						  const char * pathExpr = "womlcore:targetRegion/womlcore:GeographicRegion[womlcore:regionId/@scheme=\"ICAO\" or womlcore:regionId/@scheme=\"fmi\"][1]")
 {
 	TRYFA (pathExpr) {
 		AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
@@ -464,7 +464,7 @@ parse_woml_target_regions(T & theWeatherObject,
 		if (it != theWeatherObject.TargetRegions_end())
 			theWeatherObject.envelope(it->envelope());
 		else
-			throw std::runtime_error("Required target region (having regionId with @scheme=\"fmi\") element missing");
+			throw std::runtime_error("Required target region (having regionId with @scheme=\"ICAO\" or @scheme=\"fmi\") element missing");
 	}
 	CATCH
 }
