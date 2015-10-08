@@ -174,7 +174,30 @@
         </gml:LinearRing>
       </womlcore:boundary>
       <!--1..n-->
-      <womlcore:regionId scheme="fmi">europe</womlcore:regionId>
+      <womlcore:regionId scheme="unknown">europe</womlcore:regionId>
+      <!--0..n  optio-->
+      <womlcore:localizedName xml:lang="FI-fi">Eurooppa</womlcore:localizedName>
+      <womlcore:localizedName xml:lang="EN-en">Europe</womlcore:localizedName>
+      <womlcore:localizedName xml:lang="SE-sv">Europa</womlcore:localizedName>
+    </womlcore:GeographicRegion>
+  </womlcore:targetRegion>
+  <womlcore:targetRegion>
+    <womlcore:GeographicRegion gml:id="gr-1234-2">
+      <!--optio-->
+      <gml:boundedBy>
+        <gml:Envelope srsName="EPSG:4326" srsDimension="">
+          <gml:lowerCorner>45.0 35.0</gml:lowerCorner>
+          <gml:upperCorner>-40.0 65.0</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <!--0 / 1-->
+      <womlcore:boundary>
+        <gml:LinearRing>
+          <gml:posList>45.0 65.0 -40.0 65.0 -40.0 35.0 45.0 35.0 45.0 65.0</gml:posList>
+        </gml:LinearRing>
+      </womlcore:boundary>
+      <!--1..n-->
+      <womlcore:regionId scheme="ICAO">europe</womlcore:regionId>
       <!--0..n  optio-->
       <womlcore:localizedName xml:lang="FI-fi">Eurooppa</womlcore:localizedName>
       <womlcore:localizedName xml:lang="EN-en">Europe</womlcore:localizedName>
