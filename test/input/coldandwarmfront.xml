@@ -197,7 +197,7 @@
         </gml:LinearRing>
       </womlcore:boundary>
       <!--1..n-->
-      <womlcore:regionId scheme="ICAO">europe</womlcore:regionId>
+      <womlcore:regionId scheme="urn:x-finnish-meterological-institute:icao:code">europe</womlcore:regionId>
       <!--0..n  optio-->
       <womlcore:localizedName xml:lang="FI-fi">Eurooppa</womlcore:localizedName>
       <womlcore:localizedName xml:lang="EN-en">Europe</womlcore:localizedName>
