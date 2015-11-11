@@ -42,6 +42,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Nov 11 2015 upcoming:
+- MIRWA-1141; ignore incomplete weather fronts in nonstrict mode
+* Tue Oct 20 2015 upcoming:
+- LENTOSAA-1056; using targetRegion/regionId scheme 'urn:x-finnish-meterological-institute:icao:code' instead of 'ICAO'
 * Tue Oct  8 2015 upcoming:
 - LENTOSAA-1056; In addition to "fmi", using targetRegion/regionId schema "ICAO" too
 * Wed Jun 17 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.6.17-1.fmi
