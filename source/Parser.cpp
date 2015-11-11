@@ -1085,7 +1085,19 @@ parse_woml_abstract_line(DOMNode * node)
 		WeatherForecastInfo shortInfos;
 		line->addShortInfos(parse_woml_shortinfo(node,shortInfos));
 
-		line->controlCurve(parse_woml_control_curve(node));
+		// MIRWA-1141; gml:LineString/gml:posList might be an empty node (no text element), and parsing throws runtime_error
+
+		try {
+			line->controlCurve(parse_woml_control_curve(node));
+		}
+		catch (std::runtime_error & exc) {
+			if (Weather::strictMode())
+				throw;
+
+			delete line;
+
+			return NULL;
+		}
 
 		return line;
 	}
@@ -1224,6 +1236,9 @@ parse_woml_jet_stream(DOMNode * node)
 	TRY () {
 		JetStream * stream = parse_woml_abstract_line<JetStream>(node);
 
+		if (!stream)
+			return NULL;
+
 		const char * segmentPathExpr = "womlswo:segmentMaximumWinds/womlswo:SegmentMaximumWind";
 
 		TRYA (segmentPathExpr) {
@@ -1293,6 +1308,9 @@ parse_woml_occluded_front(DOMNode * node)
 {
 	TRY () {
 		OccludedFront * front = parse_woml_abstract_line<OccludedFront>(node);
+
+		if (!front)
+			return NULL;
 
 		if (! (node = searchNode(node,"womlswo:stationary/text()[1]")))
 			front->stationary(false);
@@ -1732,24 +1750,60 @@ parse_woml_meteorologicalobject(T & theWeatherObject,
 
 		if(name == /*"womlqty:*/"ParameterTimeSeriesPoint")
 			parse_woml_parameter_timeseriespoint(theWeatherObject,node);
-		else if(name == /*"womlswo:*/"ColdAdvection")
-			theWeatherObject.addFeature(parse_woml_abstract_line<ColdAdvection>(node));
-		else if(name == /*"womlswo:*/"ColdFront")
-			theWeatherObject.addFeature(parse_woml_abstract_line<ColdFront>(node));
-		else if(name == /*"womlswo:*/"JetStream")
-			theWeatherObject.addFeature(parse_woml_jet_stream(node));
-		else if(name == /*"womlswo:*/"OccludedFront")
-			theWeatherObject.addFeature(parse_woml_occluded_front(node));
-		else if(name == /*"womlswo:*/"Ridge")
-			theWeatherObject.addFeature(parse_woml_abstract_line<Ridge>(node));
-		else if(name == /*"womlswo:*/"Trough")
-			theWeatherObject.addFeature(parse_woml_abstract_line<Trough>(node));
-		else if(name == /*"womlswo:*/"UpperTrough")
-			theWeatherObject.addFeature(parse_woml_abstract_line<UpperTrough>(node));
-		else if(name == /*"womlswo:*/"WarmAdvection")
-			theWeatherObject.addFeature(parse_woml_abstract_line<WarmAdvection>(node));
-		else if(name == /*"womlswo:*/"WarmFront")
-			theWeatherObject.addFeature(parse_woml_abstract_line<WarmFront>(node));
+		else if(name == /*"womlswo:*/"ColdAdvection") {
+			ColdAdvection * coldAdvection = parse_woml_abstract_line<ColdAdvection>(node);
+
+			if (coldAdvection)
+				theWeatherObject.addFeature(coldAdvection);
+		}
+		else if(name == /*"womlswo:*/"ColdFront") {
+			ColdFront * coldFront = parse_woml_abstract_line<ColdFront>(node);
+
+			if (coldFront)
+				theWeatherObject.addFeature(coldFront);
+		}
+		else if(name == /*"womlswo:*/"JetStream") {
+			JetStream * jetStream = parse_woml_jet_stream(node);
+
+			if (jetStream)
+				theWeatherObject.addFeature(jetStream);
+		}
+		else if(name == /*"womlswo:*/"OccludedFront") {
+			OccludedFront * occludedFront = parse_woml_occluded_front(node);
+
+			if (occludedFront)
+				theWeatherObject.addFeature(occludedFront);
+		}
+		else if(name == /*"womlswo:*/"Ridge") {
+			Ridge * ridge = parse_woml_abstract_line<Ridge>(node);
+
+			if (ridge)
+				theWeatherObject.addFeature(ridge);
+		}
+		else if(name == /*"womlswo:*/"Trough") {
+			Trough * trough = parse_woml_abstract_line<Trough>(node);
+
+			if (trough)
+				theWeatherObject.addFeature(trough);
+		}
+		else if(name == /*"womlswo:*/"UpperTrough") {
+			UpperTrough * upperTrough = parse_woml_abstract_line<UpperTrough>(node);
+
+			if (upperTrough)
+				theWeatherObject.addFeature(upperTrough);
+		}
+		else if(name == /*"womlswo:*/"WarmAdvection") {
+			WarmAdvection * warmAdvection = parse_woml_abstract_line<WarmAdvection>(node);
+
+			if (warmAdvection)
+				theWeatherObject.addFeature(warmAdvection);
+		}
+		else if(name == /*"womlswo:*/"WarmFront") {
+			WarmFront * warmFront = parse_woml_abstract_line<WarmFront>(node);
+
+			if (warmFront)
+				theWeatherObject.addFeature(warmFront);
+		}
 		else if(name == /*"womlswo:*/"PointMeteorologicalSymbol")
 			theWeatherObject.addFeature(parse_woml_point_meteorological_symbol(node));
 		else if(name == /*"womlswo:*/"AntiCyclone")

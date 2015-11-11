@@ -43,7 +43,7 @@ bool Weather::hasForecast() const
 
 bool Weather::empty() const
 {
-  return (!itsAnalysis & !itsForecast);
+  return (((!itsAnalysis) || (itsAnalysis->begin() == itsAnalysis->begin())) && ((!itsForecast) || (itsForecast->begin() == itsForecast->end())));
 }
 
 // ----------------------------------------------------------------------

@@ -234,7 +234,8 @@ void MeteorologicalAnalysis::addShortInfos(const MeteorologicalAnalysisInfo & th
 //	  addShortInfo(shortInfo.first, shortInfo.second);
 //	}
 
-	addFeature(new InfoText("shortInfo",theShortInfos));
+	if (theShortInfos.size() > 0)
+		addFeature(new InfoText("shortInfo",theShortInfos));
 }
 
 // ----------------------------------------------------------------------
@@ -264,7 +265,8 @@ void MeteorologicalAnalysis::addLongInfos(const MeteorologicalAnalysisInfo & the
 //	  addLongInfo(longInfo.first, longInfo.second);
 //	}
 
-	addFeature(new InfoText("longInfo",theLongInfos));
+	if (theLongInfos.size() > 0)
+		addFeature(new InfoText("longInfo",theLongInfos));
 }
 
 // ----------------------------------------------------------------------
