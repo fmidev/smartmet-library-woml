@@ -1,7 +1,7 @@
 %define LIBNAME woml
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
-Version: 15.6.17
+Version: 15.11.16
 Release: 1%{?dist}.fmi
 License: FMI
 Group: Development/Libraries
@@ -9,10 +9,10 @@ URL: http://www.weatherproof.fi
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: boost-devel >= 1.55.0
-BuildRequires: libsmartmet-macgyver-devel >= 15.5.19
+BuildRequires: libsmartmet-macgyver-devel >= 15.8.24
 BuildRequires: libxml++-devel
 BuildRequires: libsmartmet-regression >= 11.6.15
-Requires: libsmartmet-macgyver >= 15.5.19
+Requires: libsmartmet-macgyver >= 15.8.24
 Requires: xqilla
 Requires: xerces-c
 Provides: %{LIBNAME}
@@ -44,11 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Wed Nov 18 2015 upcoming:
 - MIRWA-1144; Fixed bug in testing number of features loaded from input document
-* Wed Nov 11 2015 upcoming:
+* Mon Nov 16 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.16-1.fmi
 - MIRWA-1141; ignore incomplete weather fronts in nonstrict mode
-* Tue Oct 20 2015 upcoming:
 - LENTOSAA-1056; using targetRegion/regionId scheme 'urn:x-finnish-meterological-institute:icao:code' instead of 'ICAO'
-* Tue Oct  8 2015 upcoming:
 - LENTOSAA-1056; In addition to "fmi", using targetRegion/regionId schema "ICAO" too
 * Wed Jun 17 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.6.17-1.fmi
 - Heiskanen: removed dependency on explicit xqilla version to support multiple RHEL versions
