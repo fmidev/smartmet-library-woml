@@ -42,6 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Nov 18 2015 upcoming:
+- MIRWA-1144; Fixed bug in testing number of features loaded from input document
 * Wed Nov 11 2015 upcoming:
 - MIRWA-1141; ignore incomplete weather fronts in nonstrict mode
 * Tue Oct 20 2015 upcoming:
