@@ -234,8 +234,7 @@ void MeteorologicalAnalysis::addShortInfos(const MeteorologicalAnalysisInfo & th
 //	  addShortInfo(shortInfo.first, shortInfo.second);
 //	}
 
-	if (theShortInfos.size() > 0)
-		addFeature(new InfoText("shortInfo",theShortInfos));
+	addFeature(new InfoText("shortInfo",theShortInfos));
 }
 
 // ----------------------------------------------------------------------
@@ -265,8 +264,9 @@ void MeteorologicalAnalysis::addLongInfos(const MeteorologicalAnalysisInfo & the
 //	  addLongInfo(longInfo.first, longInfo.second);
 //	}
 
-	if (theLongInfos.size() > 0)
-		addFeature(new InfoText("longInfo",theLongInfos));
+	// Note: Feature must be added, even through it is empty; otherwise a text area class definition will be invalid (rect without width) in output document
+
+	addFeature(new InfoText("longInfo",theLongInfos));
 }
 
 // ----------------------------------------------------------------------
