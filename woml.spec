@@ -1,7 +1,7 @@
 %define LIBNAME woml
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
-Version: 15.11.16
+Version: 15.11.19
 Release: 1%{?dist}.fmi
 License: FMI
 Group: Development/Libraries
@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Wed Nov 18 2015 upcoming:
+* Thu Nov 19 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.19-1.fmi
 - MIRWA-1144; Fixed bug in testing number of features loaded from input document
 * Mon Nov 16 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.16-1.fmi
 - MIRWA-1141; ignore incomplete weather fronts in nonstrict mode
