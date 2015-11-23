@@ -1,7 +1,7 @@
 %define LIBNAME woml
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
-Version: 15.11.19
+Version: 15.11.23
 Release: 1%{?dist}.fmi
 License: FMI
 Group: Development/Libraries
@@ -42,6 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Nov 23 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.23-1.fmi
+- MIRWA-1144; LongInfo feature must be stored (even if it is empty) when loading woml, otherwise frontier's output will contain a broken text area (rect without width)
 * Thu Nov 19 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.19-1.fmi
 - MIRWA-1144; Fixed bug in testing number of features loaded from input document
 * Mon Nov 16 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.16-1.fmi
