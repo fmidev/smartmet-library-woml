@@ -10,18 +10,23 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Default constructor
  */
 // ----------------------------------------------------------------------
 
-Elevation::Elevation()
-  : itsBounded(false)
-  , itsValue()
-  , itsRange()
-{ }
+Elevation::Elevation() : itsBounded(false), itsValue(), itsRange() {}
+// ----------------------------------------------------------------------
+/*!
+ * \brief Constructor
+ */
+// ----------------------------------------------------------------------
+
+Elevation::Elevation(const boost::optional<NumericalSingleValueMeasure>& theValue)
+    : itsBounded(false), itsValue(theValue), itsRange()
+{
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -29,23 +34,10 @@ Elevation::Elevation()
  */
 // ----------------------------------------------------------------------
 
-Elevation::Elevation(const boost::optional<NumericalSingleValueMeasure> & theValue)
-  : itsBounded(false)
-  , itsValue(theValue)
-  , itsRange()
-{ }
-
-// ----------------------------------------------------------------------
-/*!
- * \brief Constructor
- */
-// ----------------------------------------------------------------------
-
-Elevation::Elevation(const boost::optional<NumericalValueRangeMeasure> & theRange)
-  : itsBounded(theRange ? true : false)
-  , itsValue()
-  , itsRange(theRange)
-{ }
+Elevation::Elevation(const boost::optional<NumericalValueRangeMeasure>& theRange)
+    : itsBounded(theRange ? true : false), itsValue(), itsRange(theRange)
+{
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -53,18 +45,14 @@ Elevation::Elevation(const boost::optional<NumericalValueRangeMeasure> & theRang
  */
 //  ----------------------------------------------------------------------
 
-bool Elevation::bounded() const
-{
-  return itsBounded;
-}
-
+bool Elevation::bounded() const { return itsBounded; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Value accessor
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<NumericalSingleValueMeasure> & Elevation::value() const
+const boost::optional<NumericalSingleValueMeasure>& Elevation::value() const
 {
   assert(itsValue);
   return itsValue;
@@ -81,8 +69,7 @@ boost::optional<NumericalSingleValueMeasure> Elevation::lowerLimit() const
   assert(itsBounded);
 
   boost::optional<NumericalSingleValueMeasure> limit;
-  if (itsRange)
-    limit = itsRange->lowerLimit();
+  if (itsRange) limit = itsRange->lowerLimit();
 
   return limit;
 }
@@ -98,10 +85,9 @@ boost::optional<NumericalSingleValueMeasure> Elevation::upperLimit() const
   assert(itsBounded);
 
   boost::optional<NumericalSingleValueMeasure> limit;
-  if (itsRange)
-    limit = itsRange->upperLimit();
+  if (itsRange) limit = itsRange->upperLimit();
 
   return limit;
 }
 
-} // namespace woml
+}  // namespace woml

@@ -9,36 +9,27 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Constructor
  */
 // ----------------------------------------------------------------------
 
-ParameterValueSetArea::ParameterValueSetArea()
-  : AbstractSurfaceObject()
-{
-}
-
+ParameterValueSetArea::ParameterValueSetArea() : AbstractSurfaceObject() {}
 // ----------------------------------------------------------------------
 /*!
  * \brief Visit handler
  */
 // ----------------------------------------------------------------------
 
-void ParameterValueSetArea::visit(FeatureVisitor & theVisitor) const
-{
-  theVisitor.visit(*this);
-}
-
+void ParameterValueSetArea::visit(FeatureVisitor& theVisitor) const { theVisitor.visit(*this); }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the parameter values
  */
 // ----------------------------------------------------------------------
 
-void ParameterValueSetArea::param(GeophysicalParameterValueSet * theParameterValueSet)
+void ParameterValueSetArea::param(GeophysicalParameterValueSet* theParameterValueSet)
 {
   itsParameterValueSet.reset(theParameterValueSet);
 }
@@ -49,8 +40,7 @@ void ParameterValueSetArea::param(GeophysicalParameterValueSet * theParameterVal
  */
 // ----------------------------------------------------------------------
 
-boost::shared_ptr<GeophysicalParameterValueSet>
-ParameterValueSetArea::parameters() const
+boost::shared_ptr<GeophysicalParameterValueSet> ParameterValueSetArea::parameters() const
 {
   return itsParameterValueSet;
 }
@@ -61,9 +51,9 @@ ParameterValueSetArea::parameters() const
  */
 // ----------------------------------------------------------------------
 
-void ParameterValueSetArea::innerArea(ParameterValueSetArea * theArea)
+void ParameterValueSetArea::innerArea(ParameterValueSetArea* theArea)
 {
   itsInnerArea.push_back(theArea);
 }
 
-} // namespace woml
+}  // namespace woml

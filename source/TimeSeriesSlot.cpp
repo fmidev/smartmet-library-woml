@@ -9,17 +9,15 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Constructor
  */
 // ----------------------------------------------------------------------
 
-TimeSeriesSlot::TimeSeriesSlot(const boost::posix_time::ptime & theValidTime,
-							   GeophysicalParameterValueSet * theValues)
-  : itsValidTime(theValidTime)
-  , itsValues()
+TimeSeriesSlot::TimeSeriesSlot(const boost::posix_time::ptime& theValidTime,
+                               GeophysicalParameterValueSet* theValues)
+    : itsValidTime(theValidTime), itsValues()
 {
   itsValues.push_back(boost::shared_ptr<GeophysicalParameterValueSet>(theValues));
 }
@@ -30,7 +28,7 @@ TimeSeriesSlot::TimeSeriesSlot(const boost::posix_time::ptime & theValidTime,
  */
 // ----------------------------------------------------------------------
 
-void TimeSeriesSlot::add(GeophysicalParameterValueSet * theValues)
+void TimeSeriesSlot::add(GeophysicalParameterValueSet* theValues)
 {
   itsValues.push_back(boost::shared_ptr<GeophysicalParameterValueSet>(theValues));
 }
@@ -41,13 +39,12 @@ void TimeSeriesSlot::add(GeophysicalParameterValueSet * theValues)
  */
 // ----------------------------------------------------------------------
 
-void
-TimeSeriesSlot::sort()
+void TimeSeriesSlot::sort()
 {
   std::list<boost::shared_ptr<GeophysicalParameterValueSet> >::iterator it = itsValues.begin();
 
-  for ( ; (it != itsValues.end()); it++)
-	  (*it)->sort();
+  for (; (it != itsValues.end()); it++)
+    (*it)->sort();
 }
 
 // ----------------------------------------------------------------------
@@ -56,7 +53,7 @@ TimeSeriesSlot::sort()
  */
 // ----------------------------------------------------------------------
 
-bool TimeSeriesSlot::operator < (const TimeSeriesSlot & theOther) const
+bool TimeSeriesSlot::operator<(const TimeSeriesSlot& theOther) const
 {
   // Sort to ascending time
 
@@ -69,28 +66,21 @@ bool TimeSeriesSlot::operator < (const TimeSeriesSlot & theOther) const
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::ptime &
-TimeSeriesSlot::validTime() const
-{
-  return itsValidTime;
-}
-
+const boost::posix_time::ptime& TimeSeriesSlot::validTime() const { return itsValidTime; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the parameter values
  */
 // ----------------------------------------------------------------------
 
-const std::list<boost::shared_ptr<GeophysicalParameterValueSet> > &
-TimeSeriesSlot::values() const
+const std::list<boost::shared_ptr<GeophysicalParameterValueSet> >& TimeSeriesSlot::values() const
 {
   return itsValues;
 }
 
-std::list<boost::shared_ptr<GeophysicalParameterValueSet> > &
-TimeSeriesSlot::editableValues()
+std::list<boost::shared_ptr<GeophysicalParameterValueSet> >& TimeSeriesSlot::editableValues()
 {
   return itsValues;
 }
 
-} // namespace woml
+}  // namespace woml

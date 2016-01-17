@@ -13,28 +13,27 @@
 
 namespace woml
 {
-  typedef std::list<GeophysicalParameterValue> GeophysicalParameterValueList;
+typedef std::list<GeophysicalParameterValue> GeophysicalParameterValueList;
 
-  class GeophysicalParameterValueSet
-  {
-  public:
-	GeophysicalParameterValueSet();
+class GeophysicalParameterValueSet
+{
+ public:
+  GeophysicalParameterValueSet();
 
-	void elevation(const boost::optional<Elevation> & theElevation);
-	const boost::optional<Elevation> & elevation() const;
+  void elevation(const boost::optional<Elevation>& theElevation);
+  const boost::optional<Elevation>& elevation() const;
 
-	void add(const GeophysicalParameterValue & theValue);
-	void sort();
-	const GeophysicalParameterValueList & values() const;
-	GeophysicalParameterValueList & editableValues();
+  void add(const GeophysicalParameterValue& theValue);
+  void sort();
+  const GeophysicalParameterValueList& values() const;
+  GeophysicalParameterValueList& editableValues();
 
-  private:
+ private:
+  boost::optional<Elevation> itsElevation;
+  GeophysicalParameterValueList itsValues;
 
-	boost::optional<Elevation> itsElevation;
-	GeophysicalParameterValueList itsValues;
+};  // class GeophysicalParameterValueSet
 
-  }; // class GeophysicalParameterValueSet
+}  // namespace woml
 
-} // namespace woml
-
-#endif // WOML_GEOPHYSICALPARAMETERVALUESET_H
+#endif  // WOML_GEOPHYSICALPARAMETERVALUESET_H

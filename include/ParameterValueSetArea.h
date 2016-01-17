@@ -14,27 +14,27 @@
 
 namespace woml
 {
-  class FeatureVisitor;
+class FeatureVisitor;
 
-  class ParameterValueSetArea : public AbstractSurfaceObject
-  {
-  public:
-	ParameterValueSetArea();
+class ParameterValueSetArea : public AbstractSurfaceObject
+{
+ public:
+  ParameterValueSetArea();
 
-	virtual void visit(FeatureVisitor & theVisitor) const;
+  virtual void visit(FeatureVisitor& theVisitor) const;
 
-	void param(GeophysicalParameterValueSet * theParameterValueSet);
-	boost::shared_ptr<GeophysicalParameterValueSet> parameters() const;
+  void param(GeophysicalParameterValueSet* theParameterValueSet);
+  boost::shared_ptr<GeophysicalParameterValueSet> parameters() const;
 
-	void innerArea(ParameterValueSetArea * theArea);
+  void innerArea(ParameterValueSetArea* theArea);
 
-  private:
-	boost::shared_ptr<GeophysicalParameterValueSet> itsParameterValueSet;
+ private:
+  boost::shared_ptr<GeophysicalParameterValueSet> itsParameterValueSet;
 
-	boost::ptr_list<ParameterValueSetArea> itsInnerArea;
+  boost::ptr_list<ParameterValueSetArea> itsInnerArea;
 
-  }; // class ParameterValueSetArea
+};  // class ParameterValueSetArea
 
-} // namespace woml
+}  // namespace woml
 
-#endif // WOML_PARAMETERVALUESETAREA__H
+#endif  // WOML_PARAMETERVALUESETAREA__H

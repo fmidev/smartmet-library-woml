@@ -12,34 +12,26 @@
 
 namespace woml
 {
-  class NumericalModelRun
+class NumericalModelRun
+{
+ public:
+  NumericalModelRun(const std::string& theName,
+                    const std::string& theSpecifier,
+                    const boost::posix_time::ptime& theAnalysisTime)
+      : itsName(theName), itsSpecifier(theSpecifier), itsAnalysisTime(theAnalysisTime)
   {
-  public:
-	NumericalModelRun(const std::string & theName,
-					  const std::string & theSpecifier,
-					  const boost::posix_time::ptime & theAnalysisTime)
-	  : itsName(theName)
-	  , itsSpecifier(theSpecifier)
-	  , itsAnalysisTime(theAnalysisTime)
-	{
-	}
+  }
 
-	const std::string & name() const
-	{ return itsName; }
+  const std::string& name() const { return itsName; }
+  const std::string& specifier() const { return itsSpecifier; }
+  const boost::posix_time::ptime& analysisTime() const { return itsAnalysisTime; }
+ private:
+  NumericalModelRun();
+  std::string itsName;
+  std::string itsSpecifier;
+  boost::posix_time::ptime itsAnalysisTime;
 
-	const std::string & specifier() const
-	{ return itsSpecifier; }
-
-	const boost::posix_time::ptime & analysisTime() const
-	{ return itsAnalysisTime; }
-
-  private:
-	NumericalModelRun();
-	std::string itsName;
-	std::string itsSpecifier;
-	boost::posix_time::ptime itsAnalysisTime;
-
-  }; // NumericalModelRun
+};  // NumericalModelRun
 }
 
-#endif // WOML_NUMERICALMODELRUN_H
+#endif  // WOML_NUMERICALMODELRUN_H

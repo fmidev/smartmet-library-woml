@@ -9,14 +9,13 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the envelope
  */
 // ----------------------------------------------------------------------
 
-void AbstractPointObject::envelope(const boost::optional<Envelope> & theEnvelope)
+void AbstractPointObject::envelope(const boost::optional<Envelope>& theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
@@ -27,20 +26,12 @@ void AbstractPointObject::envelope(const boost::optional<Envelope> & theEnvelope
  */
 // ----------------------------------------------------------------------
 
-void AbstractPointObject::point(const boost::optional<Point> & thePoint)
-{
-  itsPoint = thePoint;
-}
-
+void AbstractPointObject::point(const boost::optional<Point>& thePoint) { itsPoint = thePoint; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the point
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Point> & AbstractPointObject::point() const
-{
-  return itsPoint;
-}
-
-} // namespace woml
+const boost::optional<Point>& AbstractPointObject::point() const { return itsPoint; }
+}  // namespace woml

@@ -9,15 +9,14 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Constructor
  */
 // ----------------------------------------------------------------------
 
-InfoText::InfoText(const std::string & theName,const MeteorologicalObjectInfo & theLangTexts)
-  : itsName(theName)
+InfoText::InfoText(const std::string& theName, const MeteorologicalObjectInfo& theLangTexts)
+    : itsName(theName)
 {
   addShortInfos(theLangTexts);
 }
@@ -28,20 +27,12 @@ InfoText::InfoText(const std::string & theName,const MeteorologicalObjectInfo & 
  */
 // ----------------------------------------------------------------------
 
-void InfoText::visit(FeatureVisitor & theVisitor) const
-{
-  theVisitor.visit(*this);
-}
-
+void InfoText::visit(FeatureVisitor& theVisitor) const { theVisitor.visit(*this); }
 // ----------------------------------------------------------------------
 /*!
  * \brief Name accessor
  */
 // ----------------------------------------------------------------------
 
-const std::string & InfoText::name() const
-{
-  return itsName;
-}
-
-} // namespace woml
+const std::string& InfoText::name() const { return itsName; }
+}  // namespace woml

@@ -13,21 +13,20 @@
 
 namespace woml
 {
-  class InfoText : public Feature
-  {
-  public:
-	InfoText(const std::string & theName,const MeteorologicalObjectInfo & theLangTexts);
+class InfoText : public Feature
+{
+ public:
+  InfoText(const std::string& theName, const MeteorologicalObjectInfo& theLangTexts);
 
-	virtual void visit(FeatureVisitor & theVisitor) const;
+  virtual void visit(FeatureVisitor& theVisitor) const;
 
-	const std::string & name() const;
+  const std::string& name() const;
 
-  private:
+ private:
+  std::string itsName;
 
-	std::string itsName;
+};  // class InfoText
 
-  }; // class InfoText
+}  // namespace woml
 
-} // namespace woml
-
-#endif // WOML_INFOTEXT_H
+#endif  // WOML_INFOTEXT_H

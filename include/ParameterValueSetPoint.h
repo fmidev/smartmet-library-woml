@@ -14,20 +14,19 @@
 
 namespace woml
 {
-  class ParameterValueSetPoint : public AbstractPointObject
-  {
-  public:
-	void visit(FeatureVisitor & theVisitor) const;
+class ParameterValueSetPoint : public AbstractPointObject
+{
+ public:
+  void visit(FeatureVisitor& theVisitor) const;
 
-	void param(GeophysicalParameterValueSet * theParameterValueSet);
-	boost::shared_ptr<GeophysicalParameterValueSet> parameters() const;
+  void param(GeophysicalParameterValueSet* theParameterValueSet);
+  boost::shared_ptr<GeophysicalParameterValueSet> parameters() const;
 
-  private:
+ private:
+  boost::shared_ptr<GeophysicalParameterValueSet> itsParameterValueSet;
 
-	boost::shared_ptr<GeophysicalParameterValueSet> itsParameterValueSet;
+};  // class ParameterValueSetPoint
 
-  }; // class ParameterValueSetPoint
+}  // namespace woml
 
-} // namespace woml
-
-#endif // WOML_PARAMETERVALUESETPOINT_H
+#endif  // WOML_PARAMETERVALUESETPOINT_H

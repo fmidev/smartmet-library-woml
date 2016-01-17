@@ -9,27 +9,20 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Constructor
  */
 // ----------------------------------------------------------------------
 
-GeophysicalParameterValueSet::GeophysicalParameterValueSet()
-  : itsElevation()
-  , itsValues()
-{
-}
-
+GeophysicalParameterValueSet::GeophysicalParameterValueSet() : itsElevation(), itsValues() {}
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the elevation
  */
 // ----------------------------------------------------------------------
 
-void
-GeophysicalParameterValueSet::elevation(const boost::optional<Elevation> & theElevation)
+void GeophysicalParameterValueSet::elevation(const boost::optional<Elevation>& theElevation)
 {
   itsElevation = theElevation;
 }
@@ -40,7 +33,7 @@ GeophysicalParameterValueSet::elevation(const boost::optional<Elevation> & theEl
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Elevation> & GeophysicalParameterValueSet::elevation() const
+const boost::optional<Elevation>& GeophysicalParameterValueSet::elevation() const
 {
   return itsElevation;
 }
@@ -51,8 +44,7 @@ const boost::optional<Elevation> & GeophysicalParameterValueSet::elevation() con
  */
 // ----------------------------------------------------------------------
 
-void
-GeophysicalParameterValueSet::add(const GeophysicalParameterValue & theValue)
+void GeophysicalParameterValueSet::add(const GeophysicalParameterValue& theValue)
 {
   itsValues.push_back(theValue);
 }
@@ -63,28 +55,17 @@ GeophysicalParameterValueSet::add(const GeophysicalParameterValue & theValue)
  */
 // ----------------------------------------------------------------------
 
-void
-GeophysicalParameterValueSet::sort()
-{
-  itsValues.sort();
-}
-
+void GeophysicalParameterValueSet::sort() { itsValues.sort(); }
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the parameter values
  */
 // ----------------------------------------------------------------------
 
-const GeophysicalParameterValueList &
-GeophysicalParameterValueSet::values() const
+const GeophysicalParameterValueList& GeophysicalParameterValueSet::values() const
 {
   return itsValues;
 }
 
-GeophysicalParameterValueList &
-GeophysicalParameterValueSet::editableValues()
-{
-  return itsValues;
-}
-
-} // namespace woml
+GeophysicalParameterValueList& GeophysicalParameterValueSet::editableValues() { return itsValues; }
+}  // namespace woml

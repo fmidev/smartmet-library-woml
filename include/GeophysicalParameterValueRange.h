@@ -11,27 +11,25 @@
 
 namespace woml
 {
-  class GeophysicalParameterValueRange
-  {
-  public:
-	GeophysicalParameterValueRange(const GeophysicalParameter & theParam,
-								   double theLowerLimit,
-								   double theUpperLimit);
+class GeophysicalParameterValueRange
+{
+ public:
+  GeophysicalParameterValueRange(const GeophysicalParameter& theParam,
+                                 double theLowerLimit,
+                                 double theUpperLimit);
 
-	const GeophysicalParameter & parameter() const { return itsParameter; }
-	double lowerLimit() const { return itsLowerLimit; }
-	double upperLimit() const { return itsUpperLimit; }
+  const GeophysicalParameter& parameter() const { return itsParameter; }
+  double lowerLimit() const { return itsLowerLimit; }
+  double upperLimit() const { return itsUpperLimit; }
+ private:
+  GeophysicalParameterValueRange();
 
-  private:
-	GeophysicalParameterValueRange();
+  GeophysicalParameter itsParameter;
+  double itsLowerLimit;
+  double itsUpperLimit;
 
-	GeophysicalParameter itsParameter;
-	double itsLowerLimit;
-	double itsUpperLimit;
+};  // class GeophysicalParamterValueRange
 
-	
-  }; // class GeophysicalParamterValueRange
+}  // namespace woml
 
-} // namespace woml
-
-#endif // WOML_GEOPHYSICALPARAMETERVALUERANGE_H
+#endif  // WOML_GEOPHYSICALPARAMETERVALUERANGE_H

@@ -9,7 +9,6 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Constructor
@@ -17,11 +16,11 @@ namespace woml
 // ----------------------------------------------------------------------
 
 CloudArea::CloudArea()
-  : AbstractSurfaceObject()
-  , itsCloudType(UNKNOWN)
-  , itsCloudTypeName("")
-  , itsCloudCoverPercent()
-  , itsCloudCoverEighths()
+    : AbstractSurfaceObject(),
+      itsCloudType(UNKNOWN),
+      itsCloudTypeName(""),
+      itsCloudCoverPercent(),
+      itsCloudCoverEighths()
 {
 }
 
@@ -31,18 +30,14 @@ CloudArea::CloudArea()
  */
 // ----------------------------------------------------------------------
 
-void CloudArea::visit(FeatureVisitor & theVisitor) const
-{
-  theVisitor.visit(*this);
-}
-
+void CloudArea::visit(FeatureVisitor& theVisitor) const { theVisitor.visit(*this); }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the cloud type
  */
 // ----------------------------------------------------------------------
 
-void CloudArea::cloudType(CloudType theCloudType,const std::string & theCloudTypeName)
+void CloudArea::cloudType(CloudType theCloudType, const std::string& theCloudTypeName)
 {
   itsCloudType = theCloudType;
   itsCloudTypeName = theCloudTypeName;
@@ -54,29 +49,21 @@ void CloudArea::cloudType(CloudType theCloudType,const std::string & theCloudTyp
  */
 // ----------------------------------------------------------------------
 
-CloudType CloudArea::cloudType() const
-{
-  return itsCloudType;
-}
-
+CloudType CloudArea::cloudType() const { return itsCloudType; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the cloud type name
  */
 // ----------------------------------------------------------------------
 
-const std::string & CloudArea::cloudTypeName() const
-{
-  return itsCloudTypeName;
-}
-
+const std::string& CloudArea::cloudTypeName() const { return itsCloudTypeName; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the cloud cover percent
  */
 // ----------------------------------------------------------------------
 
-void CloudArea::cloudCoverPercent(const boost::optional<double> & theCloudCoverPercent)
+void CloudArea::cloudCoverPercent(const boost::optional<double>& theCloudCoverPercent)
 {
   itsCloudCoverPercent = theCloudCoverPercent;
 }
@@ -87,18 +74,14 @@ void CloudArea::cloudCoverPercent(const boost::optional<double> & theCloudCoverP
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<double> & CloudArea::cloudCoverPercent() const
-{
-  return itsCloudCoverPercent;
-}
-
+const boost::optional<double>& CloudArea::cloudCoverPercent() const { return itsCloudCoverPercent; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the cloud cover eighths
  */
 // ----------------------------------------------------------------------
 
-void CloudArea::cloudCoverEighths(const std::string & theCloudCoverEighths)
+void CloudArea::cloudCoverEighths(const std::string& theCloudCoverEighths)
 {
   itsCloudCoverEighths = theCloudCoverEighths;
 }
@@ -109,9 +92,5 @@ void CloudArea::cloudCoverEighths(const std::string & theCloudCoverEighths)
  */
 // ----------------------------------------------------------------------
 
-const std::string & CloudArea::cloudCoverEighths() const
-{
-  return itsCloudCoverEighths;
-}
-
-} // namespace woml
+const std::string& CloudArea::cloudCoverEighths() const { return itsCloudCoverEighths; }
+}  // namespace woml

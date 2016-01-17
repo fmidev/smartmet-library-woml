@@ -11,21 +11,21 @@
 
 namespace woml
 {
-  enum RainPhase
-	{
-	  rain,
-	  snow,
-	  fog,
-	  sleet,
-	  hail,
-	  freezing_precipitation,
-	  drizzle,
-	  mixed,
-	  unknown
-	};
+enum RainPhase
+{
+  rain,
+  snow,
+  fog,
+  sleet,
+  hail,
+  freezing_precipitation,
+  drizzle,
+  mixed,
+  unknown
+};
 
-  RainPhase parseRainPhase(const std::string & theName);
+RainPhase parseRainPhase(const std::string& theName);
 
-} // namespace woml
+}  // namespace woml
 
-#endif // WOML_RAINPHASE_H
+#endif  // WOML_RAINPHASE_H

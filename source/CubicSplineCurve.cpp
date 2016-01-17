@@ -8,14 +8,13 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Add segment to the spline
  */
 // ----------------------------------------------------------------------
 
-void CubicSplineCurve::add(const SimpleCubicSpline & theSpline)
+void CubicSplineCurve::add(const SimpleCubicSpline& theSpline)
 {
   itsCubicSplineSegments.push_back(theSpline);
 }
@@ -26,7 +25,7 @@ void CubicSplineCurve::add(const SimpleCubicSpline & theSpline)
  */
 // ----------------------------------------------------------------------
 
-void CubicSplineCurve::lineString(const SimpleCubicSpline & theLineStringPoints)
+void CubicSplineCurve::lineString(const SimpleCubicSpline& theLineStringPoints)
 {
   itsLineStringPoints = theLineStringPoints;
 }
@@ -37,11 +36,7 @@ void CubicSplineCurve::lineString(const SimpleCubicSpline & theLineStringPoints)
  */
 // ----------------------------------------------------------------------
 
-const SimpleCubicSpline & CubicSplineCurve::lineString() const
-{
-  return itsLineStringPoints;
-}
-
+const SimpleCubicSpline& CubicSplineCurve::lineString() const { return itsLineStringPoints; }
 // ----------------------------------------------------------------------
 /*!
  * \brief begin-iterator
@@ -64,6 +59,4 @@ CubicSplineCurve::const_iterator CubicSplineCurve::end() const
   return itsCubicSplineSegments.end();
 }
 
-
-
-} // namespace woml
+}  // namespace woml

@@ -11,23 +11,23 @@
 
 namespace woml
 {
-  enum CloudType
-	{
-	  CI,
-	  CC,
-	  CS,
-	  AC,
-	  AS,
-	  NS,
-	  SC,
-	  ST,
-	  CU,
-	  CB,
-	  UNKNOWN
-	};
+enum CloudType
+{
+  CI,
+  CC,
+  CS,
+  AC,
+  AS,
+  NS,
+  SC,
+  ST,
+  CU,
+  CB,
+  UNKNOWN
+};
 
-  CloudType parseCloudType(const std::string & theName);
+CloudType parseCloudType(const std::string& theName);
 
-} // namespace woml
+}  // namespace woml
 
-#endif // WOML_CLOUDTYPE_H
+#endif  // WOML_CLOUDTYPE_H

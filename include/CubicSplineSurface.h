@@ -12,23 +12,23 @@
 
 namespace woml
 {
-  class CubicSplineSurface
-  {
-  public:
-	void exterior(const CubicSplineRing & theRing);
-	void interior(const CubicSplineRing & theRing);
+class CubicSplineSurface
+{
+ public:
+  void exterior(const CubicSplineRing& theRing);
+  void interior(const CubicSplineRing& theRing);
 
-	const CubicSplineRing & exterior() const;
+  const CubicSplineRing& exterior() const;
 
-	typedef std::list<CubicSplineRing>::const_iterator const_iterator;
-	const_iterator begin() const;
-	const_iterator end() const;
+  typedef std::list<CubicSplineRing>::const_iterator const_iterator;
+  const_iterator begin() const;
+  const_iterator end() const;
 
-  private:
-	CubicSplineRing itsExterior;
-	std::list<CubicSplineRing> itsInterior;
+ private:
+  CubicSplineRing itsExterior;
+  std::list<CubicSplineRing> itsInterior;
 
-  }; // class CubicSplineSurface
-} // namespace woml
+};  // class CubicSplineSurface
+}  // namespace woml
 
-#endif // WOML_CUBICSPLINESURFACE_H
+#endif  // WOML_CUBICSPLINESURFACE_H

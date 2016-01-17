@@ -9,14 +9,13 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the orientation
  */
 // ----------------------------------------------------------------------
 
-void AbstractLineObject::orientation(const boost::optional<std::string> & theOrientation)
+void AbstractLineObject::orientation(const boost::optional<std::string>& theOrientation)
 {
   itsOrientation = (theOrientation ? *theOrientation : "+");
 }
@@ -27,18 +26,14 @@ void AbstractLineObject::orientation(const boost::optional<std::string> & theOri
  */
 // ----------------------------------------------------------------------
 
-const std::string & AbstractLineObject::orientation() const
-{
-  return *itsOrientation;
-}
-
+const std::string& AbstractLineObject::orientation() const { return *itsOrientation; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the envelope
  */
 // ----------------------------------------------------------------------
 
-void AbstractLineObject::envelope(const boost::optional<Envelope> & theEnvelope)
+void AbstractLineObject::envelope(const boost::optional<Envelope>& theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
@@ -49,7 +44,7 @@ void AbstractLineObject::envelope(const boost::optional<Envelope> & theEnvelope)
  */
 // ----------------------------------------------------------------------
 
-void AbstractLineObject::controlCurve(const CubicSplineCurve & theControlCurve)
+void AbstractLineObject::controlCurve(const CubicSplineCurve& theControlCurve)
 {
   itsControlCurve = theControlCurve;
 }
@@ -60,7 +55,7 @@ void AbstractLineObject::controlCurve(const CubicSplineCurve & theControlCurve)
  */
 // ----------------------------------------------------------------------
 
-void AbstractLineObject::connectStartPoint(const std::string & theName)
+void AbstractLineObject::connectStartPoint(const std::string& theName)
 {
   itsStartPointConnectsTo = theName;
 }
@@ -71,7 +66,7 @@ void AbstractLineObject::connectStartPoint(const std::string & theName)
  */
 // ----------------------------------------------------------------------
 
-void AbstractLineObject::connectEndPoint(const std::string & theName)
+void AbstractLineObject::connectEndPoint(const std::string& theName)
 {
   itsEndPointConnectsTo = theName;
 }
@@ -82,9 +77,5 @@ void AbstractLineObject::connectEndPoint(const std::string & theName)
  */
 // ----------------------------------------------------------------------
 
-const CubicSplineCurve & AbstractLineObject::controlCurve() const
-{
-  return itsControlCurve;
-}
-
-} // namespace woml
+const CubicSplineCurve& AbstractLineObject::controlCurve() const { return itsControlCurve; }
+}  // namespace woml

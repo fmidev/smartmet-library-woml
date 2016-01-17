@@ -9,7 +9,6 @@
 
 namespace woml
 {
-
 // ===== CategoryValueMeasure =====
 //
 // ----------------------------------------------------------------------
@@ -18,11 +17,9 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-CategoryValueMeasure::CategoryValueMeasure()
-  : itsCategory("")
-  , itsCodebase("")
-  , itsGroupNumber(0)
-{ }
+CategoryValueMeasure::CategoryValueMeasure() : itsCategory(""), itsCodebase(""), itsGroupNumber(0)
+{
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -30,12 +27,11 @@ CategoryValueMeasure::CategoryValueMeasure()
  */
 // ----------------------------------------------------------------------
 
-CategoryValueMeasure::CategoryValueMeasure(const std::string & theCategory,
-										   const std::string & theCodebase)
-  : itsCategory(theCategory)
-  , itsCodebase(theCodebase)
-  , itsGroupNumber(0)
-{ }
+CategoryValueMeasure::CategoryValueMeasure(const std::string& theCategory,
+                                           const std::string& theCodebase)
+    : itsCategory(theCategory), itsCodebase(theCodebase), itsGroupNumber(0)
+{
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -43,66 +39,42 @@ CategoryValueMeasure::CategoryValueMeasure(const std::string & theCategory,
  */
 // ----------------------------------------------------------------------
 
-const std::string & CategoryValueMeasure::category() const
-{
-  return itsCategory;
-}
-
+const std::string& CategoryValueMeasure::category() const { return itsCategory; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Value accessor
  */
 // ----------------------------------------------------------------------
 
-const std::string & CategoryValueMeasure::value() const
-{
-  return category();
-}
-
+const std::string& CategoryValueMeasure::value() const { return category(); }
 // ----------------------------------------------------------------------
 /*!
  * \brief Codebase accessor
  */
 // ----------------------------------------------------------------------
 
-const std::string & CategoryValueMeasure::codebase() const
-{
-  return itsCodebase;
-}
-
+const std::string& CategoryValueMeasure::codebase() const { return itsCodebase; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Unit accessor
  */
 // ----------------------------------------------------------------------
 
-const std::string & CategoryValueMeasure::unit() const
-{
-  return codebase();
-}
-
+const std::string& CategoryValueMeasure::unit() const { return codebase(); }
 // ----------------------------------------------------------------------
 /*!
  * \brief Group setter
  */
 // ----------------------------------------------------------------------
 
-void CategoryValueMeasure::groupNumber(unsigned int group)
-{
-  itsGroupNumber = group;
-}
-
+void CategoryValueMeasure::groupNumber(unsigned int group) { itsGroupNumber = group; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Group accessor
  */
 // ----------------------------------------------------------------------
 
-unsigned int CategoryValueMeasure::groupNumber() const
-{
-  return itsGroupNumber;
-}
-
+unsigned int CategoryValueMeasure::groupNumber() const { return itsGroupNumber; }
 // ===== FlowDirectionMeasure =====
 //
 // ----------------------------------------------------------------------
@@ -112,10 +84,9 @@ unsigned int CategoryValueMeasure::groupNumber() const
 // ----------------------------------------------------------------------
 
 FlowDirectionMeasure::FlowDirectionMeasure()
-  : itsCompassPoint("")
-  , itsDirectionVector("")
-  , itsUnit("")
-{ }
+    : itsCompassPoint(""), itsDirectionVector(""), itsUnit("")
+{
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -123,11 +94,11 @@ FlowDirectionMeasure::FlowDirectionMeasure()
  */
 // ----------------------------------------------------------------------
 
-FlowDirectionMeasure::FlowDirectionMeasure(const std::string & theCompassPoint,const std::string & theDirectionVector)
-  : itsCompassPoint(theCompassPoint)
-  , itsDirectionVector(theDirectionVector)
-  , itsUnit("")
-{ }
+FlowDirectionMeasure::FlowDirectionMeasure(const std::string& theCompassPoint,
+                                           const std::string& theDirectionVector)
+    : itsCompassPoint(theCompassPoint), itsDirectionVector(theDirectionVector), itsUnit("")
+{
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -135,44 +106,28 @@ FlowDirectionMeasure::FlowDirectionMeasure(const std::string & theCompassPoint,c
  */
 // ----------------------------------------------------------------------
 
-const std::string & FlowDirectionMeasure::compassPoint() const
-{
-  return itsCompassPoint;
-}
-
+const std::string& FlowDirectionMeasure::compassPoint() const { return itsCompassPoint; }
 // ----------------------------------------------------------------------
 /*!
  * \brief DirectionVector accessor
  */
 // ----------------------------------------------------------------------
 
-const std::string & FlowDirectionMeasure::directionVector() const
-{
-  return itsDirectionVector;
-}
-
+const std::string& FlowDirectionMeasure::directionVector() const { return itsDirectionVector; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Value accessor
  */
 // ----------------------------------------------------------------------
 
-const std::string & FlowDirectionMeasure::value() const
-{
-  return compassPoint();
-}
-
+const std::string& FlowDirectionMeasure::value() const { return compassPoint(); }
 // ----------------------------------------------------------------------
 /*!
  * \brief Unit accessor
  */
 // ----------------------------------------------------------------------
 
-const std::string & FlowDirectionMeasure::unit() const
-{
-  return itsUnit;
-}
-
+const std::string& FlowDirectionMeasure::unit() const { return itsUnit; }
 // ===== NumericalSingleValueMeasure =====
 //
 // ----------------------------------------------------------------------
@@ -182,10 +137,9 @@ const std::string & FlowDirectionMeasure::unit() const
 // ----------------------------------------------------------------------
 
 NumericalSingleValueMeasure::NumericalSingleValueMeasure()
-  : itsValue(0.0)
-  , itsStringValue("")
-  , itsUnit("")
-{ }
+    : itsValue(0.0), itsStringValue(""), itsUnit("")
+{
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -193,11 +147,12 @@ NumericalSingleValueMeasure::NumericalSingleValueMeasure()
  */
 // ----------------------------------------------------------------------
 
-NumericalSingleValueMeasure::NumericalSingleValueMeasure(double theValue,const std::string & theStringValue,const std::string & theUnit)
-  : itsValue(theValue)
-  , itsStringValue(theStringValue)
-  , itsUnit(theUnit)
-{ }
+NumericalSingleValueMeasure::NumericalSingleValueMeasure(double theValue,
+                                                         const std::string& theStringValue,
+                                                         const std::string& theUnit)
+    : itsValue(theValue), itsStringValue(theStringValue), itsUnit(theUnit)
+{
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -205,33 +160,21 @@ NumericalSingleValueMeasure::NumericalSingleValueMeasure(double theValue,const s
  */
 // ----------------------------------------------------------------------
 
-double NumericalSingleValueMeasure::numericValue() const
-{
-  return itsValue;
-}
-
+double NumericalSingleValueMeasure::numericValue() const { return itsValue; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Value accessor
  */
 // ----------------------------------------------------------------------
 
-const std::string & NumericalSingleValueMeasure::value() const
-{
-  return itsStringValue;
-}
-
+const std::string& NumericalSingleValueMeasure::value() const { return itsStringValue; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Unit accessor
  */
 // ----------------------------------------------------------------------
 
-const std::string & NumericalSingleValueMeasure::unit() const
-{
-  return itsUnit;
-}
-
+const std::string& NumericalSingleValueMeasure::unit() const { return itsUnit; }
 // ===== NumericalValueRangeMeasure =====
 //
 // ----------------------------------------------------------------------
@@ -241,10 +184,11 @@ const std::string & NumericalSingleValueMeasure::unit() const
 // ----------------------------------------------------------------------
 
 NumericalValueRangeMeasure::NumericalValueRangeMeasure()
-  : itsLowerLimit(NumericalSingleValueMeasure())
-  , itsUpperLimit(NumericalSingleValueMeasure())
-  , itsStringValue("")
-{ }
+    : itsLowerLimit(NumericalSingleValueMeasure()),
+      itsUpperLimit(NumericalSingleValueMeasure()),
+      itsStringValue("")
+{
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -252,12 +196,12 @@ NumericalValueRangeMeasure::NumericalValueRangeMeasure()
  */
 // ----------------------------------------------------------------------
 
-NumericalValueRangeMeasure::NumericalValueRangeMeasure(const NumericalSingleValueMeasure & theLowerLimit,
-													   const NumericalSingleValueMeasure & theUpperLimit)
-  : itsLowerLimit(theLowerLimit)
-  , itsUpperLimit(theUpperLimit)
+NumericalValueRangeMeasure::NumericalValueRangeMeasure(
+    const NumericalSingleValueMeasure& theLowerLimit,
+    const NumericalSingleValueMeasure& theUpperLimit)
+    : itsLowerLimit(theLowerLimit), itsUpperLimit(theUpperLimit)
 {
-	itsStringValue = itsLowerLimit.value() + " " + itsUpperLimit.value();
+  itsStringValue = itsLowerLimit.value() + " " + itsUpperLimit.value();
 }
 
 // ----------------------------------------------------------------------
@@ -266,29 +210,21 @@ NumericalValueRangeMeasure::NumericalValueRangeMeasure(const NumericalSingleValu
  */
 // ----------------------------------------------------------------------
 
-const std::string & NumericalValueRangeMeasure::value() const
-{
-  return itsStringValue;
-}
-
+const std::string& NumericalValueRangeMeasure::value() const { return itsStringValue; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Unit accessor
  */
 // ----------------------------------------------------------------------
 
-const std::string & NumericalValueRangeMeasure::unit() const
-{
-  return itsLowerLimit.unit();
-}
-
+const std::string& NumericalValueRangeMeasure::unit() const { return itsLowerLimit.unit(); }
 // ----------------------------------------------------------------------
 /*!
  * \brief Lower limit accessor
  */
 // ----------------------------------------------------------------------
 
-const NumericalSingleValueMeasure & NumericalValueRangeMeasure::lowerLimit() const
+const NumericalSingleValueMeasure& NumericalValueRangeMeasure::lowerLimit() const
 {
   return itsLowerLimit;
 }
@@ -299,9 +235,9 @@ const NumericalSingleValueMeasure & NumericalValueRangeMeasure::lowerLimit() con
  */
 // ----------------------------------------------------------------------
 
-const NumericalSingleValueMeasure & NumericalValueRangeMeasure::upperLimit() const
+const NumericalSingleValueMeasure& NumericalValueRangeMeasure::upperLimit() const
 {
   return itsUpperLimit;
 }
 
-} // namespace woml
+}  // namespace woml

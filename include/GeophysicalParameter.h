@@ -15,29 +15,22 @@
 
 namespace woml
 {
-  class GeophysicalParameter
+class GeophysicalParameter
+{
+ public:
+  GeophysicalParameter(const std::string& theName, int theNumber)
+      : itsName(theName), itsNumber(theNumber)
   {
-  public:
-	GeophysicalParameter(const std::string & theName,
-						 int theNumber
-						 )
-	  : itsName(theName)
-	  , itsNumber(theNumber)
-	{}
+  }
 
-	GeophysicalParameter()
-	  : itsName("")
-	  , itsNumber(-1)
-	{}
+  GeophysicalParameter() : itsName(""), itsNumber(-1) {}
+  const std::string& name() const { return itsName; }
+  int number() const { return itsNumber; }
+ private:
+  std::string itsName;
+  int itsNumber;
 
-	const std::string & name() const { return itsName; }
-	int number() const { return itsNumber; }
+};  // class GeophysicalParameter
+}  // namespace woml
 
-  private:
-	std::string itsName;
-	int itsNumber;
-
-  }; // class GeophysicalParameter
-} // namespace woml
-
-#endif // WOML_GEOPHYSICALPARAMETER_H
+#endif  // WOML_GEOPHYSICALPARAMETER_H

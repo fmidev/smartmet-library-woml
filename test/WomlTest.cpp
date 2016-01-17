@@ -15,14 +15,15 @@ path inputdir = "input";
 path outputdir = "results";
 path resultsdir = "results_ok";
 
-struct indent {
+struct indent
+{
   int depth_;
-  indent(int depth): depth_(depth) {};
+  indent(int depth) : depth_(depth){};
 };
 
-std::ostream & operator<<(std::ostream & o, indent const & in)
+std::ostream& operator<<(std::ostream& o, indent const& in)
 {
-  for(int i = 0; i != in.depth_; ++i)
+  for (int i = 0; i != in.depth_; ++i)
   {
     o << "  ";
   }
@@ -31,101 +32,102 @@ std::ostream & operator<<(std::ostream & o, indent const & in)
 
 namespace WomlTest
 {
-  void empty()
-  {
-	woml::Weather weather = woml::parse(inputdir / "empty.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void empty()
+{
+  woml::Weather weather = woml::parse(inputdir / "empty.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-  void warmfront()
-  {
-	woml::Weather weather = woml::parse(inputdir / "warmfront.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void warmfront()
+{
+  woml::Weather weather = woml::parse(inputdir / "warmfront.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-  void coldfront()
-  {
-	woml::Weather weather = woml::parse(inputdir / "coldfront.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void coldfront()
+{
+  woml::Weather weather = woml::parse(inputdir / "coldfront.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-  void coldandwarmfront()
-  {
-	woml::Weather weather = woml::parse(inputdir / "coldandwarmfront.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void coldandwarmfront()
+{
+  woml::Weather weather =
+      woml::parse(inputdir / "coldandwarmfront.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-  void warmfronts()
-  {
-	woml::Weather weather = woml::parse(inputdir / "warmfronts.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void warmfronts()
+{
+  woml::Weather weather = woml::parse(inputdir / "warmfronts.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-//void signs()
+// void signs()
 //{
 //	woml::Weather weather = woml::parse(inputdir / "signs.xml",woml::conceptualmodelanalysis);
 //	TEST_PASSED();
 //}
 
-//void cloud()
+// void cloud()
 //{
 //	woml::Weather weather = woml::parse(inputdir / "cloud.xml",woml::conceptualmodelanalysis);
 //	TEST_PASSED();
 //}
 
-  void jet()
-  {
-	woml::Weather weather = woml::parse(inputdir / "jet.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void jet()
+{
+  woml::Weather weather = woml::parse(inputdir / "jet.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-  void occlusion()
-  {
-	woml::Weather weather = woml::parse(inputdir / "occlusion.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void occlusion()
+{
+  woml::Weather weather = woml::parse(inputdir / "occlusion.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-  void trough()
-  {
-	woml::Weather weather = woml::parse(inputdir / "trough.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void trough()
+{
+  woml::Weather weather = woml::parse(inputdir / "trough.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-  void uppertrough()
-  {
-	woml::Weather weather = woml::parse(inputdir / "uppertrough.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void uppertrough()
+{
+  woml::Weather weather = woml::parse(inputdir / "uppertrough.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-  void rain()
-  {
-	woml::Weather weather = woml::parse(inputdir / "rain.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void rain()
+{
+  woml::Weather weather = woml::parse(inputdir / "rain.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-  void heavyrain()
-  {
-	woml::Weather weather = woml::parse(inputdir / "heavyrain.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void heavyrain()
+{
+  woml::Weather weather = woml::parse(inputdir / "heavyrain.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-  void snow()
-  {
-	woml::Weather weather = woml::parse(inputdir / "snow.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void snow()
+{
+  woml::Weather weather = woml::parse(inputdir / "snow.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-  void value()
-  {
-	woml::Weather weather = woml::parse(inputdir / "value.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void value()
+{
+  woml::Weather weather = woml::parse(inputdir / "value.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
-  void values()
-  {
-	woml::Weather weather = woml::parse(inputdir / "values.xml",woml::conceptualmodelanalysis);
-	TEST_PASSED();
-  }
+void values()
+{
+  woml::Weather weather = woml::parse(inputdir / "values.xml", woml::conceptualmodelanalysis);
+  TEST_PASSED();
+}
 
 //  void text()
 //  {
@@ -145,49 +147,42 @@ namespace WomlTest
 //	TEST_PASSED();
 //  }
 
-  //! The actual test driver
-  class tests : public tframe::tests
+//! The actual test driver
+class tests : public tframe::tests
+{
+  //! Overridden message separator
+  virtual const char* error_message_prefix() const { return "\n\t"; }
+  //! Main test suite
+  void test(void)
   {
-	//! Overridden message separator
-	virtual const char * error_message_prefix() const
-	{
-	  return "\n\t";
-	}
+    TEST(empty);
+    TEST(warmfront);
+    TEST(coldfront);
+    TEST(occlusion);
+    TEST(coldandwarmfront);
+    TEST(jet);
+    TEST(warmfronts);
+    //	  TEST(signs);
+    //	  TEST(cloud);
+    TEST(trough);
+    TEST(uppertrough);
+    TEST(snow);
+    TEST(rain);
+    TEST(heavyrain);
+    TEST(value);
+    TEST(values);
+    //	  TEST(text);
+    //	  TEST(graphic);
+    //	  TEST(suomitv);
+  }
 
-	//! Main test suite
-	void test(void)
-	{
-	  TEST(empty);
-	  TEST(warmfront);
-	  TEST(coldfront);
-	  TEST(occlusion);
-	  TEST(coldandwarmfront);
-	  TEST(jet);
-	  TEST(warmfronts);
-//	  TEST(signs);
-//	  TEST(cloud);
-	  TEST(trough);
-	  TEST(uppertrough);
-	  TEST(snow);
-	  TEST(rain);
-	  TEST(heavyrain);
-	  TEST(value);
-	  TEST(values);
-//	  TEST(text);
-//	  TEST(graphic);
-//	  TEST(suomitv);
-	}
+};  // class tests
 
-  }; // class tests
-
-} // namespace WomlTest
-
+}  // namespace WomlTest
 
 int main(void)
 {
-  cout << endl
-	   << "Testing WOML serialization" << endl
-	   << "==========================" << endl;
+  cout << endl << "Testing WOML serialization" << endl << "==========================" << endl;
   WomlTest::tests t;
   return t.run();
 }

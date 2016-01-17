@@ -12,7 +12,6 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Default constructor
@@ -20,15 +19,15 @@ namespace woml
 // ----------------------------------------------------------------------
 
 MeteorologicalAnalysis::MeteorologicalAnalysis()
-  : MeteorologicalObject()
-  , itsFeatureMembers()
-  , itsValidTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time),
-				 boost::posix_time::ptime(boost::posix_time::not_a_date_time))
-  , itsCreator()
-  , itsCreationTime(boost::posix_time::not_a_date_time)
-  , itsLatestModificationTime(boost::posix_time::not_a_date_time)
-  , itsAnalysisTime(boost::posix_time::not_a_date_time)
-  , itsTargetRegions()
+    : MeteorologicalObject(),
+      itsFeatureMembers(),
+      itsValidTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time),
+                   boost::posix_time::ptime(boost::posix_time::not_a_date_time)),
+      itsCreator(),
+      itsCreationTime(boost::posix_time::not_a_date_time),
+      itsLatestModificationTime(boost::posix_time::not_a_date_time),
+      itsAnalysisTime(boost::posix_time::not_a_date_time),
+      itsTargetRegions()
 //, itsShortInfos()
 //, itsLongInfos()
 {
@@ -42,12 +41,13 @@ MeteorologicalAnalysis::MeteorologicalAnalysis()
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::addFeature(Feature * theFeature,bool timeSynchronized)
+void MeteorologicalAnalysis::addFeature(Feature *theFeature, bool timeSynchronized)
 {
   itsFeatureMembers.push_back(theFeature);
 
   if (timeSynchronized)
-	MeteorologicalObject::addTimeSynchronizedFeature(dynamic_cast<woml::ParameterTimeSeriesPoint *>(theFeature));
+    MeteorologicalObject::addTimeSynchronizedFeature(
+        dynamic_cast<woml::ParameterTimeSeriesPoint *>(theFeature));
 }
 
 // ----------------------------------------------------------------------
@@ -56,7 +56,7 @@ void MeteorologicalAnalysis::addFeature(Feature * theFeature,bool timeSynchroniz
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::envelope(const boost::optional<Envelope> & theEnvelope)
+void MeteorologicalAnalysis::envelope(const boost::optional<Envelope> &theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
@@ -67,7 +67,7 @@ void MeteorologicalAnalysis::envelope(const boost::optional<Envelope> & theEnvel
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::validTime(const boost::posix_time::time_period & thePeriod)
+void MeteorologicalAnalysis::validTime(const boost::posix_time::time_period &thePeriod)
 {
   itsValidTime = thePeriod;
 }
@@ -78,7 +78,7 @@ void MeteorologicalAnalysis::validTime(const boost::posix_time::time_period & th
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::time_period & MeteorologicalAnalysis::validTime() const
+const boost::posix_time::time_period &MeteorologicalAnalysis::validTime() const
 {
   return itsValidTime;
 }
@@ -89,29 +89,21 @@ const boost::posix_time::time_period & MeteorologicalAnalysis::validTime() const
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::creator(const std::string & theCreator)
-{
-  itsCreator = theCreator;
-}
-
+void MeteorologicalAnalysis::creator(const std::string &theCreator) { itsCreator = theCreator; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the creator
  */
 // ----------------------------------------------------------------------
 
-const std::string & MeteorologicalAnalysis::creator() const
-{
-  return itsCreator;
-}
-
+const std::string &MeteorologicalAnalysis::creator() const { return itsCreator; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the creation time
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::creationTime(const boost::posix_time::ptime & theTime)
+void MeteorologicalAnalysis::creationTime(const boost::posix_time::ptime &theTime)
 {
   itsCreationTime = theTime;
 }
@@ -122,7 +114,7 @@ void MeteorologicalAnalysis::creationTime(const boost::posix_time::ptime & theTi
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::ptime & MeteorologicalAnalysis::creationTime() const
+const boost::posix_time::ptime &MeteorologicalAnalysis::creationTime() const
 {
   return itsCreationTime;
 }
@@ -133,7 +125,8 @@ const boost::posix_time::ptime & MeteorologicalAnalysis::creationTime() const
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::latestModificationTime(const boost::optional<boost::posix_time::ptime> & theTime)
+void MeteorologicalAnalysis::latestModificationTime(
+    const boost::optional<boost::posix_time::ptime> &theTime)
 {
   itsLatestModificationTime = theTime;
 }
@@ -144,7 +137,8 @@ void MeteorologicalAnalysis::latestModificationTime(const boost::optional<boost:
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<boost::posix_time::ptime> & MeteorologicalAnalysis::latestModificationTime() const
+const boost::optional<boost::posix_time::ptime> &MeteorologicalAnalysis::latestModificationTime()
+    const
 {
   return itsLatestModificationTime;
 }
@@ -155,7 +149,7 @@ const boost::optional<boost::posix_time::ptime> & MeteorologicalAnalysis::latest
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::analysisTime(const boost::posix_time::ptime & theTime)
+void MeteorologicalAnalysis::analysisTime(const boost::posix_time::ptime &theTime)
 {
   itsAnalysisTime = theTime;
 }
@@ -166,7 +160,7 @@ void MeteorologicalAnalysis::analysisTime(const boost::posix_time::ptime & theTi
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::ptime & MeteorologicalAnalysis::analysisTime() const
+const boost::posix_time::ptime &MeteorologicalAnalysis::analysisTime() const
 {
   return itsAnalysisTime;
 }
@@ -177,10 +171,10 @@ const boost::posix_time::ptime & MeteorologicalAnalysis::analysisTime() const
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::addTargetRegion(const TargetRegion & theTargetRegion)
+void MeteorologicalAnalysis::addTargetRegion(const TargetRegion &theTargetRegion)
 {
-	if (theTargetRegion.RegionIds_begin() != theTargetRegion.RegionIds_end())
-		itsTargetRegions.push_back(theTargetRegion);
+  if (theTargetRegion.RegionIds_begin() != theTargetRegion.RegionIds_end())
+    itsTargetRegions.push_back(theTargetRegion);
 }
 
 // ----------------------------------------------------------------------
@@ -189,8 +183,8 @@ void MeteorologicalAnalysis::addTargetRegion(const TargetRegion & theTargetRegio
  */
 // ----------------------------------------------------------------------
 
-MeteorologicalAnalysis::TargetRegions_const_iterator
-MeteorologicalAnalysis::TargetRegions_begin() const
+MeteorologicalAnalysis::TargetRegions_const_iterator MeteorologicalAnalysis::TargetRegions_begin()
+    const
 {
   return itsTargetRegions.begin();
 }
@@ -201,8 +195,8 @@ MeteorologicalAnalysis::TargetRegions_begin() const
  */
 // ----------------------------------------------------------------------
 
-MeteorologicalAnalysis::TargetRegions_const_iterator
-MeteorologicalAnalysis::TargetRegions_end() const
+MeteorologicalAnalysis::TargetRegions_const_iterator MeteorologicalAnalysis::TargetRegions_end()
+    const
 {
   return itsTargetRegions.end();
 }
@@ -213,7 +207,8 @@ MeteorologicalAnalysis::TargetRegions_end() const
  */
 // ----------------------------------------------------------------------
 
-//void MeteorologicalAnalysis::addShortInfo(const std::string & theLanguage,const std::string & theShortInfo)
+// void MeteorologicalAnalysis::addShortInfo(const std::string & theLanguage,const std::string &
+// theShortInfo)
 //{
 //	if ((theLanguage.length() > 0) && (theShortInfo.length() > 0))
 //		itsShortInfos.insert(std::make_pair(theLanguage,theShortInfo));
@@ -225,16 +220,16 @@ MeteorologicalAnalysis::TargetRegions_end() const
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::addShortInfos(const MeteorologicalAnalysisInfo & theShortInfos)
+void MeteorologicalAnalysis::addShortInfos(const MeteorologicalAnalysisInfo &theShortInfos)
 {
-	// shortInfos is stored as a feature
+  // shortInfos is stored as a feature
 
-//  BOOST_FOREACH(const MeteorologicalAnalysis::value_type & shortInfo, theShortInfos)
-//	{
-//	  addShortInfo(shortInfo.first, shortInfo.second);
-//	}
+  //  BOOST_FOREACH(const MeteorologicalAnalysis::value_type & shortInfo, theShortInfos)
+  //	{
+  //	  addShortInfo(shortInfo.first, shortInfo.second);
+  //	}
 
-	addFeature(new InfoText("shortInfo",theShortInfos));
+  addFeature(new InfoText("shortInfo", theShortInfos));
 }
 
 // ----------------------------------------------------------------------
@@ -243,7 +238,8 @@ void MeteorologicalAnalysis::addShortInfos(const MeteorologicalAnalysisInfo & th
  */
 // ----------------------------------------------------------------------
 
-//void MeteorologicalAnalysis::addLongInfo(const std::string & theLanguage,const std::string & theLongInfo)
+// void MeteorologicalAnalysis::addLongInfo(const std::string & theLanguage,const std::string &
+// theLongInfo)
 //{
 //	if ((theLanguage.length() > 0) && (theLongInfo.length() > 0))
 //		itsLongInfos.insert(std::make_pair(theLanguage,theLongInfo));
@@ -255,18 +251,19 @@ void MeteorologicalAnalysis::addShortInfos(const MeteorologicalAnalysisInfo & th
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::addLongInfos(const MeteorologicalAnalysisInfo & theLongInfos)
+void MeteorologicalAnalysis::addLongInfos(const MeteorologicalAnalysisInfo &theLongInfos)
 {
-	// longInfos is stored as a feature
+  // longInfos is stored as a feature
 
-//  BOOST_FOREACH(const MeteorologicalAnalysis::value_type & longInfo, theLongInfos)
-//	{
-//	  addLongInfo(longInfo.first, longInfo.second);
-//	}
+  //  BOOST_FOREACH(const MeteorologicalAnalysis::value_type & longInfo, theLongInfos)
+  //	{
+  //	  addLongInfo(longInfo.first, longInfo.second);
+  //	}
 
-	// Note: Feature must be added, even through it is empty; otherwise a text area class definition will be invalid (rect without width) in output document
+  // Note: Feature must be added, even through it is empty; otherwise a text area class definition
+  // will be invalid (rect without width) in output document
 
-	addFeature(new InfoText("longInfo",theLongInfos));
+  addFeature(new InfoText("longInfo", theLongInfos));
 }
 
 // ----------------------------------------------------------------------
@@ -275,8 +272,7 @@ void MeteorologicalAnalysis::addLongInfos(const MeteorologicalAnalysisInfo & the
  */
 // ----------------------------------------------------------------------
 
-MeteorologicalAnalysis::const_iterator
-MeteorologicalAnalysis::begin() const
+MeteorologicalAnalysis::const_iterator MeteorologicalAnalysis::begin() const
 {
   return itsFeatureMembers.begin();
 }
@@ -287,8 +283,7 @@ MeteorologicalAnalysis::begin() const
  */
 // ----------------------------------------------------------------------
 
-MeteorologicalAnalysis::const_iterator
-MeteorologicalAnalysis::end() const
+MeteorologicalAnalysis::const_iterator MeteorologicalAnalysis::end() const
 {
   return itsFeatureMembers.end();
 }
@@ -299,20 +294,12 @@ MeteorologicalAnalysis::end() const
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::dataSource(const DataSource & theSource)
-{
-  itsDataSource = theSource;
-}
-
+void MeteorologicalAnalysis::dataSource(const DataSource &theSource) { itsDataSource = theSource; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Get the data source
  */
 // ----------------------------------------------------------------------
 
-const DataSource & MeteorologicalAnalysis::dataSource() const
-{
-  return itsDataSource;
-}
-
-} // namespace woml
+const DataSource &MeteorologicalAnalysis::dataSource() const { return itsDataSource; }
+}  // namespace woml

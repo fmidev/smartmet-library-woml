@@ -9,7 +9,6 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Constructor
@@ -17,12 +16,12 @@ namespace woml
 // ----------------------------------------------------------------------
 
 SurfacePrecipitationArea::SurfacePrecipitationArea()
-  : AbstractSurfaceObject()
-  , itsRainPhase(unknown)
-  , itsRainPhaseName("")
-  , itsContinuity()
-  , itsShoweriness()
-  , itsApproximateRainFall()
+    : AbstractSurfaceObject(),
+      itsRainPhase(unknown),
+      itsRainPhaseName(""),
+      itsContinuity(),
+      itsShoweriness(),
+      itsApproximateRainFall()
 {
 }
 
@@ -32,18 +31,14 @@ SurfacePrecipitationArea::SurfacePrecipitationArea()
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::visit(FeatureVisitor & theVisitor) const
-{
-  theVisitor.visit(*this);
-}
-
+void SurfacePrecipitationArea::visit(FeatureVisitor& theVisitor) const { theVisitor.visit(*this); }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the rain phase
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::rainPhase(RainPhase thePhase,const std::string & thePhaseName)
+void SurfacePrecipitationArea::rainPhase(RainPhase thePhase, const std::string& thePhaseName)
 {
   itsRainPhase = thePhase;
   itsRainPhaseName = thePhaseName;
@@ -77,7 +72,8 @@ void SurfacePrecipitationArea::showeriness(boost::optional<double> thePercentage
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::approximateRainFall(const boost::optional<NumericalSingleValueMeasure> & theAmount)
+void SurfacePrecipitationArea::approximateRainFall(
+    const boost::optional<NumericalSingleValueMeasure>& theAmount)
 {
   itsApproximateRainFall = theAmount;
 }
@@ -88,7 +84,7 @@ void SurfacePrecipitationArea::approximateRainFall(const boost::optional<Numeric
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::innerArea(SurfacePrecipitationArea * theArea)
+void SurfacePrecipitationArea::innerArea(SurfacePrecipitationArea* theArea)
 {
   itsInnerArea.push_back(theArea);
 }
@@ -99,20 +95,12 @@ void SurfacePrecipitationArea::innerArea(SurfacePrecipitationArea * theArea)
  */
 // ----------------------------------------------------------------------
 
-RainPhase SurfacePrecipitationArea::rainPhase() const
-{
-  return itsRainPhase;
-}
-
+RainPhase SurfacePrecipitationArea::rainPhase() const { return itsRainPhase; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Get precipitation phase name
  */
 // ----------------------------------------------------------------------
 
-const std::string & SurfacePrecipitationArea::rainPhaseName() const
-{
-  return itsRainPhaseName;
-}
-
-} // namespace woml
+const std::string& SurfacePrecipitationArea::rainPhaseName() const { return itsRainPhaseName; }
+}  // namespace woml

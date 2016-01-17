@@ -13,28 +13,29 @@
 
 namespace woml
 {
-  class FeatureVisitor;
-  class GeophysicalParameterValueSet;
+class FeatureVisitor;
+class GeophysicalParameterValueSet;
 
-  class TimeSeriesSlot
-  {
-  public:
-	TimeSeriesSlot(const boost::posix_time::ptime & theValidTime,GeophysicalParameterValueSet * theValues);
+class TimeSeriesSlot
+{
+ public:
+  TimeSeriesSlot(const boost::posix_time::ptime& theValidTime,
+                 GeophysicalParameterValueSet* theValues);
 
-	void add(GeophysicalParameterValueSet * theValues);
-	void sort();
-	bool operator < (const TimeSeriesSlot & theOther) const;
+  void add(GeophysicalParameterValueSet* theValues);
+  void sort();
+  bool operator<(const TimeSeriesSlot& theOther) const;
 
-	const boost::posix_time::ptime & validTime() const;
-	const std::list<boost::shared_ptr<GeophysicalParameterValueSet> > & values() const;
-	std::list<boost::shared_ptr<GeophysicalParameterValueSet> > & editableValues();
+  const boost::posix_time::ptime& validTime() const;
+  const std::list<boost::shared_ptr<GeophysicalParameterValueSet> >& values() const;
+  std::list<boost::shared_ptr<GeophysicalParameterValueSet> >& editableValues();
 
-  private:
-	boost::posix_time::ptime itsValidTime;
-	std::list<boost::shared_ptr<GeophysicalParameterValueSet> > itsValues;
+ private:
+  boost::posix_time::ptime itsValidTime;
+  std::list<boost::shared_ptr<GeophysicalParameterValueSet> > itsValues;
 
-  }; // class TimeSeriesSlot
+};  // class TimeSeriesSlot
 
-} // namespace woml
+}  // namespace woml
 
-#endif // WOML_TIMESERIESSLOT_H
+#endif  // WOML_TIMESERIESSLOT_H

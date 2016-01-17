@@ -8,27 +8,23 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Visit handler
  */
 // ----------------------------------------------------------------------
 
-void JetStream::visit(FeatureVisitor & theVisitor) const
-{
-  theVisitor.visit(*this);
-}
-
+void JetStream::visit(FeatureVisitor& theVisitor) const { theVisitor.visit(*this); }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the maximum wind speed
  */
 // ----------------------------------------------------------------------
 
-void JetStream::maximumWindSpeed(const int segmentIndex,const NumericalSingleValueMeasure & theMaximumWindSpeed)
+void JetStream::maximumWindSpeed(const int segmentIndex,
+                                 const NumericalSingleValueMeasure& theMaximumWindSpeed)
 {
-  itsMaximumWindSpeeds.push_back(std::make_pair(segmentIndex,theMaximumWindSpeed));
+  itsMaximumWindSpeeds.push_back(std::make_pair(segmentIndex, theMaximumWindSpeed));
 }
 
 // ----------------------------------------------------------------------
@@ -37,8 +33,7 @@ void JetStream::maximumWindSpeed(const int segmentIndex,const NumericalSingleVal
  */
 // ----------------------------------------------------------------------
 
-JetStream::MaximumWindSpeeds_const_iterator
-JetStream::MaximumWindSpeeds_begin() const
+JetStream::MaximumWindSpeeds_const_iterator JetStream::MaximumWindSpeeds_begin() const
 {
   return itsMaximumWindSpeeds.begin();
 }
@@ -49,10 +44,9 @@ JetStream::MaximumWindSpeeds_begin() const
  */
 // ----------------------------------------------------------------------
 
-JetStream::MaximumWindSpeeds_const_iterator
-JetStream::MaximumWindSpeeds_end() const
+JetStream::MaximumWindSpeeds_const_iterator JetStream::MaximumWindSpeeds_end() const
 {
   return itsMaximumWindSpeeds.end();
 }
 
-} // namespace woml
+}  // namespace woml

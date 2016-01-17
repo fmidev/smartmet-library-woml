@@ -8,28 +8,22 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Default constructor
  */
 // ----------------------------------------------------------------------
 
-TargetRegion::TargetRegion()
-  : itsBoundedBy()
-  , itsRegionIds()
-  , itsLocalizedNames()
-{ }
-
+TargetRegion::TargetRegion() : itsBoundedBy(), itsRegionIds(), itsLocalizedNames() {}
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the envelope
  */
 // ----------------------------------------------------------------------
 
-void TargetRegion::envelope(const boost::optional<Envelope> & theEnvelope)
+void TargetRegion::envelope(const boost::optional<Envelope>& theEnvelope)
 {
-	itsBoundedBy = theEnvelope;
+  itsBoundedBy = theEnvelope;
 }
 
 // ----------------------------------------------------------------------
@@ -38,22 +32,17 @@ void TargetRegion::envelope(const boost::optional<Envelope> & theEnvelope)
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Envelope> & TargetRegion::envelope() const
-{
-	return itsBoundedBy;
-}
-
+const boost::optional<Envelope>& TargetRegion::envelope() const { return itsBoundedBy; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Add a region id
  */
 // ----------------------------------------------------------------------
 
-void TargetRegion::addRegionId(const std::string & theScheme,
-							   const std::string & theRegionId)
+void TargetRegion::addRegionId(const std::string& theScheme, const std::string& theRegionId)
 {
-	if ((theScheme.length() > 0) && (theRegionId.length() > 0))
-		itsRegionIds.push_back(std::make_pair(theScheme,theRegionId));
+  if ((theScheme.length() > 0) && (theRegionId.length() > 0))
+    itsRegionIds.push_back(std::make_pair(theScheme, theRegionId));
 }
 
 // ----------------------------------------------------------------------
@@ -62,8 +51,7 @@ void TargetRegion::addRegionId(const std::string & theScheme,
  */
 // ----------------------------------------------------------------------
 
-TargetRegion::RegionIds_const_iterator
-TargetRegion::RegionIds_begin() const
+TargetRegion::RegionIds_const_iterator TargetRegion::RegionIds_begin() const
 {
   return itsRegionIds.begin();
 }
@@ -74,8 +62,7 @@ TargetRegion::RegionIds_begin() const
  */
 // ----------------------------------------------------------------------
 
-TargetRegion::RegionIds_const_iterator
-TargetRegion::RegionIds_end() const
+TargetRegion::RegionIds_const_iterator TargetRegion::RegionIds_end() const
 {
   return itsRegionIds.end();
 }
@@ -86,11 +73,11 @@ TargetRegion::RegionIds_end() const
  */
 // ----------------------------------------------------------------------
 
-void TargetRegion::addLocalizedName(const std::string & theLanguage,
-									const std::string & theLocalizedName)
+void TargetRegion::addLocalizedName(const std::string& theLanguage,
+                                    const std::string& theLocalizedName)
 {
-	if ((theLanguage.length() > 0) && (theLocalizedName.length() > 0))
-		itsLocalizedNames.push_back(std::make_pair(theLanguage,theLocalizedName));
+  if ((theLanguage.length() > 0) && (theLocalizedName.length() > 0))
+    itsLocalizedNames.push_back(std::make_pair(theLanguage, theLocalizedName));
 }
 
 // ----------------------------------------------------------------------
@@ -99,8 +86,7 @@ void TargetRegion::addLocalizedName(const std::string & theLanguage,
  */
 // ----------------------------------------------------------------------
 
-TargetRegion::LocalizedNames_const_iterator
-TargetRegion::LocalizedNames_begin() const
+TargetRegion::LocalizedNames_const_iterator TargetRegion::LocalizedNames_begin() const
 {
   return itsLocalizedNames.begin();
 }
@@ -111,10 +97,9 @@ TargetRegion::LocalizedNames_begin() const
  */
 // ----------------------------------------------------------------------
 
-TargetRegion::LocalizedNames_const_iterator
-TargetRegion::LocalizedNames_end() const
+TargetRegion::LocalizedNames_const_iterator TargetRegion::LocalizedNames_end() const
 {
   return itsLocalizedNames.end();
 }
 
-} // namespace woml
+}  // namespace woml

@@ -9,7 +9,6 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Default constructor
@@ -17,11 +16,9 @@ namespace woml
 // ----------------------------------------------------------------------
 
 AbstractSurfaceObject::AbstractSurfaceObject()
-  : itsBoundedBy()
-  , itsElevation()
-  , itsControlSurface()
-  , itsTargetRegions()
-{ }
+    : itsBoundedBy(), itsElevation(), itsControlSurface(), itsTargetRegions()
+{
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -29,7 +26,7 @@ AbstractSurfaceObject::AbstractSurfaceObject()
  */
 // ----------------------------------------------------------------------
 
-void AbstractSurfaceObject::envelope(const boost::optional<Envelope> & theEnvelope)
+void AbstractSurfaceObject::envelope(const boost::optional<Envelope>& theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
@@ -40,7 +37,7 @@ void AbstractSurfaceObject::envelope(const boost::optional<Envelope> & theEnvelo
  */
 // ----------------------------------------------------------------------
 
-void AbstractSurfaceObject::elevation(const boost::optional<Elevation> & theElevation)
+void AbstractSurfaceObject::elevation(const boost::optional<Elevation>& theElevation)
 {
   itsElevation = theElevation;
 }
@@ -51,7 +48,7 @@ void AbstractSurfaceObject::elevation(const boost::optional<Elevation> & theElev
  */
 // ----------------------------------------------------------------------
 
-void AbstractSurfaceObject::controlSurface(const CubicSplineSurface & theControlSurface)
+void AbstractSurfaceObject::controlSurface(const CubicSplineSurface& theControlSurface)
 {
   itsControlSurface = theControlSurface;
 }
@@ -62,7 +59,7 @@ void AbstractSurfaceObject::controlSurface(const CubicSplineSurface & theControl
  */
 // ----------------------------------------------------------------------
 
-const CubicSplineSurface & AbstractSurfaceObject::controlSurface() const
+const CubicSplineSurface& AbstractSurfaceObject::controlSurface() const
 {
   return itsControlSurface;
 }
@@ -73,10 +70,10 @@ const CubicSplineSurface & AbstractSurfaceObject::controlSurface() const
  */
 // ----------------------------------------------------------------------
 
-void AbstractSurfaceObject::addTargetRegion(const TargetRegion & theTargetRegion)
+void AbstractSurfaceObject::addTargetRegion(const TargetRegion& theTargetRegion)
 {
-	if (theTargetRegion.RegionIds_begin() != theTargetRegion.RegionIds_end())
-		itsTargetRegions.push_back(theTargetRegion);
+  if (theTargetRegion.RegionIds_begin() != theTargetRegion.RegionIds_end())
+    itsTargetRegions.push_back(theTargetRegion);
 }
 
 // ----------------------------------------------------------------------
@@ -85,8 +82,8 @@ void AbstractSurfaceObject::addTargetRegion(const TargetRegion & theTargetRegion
  */
 // ----------------------------------------------------------------------
 
-AbstractSurfaceObject::TargetRegions_const_iterator
-AbstractSurfaceObject::TargetRegions_begin() const
+AbstractSurfaceObject::TargetRegions_const_iterator AbstractSurfaceObject::TargetRegions_begin()
+    const
 {
   return itsTargetRegions.begin();
 }
@@ -97,10 +94,9 @@ AbstractSurfaceObject::TargetRegions_begin() const
  */
 // ----------------------------------------------------------------------
 
-AbstractSurfaceObject::TargetRegions_const_iterator
-AbstractSurfaceObject::TargetRegions_end() const
+AbstractSurfaceObject::TargetRegions_const_iterator AbstractSurfaceObject::TargetRegions_end() const
 {
   return itsTargetRegions.end();
 }
 
-} // namespace woml
+}  // namespace woml

@@ -12,21 +12,23 @@
 
 namespace woml
 {
-  class DataSource
+class DataSource
+{
+ public:
+  void numericalModelRun(const boost::optional<NumericalModelRun>& theRun)
   {
-  public:
+    itsNumericalModelRun = theRun;
+  }
 
-	void numericalModelRun(const boost::optional<NumericalModelRun> & theRun)
-	{ itsNumericalModelRun = theRun; }
+  const boost::optional<NumericalModelRun>& numericalModelRun() const
+  {
+    return itsNumericalModelRun;
+  }
 
-	const boost::optional<NumericalModelRun> & numericalModelRun() const
-	{ return itsNumericalModelRun; }
-	
-  private:
+ private:
+  boost::optional<NumericalModelRun> itsNumericalModelRun;
 
-	boost::optional<NumericalModelRun> itsNumericalModelRun;
-
-  }; // class DataSource
+};  // class DataSource
 }
 
-#endif // WOML_DATASOURCE_H
+#endif  // WOML_DATASOURCE_H

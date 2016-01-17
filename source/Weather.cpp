@@ -19,22 +19,14 @@ bool Weather::strictParsing = true;
  */
 // ----------------------------------------------------------------------
 
-bool Weather::hasAnalysis() const
-{
-  return !!itsAnalysis;
-}
-
+bool Weather::hasAnalysis() const { return !!itsAnalysis; }
 // ----------------------------------------------------------------------
 /*!
  * \brief True if forecast has been set
  */
 // ----------------------------------------------------------------------
 
-bool Weather::hasForecast() const
-{
-  return !!itsForecast;
-}
-
+bool Weather::hasForecast() const { return !!itsForecast; }
 // ----------------------------------------------------------------------
 /*!
  * \brief True if WOML was empty
@@ -43,7 +35,8 @@ bool Weather::hasForecast() const
 
 bool Weather::empty() const
 {
-  return (((!itsAnalysis) || (itsAnalysis->begin() == itsAnalysis->end())) && ((!itsForecast) || (itsForecast->begin() == itsForecast->end())));
+  return (((!itsAnalysis) || (itsAnalysis->begin() == itsAnalysis->end())) &&
+          ((!itsForecast) || (itsForecast->begin() == itsForecast->end())));
 }
 
 // ----------------------------------------------------------------------
@@ -52,10 +45,9 @@ bool Weather::empty() const
  */
 // ----------------------------------------------------------------------
 
-const MeteorologicalAnalysis & Weather::analysis() const
+const MeteorologicalAnalysis& Weather::analysis() const
 {
-  if(!hasAnalysis())
-	throw std::runtime_error("analysis requested when not available");
+  if (!hasAnalysis()) throw std::runtime_error("analysis requested when not available");
   return *itsAnalysis;
 }
 
@@ -65,10 +57,9 @@ const MeteorologicalAnalysis & Weather::analysis() const
  */
 // ----------------------------------------------------------------------
 
-const WeatherForecast & Weather::forecast() const
+const WeatherForecast& Weather::forecast() const
 {
-  if(!hasForecast())
-	throw std::runtime_error("forecast requested when not available");
+  if (!hasForecast()) throw std::runtime_error("forecast requested when not available");
   return *itsForecast;
 }
 
@@ -102,7 +93,7 @@ void Weather::forecast(boost::shared_ptr<WeatherForecast> theForecast)
 
 void Weather::synchronize()
 {
-  hasAnalysis() ?  itsAnalysis->synchronize() : itsForecast->synchronize();
+  hasAnalysis() ? itsAnalysis->synchronize() : itsForecast->synchronize();
 }
 
-} // namespace woml
+}  // namespace woml

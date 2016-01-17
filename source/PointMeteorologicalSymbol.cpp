@@ -9,7 +9,6 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Constructor
@@ -17,9 +16,9 @@ namespace woml
 // ----------------------------------------------------------------------
 
 PointMeteorologicalSymbol::PointMeteorologicalSymbol()
-  : AbstractPointObject()
-  , itsMeteorologicalSymbol()
-{ }
+    : AbstractPointObject(), itsMeteorologicalSymbol()
+{
+}
 
 // ----------------------------------------------------------------------
 /*!
@@ -27,18 +26,14 @@ PointMeteorologicalSymbol::PointMeteorologicalSymbol()
  */
 // ----------------------------------------------------------------------
 
-void PointMeteorologicalSymbol::visit(FeatureVisitor & theVisitor) const
-{
-  theVisitor.visit(*this);
-}
-
+void PointMeteorologicalSymbol::visit(FeatureVisitor& theVisitor) const { theVisitor.visit(*this); }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the symbol
  */
 // ----------------------------------------------------------------------
 
-void PointMeteorologicalSymbol::symbol(const MeteorologicalSymbol & theSymbol)
+void PointMeteorologicalSymbol::symbol(const MeteorologicalSymbol& theSymbol)
 {
   itsMeteorologicalSymbol = theSymbol;
 }
@@ -49,9 +44,9 @@ void PointMeteorologicalSymbol::symbol(const MeteorologicalSymbol & theSymbol)
  */
 // ----------------------------------------------------------------------
 
-const MeteorologicalSymbol & PointMeteorologicalSymbol::symbol() const
+const MeteorologicalSymbol& PointMeteorologicalSymbol::symbol() const
 {
   return itsMeteorologicalSymbol;
 }
 
-} // namespace woml
+}  // namespace woml

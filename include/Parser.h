@@ -12,10 +12,12 @@
 
 namespace woml
 {
-  class Woml;
+class Woml;
 
-  Weather parse(const boost::filesystem::path & thePath,woml::documentType docType,bool strict = true);
+Weather parse(const boost::filesystem::path& thePath,
+              woml::documentType docType,
+              bool strict = true);
 
-} // namespace woml
+}  // namespace woml
 
-#endif // WOML_PARSER_H
+#endif  // WOML_PARSER_H

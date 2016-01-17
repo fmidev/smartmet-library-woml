@@ -11,22 +11,18 @@
 
 namespace woml
 {
-  class MeteorologicalObject
-  {
-  public:
-	MeteorologicalObject();
+class MeteorologicalObject
+{
+ public:
+  MeteorologicalObject();
 
-	void addTimeSynchronizedFeature(ParameterTimeSeriesPoint * theFeature);
-	void synchronize();
+  void addTimeSynchronizedFeature(ParameterTimeSeriesPoint *theFeature);
+  void synchronize();
 
-  private:
+ private:
+  std::list<ParameterTimeSeriesPoint *> itsTimeSynchronizedFeatureMembers;
 
-	std::list<ParameterTimeSeriesPoint *> itsTimeSynchronizedFeatureMembers;
+};  // class MeteorologicalObject
+}  // namespace woml
 
-  }; // class MeteorologicalObject
-} // namespace woml
-
-#endif // WOML_METEOROLOGICAL_OBJECT_H
-
-
-
+#endif  // WOML_METEOROLOGICAL_OBJECT_H

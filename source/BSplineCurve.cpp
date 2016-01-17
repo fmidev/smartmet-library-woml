@@ -8,25 +8,20 @@
 
 namespace woml
 {
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Add segment to the spline
  */
 // ----------------------------------------------------------------------
 
-void BSplineCurve::add(const BSpline & theSpline)
-{
-  itsBSplineSegments.push_back(theSpline);
-}
-
+void BSplineCurve::add(const BSpline& theSpline) { itsBSplineSegments.push_back(theSpline); }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set line string points
  */
 // ----------------------------------------------------------------------
 
-void BSplineCurve::lineString(const BSpline & theLineStringPoints)
+void BSplineCurve::lineString(const BSpline& theLineStringPoints)
 {
   itsLineStringPoints = theLineStringPoints;
 }
@@ -37,11 +32,7 @@ void BSplineCurve::lineString(const BSpline & theLineStringPoints)
  */
 // ----------------------------------------------------------------------
 
-const BSpline & BSplineCurve::lineString() const
-{
-  return itsLineStringPoints;
-}
-
+const BSpline& BSplineCurve::lineString() const { return itsLineStringPoints; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Iterator over the line segments
@@ -64,4 +55,4 @@ BSplineCurve::BSplines_const_iterator BSplineCurve::BSplines_end() const
   return itsBSplineSegments.end();
 }
 
-} // namespace woml
+}  // namespace woml

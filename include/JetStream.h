@@ -13,22 +13,23 @@
 
 namespace woml
 {
-  class JetStream : public AbstractLineObject
-  {
-  public:
-	virtual void visit(FeatureVisitor & theVisitor) const;
+class JetStream : public AbstractLineObject
+{
+ public:
+  virtual void visit(FeatureVisitor& theVisitor) const;
 
-	typedef std::list<std::pair<int,NumericalSingleValueMeasure> > maximumWindSpeedList;
-	void maximumWindSpeed(const int segmentIndex,const NumericalSingleValueMeasure & theMaximumWindSpeed);
-       typedef maximumWindSpeedList::const_iterator MaximumWindSpeeds_const_iterator;
-	MaximumWindSpeeds_const_iterator MaximumWindSpeeds_begin() const;
-	MaximumWindSpeeds_const_iterator MaximumWindSpeeds_end() const;
+  typedef std::list<std::pair<int, NumericalSingleValueMeasure> > maximumWindSpeedList;
+  void maximumWindSpeed(const int segmentIndex,
+                        const NumericalSingleValueMeasure& theMaximumWindSpeed);
+  typedef maximumWindSpeedList::const_iterator MaximumWindSpeeds_const_iterator;
+  MaximumWindSpeeds_const_iterator MaximumWindSpeeds_begin() const;
+  MaximumWindSpeeds_const_iterator MaximumWindSpeeds_end() const;
 
-  private:
-	maximumWindSpeedList itsMaximumWindSpeeds;
+ private:
+  maximumWindSpeedList itsMaximumWindSpeeds;
 
-  }; // class JetStream
+};  // class JetStream
 
-} // namespace woml
+}  // namespace woml
 
-#endif // WOML_JETSTREAM_H
+#endif  // WOML_JETSTREAM_H

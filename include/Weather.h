@@ -15,37 +15,40 @@
 
 namespace woml
 {
-  enum documentType { conceptualmodelanalysis,conceptualmodelforecast,aerodromeforecast };
+enum documentType
+{
+  conceptualmodelanalysis,
+  conceptualmodelforecast,
+  aerodromeforecast
+};
 
-  class MeteorologicalAnalysis;
-  class WeatherForecast;
+class MeteorologicalAnalysis;
+class WeatherForecast;
 
-  class Weather
-  {
-  public:
-	bool hasAnalysis() const;
-	bool hasForecast() const;
-	bool empty() const;
+class Weather
+{
+ public:
+  bool hasAnalysis() const;
+  bool hasForecast() const;
+  bool empty() const;
 
-	const MeteorologicalAnalysis & analysis() const;
-	const WeatherForecast & forecast() const;
+  const MeteorologicalAnalysis& analysis() const;
+  const WeatherForecast& forecast() const;
 
-	void analysis(boost::shared_ptr<MeteorologicalAnalysis> theAnalysis);
-	void forecast(boost::shared_ptr<WeatherForecast> theForecast);
+  void analysis(boost::shared_ptr<MeteorologicalAnalysis> theAnalysis);
+  void forecast(boost::shared_ptr<WeatherForecast> theForecast);
 
-	void synchronize();
+  void synchronize();
 
-	static void strictMode(bool strict) { strictParsing = strict; }
-	static bool strictMode() { return strictParsing; }
+  static void strictMode(bool strict) { strictParsing = strict; }
+  static bool strictMode() { return strictParsing; }
+ private:
+  static bool strictParsing;  // Terminate on broken/unexpected woml input
 
-  private:
+  boost::shared_ptr<MeteorologicalAnalysis> itsAnalysis;
+  boost::shared_ptr<WeatherForecast> itsForecast;
 
-	static bool strictParsing;	// Terminate on broken/unexpected woml input
+};  // class Woml
+}  // namespace Woml
 
-	boost::shared_ptr<MeteorologicalAnalysis> itsAnalysis;
-	boost::shared_ptr<WeatherForecast> itsForecast;
-
-  }; // class Woml
-} // namespace Woml
-
-#endif // WOML_WEATHER_H
+#endif  // WOML_WEATHER_H

@@ -12,21 +12,21 @@
 
 namespace woml
 {
-  class FeatureVisitor;
+class FeatureVisitor;
 
-  class PointMeteorologicalSymbol : public AbstractPointObject
-  {
-  public:
-	PointMeteorologicalSymbol();
-	virtual void visit(FeatureVisitor & theVisitor) const;
-	void symbol(const MeteorologicalSymbol & theSymbol);
-	const MeteorologicalSymbol & symbol() const;
+class PointMeteorologicalSymbol : public AbstractPointObject
+{
+ public:
+  PointMeteorologicalSymbol();
+  virtual void visit(FeatureVisitor& theVisitor) const;
+  void symbol(const MeteorologicalSymbol& theSymbol);
+  const MeteorologicalSymbol& symbol() const;
 
-  private:
-	MeteorologicalSymbol itsMeteorologicalSymbol;
+ private:
+  MeteorologicalSymbol itsMeteorologicalSymbol;
 
-  }; // class PointMeteorologicalSymbol
+};  // class PointMeteorologicalSymbol
 
-} // namespace woml
+}  // namespace woml
 
-#endif // WOML_POINTMETEOROLOGICALSYMBOL_H
+#endif  // WOML_POINTMETEOROLOGICALSYMBOL_H

@@ -11,36 +11,34 @@
 
 namespace woml
 {
-  class Point
+class Point
+{
+ public:
+  Point(double theLon, double theLat) : itsLon(theLon), itsLat(theLat) {}
+  double lon() const { return itsLon; }
+  double lat() const { return itsLat; }
+ private:
+  Point();
+  double itsLon;
+  double itsLat;
+
+};  // class Point
+
+class Rect
+{
+ public:
+  Rect(boost::optional<Point>& theLowerCorner, boost::optional<Point>& theUpperCorner)
+      : itsLowerCorner(theLowerCorner), itsUpperCorner(theUpperCorner)
   {
-  public:
+  }
+  const boost::optional<Point>& lowerCorner() const { return itsLowerCorner; }
+  const boost::optional<Point>& upperCorner() const { return itsUpperCorner; }
+ private:
+  Rect();
+  boost::optional<Point> itsLowerCorner;
+  boost::optional<Point> itsUpperCorner;
 
-	Point(double theLon, double theLat) : itsLon(theLon), itsLat(theLat) { }
-	double lon() const { return itsLon; }
-	double lat() const { return itsLat; }
+};  // class Rect
+}  // namespace woml
 
-  private:
-	Point();
-	double itsLon;
-	double itsLat;
-
-  }; // class Point
-
-  class Rect
-  {
-  public:
-
-	Rect(boost::optional<Point> & theLowerCorner,boost::optional<Point> & theUpperCorner)
-           : itsLowerCorner(theLowerCorner), itsUpperCorner(theUpperCorner) { }
-	const boost::optional<Point> & lowerCorner() const { return itsLowerCorner; }
-	const boost::optional<Point> & upperCorner() const { return itsUpperCorner; }
-
-  private:
-	Rect();
-	boost::optional<Point> itsLowerCorner;
-	boost::optional<Point> itsUpperCorner;
-
-  }; // class Rect
-} // namespace woml
-
-#endif // WOML_POINT_H
+#endif  // WOML_POINT_H

@@ -14,34 +14,34 @@
 
 namespace woml
 {
-  class Envelope;
-  class FeatureVisitor;
+class Envelope;
+class FeatureVisitor;
 
-  class CloudArea : public AbstractSurfaceObject
-  {
-  public:
-	CloudArea();
+class CloudArea : public AbstractSurfaceObject
+{
+ public:
+  CloudArea();
 
-	virtual void visit(FeatureVisitor & theVisitor) const;
+  virtual void visit(FeatureVisitor& theVisitor) const;
 
-	void cloudType(CloudType theCloudType,const std::string & theCloudTypeName);
-	CloudType cloudType() const;
-	const std::string & cloudTypeName() const;
+  void cloudType(CloudType theCloudType, const std::string& theCloudTypeName);
+  CloudType cloudType() const;
+  const std::string& cloudTypeName() const;
 
-	void cloudCoverPercent(const boost::optional<double> & theCloudCoverPercent);
-	const boost::optional<double> & cloudCoverPercent() const;
+  void cloudCoverPercent(const boost::optional<double>& theCloudCoverPercent);
+  const boost::optional<double>& cloudCoverPercent() const;
 
-	void cloudCoverEighths(const std::string & theCloudCoverEighths);
-	const std::string & cloudCoverEighths() const;
+  void cloudCoverEighths(const std::string& theCloudCoverEighths);
+  const std::string& cloudCoverEighths() const;
 
-  private:
-	CloudType itsCloudType;
-	std::string itsCloudTypeName;
-	boost::optional<double> itsCloudCoverPercent;
-	std::string itsCloudCoverEighths;
+ private:
+  CloudType itsCloudType;
+  std::string itsCloudTypeName;
+  boost::optional<double> itsCloudCoverPercent;
+  std::string itsCloudCoverEighths;
 
-  }; // class CloudArea
+};  // class CloudArea
 
-} // namespace woml
+}  // namespace woml
 
-#endif // WOML_CLOUDAREA_H
+#endif  // WOML_CLOUDAREA_H
