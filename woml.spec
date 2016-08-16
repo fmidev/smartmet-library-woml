@@ -42,6 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Aug 16 2016 upcoming:
+- Ignoring empty cubic spline surfaces (e.g. SurfacePrecipitationArea) in strict mode too (mirwa still produces them occasionally)
 * Mon Nov 23 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.23-1.fmi
 - MIRWA-1144; LongInfo feature must be stored (even if it is empty) when loading woml, otherwise frontier's output will contain a broken text area (rect without width)
 * Thu Nov 19 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.19-1.fmi

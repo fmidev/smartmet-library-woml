@@ -956,8 +956,10 @@ CubicSplineSurface parse_woml_cubic_spline_surface(DOMNode *theNode, const char 
     DOMNode *node;
     if ((node = getResultNode(result)))
       surface.exterior(parse_woml_spline<CubicSplineRing>(node));
-    else if (Weather::strictMode())
-      throw std::runtime_error("Required exterior element missing");
+//  16.8.16 Always skip/ignore empty posList
+//
+//  else if (Weather::strictMode())
+//    throw std::runtime_error("Required exterior element missing");
     else
       return surface;
 
