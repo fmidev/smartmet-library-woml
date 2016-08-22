@@ -1,7 +1,7 @@
 %define LIBNAME woml
 Summary: woml library
 Name: libsmartmet-%{LIBNAME}
-Version: 15.11.23
+Version: 16.8.22
 Release: 1%{?dist}.fmi
 License: FMI
 Group: Development/Libraries
@@ -9,10 +9,10 @@ URL: http://www.weatherproof.fi
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: boost-devel >= 1.55.0
-BuildRequires: libsmartmet-macgyver-devel >= 15.8.24
+BuildRequires: libsmartmet-macgyver-devel >= 16.1.23
 BuildRequires: libxml++-devel
 BuildRequires: libsmartmet-regression >= 11.6.15
-Requires: libsmartmet-macgyver >= 15.8.24
+Requires: libsmartmet-macgyver >= 16.4.18
 Requires: xqilla
 Requires: xerces-c
 Provides: %{LIBNAME}
@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Tue Aug 16 2016 upcoming:
+* Mon Aug 22 2016 Mikko Visa <mikko.visa@fmi.fi> - 16.8.22-1.fmi
 - Ignoring empty cubic spline surfaces (e.g. SurfacePrecipitationArea) in strict mode too (mirwa still produces them occasionally)
 * Mon Nov 23 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.23-1.fmi
 - MIRWA-1144; LongInfo feature must be stored (even if it is empty) when loading woml, otherwise frontier's output will contain a broken text area (rect without width)
