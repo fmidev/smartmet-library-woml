@@ -42,6 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 29 2016 Upcoming 
+- In addition to missing text nodes ignoring empty gml:posList text nodes too. Fixes MIRRISERVER-561.
 * Mon Aug 22 2016 Mikko Visa <mikko.visa@fmi.fi> - 16.8.22-1.fmi
 - Ignoring empty cubic spline surfaces (e.g. SurfacePrecipitationArea) in strict mode too (mirwa still produces them occasionally)
 * Mon Nov 23 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.23-1.fmi

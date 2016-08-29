@@ -955,7 +955,15 @@ CubicSplineSurface parse_woml_cubic_spline_surface(DOMNode *theNode, const char 
 
     DOMNode *node;
     if ((node = getResultNode(result)))
-      surface.exterior(parse_woml_spline<CubicSplineRing>(node));
+    {
+      std::string latlons(XMLChptr2str(((DOMText *)node)->getNodeValue()));
+      boost::trim(latlons);
+
+      if (!latlons.empty())
+        surface.exterior(parse_woml_spline<CubicSplineRing>(node));
+      else
+        return surface;
+    }
 //  16.8.16 Always skip/ignore empty posList
 //
 //  else if (Weather::strictMode())
