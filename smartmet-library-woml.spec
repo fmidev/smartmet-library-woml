@@ -1,7 +1,9 @@
-%define LIBNAME woml
+%define DIRNAME woml
+%define LIBNAME smartmet-%{DIRNAME}
+%define SPECNAME smartmet-library-%{DIRNAME}
 Summary: woml library
-Name: libsmartmet-%{LIBNAME}
-Version: 16.8.22
+Name: %{SPECNAME}
+Version: 17.1.4
 Release: 1%{?dist}.fmi
 License: FMI
 Group: Development/Libraries
@@ -9,13 +11,14 @@ URL: http://www.weatherproof.fi
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: boost-devel >= 1.55.0
-BuildRequires: libsmartmet-macgyver-devel >= 16.1.23
+BuildRequires: smartmet-library-macgyver-devel >= 16.12.20
 BuildRequires: libxml++-devel
-BuildRequires: libsmartmet-regression >= 11.6.15
-Requires: libsmartmet-macgyver >= 16.4.18
+BuildRequires: smartmet-library-regression >= 16.12.20
+Requires: smartmet-library-macgyver >= 16.12.20
 Requires: xqilla
 Requires: xerces-c
-Provides: %{LIBNAME}
+Provides: %{SPECNAME}
+Obsoletes: libsmartmet-woml < 17.1.4
 
 %description
 FMI WOML library
@@ -23,48 +26,57 @@ FMI WOML library
 %prep
 rm -rf $RPM_BUILD_ROOT
 
-%setup -q -n %{LIBNAME}
+%setup -q -n %{DIRNAME}
  
 %build
 make %{_smp_mflags}
 # make test
 
 %install
-%makeinstall includedir=%{buildroot}%{_includedir}/smartmet
+%makeinstall
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(0664,root,root,0775)
-%{_includedir}/smartmet/%{LIBNAME}
-%{_libdir}/libsmartmet_%{LIBNAME}.a
+%{_includedir}/smartmet/%{DIRNAME}/*.h
+%{_libdir}/lib%{LIBNAME}.a
 
 
 %changelog
-* Mon Aug 29 2016 Upcoming 
+* Wed Jan  4 2017 Mika Heiskanen <mika.heiskanen@fmi.fi> - 17.1.4-1.fmi
+- Switched to FMI open source naming conventions
 - In addition to missing text nodes ignoring empty gml:posList text nodes too. Fixes MIRRISERVER-561.
+
 * Mon Aug 22 2016 Mikko Visa <mikko.visa@fmi.fi> - 16.8.22-1.fmi
 - Ignoring empty cubic spline surfaces (e.g. SurfacePrecipitationArea) in strict mode too (mirwa still produces them occasionally)
+
 * Mon Nov 23 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.23-1.fmi
 - MIRWA-1144; LongInfo feature must be stored (even if it is empty) when loading woml, otherwise frontier's output will contain a broken text area (rect without width)
+
 * Thu Nov 19 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.19-1.fmi
 - MIRWA-1144; Fixed bug in testing number of features loaded from input document
+
 * Mon Nov 16 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.11.16-1.fmi
 - MIRWA-1141; ignore incomplete weather fronts in nonstrict mode
 - LENTOSAA-1056; using targetRegion/regionId scheme 'urn:x-finnish-meterological-institute:icao:code' instead of 'ICAO'
 - LENTOSAA-1056; In addition to "fmi", using targetRegion/regionId schema "ICAO" too
+
 * Wed Jun 17 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.6.17-1.fmi
 - Heiskanen: removed dependency on explicit xqilla version to support multiple RHEL versions
 - Heiskanen: removed dependency on explicit libxml++ version to support multiple RHEL versions
 - Kinniä: updated some failing test input files
 - Heiskanen: ported to RHEL 7
 - Heiskanen: Using dynamic linkage from now on
+
 * Tue Mar 31 2015 Mika Heiskanen <mika.heiskanen@fmi.fi> - 15.3.30-1.fmi
 - Use dynamic linking of smartmet libraries
 - MIRWA-1070
+
 * Thu Jan 15 2015 Mikko Visa <mikko.visa@fmi.fi> - 15.1.15-1.fmi
 - Rebuild for RHEL7
+
 * Wed Nov 19 2014 Mikko Visa <mikko.visa@fmi.fi> - 14.11.19-1.fmi
 - MIRWA-894; loading component info text for surfaces
 - LENTOSAA-743; loading multiple values (categories) for migratoryBirds
@@ -75,23 +87,32 @@ rm -rf $RPM_BUILD_ROOT
 - LENTOSAA-881; Turbulence output
 - added getter for document creator
 - added storage for labeling information
+
 * Thu Nov 28 2013 Mikko Visa <mikko.visa@fmi.fi> - 13.11.28-1.fmi
 - Modifications to support elevation hole handling in frontier
+
 * Wed Jul  3 2013 Mika Heiskanen <mika.heiskanen@fmi.fi> - 13.7.3-1.fmi
 - Update to boost 1.54
+
 * Fri Jan 11 2013 Mikko Visa <mikko.visa@fmi.fi> - 13.1.11-1.fmi
 - RPM building now uses a user specific rpmbuild directory
 - Fixed automatic detection for tar --exclude-cvs option to speed up rpm building
 - Misc additions, changes and bug fixes
+
 * Tue Aug  7 2012 Mika Heiskanen <mika.heiskanen@fmi.fi> - 12.8.7-1.fmi
 - RHEL6 release
+
 * Fri Jun  1 2012 Mikko Visa <mikko.visa@fmi.fi> - 12.6.1-1.fmi
 - First version supporting WOML schema instead of metobjects schema.
+
 * Wed Aug  3 2011 Mika Heiskanen <mika.heiskanen@fmi.fi> - 11.8.3-1.fmi
 - Upgraded to boost 1.47
+
 * Tue Aug  2 2011 Mika Heiskanen <mika.heiskanen@fmi.fi> - 11.8.2-1.fmi
 - Upgraded to use boost 1.46 API
+
 * Wed Aug 18 2010 Mika Heiskanen <mika.heiskanen@fmi.fi> - 10.8.18-1.fmi
 - Added accessors required by the frontier program
+
 * Tue Jun 15 2010 Mika Heiskanen <mika.heiskanen@fmi.fi> - 10.6.15-1.fmi
 - Initial build

@@ -31,7 +31,7 @@ OBJDIR=     ARGUMENTS.get("objdir","obj")
 
 env = Environment( )
 
-env.Append(LIBS="smartmet_macgyver")
+env.Append(LIBS="smartmet-macgyver")
 
 #env.ParseConfig( "(pkg-config --exists libxml++-2.6 && pkg-config libxml++-2.6 --cflags --libs)" )
 
@@ -120,4 +120,4 @@ for fn in Glob("source/*.cpp"):
 
  # Make just the static lib
 
-env.Library( "smartmet_woml", objs )
+env.Library( "smartmet-woml", objs )

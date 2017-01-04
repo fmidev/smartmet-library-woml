@@ -1,12 +1,15 @@
-LIB = woml
+SUBNAME = woml
+LIB = smartmet-$(SUBNAME)
+SPEC = smartmet-library-$(SUBNAME)
+INCDIR = smartmet/$(SUBNAME)
+
 
 # Using 'scons' for building (make clean|release|debug|profile)
 #
 #
 # To build serially (helps get the error messages right): make debug SCONS_FLAGS=""
 
-# SCONS_FLAGS=-j 4
-SCONS_FLAGS=
+SCONS_FLAGS=-j 4
 
 # Installation directories
 
@@ -24,7 +27,7 @@ else
   libdir = $(PREFIX)/lib
 endif
 
-includedir = $(PREFIX)/include/smartmet
+includedir = $(PREFIX)/include
 objdir = obj
 
 ifeq ($(origin BINDIR), undefined)
@@ -37,16 +40,11 @@ endif
 
 rpmsourcedir=/tmp/$(shell whoami)/rpmbuild
 
-rpmerr = "There's no spec file ($(LIB).spec). RPM wasn't created. Please make a spec file or copy and rename it into $(LIB).spec"
-
-rpmversion := $(shell grep "^Version:" $(LIB).spec  | cut -d\  -f 2 | tr . _)
-rpmrelease := $(shell grep "^Release:" $(LIB).spec  | cut -d\  -f 2 | tr . _)
-
 rpmexcludevcs := $(shell tar --help | grep -m 1 -o -- '--exclude-vcs')
 
 # What to install
 
-LIBFILE = libsmartmet_$(LIB).a
+LIBFILE = lib$(LIB).a
 
 # How to install
 
@@ -81,37 +79,29 @@ format:
 	clang-format -i -style=file include/*.h source/*.cpp test/*.cpp
 
 install:
-	@mkdir -p $(includedir)/$(LIB)
+	@mkdir -p $(includedir)/$(INCDIR)
 	@list=`cd include && ls -1 *.h`; \
 	for hdr in $$list; do \
-	  echo $(INSTALL_DATA) include/$$hdr $(includedir)/$(LIB)/$$hdr; \
-	  $(INSTALL_DATA) include/$$hdr $(includedir)/$(LIB)/$$hdr; \
+	  echo $(INSTALL_DATA) include/$$hdr $(includedir)/$(INCDIR)/$$hdr; \
+	  $(INSTALL_DATA) include/$$hdr $(includedir)/$(INCDIR)/$$hdr; \
 	done
 	@mkdir -p $(libdir)
 	$(INSTALL_DATA) $(LIBFILE) $(libdir)/$(LIBFILE)
-	mkdir -p $(bindir)
 
 test:
 	cd test && make test
 
-html:
-	mkdir -p /data/local/html/lib/$(LIB)
-	doxygen $(LIB).dox
-
 rpm: clean
-	if [ -e $(LIB).spec ]; \
+	if [ -e $(SPEC).spec ]; \
 	then \
 	  mkdir -p $(rpmsourcedir) ; \
-	  tar $(rpmexcludevcs) -C ../ -cf $(rpmsourcedir)/libsmartmet-$(LIB).tar $(LIB) ; \
-	  gzip -f $(rpmsourcedir)/libsmartmet-$(LIB).tar ; \
-	  TAR_OPTIONS=--wildcards rpmbuild -ta $(rpmsourcedir)/libsmartmet-$(LIB).tar.gz ; \
-	  rm -f $(rpmsourcedir)/libsmartmet-$(LIB).tar.gz ; \
+	  tar $(rpmexcludevcs) -C ../ -cf $(rpmsourcedir)/$(SPEC).tar $(SUBNAME) ; \
+	  gzip -f $(rpmsourcedir)/$(SPEC).tar ; \
+	  TAR_OPTIONS=--wildcards rpmbuild -ta $(rpmsourcedir)/$(SPEC).tar.gz ; \
+	  rm -f $(rpmsourcedir)/$(SPEC).tar.gz ; \
 	else \
 	  echo $(rpmerr); \
 	fi;
-
-tag:
-	cvs -f tag 'libsmartmet_$(LIB)_$(rpmversion)-$(rpmrelease)' .
 
 headertest:
 	@echo "Checking self-sufficiency of each header:"
