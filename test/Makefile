@@ -30,7 +30,7 @@ endif
 CC = g++
 CFLAGS = -DUNIX -O0 -g $(MAINFLAGS)
 
-INCLUDES = -I../include -I/usr/include/smartmet \
+INCLUDES = -I../woml -I/usr/include/smartmet \
 	`pkg-config --cflags libxml++-2.6`
 
 LIBS = -L.. -lsmartmet_woml \
@@ -55,6 +55,6 @@ test: $(PROG)
 	 php -q $$prog; \
 	done
 
-$(PROG) : % : %.cpp ../libsmartmet_woml.a
+$(PROG) : % : %.cpp ../libsmartmet-woml.so
 	$(CC) $(CFLAGS) -o $@ $@.cpp $(INCLUDES) $(LIBS)
 

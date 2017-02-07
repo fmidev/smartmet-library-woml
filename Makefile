@@ -3,17 +3,9 @@ LIB = smartmet-$(SUBNAME)
 SPEC = smartmet-library-$(SUBNAME)
 INCDIR = smartmet/$(SUBNAME)
 
-
-# Using 'scons' for building (make clean|release|debug|profile)
-#
-#
-# To build serially (helps get the error messages right): make debug SCONS_FLAGS=""
-
-SCONS_FLAGS=-j 4
-
 # Installation directories
 
-prosessor := $(shell uname -p)
+processor := $(shell uname -p)
 
 ifeq ($(origin PREFIX), undefined)
   PREFIX = /usr
@@ -21,87 +13,150 @@ else
   PREFIX = $(PREFIX)
 endif
 
-ifeq ($(prosessor), x86_64)
+ifeq ($(processor), x86_64)
   libdir = $(PREFIX)/lib64
 else
   libdir = $(PREFIX)/lib
 endif
 
+bindir = $(PREFIX)/bin
 includedir = $(PREFIX)/include
+datadir = $(PREFIX)/share
 objdir = obj
 
-ifeq ($(origin BINDIR), undefined)
-  bindir = $(PREFIX)/bin
+# Compiler options
+
+DEFINES = -DUNIX -D_REENTRANT
+
+ifeq ($(CXX), clang++)
+
+ FLAGS = \
+	-std=c++11 -fPIC -MD \
+	-Weverything \
+	-Wno-c++98-compat \
+	-Wno-float-equal \
+	-Wno-padded \
+	-Wno-missing-prototypes
+
+ INCLUDES = \
+	-isystem $(includedir) \
+	-isystem $(includedir)/smartmet
+
 else
-  bindir = $(BINDIR)
+
+ FLAGS = -std=c++11 -fdiagnostics-color=always -fPIC -MD -Wall -W -Wno-unused-parameter
+
+ FLAGS_DEBUG = \
+	-Wcast-align \
+	-Winline \
+	-Wno-multichar \
+	-Wno-pmf-conversions \
+	-Woverloaded-virtual  \
+	-Wpointer-arith \
+	-Wcast-qual \
+	-Wredundant-decls \
+	-Wwrite-strings
+
+ FLAGS_RELEASE = -Wuninitialized
+
+ INCLUDES = \
+	-I$(includedir) \
+	-I$(includedir)/smartmet \
+	$(pkg-config --cflags icu-i18n) \
+
 endif
+
+# Compile options in detault, debug and profile modes
+
+CFLAGS         = $(DEFINES) $(FLAGS) $(FLAGS_RELEASE) -DNDEBUG -O2 -g
+CFLAGS_DEBUG   = $(DEFINES) $(FLAGS) $(FLAGS_DEBUG)   -Werror  -O0 -g
+CFLAGS_PROFILE = $(DEFINES) $(FLAGS) $(FLAGS_PROFILE) -DNDEBUG -O2 -g -pg
+
+LIBS = -L$(libdir)
 
 # What to install
 
-LIBFILE = lib$(LIB).a
+LIBFILE = libsmartmet-$(SUBNAME).so
 
 # How to install
 
-INSTALL_PROG = install -m 775
-INSTALL_DATA = install -m 664
+INSTALL_PROG = install -p -m 775
+INSTALL_DATA = install -p -m 664
+
+# Compile option overrides
+
+ifneq (,$(findstring debug,$(MAKECMDGOALS)))
+  CFLAGS = $(CFLAGS_DEBUG)
+endif
+
+ifneq (,$(findstring profile,$(MAKECMDGOALS)))
+  CFLAGS = $(CFLAGS_PROFILE)
+endif
+
+# Compilation directories
+
+vpath %.cpp $(SUBNAME)
+vpath %.h $(SUBNAME)
+
+# The files to be compiled
+
+SRCS = $(wildcard $(SUBNAME)/*.cpp)
+HDRS = $(wildcard $(SUBNAME)/*.h)
+OBJS = $(patsubst %.cpp, obj/%.o, $(notdir $(SRCS)))
+
+INCLUDES := -Iinclude $(INCLUDES)
 
 .PHONY: test rpm
 
-#
 # The rules
-#
-SCONS_FLAGS += objdir=$(objdir)
 
-all release:
-	scons $(SCONS_FLAGS) $(LIBFILE)
+all: objdir $(LIBFILE)
+debug: all
+release: all
+profile: all
 
-$(LIBFILE):
-	scons $(SCONS_FLAGS) $@
-
-debug:
-	scons $(SCONS_FLAGS) debug=1 $(LIBFILE)
-
-profile:
-	scons $(SCONS_FLAGS) profile=1 $(LIBFILE)
+$(LIBFILE): $(OBJS)
+	$(CXX) $(CFLAGS) -shared -rdynamic -o $(LIBFILE) $(OBJS) $(LIBS)
 
 clean:
-	@#scons -c objdir=$(objdir)
-	-rm -f $(LIBFILE) *~ source/*~ include/*~
-	-rm -rf $(objdir)
+	rm -f $(LIBFILE) *~ $(SUBNAME)/*~
+	rm -rf $(objdir)
 
 format:
-	clang-format -i -style=file include/*.h source/*.cpp test/*.cpp
+	clang-format -i -style=file $(SUBNAME)/*.h $(SUBNAME)/*.cpp test/*.cpp
 
 install:
 	@mkdir -p $(includedir)/$(INCDIR)
-	@list=`cd include && ls -1 *.h`; \
+	@list='$(HDRS)'; \
 	for hdr in $$list; do \
-	  echo $(INSTALL_DATA) include/$$hdr $(includedir)/$(INCDIR)/$$hdr; \
-	  $(INSTALL_DATA) include/$$hdr $(includedir)/$(INCDIR)/$$hdr; \
+	  HDR=$$(basename $$hdr); \
+	  echo $(INSTALL_DATA) $$hdr $(includedir)/$(INCDIR)/$$HDR; \
+	  $(INSTALL_DATA) $$hdr $(includedir)/$(INCDIR)/$$HDR; \
 	done
 	@mkdir -p $(libdir)
-	$(INSTALL_DATA) $(LIBFILE) $(libdir)/$(LIBFILE)
+	$(INSTALL_PROG) $(LIBFILE) $(libdir)/$(LIBFILE)
 
 test:
-	cd test && make test
+	+cd test && make test
+
+objdir:
+	@mkdir -p $(objdir)
 
 rpm: clean
 	if [ -e $(SPEC).spec ]; \
 	then \
-	  mkdir -p $(rpmsourcedir) ; \
 	  tar -czvf $(SPEC).tar.gz --transform "s,^,$(SPEC)/," * ; \
 	  rpmbuild -ta $(SPEC).tar.gz ; \
 	  rm -f $(SPEC).tar.gz ; \
 	else \
-	  echo $(rpmerr); \
+	  echo $(SPEC).spec file missing; \
 	fi;
 
-headertest:
-	@echo "Checking self-sufficiency of each header:"
-	@echo
-	@for hdr in $(HDRS); do \
-	echo $$hdr; \
-	echo "#include \"$$hdr\"" > /tmp/$(LIB).cpp; \
-	echo "int main() { return 0; }" >> /tmp/$(LIB).cpp; \
-	$(CC) $(CFLAGS) $(INCLUDES) -o /dev/null /tmp/$(LIB).cpp $(LIBS); \
-	done
+.SUFFIXES: $(SUFFIXES) .cpp
+
+obj/%.o: %.cpp
+	$(CXX) $(CFLAGS) $(INCLUDES) -c -o $@ $<
+
+ifneq ($(wildcard obj/*.d),)
+-include $(wildcard obj/*.d)
+endif
