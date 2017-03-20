@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_CUBICSPLINECURVE_H
-#define WOML_CUBICSPLINECURVE_H
+#pragma once
 
 #include "SimpleCubicSpline.h"
 #include <list>
@@ -30,4 +29,3 @@ class CubicSplineCurve
 };  // class CubicSplineCurve
 }  // namespace woml
 
-#endif  // WOML_CUBICSPLINECURVE_H

@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_PRESSURECENTERTYPE_H
-#define WOML_PRESSURECENTERTYPE_H
+#pragma once
 
 #include "AbstractPointObject.h"
 #include "MeasureValue.h"
@@ -52,4 +51,3 @@ PressureCenterTypeDerivedClass(TropicalCyclone);
 
 }  // namespace woml
 
-#endif  // WOML_PRESSURECENTERTYPE_H

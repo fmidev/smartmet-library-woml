@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_ABSTRACTPOINTOBJECT_H
-#define WOML_ABSTRACTPOINTOBJECT_H
+#pragma once
 
 #include "Feature.h"
 #include "Envelope.h"
@@ -30,4 +29,3 @@ class AbstractPointObject : public Feature
 
 }  // namespace woml
 
-#endif  // WOML_ABSTRACTPOINTOBJECT_H

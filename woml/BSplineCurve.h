@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_BSPLINECURVE_H
-#define WOML_BSPLINECURVE_H
+#pragma once
 
 #include "BSpline.h"
 #include <list>
@@ -31,4 +30,3 @@ class BSplineCurve
 };  // class BSplineCurve
 }  // namespace woml
 
-#endif  // WOML_BSPLINECURVE_H

@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_SURFACEPRECIPITATIONAREA_H
-#define WOML_SURFACEPRECIPITATIONAREA_H
+#pragma once
 
 #include "AbstractSurfaceObject.h"
 #include "Feature.h"
@@ -48,4 +47,3 @@ class SurfacePrecipitationArea : public AbstractSurfaceObject
 
 }  // namespace woml
 
-#endif  // WOML_SURFACEPRECIPITATIONAREA_H

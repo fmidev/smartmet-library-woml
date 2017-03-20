@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_CLOUDAREA_H
-#define WOML_CLOUDAREA_H
+#pragma once
 
 #include "AbstractSurfaceObject.h"
 #include "CloudType.h"
@@ -44,4 +43,3 @@ class CloudArea : public AbstractSurfaceObject
 
 }  // namespace woml
 
-#endif  // WOML_CLOUDAREA_H

@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_METEOROLOGICAL_SYMBOL_H
-#define WOML_METEOROLOGICAL_SYMBOL_H
+#pragma once
 
 #include <list>
 #include <string>
@@ -41,4 +40,3 @@ class MeteorologicalSymbol
 };  // class MeteorologicalSymbol
 }  // namespace woml
 
-#endif  // WOML_METEOROLOGICAL_SYMBOL_H

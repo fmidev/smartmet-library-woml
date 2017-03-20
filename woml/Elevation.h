@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_ELEVATION_H
-#define WOML_ELEVATION_H
+#pragma once
 
 #include "MeasureValue.h"
 #include <boost/optional.hpp>
@@ -31,4 +30,3 @@ class Elevation
 };  // class Elevation
 }  // namespace woml
 
-#endif  // WOML_ELEVATION_H

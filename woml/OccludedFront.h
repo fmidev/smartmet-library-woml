@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_OCCLUDEDFRONT_H
-#define WOML_OCCLUDEDFRONT_H
+#pragma once
 
 #include "AbstractLineObject.h"
 
@@ -26,4 +25,3 @@ class OccludedFront : public AbstractLineObject
 
 }  // namespace woml
 
-#endif  // WOML_OCCLUDEDFRONT_H

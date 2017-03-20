@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_ABSTRACTLINEOBJECT_H
-#define WOML_ABSTRACTLINEOBJECT_H
+#pragma once
 
 #include "Feature.h"
 #include "FeatureVisitor.h"
@@ -59,4 +58,3 @@ AbstractLineObjectDerivedClass(WarmFront);
 
 }  // namespace woml
 
-#endif  // WOML_ABSTRACTLINEOBJECT_H

@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_PARAMETERTIMESERIESPOINT_H
-#define WOML_PARAMETERTIMESERIESPOINT_H
+#pragma once
 
 #include "Feature.h"
 #include "FeatureVisitor.h"
@@ -59,4 +58,3 @@ ParameterTimeSeriesPointDerivedClass(ZeroTolerance);
 
 }  // namespace woml
 
-#endif  // WOML_PARAMETERTIMESERIESPOINT_H

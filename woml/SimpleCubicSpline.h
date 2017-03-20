@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_SIMPLECUBICSPLINE_H
-#define WOML_SIMPLECUBICSPLINE_H
+#pragma once
 
 #include "Point.h"
 #include <vector>
@@ -30,4 +29,3 @@ class SimpleCubicSpline
 };  // SimpleCubicSpline
 }  // namespace woml
 
-#endif  // WOML_SIMPLECUBICSPLINE_H

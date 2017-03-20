@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_INFOTEXT_H
-#define WOML_INFOTEXT_H
+#pragma once
 
 #include "Feature.h"
 #include "FeatureVisitor.h"
@@ -29,4 +28,3 @@ class InfoText : public Feature
 
 }  // namespace woml
 
-#endif  // WOML_INFOTEXT_H

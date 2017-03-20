@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_MEASUREVALUE_H
-#define WOML_MEASUREVALUE_H
+#pragma once
 
 #include <string>
 #include <boost/optional.hpp>
@@ -100,4 +99,3 @@ class NumericalValueRangeMeasure : public MeasureValue
 };  // class NumericalValueRangeMeasure
 }  // namespace woml
 
-#endif  // WOML_MEASUREVALUE_H

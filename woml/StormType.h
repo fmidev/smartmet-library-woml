@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_STORMTYPE_H
-#define WOML_STORMTYPE_H
+#pragma once
 
 #include "AbstractPointObject.h"
 #include "MeasureValue.h"
@@ -48,4 +47,3 @@ StormTypeClass(Storm);
 
 }  // namespace woml
 
-#endif  // WOML_STORMTYPE_H

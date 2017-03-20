@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_ABSTRACTSURFACEOBJECT_H
-#define WOML_ABSTRACTSURFACEOBJECT_H
+#pragma once
 
 #include "Feature.h"
 #include "Envelope.h"
@@ -46,4 +45,3 @@ class AbstractSurfaceObject : public Feature
 
 }  // namespace woml
 
-#endif  // WOML_ABSTRACTSURFACEOBJECT_H

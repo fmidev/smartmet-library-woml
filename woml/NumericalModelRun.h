@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_NUMERICALMODELRUN_H
-#define WOML_NUMERICALMODELRUN_H
+#pragma once
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <string>
@@ -34,4 +33,3 @@ class NumericalModelRun
 };  // NumericalModelRun
 }
 
-#endif  // WOML_NUMERICALMODELRUN_H

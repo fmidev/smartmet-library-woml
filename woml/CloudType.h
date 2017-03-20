@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_CLOUDTYPE_H
-#define WOML_CLOUDTYPE_H
+#pragma once
 
 #include <string>
 
@@ -30,4 +29,3 @@ CloudType parseCloudType(const std::string& theName);
 
 }  // namespace woml
 
-#endif  // WOML_CLOUDTYPE_H

@@ -4,13 +4,12 @@
  */
 // ======================================================================
 
-#ifndef WOML_PARAMETERVALUESETAREA_H
-#define WOML_PARAMETERVALUESETAREA__H
+#pragma once
 
-#include "AbstractSurfaceObject.h"
-#include "GeophysicalParameterValueSet.h"
-#include "Feature.h"
 #include <boost/ptr_container/ptr_list.hpp>
+#include "AbstractSurfaceObject.h"
+#include "Feature.h"
+#include "GeophysicalParameterValueSet.h"
 
 namespace woml
 {
@@ -36,5 +35,3 @@ class ParameterValueSetArea : public AbstractSurfaceObject
 };  // class ParameterValueSetArea
 
 }  // namespace woml
-
-#endif  // WOML_PARAMETERVALUESETAREA__H

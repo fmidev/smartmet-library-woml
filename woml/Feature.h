@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_FEATURE_H
-#define WOML_FEATURE_H
+#pragma once
 
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <boost/shared_ptr.hpp>
@@ -42,4 +41,3 @@ class Feature
 
 }  // namespace woml
 
-#endif  // WOML_FEATURE_H

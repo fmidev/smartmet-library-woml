@@ -8,8 +8,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_GEOPHYSICALPARAMETER_H
-#define WOML_GEOPHYSICALPARAMETER_H
+#pragma once
 
 #include <string>
 
@@ -33,4 +32,3 @@ class GeophysicalParameter
 };  // class GeophysicalParameter
 }  // namespace woml
 
-#endif  // WOML_GEOPHYSICALPARAMETER_H

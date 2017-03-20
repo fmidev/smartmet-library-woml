@@ -7,8 +7,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_WEATHER_FORECAST_H
-#define WOML_WEATHER_FORECAST_H
+#pragma once
 
 #include "DataSource.h"
 #include "Envelope.h"
@@ -75,4 +74,3 @@ class WeatherForecast : public MeteorologicalObject
 };  // class WeatherForecast
 }  // namespace woml
 
-#endif  // WOML_WEATHERFORECAST_H

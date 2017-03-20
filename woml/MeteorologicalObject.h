@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_METEOROLOGICAL_OBJECT_H
-#define WOML_METEOROLOGICAL_OBJECT_H
+#pragma once
 
 #include "ParameterTimeSeriesPoint.h"
 
@@ -25,4 +24,3 @@ class MeteorologicalObject
 };  // class MeteorologicalObject
 }  // namespace woml
 
-#endif  // WOML_METEOROLOGICAL_OBJECT_H

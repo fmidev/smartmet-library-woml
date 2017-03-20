@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_POINT_H
-#define WOML_POINT_H
+#pragma once
 
 #include <boost/optional.hpp>
 
@@ -41,4 +40,3 @@ class Rect
 };  // class Rect
 }  // namespace woml
 
-#endif  // WOML_POINT_H

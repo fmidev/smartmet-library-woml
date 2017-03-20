@@ -8,8 +8,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_WEATHER_H
-#define WOML_WEATHER_H
+#pragma once
 
 #include <boost/shared_ptr.hpp>
 
@@ -51,4 +50,3 @@ class Weather
 };  // class Woml
 }  // namespace Woml
 
-#endif  // WOML_WEATHER_H

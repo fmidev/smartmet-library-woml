@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_RAINPHASE_H
-#define WOML_RAINPHASE_H
+#pragma once
 
 #include <string>
 
@@ -28,4 +27,3 @@ RainPhase parseRainPhase(const std::string& theName);
 
 }  // namespace woml
 
-#endif  // WOML_RAINPHASE_H

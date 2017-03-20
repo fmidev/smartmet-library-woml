@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_PARAMETERVALUESETPOINT_H
-#define WOML_PARAMETERVALUESETPOINT_H
+#pragma once
 
 #include "AbstractPointObject.h"
 #include "GeophysicalParameterValueSet.h"
@@ -29,4 +28,3 @@ class ParameterValueSetPoint : public AbstractPointObject
 
 }  // namespace woml
 
-#endif  // WOML_PARAMETERVALUESETPOINT_H

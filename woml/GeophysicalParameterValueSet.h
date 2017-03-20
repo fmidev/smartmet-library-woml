@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_GEOPHYSICALPARAMETERVALUESET_H
-#define WOML_GEOPHYSICALPARAMETERVALUESET_H
+#pragma once
 
 #include "GeophysicalParameterValue.h"
 #include "Elevation.h"
@@ -36,4 +35,3 @@ class GeophysicalParameterValueSet
 
 }  // namespace woml
 
-#endif  // WOML_GEOPHYSICALPARAMETERVALUESET_H

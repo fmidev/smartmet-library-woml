@@ -7,8 +7,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_METEOROLOGICAL_ANALYSIS_H
-#define WOML_METEOROLOGICAL_ANALYSIS_H
+#pragma once
 
 #include "DataSource.h"
 #include "Envelope.h"
@@ -75,4 +74,3 @@ class MeteorologicalAnalysis : public MeteorologicalObject
 };  // class MeteorologicalAnalysis
 }  // namespace woml
 
-#endif  // WOML_METEOROLOGICAL_ANALYSIS_H

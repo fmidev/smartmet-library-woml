@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_TARGETREGION_H
-#define WOML_TARGETREGION_H
+#pragma once
 
 #include "Envelope.h"
 #include <list>
@@ -41,4 +40,3 @@ class TargetRegion
 };  // class TargetRegion
 }  // namespace woml
 
-#endif  // WOML_TARGETREGION_H

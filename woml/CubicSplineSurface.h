@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_CUBICSPLINESURFACE_H
-#define WOML_CUBICSPLINESURFACE_H
+#pragma once
 
 #include "CubicSplineRing.h"
 #include <list>
@@ -31,4 +30,3 @@ class CubicSplineSurface
 };  // class CubicSplineSurface
 }  // namespace woml
 
-#endif  // WOML_CUBICSPLINESURFACE_H

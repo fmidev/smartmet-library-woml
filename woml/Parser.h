@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_PARSER_H
-#define WOML_PARSER_H
+#pragma once
 
 #include "Weather.h"
 #include <boost/filesystem/path.hpp>
@@ -20,4 +19,3 @@ Weather parse(const boost::filesystem::path& thePath,
 
 }  // namespace woml
 
-#endif  // WOML_PARSER_H

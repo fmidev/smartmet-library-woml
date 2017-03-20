@@ -8,8 +8,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_FEATUREVISITOR_H
-#define WOML_FEATUREVISITOR_H
+#pragma once
 
 namespace woml
 {
@@ -102,4 +101,3 @@ class FeatureVisitor
 };  // class FeatureVisitor
 }  // namespace woml
 
-#endif  // WOML_FEATUREVISITOR_H

@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_JETSTREAM_H
-#define WOML_JETSTREAM_H
+#pragma once
 
 #include "AbstractLineObject.h"
 #include "MeasureValue.h"
@@ -32,4 +31,3 @@ class JetStream : public AbstractLineObject
 
 }  // namespace woml
 
-#endif  // WOML_JETSTREAM_H

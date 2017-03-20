@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_POINTMETEOROLOGICALSYMBOL_H
-#define WOML_POINTMETEOROLOGICALSYMBOL_H
+#pragma once
 
 #include "AbstractPointObject.h"
 #include "MeteorologicalSymbol.h"
@@ -29,4 +28,3 @@ class PointMeteorologicalSymbol : public AbstractPointObject
 
 }  // namespace woml
 
-#endif  // WOML_POINTMETEOROLOGICALSYMBOL_H

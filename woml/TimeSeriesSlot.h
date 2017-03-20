@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_TIMESERIESSLOT_H
-#define WOML_TIMESERIESSLOT_H
+#pragma once
 
 #include "Feature.h"
 #include <list>
@@ -38,4 +37,3 @@ class TimeSeriesSlot
 
 }  // namespace woml
 
-#endif  // WOML_TIMESERIESSLOT_H

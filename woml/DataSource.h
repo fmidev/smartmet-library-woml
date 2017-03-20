@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_DATASOURCE_H
-#define WOML_DATASOURCE_H
+#pragma once
 
 #include "NumericalModelRun.h"
 #include <boost/optional.hpp>
@@ -31,4 +30,3 @@ class DataSource
 };  // class DataSource
 }
 
-#endif  // WOML_DATASOURCE_H

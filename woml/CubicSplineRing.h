@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_CUBICSPLINERING_H
-#define WOML_CUBICSPLINERING_H
+#pragma once
 
 #include "Point.h"
 #include <vector>
@@ -30,4 +29,3 @@ class CubicSplineRing
 };  // class CubicSplineRing
 }  // namespace woml
 
-#endif  // WOML_CUBICSPLINERING_H

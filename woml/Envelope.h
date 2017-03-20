@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_ENVELOPE_H
-#define WOML_ENVELOPE_H
+#pragma once
 
 #include "Point.h"
 #include <string>
@@ -39,4 +38,3 @@ class Envelope
 };  // class Envelope
 }  // namespace woml
 
-#endif  // WOML_ENVELOPE_H

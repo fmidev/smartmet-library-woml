@@ -4,8 +4,7 @@
  */
 // ======================================================================
 
-#ifndef WOML_BSPLINE_H
-#define WOML_BSPLINE_H
+#pragma once
 
 #include "Point.h"
 #include <vector>
@@ -30,4 +29,3 @@ class BSpline
 };  // BSpline
 }  // namespace woml
 
-#endif  // WOML_BSPLINE_H
