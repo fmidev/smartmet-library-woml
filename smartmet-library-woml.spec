@@ -14,6 +14,7 @@ BuildRequires: boost-devel >= 1.55.0
 BuildRequires: smartmet-library-macgyver-devel >= 17.1.18
 BuildRequires: libxml++-devel
 BuildRequires: smartmet-library-regression >= 16.12.20
+BuildRequires: xqilla-devel
 Requires: smartmet-library-macgyver >= 17.1.18
 Requires: xqilla
 Requires: xerces-c
