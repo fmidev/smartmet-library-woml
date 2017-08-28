@@ -3,7 +3,7 @@
 %define SPECNAME smartmet-library-%{DIRNAME}
 Summary: woml library
 Name: %{SPECNAME}
-Version: 17.1.4
+Version: 17.8.28
 Release: 1%{?dist}.fmi
 License: FMI
 Group: Development/Libraries
@@ -12,12 +12,12 @@ Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: gcc-c++
 BuildRequires: make
-BuildRequires: boost-devel >= 1.55.0
-BuildRequires: smartmet-library-macgyver-devel >= 17.1.18
+BuildRequires: boost-devel >= 1.65.0
+BuildRequires: smartmet-library-macgyver-devel >= 17.8.28
 BuildRequires: libxml++-devel
 BuildRequires: smartmet-library-regression >= 16.12.20
 BuildRequires: xqilla-devel
-Requires: smartmet-library-macgyver >= 17.1.18
+Requires: smartmet-library-macgyver >= 17.8.28
 Requires: xqilla
 Requires: xerces-c
 Provides: %{SPECNAME}
@@ -44,10 +44,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(0664,root,root,0775)
 %{_includedir}/smartmet/%{DIRNAME}/*.h
-%{_libdir}/lib%{LIBNAME}.a
+%{_libdir}/lib%{LIBNAME}.so
 
 
 %changelog
+* Mon Aug 28 2017 Mika Heiskanen <mika.heiskanen@fmi.fi> - 17.8.28-1.fmi
+- Upgrade to boost 1.65
+
 * Wed Jan  4 2017 Mika Heiskanen <mika.heiskanen@fmi.fi> - 17.1.4-1.fmi
 - Switched to FMI open source naming conventions
 - In addition to missing text nodes ignoring empty gml:posList text nodes too. Fixes MIRRISERVER-561.
