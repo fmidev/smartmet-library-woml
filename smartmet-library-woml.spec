@@ -3,9 +3,9 @@
 %define SPECNAME smartmet-library-%{DIRNAME}
 Summary: woml library
 Name: %{SPECNAME}
-Version: 17.8.28
+Version: 17.10.3
 Release: 1%{?dist}.fmi
-License: FMI
+License: MIT
 Group: Development/Libraries
 URL: https://github.com/fmidev/smartmet-library-woml
 Source0: %{name}.tar.gz
@@ -48,6 +48,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Oct  3 2017 Mika Heiskanen <mika.heiskanen@fmi.fi> - 17.10.3-1.fmi
+- Change to MIT license
+
 * Mon Aug 28 2017 Mika Heiskanen <mika.heiskanen@fmi.fi> - 17.8.28-1.fmi
 - Upgrade to boost 1.65
 
