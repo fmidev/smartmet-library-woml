@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Feature.h"
 #include "Envelope.h"
+#include "Feature.h"
 #include "Point.h"
 #include <string>
 
@@ -28,4 +28,3 @@ class AbstractPointObject : public Feature
 };  // class AbstractPointObject
 
 }  // namespace woml
-

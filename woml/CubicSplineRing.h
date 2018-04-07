@@ -28,4 +28,3 @@ class CubicSplineRing
 
 };  // class CubicSplineRing
 }  // namespace woml
-

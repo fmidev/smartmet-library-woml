@@ -12,13 +12,13 @@
 #include "MeteorologicalAnalysis.h"
 #include "NumericalModelRun.h"
 #include "OccludedFront.h"
-#include "ParameterValueSetPoint.h"
 #include "ParameterTimeSeriesPoint.h"
+#include "ParameterValueSetArea.h"
+#include "ParameterValueSetPoint.h"
 #include "PointMeteorologicalSymbol.h"
 #include "PressureCenterType.h"
-#include "SurfacePrecipitationArea.h"
-#include "ParameterValueSetArea.h"
 #include "StormType.h"
+#include "SurfacePrecipitationArea.h"
 #include "TimeSeriesSlot.h"
 #include "Weather.h"
 #include "WeatherForecast.h"
@@ -35,12 +35,12 @@
 #include <sstream>
 #include <stdexcept>
 
-#include <xercesc/parsers/XercesDOMParser.hpp>
-#include <xercesc/dom/DOM.hpp>
-#include <xercesc/util/XMLString.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
-#include <xqilla/xqilla-dom3.hpp>
 #include <boost/algorithm/string.hpp>
+#include <xercesc/dom/DOM.hpp>
+#include <xercesc/parsers/XercesDOMParser.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/util/XMLString.hpp>
+#include <xqilla/xqilla-dom3.hpp>
 
 XERCES_CPP_NAMESPACE_USE;
 
@@ -98,18 +98,18 @@ const char *nsResolver::_namespaces[] = {"gml",
 
 #define XQEXC(msg) \
   throw std::runtime_error(std::string(EXCFUNC) + ": XQillaException: " + std::string(msg))
-#define DXPEXC(code)                                                        \
-  throw std::runtime_error(std::string(EXCFUNC) + ": DOMXPathException: " + \
-                           boost::lexical_cast<std::string>(code))
-#define DEXC(code)                                                     \
-  throw std::runtime_error(std::string(EXCFUNC) + ": DOMException: " + \
-                           boost::lexical_cast<std::string>(code))
+#define DXPEXC(code)                              \
+  throw std::runtime_error(std::string(EXCFUNC) + \
+                           ": DOMXPathException: " + boost::lexical_cast<std::string>(code))
+#define DEXC(code)                                \
+  throw std::runtime_error(std::string(EXCFUNC) + \
+                           ": DOMException: " + boost::lexical_cast<std::string>(code))
 #define REXC(msg) throw std::runtime_error(std::string(msg) + "\nat " + std::string(EXCFUNC))
 #define UEXC REXC("unknown exception")
 #define TRY()                                 \
   std::string __EXCFUNC(__PRETTY_FUNCTION__); \
   std::string _EXCFUNC;                       \
-  (void) _EXCFUNC;                            \
+  (void)_EXCFUNC;                             \
   const char *EXCFUNC = __EXCFUNC.c_str();    \
   try
 #define TRYA(arg)                                        \
@@ -149,24 +149,21 @@ std::string XMLChptr2str(const XMLCh *xp)
 
 DOMNode *searchNode(DOMNode *node, const char *pathExpr);
 
-DOMNode *getResultNode(DOMXPathResult *result, DOMText **text = NULL, bool textRequired = true)
+DOMNode *getResultNode(DOMXPathResult *result, DOMText **text = NULL, bool textRequired = true){
+    TRY(){DOMNode *node = (result->iterateNext() ? result->getNodeValue() : NULL);
+
+if (node && text)
 {
-  TRY()
+  TRYA(XMLChptr2str(node->getNodeName()))
   {
-    DOMNode *node = (result->iterateNext() ? result->getNodeValue() : NULL);
-
-    if (node && text)
-    {
-      TRYA(XMLChptr2str(node->getNodeName()))
-      {
-        if ((!(*text = ((DOMText *)searchNode(node, "text()[1]")))) && textRequired)
-          throw std::runtime_error("Text element missing");
-      }
-    }
-
-    return node;
+    if ((!(*text = ((DOMText *)searchNode(node, "text()[1]")))) && textRequired)
+      throw std::runtime_error("Text element missing");
   }
-  CATCH
+}
+
+return node;
+}  // namespace woml
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -175,17 +172,15 @@ DOMNode *getResultNode(DOMXPathResult *result, DOMText **text = NULL, bool textR
  */
 // ----------------------------------------------------------------------
 
-DOMNode *searchNode(DOMNode *node, const char *pathExpr)
-{
-  TRYFA(pathExpr)
-  {
-    AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+DOMNode *searchNode(DOMNode *node, const char *pathExpr){
+    TRYFA(pathExpr){AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
+AutoRelease<DOMXPathResult> result(expression->evaluate(node,
+                                                        DOMXPathResult::ITERATOR_RESULT_TYPE,
+                                                        0));
 
-    return getResultNode(result);
-  }
-  CATCH
+return getResultNode(result);
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -194,20 +189,17 @@ DOMNode *searchNode(DOMNode *node, const char *pathExpr)
  */
 // ----------------------------------------------------------------------
 
-boost::optional<std::string> parse_woml_orientation(DOMNode *node)
-{
-  TRY()
-  {
-    boost::optional<std::string> orientation;
+boost::optional<std::string> parse_woml_orientation(DOMNode *node){
+    TRY(){boost::optional<std::string> orientation;
 
-    DOMElement *elem = (DOMElement *)node;
-    std::string o = ATTR(elem, "orientation");
+DOMElement *elem = (DOMElement *)node;
+std::string o = ATTR(elem, "orientation");
 
-    if (o.length() > 0) orientation = o;
+if (o.length() > 0) orientation = o;
 
-    return orientation;
-  }
-  CATCH
+return orientation;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -216,29 +208,27 @@ boost::optional<std::string> parse_woml_orientation(DOMNode *node)
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Point> parse_gml_point(DOMNode *node, const char *pathExpr)
+boost::optional<Point> parse_gml_point(DOMNode *node, const char *pathExpr){
+    TRYFA(pathExpr){boost::optional<Point> p;
+
+AutoRelease<DOMXPathExpression> expression(EXPR(std::string(pathExpr) + "/text()[1]"));
+AutoRelease<DOMXPathResult> result(expression->evaluate(node,
+                                                        DOMXPathResult::ITERATOR_RESULT_TYPE,
+                                                        0));
+
+if ((node = getResultNode(result)))
 {
-  TRYFA(pathExpr)
-  {
-    boost::optional<Point> p;
+  std::stringstream s(XMLChptr2str(((DOMText *)node)->getNodeValue()));
+  double lat, lon;
+  s >> lat >> lon;
+  if (s.fail()) throw std::runtime_error("Invalid coordinate: " + s.str());
 
-    AutoRelease<DOMXPathExpression> expression(EXPR(std::string(pathExpr) + "/text()[1]"));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+  p = Point(lon, lat);
+}
 
-    if ((node = getResultNode(result)))
-    {
-      std::stringstream s(XMLChptr2str(((DOMText *)node)->getNodeValue()));
-      double lat, lon;
-      s >> lat >> lon;
-      if (s.fail()) throw std::runtime_error("Invalid coordinate: " + s.str());
-
-      p = Point(lon, lat);
-    }
-
-    return p;
-  }
-  CATCH
+return p;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -249,19 +239,16 @@ boost::optional<Point> parse_gml_point(DOMNode *node, const char *pathExpr)
 
 boost::optional<Rect> parse_rect_corners(DOMNode *node,
                                          const char *lowerCornerPathExpr,
-                                         const char *upperCornerPathExpr)
-{
-  TRY()
-  {
-    boost::optional<Rect> rect;
-    boost::optional<Point> lowerCorner = parse_gml_point(node, lowerCornerPathExpr);
-    boost::optional<Point> upperCorner = parse_gml_point(node, upperCornerPathExpr);
+                                         const char *upperCornerPathExpr){
+    TRY(){boost::optional<Rect> rect;
+boost::optional<Point> lowerCorner = parse_gml_point(node, lowerCornerPathExpr);
+boost::optional<Point> upperCorner = parse_gml_point(node, upperCornerPathExpr);
 
-    if (lowerCorner && upperCorner) rect = Rect(lowerCorner, upperCorner);
+if (lowerCorner && upperCorner) rect = Rect(lowerCorner, upperCorner);
 
-    return rect;
-  }
-  CATCH
+return rect;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -270,30 +257,27 @@ boost::optional<Rect> parse_rect_corners(DOMNode *node,
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Envelope> parse_gml_envelope(DOMNode *node)
+boost::optional<Envelope> parse_gml_envelope(DOMNode *node){
+    TRY(){boost::optional<Envelope> envelope;
+
+DOMElement *elem = (DOMElement *)node;
+std::string srsName = ATTR(elem, "srsName");
+std::string srsDimension = ATTR(elem, "srsDimension");
+
+boost::optional<Rect> rect = parse_rect_corners(node, "gml:lowerCorner", "gml:upperCorner");
+
+if (rect)
+  envelope = Envelope(rect, srsName, srsDimension);
+else
 {
-  TRY()
-  {
-    boost::optional<Envelope> envelope;
+  boost::optional<Point> point = parse_gml_point(node, "gml:coordinates");
 
-    DOMElement *elem = (DOMElement *)node;
-    std::string srsName = ATTR(elem, "srsName");
-    std::string srsDimension = ATTR(elem, "srsDimension");
+  if (point) envelope = Envelope(point, srsName, srsDimension);
+}
 
-    boost::optional<Rect> rect = parse_rect_corners(node, "gml:lowerCorner", "gml:upperCorner");
-
-    if (rect)
-      envelope = Envelope(rect, srsName, srsDimension);
-    else
-    {
-      boost::optional<Point> point = parse_gml_point(node, "gml:coordinates");
-
-      if (point) envelope = Envelope(point, srsName, srsDimension);
-    }
-
-    return envelope;
-  }
-  CATCH
+return envelope;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -327,34 +311,32 @@ boost::optional<Envelope> parse_gml_bounded_by(DOMNode *node,
 // ----------------------------------------------------------------------
 
 boost::optional<NumericalSingleValueMeasure> parse_woml_numerical_single_value_measure(
-    DOMNode *node, const char *pathExpr)
+    DOMNode *node,
+    const char *pathExpr){TRYFA(pathExpr){boost::optional<NumericalSingleValueMeasure> meas;
+
+AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
+AutoRelease<DOMXPathResult> result(expression->evaluate(node,
+                                                        DOMXPathResult::ITERATOR_RESULT_TYPE,
+                                                        0));
+
+DOMText *text;
+if ((node = getResultNode(result, &text)))
 {
-  TRYFA(pathExpr)
+  DOMElement *elem = (DOMElement *)node;
+
+  std::string valstr(XMLChptr2str(text->getNodeValue()));
+  std::string unit(ATTR(elem, "uom"));
+
+  if (valstr != "")
   {
-    boost::optional<NumericalSingleValueMeasure> meas;
-
-    AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
-
-    DOMText *text;
-    if ((node = getResultNode(result, &text)))
-    {
-      DOMElement *elem = (DOMElement *)node;
-
-      std::string valstr(XMLChptr2str(text->getNodeValue()));
-      std::string unit(ATTR(elem, "uom"));
-
-      if (valstr != "")
-      {
-        double value = boost::lexical_cast<double>(valstr);
-        meas = NumericalSingleValueMeasure(value, valstr, unit);
-      }
-    }
-
-    return meas;
+    double value = boost::lexical_cast<double>(valstr);
+    meas = NumericalSingleValueMeasure(value, valstr, unit);
   }
-  CATCH
+}
+
+return meas;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -364,21 +346,18 @@ boost::optional<NumericalSingleValueMeasure> parse_woml_numerical_single_value_m
 // ----------------------------------------------------------------------
 
 boost::optional<NumericalValueRangeMeasure> parse_woml_numerical_value_range_measure(
-    DOMNode *node, const char *lowerLimitPathExpr, const char *upperLimitPathExpr)
-{
-  TRY()
-  {
-    boost::optional<NumericalValueRangeMeasure> meas;
-    boost::optional<NumericalSingleValueMeasure> lowerLimit =
-        parse_woml_numerical_single_value_measure(node, lowerLimitPathExpr);
-    boost::optional<NumericalSingleValueMeasure> upperLimit =
-        parse_woml_numerical_single_value_measure(node, upperLimitPathExpr);
+    DOMNode *node, const char *lowerLimitPathExpr, const char *upperLimitPathExpr){
+    TRY(){boost::optional<NumericalValueRangeMeasure> meas;
+boost::optional<NumericalSingleValueMeasure> lowerLimit =
+    parse_woml_numerical_single_value_measure(node, lowerLimitPathExpr);
+boost::optional<NumericalSingleValueMeasure> upperLimit =
+    parse_woml_numerical_single_value_measure(node, upperLimitPathExpr);
 
-    if (lowerLimit && upperLimit) meas = NumericalValueRangeMeasure(*lowerLimit, *upperLimit);
+if (lowerLimit && upperLimit) meas = NumericalValueRangeMeasure(*lowerLimit, *upperLimit);
 
-    return meas;
-  }
-  CATCH
+return meas;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -387,20 +366,17 @@ boost::optional<NumericalValueRangeMeasure> parse_woml_numerical_value_range_mea
  */
 // ----------------------------------------------------------------------
 
-Elevation parse_woml_elevation(DOMNode *node)
-{
-  TRY()
-  {
+Elevation parse_woml_elevation(DOMNode *node){TRY(){
     boost::optional<NumericalValueRangeMeasure> range = parse_woml_numerical_value_range_measure(
         node,
         "womlqty:elevation/womlcore:Elevation/womlcore:valueLowerLimit",
         "womlqty:elevation/womlcore:Elevation/womlcore:valueUpperLimit");
-    if (range) return Elevation(range);
+if (range) return Elevation(range);
 
-    return Elevation(parse_woml_numerical_single_value_measure(
-        node, "womlqty:elevation/womlcore:Elevation/womlcore:value"));
-  }
-  CATCH
+return Elevation(parse_woml_numerical_single_value_measure(
+    node, "womlqty:elevation/womlcore:Elevation/womlcore:value"));
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -474,30 +450,28 @@ void parse_woml_target_regions(T &theWeatherObject,
                                    "womlcore:targetRegion/"
                                    "womlcore:GeographicRegion[womlcore:regionId/"
                                    "@scheme=\"urn:x-finnish-meterological-institute:icao:code\" or "
-                                   "womlcore:regionId/@scheme=\"fmi\"][1]")
+                                   "womlcore:regionId/@scheme=\"fmi\"][1]"){
+    TRYFA(pathExpr){AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
+AutoRelease<DOMXPathResult> result(expression->evaluate(node,
+                                                        DOMXPathResult::ITERATOR_RESULT_TYPE,
+                                                        0));
+
+while ((node = getResultNode(result)))
 {
-  TRYFA(pathExpr)
-  {
-    AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+  theWeatherObject.addTargetRegion(parse_woml_target_region(node));
+}
 
-    while ((node = getResultNode(result)))
-    {
-      theWeatherObject.addTargetRegion(parse_woml_target_region(node));
-    }
+WeatherForecast::TargetRegions_const_iterator it = theWeatherObject.TargetRegions_begin();
 
-    WeatherForecast::TargetRegions_const_iterator it = theWeatherObject.TargetRegions_begin();
-
-    if (it != theWeatherObject.TargetRegions_end())
-      theWeatherObject.envelope(it->envelope());
-    else
-      throw std::runtime_error(
-          "Required target region (having regionId with "
-          "@scheme=\"urn:x-finnish-meterological-institute:icao:code\" or @scheme=\"fmi\") element "
-          "missing");
-  }
-  CATCH
+if (it != theWeatherObject.TargetRegions_end())
+  theWeatherObject.envelope(it->envelope());
+else
+  throw std::runtime_error(
+      "Required target region (having regionId with "
+      "@scheme=\"urn:x-finnish-meterological-institute:icao:code\" or @scheme=\"fmi\") element "
+      "missing");
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -507,28 +481,25 @@ void parse_woml_target_regions(T &theWeatherObject,
 // ----------------------------------------------------------------------
 
 std::multimap<std::string, std::string> &parse_woml_info_texts(
-    DOMNode *node, std::multimap<std::string, std::string> &infos, const char *pathExpr)
-{
-  TRYFA(pathExpr)
+    DOMNode *node, std::multimap<std::string, std::string> &infos, const char *pathExpr){
+    TRYFA(pathExpr){AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
+AutoRelease<DOMXPathResult> result(expression->evaluate(node,
+                                                        DOMXPathResult::ITERATOR_RESULT_TYPE,
+                                                        0));
+
+DOMText *text;
+while ((node = getResultNode(result, &text, false)))
+  if (text)
   {
-    AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+    DOMElement *elem = (DOMElement *)node;
+    std::string lang = ATTR(elem, "xml:lang");
 
-    DOMText *text;
-    while ((node = getResultNode(result, &text, false)))
-      if (text)
-      {
-        DOMElement *elem = (DOMElement *)node;
-        std::string lang = ATTR(elem, "xml:lang");
-
-        if (lang.length() > 0)
-          infos.insert(std::make_pair(lang, XMLChptr2str(text->getNodeValue())));
-      }
-
-    return infos;
+    if (lang.length() > 0) infos.insert(std::make_pair(lang, XMLChptr2str(text->getNodeValue())));
   }
-  CATCH
+
+return infos;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -564,21 +535,19 @@ std::multimap<std::string, std::string> &parse_woml_longinfo(
 std::string parse_woml_creator(
     DOMNode *node,
     const char *pathExpr =
-        "womlcore:metaData/womlcore:MeteorologicalObjectMetaData/dc:creator/text()[1]")
-{
-  TRYFA(pathExpr)
-  {
-    std::string creator;
+        "womlcore:metaData/womlcore:MeteorologicalObjectMetaData/dc:creator/text()[1]"){
+    TRYFA(pathExpr){std::string creator;
 
-    AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
+AutoRelease<DOMXPathResult> result(expression->evaluate(node,
+                                                        DOMXPathResult::ITERATOR_RESULT_TYPE,
+                                                        0));
 
-    if ((node = getResultNode(result))) creator = XMLChptr2str(((DOMText *)node)->getNodeValue());
+if ((node = getResultNode(result))) creator = XMLChptr2str(((DOMText *)node)->getNodeValue());
 
-    return creator;
-  }
-  CATCH
+return creator;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -587,49 +556,47 @@ std::string parse_woml_creator(
  */
 // ----------------------------------------------------------------------
 
-boost::optional<boost::posix_time::ptime> read_text_time(DOMNode *node, const char *pathExpr)
+boost::optional<boost::posix_time::ptime> read_text_time(DOMNode *node, const char *pathExpr){
+    TRYFA(pathExpr){boost::optional<boost::posix_time::ptime> t;
+
+AutoRelease<DOMXPathExpression> expression(EXPR(std::string(pathExpr) + "/text()[1]"));
+AutoRelease<DOMXPathResult> result(expression->evaluate(node,
+                                                        DOMXPathResult::ITERATOR_RESULT_TYPE,
+                                                        0));
+
+if ((node = getResultNode(result)))
 {
-  TRYFA(pathExpr)
+  std::string ts(XMLChptr2str(((DOMText *)node)->getNodeValue()));
+
+  // 03-Dec-2012: Get rid of possible millisecond part (all subsequent digits after period); not
+  // supported by TimeParser
+
+  std::string tail;
+  size_t pos = ts.find('.');
+
+  if ((pos > 0) && (pos != std::string::npos))
   {
-    boost::optional<boost::posix_time::ptime> t;
+    size_t tpos = pos + 1;
+    const char *p = (ts.c_str() + tpos);
 
-    AutoRelease<DOMXPathExpression> expression(EXPR(std::string(pathExpr) + "/text()[1]"));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+    for (; ((*p >= '0') && (*p <= '9')); p++)
+      tpos++;
 
-    if ((node = getResultNode(result)))
-    {
-      std::string ts(XMLChptr2str(((DOMText *)node)->getNodeValue()));
-
-      // 03-Dec-2012: Get rid of possible millisecond part (all subsequent digits after period); not
-      // supported by TimeParser
-
-      std::string tail;
-      size_t pos = ts.find('.');
-
-      if ((pos > 0) && (pos != std::string::npos))
-      {
-        size_t tpos = pos + 1;
-        const char *p = (ts.c_str() + tpos);
-
-        for (; ((*p >= '0') && (*p <= '9')); p++)
-          tpos++;
-
-        // Keep whatever follows the millisecond part (e.g. YYYY-MM-DDTHH:MM:SS[.mmm]Z)
-        //
-        if (*p) tail = ts.substr(tpos);
-      }
-      else
-        pos = std::string::npos;
-
-      t = Fmi::TimeParser::parse((pos == std::string::npos) ? ts : ts.substr(0, pos) + tail);
-
-      if (t->is_not_a_date_time()) throw std::runtime_error("Invalid datetime: " + ts);
-    }
-
-    return t;
+    // Keep whatever follows the millisecond part (e.g. YYYY-MM-DDTHH:MM:SS[.mmm]Z)
+    //
+    if (*p) tail = ts.substr(tpos);
   }
-  CATCH
+  else
+    pos = std::string::npos;
+
+  t = Fmi::TimeParser::parse((pos == std::string::npos) ? ts : ts.substr(0, pos) + tail);
+
+  if (t->is_not_a_date_time()) throw std::runtime_error("Invalid datetime: " + ts);
+}
+
+return t;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -638,20 +605,17 @@ boost::optional<boost::posix_time::ptime> read_text_time(DOMNode *node, const ch
  */
 // ----------------------------------------------------------------------
 
-Point read_text_point(DOMNode *node)
-{
-  TRY()
-  {
+Point read_text_point(DOMNode *node){TRY(){
     if (!(node = searchNode(node, "/text()[1]"))) throw std::runtime_error("Text element missing");
 
-    std::stringstream s(XMLChptr2str(((DOMText *)node)->getNodeValue()));
-    double lat, lon;
-    s >> lat >> lon;
-    if (s.fail()) throw std::runtime_error("Invalid coordinate: " + s.str());
+std::stringstream s(XMLChptr2str(((DOMText *)node)->getNodeValue()));
+double lat, lon;
+s >> lat >> lon;
+if (s.fail()) throw std::runtime_error("Invalid coordinate: " + s.str());
 
-    return Point(lon, lat);
-  }
-  CATCH
+return Point(lon, lat);
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -661,14 +625,11 @@ Point read_text_point(DOMNode *node)
 // ----------------------------------------------------------------------
 
 boost::optional<boost::posix_time::ptime> parse_gml_time_position_union(DOMNode *node,
-                                                                        const char *pathExpr)
-{
-  TRY()
-  {
+                                                                        const char *pathExpr){TRY(){
     // TODO: parse_gml_time_position_union: only read_text_time/Fmi::TimeParser::parse_xml used
     return read_text_time(node, pathExpr);
-  }
-  CATCH
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -678,10 +639,10 @@ boost::optional<boost::posix_time::ptime> parse_gml_time_position_union(DOMNode 
 // ----------------------------------------------------------------------
 
 boost::optional<boost::posix_time::ptime> parse_gml_time_instant(DOMNode *node,
-                                                                 const char *pathExpr)
-{
-  TRY() { return parse_gml_time_position_union(node, pathExpr); }
-  CATCH
+                                                                 const char *pathExpr){
+    TRY(){return parse_gml_time_position_union(node, pathExpr);
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -691,21 +652,18 @@ boost::optional<boost::posix_time::ptime> parse_gml_time_instant(DOMNode *node,
 // ----------------------------------------------------------------------
 
 boost::optional<boost::posix_time::time_period> parse_gml_time_period(
-    DOMNode *node, const char *beginPositionPathExpr, const char *endPositionPathExpr)
-{
-  TRY()
-  {
-    boost::optional<boost::posix_time::time_period> period;
-    boost::optional<boost::posix_time::ptime> starttime =
-        parse_gml_time_position_union(node, beginPositionPathExpr);
-    boost::optional<boost::posix_time::ptime> endtime =
-        parse_gml_time_position_union(node, endPositionPathExpr);
+    DOMNode *node, const char *beginPositionPathExpr, const char *endPositionPathExpr){
+    TRY(){boost::optional<boost::posix_time::time_period> period;
+boost::optional<boost::posix_time::ptime> starttime =
+    parse_gml_time_position_union(node, beginPositionPathExpr);
+boost::optional<boost::posix_time::ptime> endtime =
+    parse_gml_time_position_union(node, endPositionPathExpr);
 
-    if (starttime && endtime) period = boost::posix_time::time_period(*starttime, *endtime);
+if (starttime && endtime) period = boost::posix_time::time_period(*starttime, *endtime);
 
-    return period;
-  }
-  CATCH
+return period;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -714,17 +672,14 @@ boost::optional<boost::posix_time::time_period> parse_gml_time_period(
  */
 // ----------------------------------------------------------------------
 
-boost::posix_time::ptime parse_woml_required_time(DOMNode *node, const char *pathExpr)
-{
-  TRYFA(pathExpr)
-  {
-    boost::optional<boost::posix_time::ptime> t = read_text_time(node, pathExpr);
+boost::posix_time::ptime parse_woml_required_time(DOMNode *node, const char *pathExpr){
+    TRYFA(pathExpr){boost::optional<boost::posix_time::ptime> t = read_text_time(node, pathExpr);
 
-    if (!t) throw std::runtime_error("Required datetime element missing");
+if (!t) throw std::runtime_error("Required datetime element missing");
 
-    return *t;
-  }
-  CATCH
+return *t;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -733,10 +688,10 @@ boost::posix_time::ptime parse_woml_required_time(DOMNode *node, const char *pat
  */
 // ----------------------------------------------------------------------
 
-boost::posix_time::ptime parse_woml_creation_time(DOMNode *node)
-{
-  TRY() { return parse_woml_required_time(node, "womlcore:creationTime"); }
-  CATCH
+boost::posix_time::ptime parse_woml_creation_time(DOMNode *node){
+    TRY(){return parse_woml_required_time(node, "womlcore:creationTime");
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -745,10 +700,10 @@ boost::posix_time::ptime parse_woml_creation_time(DOMNode *node)
  */
 // ----------------------------------------------------------------------
 
-boost::optional<boost::posix_time::ptime> parse_woml_latest_modification_time(DOMNode *node)
-{
-  TRY() { return read_text_time(node, "womlcore:latestModificationTime"); }
-  CATCH
+boost::optional<boost::posix_time::ptime> parse_woml_latest_modification_time(DOMNode *node){
+    TRY(){return read_text_time(node, "womlcore:latestModificationTime");
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -757,24 +712,21 @@ boost::optional<boost::posix_time::ptime> parse_woml_latest_modification_time(DO
  */
 // ----------------------------------------------------------------------
 
-boost::optional<boost::posix_time::time_period> parse_gml_valid_time(DOMNode *node)
-{
-  TRY()
-  {
-    boost::optional<boost::posix_time::time_period> period;
-    boost::optional<boost::posix_time::ptime> t =
-        parse_gml_time_instant(node, "gml:validTime/gml:TimeInstant/gml:timePosition");
+boost::optional<boost::posix_time::time_period> parse_gml_valid_time(DOMNode *node){
+    TRY(){boost::optional<boost::posix_time::time_period> period;
+boost::optional<boost::posix_time::ptime> t =
+    parse_gml_time_instant(node, "gml:validTime/gml:TimeInstant/gml:timePosition");
 
-    if (t)
-      period = boost::posix_time::time_period(*t, *t);
-    else
-      period = parse_gml_time_period(node,
-                                     "gml:validTime/gml:TimePeriod/gml:beginPosition",
-                                     "gml:validTime/gml:TimePeriod/gml:endPosition");
+if (t)
+  period = boost::posix_time::time_period(*t, *t);
+else
+  period = parse_gml_time_period(node,
+                                 "gml:validTime/gml:TimePeriod/gml:beginPosition",
+                                 "gml:validTime/gml:TimePeriod/gml:endPosition");
 
-    return period;
-  }
-  CATCH
+return period;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -783,23 +735,21 @@ boost::optional<boost::posix_time::time_period> parse_gml_valid_time(DOMNode *no
  */
 // ----------------------------------------------------------------------
 
-boost::optional<boost::posix_time::ptime> parse_gml_valid_time_instant(DOMNode *node)
+boost::optional<boost::posix_time::ptime> parse_gml_valid_time_instant(DOMNode *node){
+    TRYFA(XMLChptr2str(node->getNodeName())){
+        boost::optional<boost::posix_time::time_period> p = parse_gml_valid_time(node);
+
+if (p)
 {
-  TRYFA(XMLChptr2str(node->getNodeName()))
-  {
-    boost::optional<boost::posix_time::time_period> p = parse_gml_valid_time(node);
+  if (!(p->is_null()))
+    throw std::runtime_error("Time instant element expected instead of time period");
+}
+else
+  throw std::runtime_error("Required time instant element missing");
 
-    if (p)
-    {
-      if (!(p->is_null()))
-        throw std::runtime_error("Time instant element expected instead of time period");
-    }
-    else
-      throw std::runtime_error("Required time instant element missing");
-
-    return p->begin();
-  }
-  CATCH
+return p->begin();
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -828,28 +778,24 @@ boost::posix_time::time_period parse_gml_required_valid_time(DOMNode *node)
 // ----------------------------------------------------------------------
 
 template <typename T>
-T parse_woml_spline(DOMNode *node)
+T parse_woml_spline(DOMNode *node){TRY(){T spline;
+
+std::string latlons(XMLChptr2str(((DOMText *)node)->getNodeValue()));
+boost::trim(latlons);
+std::stringstream s(latlons);
+
+while (s.good())
 {
-  TRY()
-  {
-    T spline;
+  double lon, lat;
+  s >> lat >> lon;
+  if (s.fail()) throw std::runtime_error("Invalid coordinate: " + s.str());
 
-    std::string latlons(XMLChptr2str(((DOMText *)node)->getNodeValue()));
-    boost::trim(latlons);
-    std::stringstream s(latlons);
+  spline.add(Point(lon, lat));
+}
 
-    while (s.good())
-    {
-      double lon, lat;
-      s >> lat >> lon;
-      if (s.fail()) throw std::runtime_error("Invalid coordinate: " + s.str());
-
-      spline.add(Point(lon, lat));
-    }
-
-    return spline;
-  }
-  CATCH
+return spline;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -890,20 +836,18 @@ void parse_woml_spline_string(DOMNode *node,
                               CubicSplineCurve &curve,
                               const char *pathExpr =
                                   "womlcore:controlCurve/gml:CompositeCurve/gml:curveMember/"
-                                  "gml:LineString[1]/gml:posList/text()[1]")
-{
-  TRYFA(pathExpr)
-  {
-    AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+                                  "gml:LineString[1]/gml:posList/text()[1]"){
+    TRYFA(pathExpr){AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
+AutoRelease<DOMXPathResult> result(expression->evaluate(node,
+                                                        DOMXPathResult::ITERATOR_RESULT_TYPE,
+                                                        0));
 
-    if ((node = getResultNode(result)))
-      curve.lineString(parse_woml_spline<SimpleCubicSpline>(node));
-    else
-      throw std::runtime_error("Required linestring element missing");
-  }
-  CATCH
+if ((node = getResultNode(result)))
+  curve.lineString(parse_woml_spline<SimpleCubicSpline>(node));
+else
+  throw std::runtime_error("Required linestring element missing");
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -912,24 +856,21 @@ void parse_woml_spline_string(DOMNode *node,
  */
 // ----------------------------------------------------------------------
 
-CubicSplineCurve parse_woml_control_curve(DOMNode *node)
-{
-  TRY()
-  {
+CubicSplineCurve parse_woml_control_curve(DOMNode *node){TRY(){
     // Note: temporarily storing linestring as a bezier segment.
     // To be uncommented later when frontier uses the bezier elements to construct bezier curves.
     //
     CubicSplineCurve curve;
-    //		CubicSplineCurve curve = parse_woml_spline_segments(node);
-    parse_woml_spline_string(node, curve);
+//		CubicSplineCurve curve = parse_woml_spline_segments(node);
+parse_woml_spline_string(node, curve);
 
-    // Note: temporary
-    //
-    curve.add(curve.lineString());
+// Note: temporary
+//
+curve.add(curve.lineString());
 
-    return curve;
-  }
-  CATCH
+return curve;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -964,10 +905,10 @@ CubicSplineSurface parse_woml_cubic_spline_surface(DOMNode *theNode, const char 
       else
         return surface;
     }
-//  16.8.16 Always skip/ignore empty posList
-//
-//  else if (Weather::strictMode())
-//    throw std::runtime_error("Required exterior element missing");
+    //  16.8.16 Always skip/ignore empty posList
+    //
+    //  else if (Weather::strictMode())
+    //    throw std::runtime_error("Required exterior element missing");
     else
       return surface;
 
@@ -1179,27 +1120,23 @@ T *parse_woml_abstract_line(DOMNode *node)
 // ----------------------------------------------------------------------
 
 template <typename T>
-T *parse_woml_abstract_surface(DOMNode *node)
-{
-  TRY()
-  {
-    T *surface = new T;
+T *parse_woml_abstract_surface(DOMNode *node){TRY(){T * surface = new T;
 
-    surface->envelope(parse_gml_bounded_by(node));
-    surface->validTime(parse_gml_valid_time_instant(node));
-    surface->creationTime(parse_woml_creation_time(node));
-    surface->latestModificationTime(parse_woml_latest_modification_time(node));
-    surface->elevation(parse_woml_elevation(node));
+surface->envelope(parse_gml_bounded_by(node));
+surface->validTime(parse_gml_valid_time_instant(node));
+surface->creationTime(parse_woml_creation_time(node));
+surface->latestModificationTime(parse_woml_latest_modification_time(node));
+surface->elevation(parse_woml_elevation(node));
 
-    MeteorologicalObjectInfo longInfos;
-    surface->addShortInfos(parse_woml_longinfo(node, longInfos));
+MeteorologicalObjectInfo longInfos;
+surface->addShortInfos(parse_woml_longinfo(node, longInfos));
 
-    surface->controlSurface(parse_woml_cubic_spline_surface(
-        node, "womlcore:controlSurface/gml:CompositeSurface/gml:surfaceMember/gml:Polygon"));
+surface->controlSurface(parse_woml_cubic_spline_surface(
+    node, "womlcore:controlSurface/gml:CompositeSurface/gml:surfaceMember/gml:Polygon"));
 
-    return surface;
-  }
-  CATCH
+return surface;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1208,31 +1145,26 @@ T *parse_woml_abstract_surface(DOMNode *node)
  */
 // ----------------------------------------------------------------------
 
-boost::optional<NumericalModelRun> parse_woml_numerical_model_run(DOMNode *theNode)
-{
-  TRYFA(XMLChptr2str(theNode->getNodeName()))
-  {
-    DOMNode *node;
-    boost::posix_time::ptime analysisTime =
-        parse_woml_required_time(theNode, "womlcore:analysisTime");
+boost::optional<NumericalModelRun> parse_woml_numerical_model_run(DOMNode *theNode){
+    TRYFA(XMLChptr2str(theNode->getNodeName())){DOMNode * node;
+boost::posix_time::ptime analysisTime = parse_woml_required_time(theNode, "womlcore:analysisTime");
 
-    if (!(node = searchNode(
-              theNode,
-              "womlcore:model/womlcore:NumericalWeatherModel/womlcore:modelIdentifier/text()[1]")))
-      throw std::runtime_error("Required modelidentifier element missing");
+if (!(node = searchNode(
+          theNode,
+          "womlcore:model/womlcore:NumericalWeatherModel/womlcore:modelIdentifier/text()[1]")))
+  throw std::runtime_error("Required modelidentifier element missing");
 
-    std::string model = XMLChptr2str(((DOMText *)node)->getNodeValue());
+std::string model = XMLChptr2str(((DOMText *)node)->getNodeValue());
 
-    if (!(node = searchNode(
-              theNode,
-              "womlcore:model/womlcore:NumericalWeatherModel/womlcore:specifier/text()[1]")))
-      throw std::runtime_error("Required specifier element missing");
+if (!(node = searchNode(
+          theNode, "womlcore:model/womlcore:NumericalWeatherModel/womlcore:specifier/text()[1]")))
+  throw std::runtime_error("Required specifier element missing");
 
-    std::string specifier = XMLChptr2str(((DOMText *)node)->getNodeValue());
+std::string specifier = XMLChptr2str(((DOMText *)node)->getNodeValue());
 
-    return NumericalModelRun(model, specifier, analysisTime);
-  }
-  CATCH
+return NumericalModelRun(model, specifier, analysisTime);
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1271,36 +1203,33 @@ DataSource parse_woml_used_reference_data(DOMNode *node)
  */
 // ----------------------------------------------------------------------
 
-void parse_woml_jet_stream_maximum_wind_speed(DOMNode *theNode, JetStream *stream)
+void parse_woml_jet_stream_maximum_wind_speed(DOMNode *theNode, JetStream *stream){
+    TRY(){const char *segmentIndexPathExpr = "womlswo:segmentIndex/text()[1]";
+
+TRYA(segmentIndexPathExpr)
 {
-  TRY()
+  AutoRelease<DOMXPathExpression> expression(EXPR(segmentIndexPathExpr));
+  AutoRelease<DOMXPathResult> result(
+      expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+
+  DOMNode *node;
+  if ((node = getResultNode(result)))
   {
-    const char *segmentIndexPathExpr = "womlswo:segmentIndex/text()[1]";
+    int index = boost::lexical_cast<int>(XMLChptr2str(((DOMText *)node)->getNodeValue()));
 
-    TRYA(segmentIndexPathExpr)
-    {
-      AutoRelease<DOMXPathExpression> expression(EXPR(segmentIndexPathExpr));
-      AutoRelease<DOMXPathResult> result(
-          expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+    boost::optional<NumericalSingleValueMeasure> meas =
+        parse_woml_numerical_single_value_measure(theNode, "womlswo:maximumWindSpeed");
+    if (!meas) throw std::runtime_error("Required maximum wind speed element missing");
 
-      DOMNode *node;
-      if ((node = getResultNode(result)))
-      {
-        int index = boost::lexical_cast<int>(XMLChptr2str(((DOMText *)node)->getNodeValue()));
+    stream->maximumWindSpeed(index, *meas);
 
-        boost::optional<NumericalSingleValueMeasure> meas =
-            parse_woml_numerical_single_value_measure(theNode, "womlswo:maximumWindSpeed");
-        if (!meas) throw std::runtime_error("Required maximum wind speed element missing");
-
-        stream->maximumWindSpeed(index, *meas);
-
-        return;
-      }
-
-      throw std::runtime_error("Required segment index element missing");
-    }
+    return;
   }
-  CATCH
+
+  throw std::runtime_error("Required segment index element missing");
+}
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1309,29 +1238,26 @@ void parse_woml_jet_stream_maximum_wind_speed(DOMNode *theNode, JetStream *strea
  */
 // ----------------------------------------------------------------------
 
-JetStream *parse_woml_jet_stream(DOMNode *node)
+JetStream *parse_woml_jet_stream(DOMNode *node){
+    TRY(){JetStream *stream = parse_woml_abstract_line<JetStream>(node);
+
+if (!stream) return NULL;
+
+const char *segmentPathExpr = "womlswo:segmentMaximumWinds/womlswo:SegmentMaximumWind";
+
+TRYA(segmentPathExpr)
 {
-  TRY()
-  {
-    JetStream *stream = parse_woml_abstract_line<JetStream>(node);
+  AutoRelease<DOMXPathExpression> expression(EXPR(segmentPathExpr));
+  AutoRelease<DOMXPathResult> result(
+      expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
 
-    if (!stream) return NULL;
+  while ((node = getResultNode(result)))
+    parse_woml_jet_stream_maximum_wind_speed(node, stream);
+}
 
-    const char *segmentPathExpr = "womlswo:segmentMaximumWinds/womlswo:SegmentMaximumWind";
-
-    TRYA(segmentPathExpr)
-    {
-      AutoRelease<DOMXPathExpression> expression(EXPR(segmentPathExpr));
-      AutoRelease<DOMXPathResult> result(
-          expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
-
-      while ((node = getResultNode(result)))
-        parse_woml_jet_stream_maximum_wind_speed(node, stream);
-    }
-
-    return stream;
-  }
-  CATCH
+return stream;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1340,41 +1266,37 @@ JetStream *parse_woml_jet_stream(DOMNode *node)
  */
 // ----------------------------------------------------------------------
 
-CloudArea *parse_woml_cloud_area(DOMNode *theNode)
+CloudArea *parse_woml_cloud_area(DOMNode *theNode){
+    TRY(){CloudArea *area = parse_woml_abstract_surface<CloudArea>(theNode);
+
+CloudType cloudType = UNKNOWN;
+std::string cloudTypeName("");
+boost::optional<double> cloudCoverPercent;
+std::string cloudCoverEighths;
+
+DOMNode *node;
+
+if ((node = searchNode(theNode, "womlswo:cloudType/text()[1]")))
 {
-  TRY()
-  {
-    CloudArea *area = parse_woml_abstract_surface<CloudArea>(theNode);
+  cloudTypeName = XMLChptr2str(((DOMText *)node)->getNodeValue());
+  cloudType = parseCloudType(cloudTypeName);
+}
+else
+  throw std::runtime_error("Required cloud type element missing");
 
-    CloudType cloudType = UNKNOWN;
-    std::string cloudTypeName("");
-    boost::optional<double> cloudCoverPercent;
-    std::string cloudCoverEighths;
+if ((node = searchNode(theNode, "womlswo:cloudCoverPercent/text()[1]")))
+  cloudCoverPercent = boost::lexical_cast<double>(XMLChptr2str(((DOMText *)node)->getNodeValue()));
 
-    DOMNode *node;
+if ((node = searchNode(theNode, "womlswo:continuity/text()[1]")))
+  cloudCoverEighths = XMLChptr2str(((DOMText *)node)->getNodeValue());
 
-    if ((node = searchNode(theNode, "womlswo:cloudType/text()[1]")))
-    {
-      cloudTypeName = XMLChptr2str(((DOMText *)node)->getNodeValue());
-      cloudType = parseCloudType(cloudTypeName);
-    }
-    else
-      throw std::runtime_error("Required cloud type element missing");
+area->cloudType(cloudType, cloudTypeName);
+area->cloudCoverPercent(cloudCoverPercent);
+area->cloudCoverEighths(cloudCoverEighths);
 
-    if ((node = searchNode(theNode, "womlswo:cloudCoverPercent/text()[1]")))
-      cloudCoverPercent =
-          boost::lexical_cast<double>(XMLChptr2str(((DOMText *)node)->getNodeValue()));
-
-    if ((node = searchNode(theNode, "womlswo:continuity/text()[1]")))
-      cloudCoverEighths = XMLChptr2str(((DOMText *)node)->getNodeValue());
-
-    area->cloudType(cloudType, cloudTypeName);
-    area->cloudCoverPercent(cloudCoverPercent);
-    area->cloudCoverEighths(cloudCoverEighths);
-
-    return area;
-  }
-  CATCH
+return area;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1385,22 +1307,19 @@ CloudArea *parse_woml_cloud_area(DOMNode *theNode)
  */
 // ----------------------------------------------------------------------
 
-OccludedFront *parse_woml_occluded_front(DOMNode *node)
-{
-  TRY()
-  {
-    OccludedFront *front = parse_woml_abstract_line<OccludedFront>(node);
+OccludedFront *parse_woml_occluded_front(DOMNode *node){
+    TRY(){OccludedFront *front = parse_woml_abstract_line<OccludedFront>(node);
 
-    if (!front) return NULL;
+if (!front) return NULL;
 
-    if (!(node = searchNode(node, "womlswo:stationary/text()[1]")))
-      front->stationary(false);
-    else
-      front->stationary(XMLChptr2str(((DOMText *)node)->getNodeValue()) == "true");
+if (!(node = searchNode(node, "womlswo:stationary/text()[1]")))
+  front->stationary(false);
+else
+  front->stationary(XMLChptr2str(((DOMText *)node)->getNodeValue()) == "true");
 
-    return front;
-  }
-  CATCH
+return front;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1409,37 +1328,34 @@ OccludedFront *parse_woml_occluded_front(DOMNode *node)
  */
 // ----------------------------------------------------------------------
 
-SurfacePrecipitationArea *parse_woml_surface_precipitation_area(DOMNode *theNode)
-{
-  TRY()
-  {
+SurfacePrecipitationArea *parse_woml_surface_precipitation_area(DOMNode *theNode){TRY(){
     SurfacePrecipitationArea *area = parse_woml_abstract_surface<SurfacePrecipitationArea>(theNode);
-    RainPhase rainPhase = unknown;
-    std::string rainPhaseName;
-    boost::optional<double> continuity, showeriness;
+RainPhase rainPhase = unknown;
+std::string rainPhaseName;
+boost::optional<double> continuity, showeriness;
 
-    DOMNode *node;
-    if ((node = searchNode(theNode, "womlswo:rainPhase/text()[1]")))
-    {
-      rainPhaseName = XMLChptr2str(((DOMText *)node)->getNodeValue());
-      rainPhase = parseRainPhase(rainPhaseName);
-    }
+DOMNode *node;
+if ((node = searchNode(theNode, "womlswo:rainPhase/text()[1]")))
+{
+  rainPhaseName = XMLChptr2str(((DOMText *)node)->getNodeValue());
+  rainPhase = parseRainPhase(rainPhaseName);
+}
 
-    if ((node = searchNode(theNode, "womlswo:continuity/text()[1]")))
-      continuity = boost::lexical_cast<double>(XMLChptr2str(((DOMText *)node)->getNodeValue()));
+if ((node = searchNode(theNode, "womlswo:continuity/text()[1]")))
+  continuity = boost::lexical_cast<double>(XMLChptr2str(((DOMText *)node)->getNodeValue()));
 
-    if ((node = searchNode(theNode, "womlswo:showeriness/text()[1]")))
-      showeriness = boost::lexical_cast<double>(XMLChptr2str(((DOMText *)node)->getNodeValue()));
+if ((node = searchNode(theNode, "womlswo:showeriness/text()[1]")))
+  showeriness = boost::lexical_cast<double>(XMLChptr2str(((DOMText *)node)->getNodeValue()));
 
-    area->rainPhase(rainPhase, rainPhaseName);
-    area->continuity(continuity);
-    area->showeriness(showeriness);
-    area->approximateRainFall(
-        parse_woml_numerical_single_value_measure(theNode, "womlswo:approximateRainFall"));
+area->rainPhase(rainPhase, rainPhaseName);
+area->continuity(continuity);
+area->showeriness(showeriness);
+area->approximateRainFall(parse_woml_numerical_single_value_measure(theNode,
+                                                                    "womlswo:approximateRainFall"));
 
-    return area;
-  }
-  CATCH
+return area;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1455,17 +1371,14 @@ GeophysicalParameterValueSet *parse_woml_geophysical_parameter_value_set(
         "womlqty:parameterValueSet/womlqty:GeophysicalParameterValueSet/womlqty:parameterValue/"
         "womlqty:GeophysicalParameterValue");
 
-ParameterValueSetArea *parse_woml_parameter_value_set_area(DOMNode *node)
-{
-  TRY()
-  {
-    ParameterValueSetArea *area = parse_woml_abstract_surface<ParameterValueSetArea>(node);
+ParameterValueSetArea *parse_woml_parameter_value_set_area(DOMNode *node){
+    TRY(){ParameterValueSetArea *area = parse_woml_abstract_surface<ParameterValueSetArea>(node);
 
-    area->param(parse_woml_geophysical_parameter_value_set(node, true));
+area->param(parse_woml_geophysical_parameter_value_set(node, true));
 
-    return area;
-  }
-  CATCH
+return area;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1474,21 +1387,18 @@ ParameterValueSetArea *parse_woml_parameter_value_set_area(DOMNode *node)
  */
 // ----------------------------------------------------------------------
 
-PointMeteorologicalSymbol *parse_woml_point_meteorological_symbol(DOMNode *node)
-{
-  TRY()
-  {
+PointMeteorologicalSymbol *parse_woml_point_meteorological_symbol(DOMNode *node){TRY(){
     PointMeteorologicalSymbol *symbol = parse_woml_abstract_point<PointMeteorologicalSymbol>(node);
-    symbol->symbol(parse_woml_meteorological_symbol(node));
+symbol->symbol(parse_woml_meteorological_symbol(node));
 
-    // Using 'shortInfos' member to store component info text
+// Using 'shortInfos' member to store component info text
 
-    MeteorologicalAnalysisInfo longInfos;
-    symbol->addShortInfos(parse_woml_longinfo(node, longInfos));
+MeteorologicalAnalysisInfo longInfos;
+symbol->addShortInfos(parse_woml_longinfo(node, longInfos));
 
-    return symbol;
-  }
-  CATCH
+return symbol;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1499,33 +1409,31 @@ PointMeteorologicalSymbol *parse_woml_point_meteorological_symbol(DOMNode *node)
 
 GeophysicalParameter parse_woml_geophysical_parameter(
     DOMNode *node,
-    const char *pathExpr = "womlqty:parameter/womlqty:GeophysicalParameter/womlqty:reference")
-{
-  TRYFA(pathExpr)
+    const char *pathExpr = "womlqty:parameter/womlqty:GeophysicalParameter/womlqty:reference"){
+    TRYFA(pathExpr){std::string param = "";
+int number = -1;
+
+AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
+AutoRelease<DOMXPathResult> result(expression->evaluate(node,
+                                                        DOMXPathResult::ITERATOR_RESULT_TYPE,
+                                                        0));
+
+DOMText *text;
+if ((node = getResultNode(result, &text, false)))
+  if (text)
   {
-    std::string param = "";
-    int number = -1;
+    param = XMLChptr2str(text->getNodeValue());
 
-    AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
-
-    DOMText *text;
-    if ((node = getResultNode(result, &text, false)))
-      if (text)
-      {
-        param = XMLChptr2str(text->getNodeValue());
-
-        //				DOMElement *elem = (DOMElement *) node;
-        //				std::string scheme(ATTR(elem,"scheme"));
-        //
-        //				if(scheme == "fmi")
-        //					number = boost::lexical_cast<int>(param);
-      }
-
-    return GeophysicalParameter(param, number);
+    //				DOMElement *elem = (DOMElement *) node;
+    //				std::string scheme(ATTR(elem,"scheme"));
+    //
+    //				if(scheme == "fmi")
+    //					number = boost::lexical_cast<int>(param);
   }
-  CATCH
+
+return GeophysicalParameter(param, number);
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1534,31 +1442,23 @@ GeophysicalParameter parse_woml_geophysical_parameter(
  */
 // ----------------------------------------------------------------------
 
-MeasureValue *parse_woml_category_value_measure(DOMNode *node,
-                                                uint nodeIndex,
-                                                const char *pathExpr = "womlqty:category")
-{
-  TRYFA(pathExpr)
-  {
-    if ((node = searchNode(
-             node,
-             (std::string(pathExpr) + "[" + boost::lexical_cast<std::string>(nodeIndex) + "]")
-                 .c_str())))
-    {
-      DOMNode *text = ((DOMText *)searchNode(node, "text()"));
-      DOMElement *elem = (DOMElement *)node;
+MeasureValue *parse_woml_category_value_measure(
+    DOMNode *node, uint nodeIndex, const char *pathExpr = "womlqty:category"){TRYFA(pathExpr){
+    if ((node = searchNode(node,
+                           (std::string(pathExpr) + "[" +
+                            boost::lexical_cast<std::string>(nodeIndex) + "]")
+                               .c_str()))){DOMNode *text = ((DOMText *)searchNode(node, "text()"));
+DOMElement *elem = (DOMElement *)node;
 
-      std::string category(text ? XMLChptr2str(text->getNodeValue()) : "");
-      std::string codebase(ATTR(elem, "codebase"));
+std::string category(text ? XMLChptr2str(text->getNodeValue()) : "");
+std::string codebase(ATTR(elem, "codebase"));
 
-      return new CategoryValueMeasure(category, codebase);
-    }
-    else if (nodeIndex == 1)
-      throw std::runtime_error("Required category element missing");
-    else
-      return NULL;
-  }
-  CATCH
+return new CategoryValueMeasure(category, codebase);
+}
+else if (nodeIndex == 1) throw std::runtime_error("Required category element missing");
+else return NULL;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1570,28 +1470,25 @@ MeasureValue *parse_woml_category_value_measure(DOMNode *node,
 MeasureValue *parse_woml_flow_direction_measure(
     DOMNode *theNode,
     const char *compassPointPathExpr = "womlqty:direction/gml:CompassPoint",
-    const char *directionVectorPathExpr = "womlqty:direction/gml:DirectionVector/gml:vector")
-{
-  TRY()
-  {
-    DOMNode *node;
-    DOMNode *text;
+    const char *directionVectorPathExpr = "womlqty:direction/gml:DirectionVector/gml:vector"){
+    TRY(){DOMNode * node;
+DOMNode *text;
 
-    std::string compassPoint;
+std::string compassPoint;
 
-    if ((node = searchNode(theNode, compassPointPathExpr)) &&
-        (text = ((DOMText *)searchNode(node, "text()[1]"))))
-      compassPoint = XMLChptr2str(text->getNodeValue());
+if ((node = searchNode(theNode, compassPointPathExpr)) &&
+    (text = ((DOMText *)searchNode(node, "text()[1]"))))
+  compassPoint = XMLChptr2str(text->getNodeValue());
 
-    std::string directionVector;
+std::string directionVector;
 
-    if ((node = searchNode(theNode, directionVectorPathExpr)) &&
-        (text = ((DOMText *)searchNode(node, "text()[1]"))))
-      directionVector = XMLChptr2str(text->getNodeValue());
+if ((node = searchNode(theNode, directionVectorPathExpr)) &&
+    (text = ((DOMText *)searchNode(node, "text()[1]"))))
+  directionVector = XMLChptr2str(text->getNodeValue());
 
-    return new FlowDirectionMeasure(compassPoint, directionVector);
-  }
-  CATCH
+return new FlowDirectionMeasure(compassPoint, directionVector);
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1656,25 +1553,22 @@ MeasureValue *parse_woml_parameter_measure_value(DOMNode *node,
 
 void parse_woml_geophysical_parameter_value(DOMNode *node,
                                             GeophysicalParameterValueSet *values,
-                                            bool multipleValues = false)
+                                            bool multipleValues = false){
+    TRY(){GeophysicalParameter param(parse_woml_geophysical_parameter(node));
+Elevation elevation(parse_woml_elevation(node));
+
+MeasureValue *measValue;
+uint nodeIndex = 0;
+
+do
 {
-  TRY()
-  {
-    GeophysicalParameter param(parse_woml_geophysical_parameter(node));
-    Elevation elevation(parse_woml_elevation(node));
+  nodeIndex++;
 
-    MeasureValue *measValue;
-    uint nodeIndex = 0;
-
-    do
-    {
-      nodeIndex++;
-
-      if ((measValue = parse_woml_parameter_measure_value(node, nodeIndex)))
-        values->add(GeophysicalParameterValue(param, measValue, elevation));
-    } while (measValue && multipleValues);
-  }
-  CATCH
+  if ((measValue = parse_woml_parameter_measure_value(node, nodeIndex)))
+    values->add(GeophysicalParameterValue(param, measValue, elevation));
+} while (measValue && multipleValues);
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1685,22 +1579,20 @@ void parse_woml_geophysical_parameter_value(DOMNode *node,
 
 GeophysicalParameterValueSet *parse_woml_geophysical_parameter_value_set(DOMNode *node,
                                                                          bool multipleValues,
-                                                                         const char *pathExpr)
-{
-  TRYFA(pathExpr)
-  {
-    GeophysicalParameterValueSet *values = new GeophysicalParameterValueSet;
+                                                                         const char *pathExpr){
+    TRYFA(pathExpr){GeophysicalParameterValueSet *values = new GeophysicalParameterValueSet;
 
-    AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
+AutoRelease<DOMXPathResult> result(expression->evaluate(node,
+                                                        DOMXPathResult::ITERATOR_RESULT_TYPE,
+                                                        0));
 
-    while ((node = getResultNode(result)))
-      parse_woml_geophysical_parameter_value(node, values, multipleValues);
+while ((node = getResultNode(result)))
+  parse_woml_geophysical_parameter_value(node, values, multipleValues);
 
-    return values;
-  }
-  CATCH
+return values;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1709,22 +1601,19 @@ GeophysicalParameterValueSet *parse_woml_geophysical_parameter_value_set(DOMNode
  */
 // ----------------------------------------------------------------------
 
-ParameterValueSetPoint *parse_woml_parameter_value_set_point(DOMNode *node)
-{
-  TRY()
-  {
-    ParameterValueSetPoint *point = parse_woml_abstract_point<ParameterValueSetPoint>(node);
+ParameterValueSetPoint *parse_woml_parameter_value_set_point(DOMNode *node){
+    TRY(){ParameterValueSetPoint *point = parse_woml_abstract_point<ParameterValueSetPoint>(node);
 
-    point->param(parse_woml_geophysical_parameter_value_set(node));
+point->param(parse_woml_geophysical_parameter_value_set(node));
 
-    // Using 'shortInfos' member to store component info text
+// Using 'shortInfos' member to store component info text
 
-    MeteorologicalAnalysisInfo longInfos;
-    point->addShortInfos(parse_woml_longinfo(node, longInfos));
+MeteorologicalAnalysisInfo longInfos;
+point->addShortInfos(parse_woml_longinfo(node, longInfos));
 
-    return point;
-  }
-  CATCH
+return point;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1866,104 +1755,101 @@ void parse_woml_parameter_timeseriespoint(T &theWeatherObject, DOMNode *node)
 // ----------------------------------------------------------------------
 
 template <typename T>
-void parse_woml_meteorologicalobject(T &theWeatherObject, DOMNode *node)
+void parse_woml_meteorologicalobject(T &theWeatherObject, DOMNode *node){
+    TRY(){std::string name = XMLChptr2str(node->getLocalName());
+
+if (name == /*"womlqty:*/ "ParameterTimeSeriesPoint")
+  parse_woml_parameter_timeseriespoint(theWeatherObject, node);
+else if (name == /*"womlswo:*/ "ColdAdvection")
 {
-  TRY()
-  {
-    std::string name = XMLChptr2str(node->getLocalName());
+  ColdAdvection *coldAdvection = parse_woml_abstract_line<ColdAdvection>(node);
 
-    if (name == /*"womlqty:*/ "ParameterTimeSeriesPoint")
-      parse_woml_parameter_timeseriespoint(theWeatherObject, node);
-    else if (name == /*"womlswo:*/ "ColdAdvection")
-    {
-      ColdAdvection *coldAdvection = parse_woml_abstract_line<ColdAdvection>(node);
+  if (coldAdvection) theWeatherObject.addFeature(coldAdvection);
+}
+else if (name == /*"womlswo:*/ "ColdFront")
+{
+  ColdFront *coldFront = parse_woml_abstract_line<ColdFront>(node);
 
-      if (coldAdvection) theWeatherObject.addFeature(coldAdvection);
-    }
-    else if (name == /*"womlswo:*/ "ColdFront")
-    {
-      ColdFront *coldFront = parse_woml_abstract_line<ColdFront>(node);
+  if (coldFront) theWeatherObject.addFeature(coldFront);
+}
+else if (name == /*"womlswo:*/ "JetStream")
+{
+  JetStream *jetStream = parse_woml_jet_stream(node);
 
-      if (coldFront) theWeatherObject.addFeature(coldFront);
-    }
-    else if (name == /*"womlswo:*/ "JetStream")
-    {
-      JetStream *jetStream = parse_woml_jet_stream(node);
+  if (jetStream) theWeatherObject.addFeature(jetStream);
+}
+else if (name == /*"womlswo:*/ "OccludedFront")
+{
+  OccludedFront *occludedFront = parse_woml_occluded_front(node);
 
-      if (jetStream) theWeatherObject.addFeature(jetStream);
-    }
-    else if (name == /*"womlswo:*/ "OccludedFront")
-    {
-      OccludedFront *occludedFront = parse_woml_occluded_front(node);
+  if (occludedFront) theWeatherObject.addFeature(occludedFront);
+}
+else if (name == /*"womlswo:*/ "Ridge")
+{
+  Ridge *ridge = parse_woml_abstract_line<Ridge>(node);
 
-      if (occludedFront) theWeatherObject.addFeature(occludedFront);
-    }
-    else if (name == /*"womlswo:*/ "Ridge")
-    {
-      Ridge *ridge = parse_woml_abstract_line<Ridge>(node);
+  if (ridge) theWeatherObject.addFeature(ridge);
+}
+else if (name == /*"womlswo:*/ "Trough")
+{
+  Trough *trough = parse_woml_abstract_line<Trough>(node);
 
-      if (ridge) theWeatherObject.addFeature(ridge);
-    }
-    else if (name == /*"womlswo:*/ "Trough")
-    {
-      Trough *trough = parse_woml_abstract_line<Trough>(node);
+  if (trough) theWeatherObject.addFeature(trough);
+}
+else if (name == /*"womlswo:*/ "UpperTrough")
+{
+  UpperTrough *upperTrough = parse_woml_abstract_line<UpperTrough>(node);
 
-      if (trough) theWeatherObject.addFeature(trough);
-    }
-    else if (name == /*"womlswo:*/ "UpperTrough")
-    {
-      UpperTrough *upperTrough = parse_woml_abstract_line<UpperTrough>(node);
+  if (upperTrough) theWeatherObject.addFeature(upperTrough);
+}
+else if (name == /*"womlswo:*/ "WarmAdvection")
+{
+  WarmAdvection *warmAdvection = parse_woml_abstract_line<WarmAdvection>(node);
 
-      if (upperTrough) theWeatherObject.addFeature(upperTrough);
-    }
-    else if (name == /*"womlswo:*/ "WarmAdvection")
-    {
-      WarmAdvection *warmAdvection = parse_woml_abstract_line<WarmAdvection>(node);
+  if (warmAdvection) theWeatherObject.addFeature(warmAdvection);
+}
+else if (name == /*"womlswo:*/ "WarmFront")
+{
+  WarmFront *warmFront = parse_woml_abstract_line<WarmFront>(node);
 
-      if (warmAdvection) theWeatherObject.addFeature(warmAdvection);
-    }
-    else if (name == /*"womlswo:*/ "WarmFront")
-    {
-      WarmFront *warmFront = parse_woml_abstract_line<WarmFront>(node);
-
-      if (warmFront) theWeatherObject.addFeature(warmFront);
-    }
-    else if (name == /*"womlswo:*/ "PointMeteorologicalSymbol")
-      theWeatherObject.addFeature(parse_woml_point_meteorological_symbol(node));
-    else if (name == /*"womlswo:*/ "AntiCyclone")
-      theWeatherObject.addFeature(parse_woml_pressure_center_type<AntiCyclone>(node));
-    else if (name == /*"womlswo:*/ "Antimesocyclone")
-      theWeatherObject.addFeature(parse_woml_pressure_center_type<Antimesocyclone>(node));
-    else if (name == /*"womlswo:*/ "Cyclone")
-      theWeatherObject.addFeature(parse_woml_pressure_center_type<Cyclone>(node));
-    else if (name == /*"womlswo:*/ "HighPressureCenter")
-      theWeatherObject.addFeature(parse_woml_pressure_center_type<HighPressureCenter>(node));
-    else if (name == /*"womlswo:*/ "LowPressureCenter")
-      theWeatherObject.addFeature(parse_woml_pressure_center_type<LowPressureCenter>(node));
-    else if (name == /*"womlswo:*/ "Mesocyclone")
-      theWeatherObject.addFeature(parse_woml_pressure_center_type<Mesocyclone>(node));
-    else if (name == /*"womlswo:*/ "Mesolow")
-      theWeatherObject.addFeature(parse_woml_pressure_center_type<Mesolow>(node));
-    else if (name == /*"womlswo:*/ "PolarCyclone")
-      theWeatherObject.addFeature(parse_woml_pressure_center_type<PolarCyclone>(node));
-    else if (name == /*"womlswo:*/ "PolarLow")
-      theWeatherObject.addFeature(parse_woml_pressure_center_type<PolarLow>(node));
-    else if (name == /*"womlswo:*/ "TropicalCyclone")
-      theWeatherObject.addFeature(parse_woml_pressure_center_type<TropicalCyclone>(node));
-    else if (name == /*"womlswo:*/ "ConvectiveStorm")
-      theWeatherObject.addFeature(parse_woml_storm_type<ConvectiveStorm>(node));
-    else if (name == /*"womlswo:*/ "Storm")
-      theWeatherObject.addFeature(parse_woml_storm_type<Storm>(node));
-    else if (name == /*"womlswo:*/ "ParameterValueSetPoint")
-      theWeatherObject.addFeature(parse_woml_parameter_value_set_point(node));
-    else if (name == /*"womlswo:*/ "CloudArea")
-      theWeatherObject.addFeature(parse_woml_cloud_area(node));
-    else if (name == /*"womlswo:*/ "SurfacePrecipitationArea")
-      theWeatherObject.addFeature(parse_woml_surface_precipitation_area(node));
-    else if (name == /*"womlswo:*/ "ParameterValueSetArea")
-      theWeatherObject.addFeature(parse_woml_parameter_value_set_area(node));
-  }
-  CATCH
+  if (warmFront) theWeatherObject.addFeature(warmFront);
+}
+else if (name == /*"womlswo:*/ "PointMeteorologicalSymbol")
+  theWeatherObject.addFeature(parse_woml_point_meteorological_symbol(node));
+else if (name == /*"womlswo:*/ "AntiCyclone")
+  theWeatherObject.addFeature(parse_woml_pressure_center_type<AntiCyclone>(node));
+else if (name == /*"womlswo:*/ "Antimesocyclone")
+  theWeatherObject.addFeature(parse_woml_pressure_center_type<Antimesocyclone>(node));
+else if (name == /*"womlswo:*/ "Cyclone")
+  theWeatherObject.addFeature(parse_woml_pressure_center_type<Cyclone>(node));
+else if (name == /*"womlswo:*/ "HighPressureCenter")
+  theWeatherObject.addFeature(parse_woml_pressure_center_type<HighPressureCenter>(node));
+else if (name == /*"womlswo:*/ "LowPressureCenter")
+  theWeatherObject.addFeature(parse_woml_pressure_center_type<LowPressureCenter>(node));
+else if (name == /*"womlswo:*/ "Mesocyclone")
+  theWeatherObject.addFeature(parse_woml_pressure_center_type<Mesocyclone>(node));
+else if (name == /*"womlswo:*/ "Mesolow")
+  theWeatherObject.addFeature(parse_woml_pressure_center_type<Mesolow>(node));
+else if (name == /*"womlswo:*/ "PolarCyclone")
+  theWeatherObject.addFeature(parse_woml_pressure_center_type<PolarCyclone>(node));
+else if (name == /*"womlswo:*/ "PolarLow")
+  theWeatherObject.addFeature(parse_woml_pressure_center_type<PolarLow>(node));
+else if (name == /*"womlswo:*/ "TropicalCyclone")
+  theWeatherObject.addFeature(parse_woml_pressure_center_type<TropicalCyclone>(node));
+else if (name == /*"womlswo:*/ "ConvectiveStorm")
+  theWeatherObject.addFeature(parse_woml_storm_type<ConvectiveStorm>(node));
+else if (name == /*"womlswo:*/ "Storm")
+  theWeatherObject.addFeature(parse_woml_storm_type<Storm>(node));
+else if (name == /*"womlswo:*/ "ParameterValueSetPoint")
+  theWeatherObject.addFeature(parse_woml_parameter_value_set_point(node));
+else if (name == /*"womlswo:*/ "CloudArea")
+  theWeatherObject.addFeature(parse_woml_cloud_area(node));
+else if (name == /*"womlswo:*/ "SurfacePrecipitationArea")
+  theWeatherObject.addFeature(parse_woml_surface_precipitation_area(node));
+else if (name == /*"womlswo:*/ "ParameterValueSetArea")
+  theWeatherObject.addFeature(parse_woml_parameter_value_set_area(node));
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -1972,37 +1858,35 @@ void parse_woml_meteorologicalobject(T &theWeatherObject, DOMNode *node)
  */
 // ----------------------------------------------------------------------
 
-boost::shared_ptr<MeteorologicalAnalysis> parse_woml_meteorological_analysis(DOMNode *node)
-{
-  TRY()
-  {
-    boost::shared_ptr<MeteorologicalAnalysis> analysis(new MeteorologicalAnalysis());
+boost::shared_ptr<MeteorologicalAnalysis> parse_woml_meteorological_analysis(DOMNode *node){
+    TRY(){boost::shared_ptr<MeteorologicalAnalysis> analysis(new MeteorologicalAnalysis());
 
-    // Note: envelope is taken from targetRegion
+// Note: envelope is taken from targetRegion
 
-    parse_woml_target_regions(*analysis, node);
+parse_woml_target_regions(*analysis, node);
 
-    analysis->dataSource(parse_woml_used_reference_data(node));
-    analysis->creator(parse_woml_creator(node));
-    analysis->creationTime(parse_woml_creation_time(node));
-    analysis->validTime(parse_gml_required_valid_time(node));
-    analysis->analysisTime(parse_woml_required_time(node, "womlcore:analysisTime"));
-    analysis->latestModificationTime(parse_woml_latest_modification_time(node));
+analysis->dataSource(parse_woml_used_reference_data(node));
+analysis->creator(parse_woml_creator(node));
+analysis->creationTime(parse_woml_creation_time(node));
+analysis->validTime(parse_gml_required_valid_time(node));
+analysis->analysisTime(parse_woml_required_time(node, "womlcore:analysisTime"));
+analysis->latestModificationTime(parse_woml_latest_modification_time(node));
 
-    MeteorologicalAnalysisInfo shortInfos, longInfos;
-    analysis->addShortInfos(parse_woml_shortinfo(node, shortInfos));
-    analysis->addLongInfos(parse_woml_longinfo(node, longInfos));
+MeteorologicalAnalysisInfo shortInfos, longInfos;
+analysis->addShortInfos(parse_woml_shortinfo(node, shortInfos));
+analysis->addLongInfos(parse_woml_longinfo(node, longInfos));
 
-    AutoRelease<DOMXPathExpression> expression(EXPR("womlcore:member/*[1]"));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+AutoRelease<DOMXPathExpression> expression(EXPR("womlcore:member/*[1]"));
+AutoRelease<DOMXPathResult> result(expression->evaluate(node,
+                                                        DOMXPathResult::ITERATOR_RESULT_TYPE,
+                                                        0));
 
-    while ((node = getResultNode(result)))
-      parse_woml_meteorologicalobject(*analysis, node);
+while ((node = getResultNode(result)))
+  parse_woml_meteorologicalobject(*analysis, node);
 
-    return analysis;
-  }
-  CATCH
+return analysis;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -2011,37 +1895,35 @@ boost::shared_ptr<MeteorologicalAnalysis> parse_woml_meteorological_analysis(DOM
  */
 // ----------------------------------------------------------------------
 
-boost::shared_ptr<WeatherForecast> parse_woml_weather_forecast(documentType docType, DOMNode *node)
-{
-  TRY()
-  {
-    boost::shared_ptr<WeatherForecast> forecast(new WeatherForecast());
+boost::shared_ptr<WeatherForecast> parse_woml_weather_forecast(documentType docType, DOMNode *node){
+    TRY(){boost::shared_ptr<WeatherForecast> forecast(new WeatherForecast());
 
-    // Note: envelope is taken from targetRegion
+// Note: envelope is taken from targetRegion
 
-    parse_woml_target_regions(*forecast, node);
+parse_woml_target_regions(*forecast, node);
 
-    forecast->dataSource(parse_woml_used_reference_data(node));
-    forecast->creator(parse_woml_creator(node));
-    forecast->creationTime(parse_woml_creation_time(node));
-    forecast->validTime(parse_gml_required_valid_time(node));
-    forecast->forecastTime(parse_woml_required_time(node, "womlcore:forecastTime"));
-    forecast->latestModificationTime(parse_woml_latest_modification_time(node));
+forecast->dataSource(parse_woml_used_reference_data(node));
+forecast->creator(parse_woml_creator(node));
+forecast->creationTime(parse_woml_creation_time(node));
+forecast->validTime(parse_gml_required_valid_time(node));
+forecast->forecastTime(parse_woml_required_time(node, "womlcore:forecastTime"));
+forecast->latestModificationTime(parse_woml_latest_modification_time(node));
 
-    WeatherForecastInfo shortInfos, longInfos;
-    forecast->addShortInfos(parse_woml_shortinfo(node, shortInfos));
-    forecast->addLongInfos(parse_woml_longinfo(node, longInfos));
+WeatherForecastInfo shortInfos, longInfos;
+forecast->addShortInfos(parse_woml_shortinfo(node, shortInfos));
+forecast->addLongInfos(parse_woml_longinfo(node, longInfos));
 
-    AutoRelease<DOMXPathExpression> expression(EXPR("womlcore:member/*[1]"));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+AutoRelease<DOMXPathExpression> expression(EXPR("womlcore:member/*[1]"));
+AutoRelease<DOMXPathResult> result(expression->evaluate(node,
+                                                        DOMXPathResult::ITERATOR_RESULT_TYPE,
+                                                        0));
 
-    while ((node = getResultNode(result)))
-      parse_woml_meteorologicalobject(*forecast, node);
+while ((node = getResultNode(result)))
+  parse_woml_meteorologicalobject(*forecast, node);
 
-    return forecast;
-  }
-  CATCH
+return forecast;
+}
+CATCH
 }
 
 // ----------------------------------------------------------------------
@@ -2106,16 +1988,16 @@ Weather parse(const boost::filesystem::path &thePath, documentType docType, bool
       if (rootName == "WeatherForecast")
       {
         if ((docType != conceptualmodelforecast) && (docType != aerodromeforecast))
-          throw std::runtime_error(rootName + ": document type is not 'conceptualmodelforecast': " +
-                                   thePath.string());
+          throw std::runtime_error(
+              rootName + ": document type is not 'conceptualmodelforecast': " + thePath.string());
 
         weather.forecast(parse_woml_weather_forecast(docType, (DOMNode *)root));
       }
       else if (rootName == "MeteorologicalAnalysis")
       {
         if (docType != conceptualmodelanalysis)
-          throw std::runtime_error(rootName + ": document type is not 'conceptualmodelanalysis': " +
-                                   thePath.string());
+          throw std::runtime_error(
+              rootName + ": document type is not 'conceptualmodelanalysis': " + thePath.string());
 
         weather.analysis(parse_woml_meteorological_analysis((DOMNode *)root));
       }

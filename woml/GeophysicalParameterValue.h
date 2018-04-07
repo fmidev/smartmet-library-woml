@@ -6,9 +6,9 @@
 
 #pragma once
 
+#include "Elevation.h"
 #include "GeophysicalParameter.h"
 #include "MeasureValue.h"
-#include "Elevation.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -35,6 +35,7 @@ class GeophysicalParameterValue
   void setFlags(unsigned int theFlagBits) { itsFlagBits |= theFlagBits; }
   void clearFlags(unsigned int theFlagBits) { itsFlagBits &= ~theFlagBits; }
   unsigned int getFlags() const { return itsFlagBits; }
+
  private:
   GeophysicalParameterValue();
 
@@ -48,4 +49,3 @@ class GeophysicalParameterValue
 };  // class GeophysicalParamterValue
 
 }  // namespace woml
-

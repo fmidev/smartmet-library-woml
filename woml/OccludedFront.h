@@ -24,4 +24,3 @@ class OccludedFront : public AbstractLineObject
 };  // class OccludedFront
 
 }  // namespace woml
-

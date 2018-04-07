@@ -7,8 +7,8 @@
 #pragma once
 
 #include <boost/date_time/posix_time/posix_time_types.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/optional.hpp>
+#include <boost/shared_ptr.hpp>
 
 typedef std::multimap<std::string, std::string> MeteorologicalObjectInfo;
 
@@ -40,4 +40,3 @@ class Feature
 };  // class Feature
 
 }  // namespace woml
-

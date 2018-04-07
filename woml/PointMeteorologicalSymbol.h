@@ -27,4 +27,3 @@ class PointMeteorologicalSymbol : public AbstractPointObject
 };  // class PointMeteorologicalSymbol
 
 }  // namespace woml
-

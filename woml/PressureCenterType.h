@@ -7,8 +7,8 @@
 #pragma once
 
 #include "AbstractPointObject.h"
-#include "MeasureValue.h"
 #include "FeatureVisitor.h"
+#include "MeasureValue.h"
 
 #define PressureCenterTypeDerivedClass(c)                                     \
   class c : public PressureCenterType                                         \
@@ -50,4 +50,3 @@ PressureCenterTypeDerivedClass(PolarLow);
 PressureCenterTypeDerivedClass(TropicalCyclone);
 
 }  // namespace woml
-

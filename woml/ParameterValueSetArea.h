@@ -6,10 +6,10 @@
 
 #pragma once
 
-#include <boost/ptr_container/ptr_list.hpp>
 #include "AbstractSurfaceObject.h"
 #include "Feature.h"
 #include "GeophysicalParameterValueSet.h"
+#include <boost/ptr_container/ptr_list.hpp>
 
 namespace woml
 {

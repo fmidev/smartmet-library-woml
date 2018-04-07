@@ -39,4 +39,3 @@ class MeteorologicalSymbol
 
 };  // class MeteorologicalSymbol
 }  // namespace woml
-

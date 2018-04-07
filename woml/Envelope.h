@@ -37,4 +37,3 @@ class Envelope
 
 };  // class Envelope
 }  // namespace woml
-

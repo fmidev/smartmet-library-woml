@@ -27,4 +27,3 @@ class InfoText : public Feature
 };  // class InfoText
 
 }  // namespace woml
-

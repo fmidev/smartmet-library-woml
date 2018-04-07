@@ -5,8 +5,8 @@
 // ======================================================================
 
 #include "Elevation.h"
-#include <cassert>
 #include <boost/optional.hpp>
+#include <cassert>
 
 namespace woml
 {

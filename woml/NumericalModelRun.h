@@ -24,6 +24,7 @@ class NumericalModelRun
   const std::string& name() const { return itsName; }
   const std::string& specifier() const { return itsSpecifier; }
   const boost::posix_time::ptime& analysisTime() const { return itsAnalysisTime; }
+
  private:
   NumericalModelRun();
   std::string itsName;
@@ -31,5 +32,4 @@ class NumericalModelRun
   boost::posix_time::ptime itsAnalysisTime;
 
 };  // NumericalModelRun
-}
-
+}  // namespace woml

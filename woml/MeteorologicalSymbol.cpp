@@ -6,8 +6,8 @@
 
 #include "MeteorologicalSymbol.h"
 #include <boost/algorithm/string.hpp>
-#include <vector>
 #include <stdexcept>
+#include <vector>
 
 namespace woml
 {

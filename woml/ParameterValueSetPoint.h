@@ -7,8 +7,8 @@
 #pragma once
 
 #include "AbstractPointObject.h"
-#include "GeophysicalParameterValueSet.h"
 #include "FeatureVisitor.h"
+#include "GeophysicalParameterValueSet.h"
 #include <boost/shared_ptr.hpp>
 
 namespace woml
@@ -27,4 +27,3 @@ class ParameterValueSetPoint : public AbstractPointObject
 };  // class ParameterValueSetPoint
 
 }  // namespace woml
-

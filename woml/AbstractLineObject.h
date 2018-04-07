@@ -6,10 +6,10 @@
 
 #pragma once
 
+#include "CubicSplineCurve.h"
+#include "Envelope.h"
 #include "Feature.h"
 #include "FeatureVisitor.h"
-#include "Envelope.h"
-#include "CubicSplineCurve.h"
 #include <string>
 
 #define AbstractLineObjectDerivedClass(c)                                             \
@@ -57,4 +57,3 @@ AbstractLineObjectDerivedClass(WarmAdvection);
 AbstractLineObjectDerivedClass(WarmFront);
 
 }  // namespace woml
-

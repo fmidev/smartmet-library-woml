@@ -28,4 +28,3 @@ class CubicSplineCurve
 
 };  // class CubicSplineCurve
 }  // namespace woml
-

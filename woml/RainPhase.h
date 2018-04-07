@@ -26,4 +26,3 @@ enum RainPhase
 RainPhase parseRainPhase(const std::string& theName);
 
 }  // namespace woml
-

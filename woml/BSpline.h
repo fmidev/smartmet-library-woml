@@ -28,4 +28,3 @@ class BSpline
 
 };  // BSpline
 }  // namespace woml
-

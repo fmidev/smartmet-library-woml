@@ -8,8 +8,8 @@
 
 #include "AbstractSurfaceObject.h"
 #include "Feature.h"
-#include "RainPhase.h"
 #include "MeasureValue.h"
+#include "RainPhase.h"
 #include <boost/ptr_container/ptr_list.hpp>
 #include <string>
 
@@ -46,4 +46,3 @@ class SurfacePrecipitationArea : public AbstractSurfaceObject
 };  // class SurfacePrecipitationArea
 
 }  // namespace woml
-

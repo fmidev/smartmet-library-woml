@@ -42,4 +42,3 @@ class CloudArea : public AbstractSurfaceObject
 };  // class CloudArea
 
 }  // namespace woml
-

@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include <string>
 #include <boost/optional.hpp>
+#include <string>
 
 namespace woml
 {
@@ -98,4 +98,3 @@ class NumericalValueRangeMeasure : public MeasureValue
 
 };  // class NumericalValueRangeMeasure
 }  // namespace woml
-

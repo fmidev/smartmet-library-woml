@@ -41,6 +41,7 @@ class Weather
 
   static void strictMode(bool strict) { strictParsing = strict; }
   static bool strictMode() { return strictParsing; }
+
  private:
   static bool strictParsing;  // Terminate on broken/unexpected woml input
 
@@ -48,5 +49,4 @@ class Weather
   boost::shared_ptr<WeatherForecast> itsForecast;
 
 };  // class Woml
-}  // namespace Woml
-
+}  // namespace woml

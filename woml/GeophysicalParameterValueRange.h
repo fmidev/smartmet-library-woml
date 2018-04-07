@@ -20,6 +20,7 @@ class GeophysicalParameterValueRange
   const GeophysicalParameter& parameter() const { return itsParameter; }
   double lowerLimit() const { return itsLowerLimit; }
   double upperLimit() const { return itsUpperLimit; }
+
  private:
   GeophysicalParameterValueRange();
 
@@ -30,4 +31,3 @@ class GeophysicalParameterValueRange
 };  // class GeophysicalParamterValueRange
 
 }  // namespace woml
-

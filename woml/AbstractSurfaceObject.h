@@ -6,10 +6,10 @@
 
 #pragma once
 
-#include "Feature.h"
-#include "Envelope.h"
-#include "Elevation.h"
 #include "CubicSplineSurface.h"
+#include "Elevation.h"
+#include "Envelope.h"
+#include "Feature.h"
 #include "TargetRegion.h"
 #include <list>
 #include <string>
@@ -44,4 +44,3 @@ class AbstractSurfaceObject : public Feature
 };  // class AbstractSurfaceObject
 
 }  // namespace woml
-

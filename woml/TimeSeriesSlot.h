@@ -7,8 +7,8 @@
 #pragma once
 
 #include "Feature.h"
-#include <list>
 #include <boost/ptr_container/ptr_list.hpp>
+#include <list>
 
 namespace woml
 {
@@ -36,4 +36,3 @@ class TimeSeriesSlot
 };  // class TimeSeriesSlot
 
 }  // namespace woml
-

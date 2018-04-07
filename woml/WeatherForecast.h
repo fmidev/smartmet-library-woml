@@ -12,10 +12,10 @@
 #include "DataSource.h"
 #include "Envelope.h"
 #include "Feature.h"
-#include "Point.h"
-#include "TargetRegion.h"
 #include "InfoText.h"
 #include "MeteorologicalObject.h"
+#include "Point.h"
+#include "TargetRegion.h"
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 
@@ -73,4 +73,3 @@ class WeatherForecast : public MeteorologicalObject
 
 };  // class WeatherForecast
 }  // namespace woml
-

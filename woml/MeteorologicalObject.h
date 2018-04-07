@@ -23,4 +23,3 @@ class MeteorologicalObject
 
 };  // class MeteorologicalObject
 }  // namespace woml
-

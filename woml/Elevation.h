@@ -29,4 +29,3 @@ class Elevation
 
 };  // class Elevation
 }  // namespace woml
-

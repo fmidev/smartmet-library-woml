@@ -25,10 +25,10 @@ class GeophysicalParameter
   GeophysicalParameter() : itsName(""), itsNumber(-1) {}
   const std::string& name() const { return itsName; }
   int number() const { return itsNumber; }
+
  private:
   std::string itsName;
   int itsNumber;
 
 };  // class GeophysicalParameter
 }  // namespace woml
-

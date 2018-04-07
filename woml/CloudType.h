@@ -28,4 +28,3 @@ enum CloudType
 CloudType parseCloudType(const std::string& theName);
 
 }  // namespace woml
-

@@ -1,7 +1,7 @@
 #include <regression/tframe.h>
 
-#include "Weather.h"
 #include "Parser.h"
+#include "Weather.h"
 #include <boost/filesystem.hpp>
 
 #include <iostream>

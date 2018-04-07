@@ -5,8 +5,8 @@
 // ======================================================================
 
 #include "ParameterTimeSeriesPoint.h"
-#include "TimeSeriesSlot.h"
 #include "FeatureVisitor.h"
+#include "TimeSeriesSlot.h"
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 

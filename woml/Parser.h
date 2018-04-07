@@ -18,4 +18,3 @@ Weather parse(const boost::filesystem::path& thePath,
               bool strict = true);
 
 }  // namespace woml
-

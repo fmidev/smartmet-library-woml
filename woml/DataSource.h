@@ -28,5 +28,4 @@ class DataSource
   boost::optional<NumericalModelRun> itsNumericalModelRun;
 
 };  // class DataSource
-}
-
+}  // namespace woml

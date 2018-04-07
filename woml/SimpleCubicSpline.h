@@ -28,4 +28,3 @@ class SimpleCubicSpline
 
 };  // SimpleCubicSpline
 }  // namespace woml
-

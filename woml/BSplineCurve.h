@@ -29,4 +29,3 @@ class BSplineCurve
 
 };  // class BSplineCurve
 }  // namespace woml
-

@@ -30,4 +30,3 @@ class JetStream : public AbstractLineObject
 };  // class JetStream
 
 }  // namespace woml
-

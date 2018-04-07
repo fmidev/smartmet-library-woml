@@ -25,7 +25,7 @@ void StormType::rainPhase(RainPhase theRainPhase) { itsRainPhase = theRainPhase;
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the rainphase
-*/
+ */
 // ----------------------------------------------------------------------
 
 RainPhase StormType::rainPhase() const { return itsRainPhase; }
@@ -44,7 +44,7 @@ void StormType::approximateRainFall(
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the approximate rainfall
-*/
+ */
 // ----------------------------------------------------------------------
 
 const boost::optional<NumericalSingleValueMeasure>& StormType::approximateRainFall() const
@@ -66,7 +66,7 @@ void StormType::isThunderStorm(const boost::optional<bool>& theIsThunderStorm)
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the max wind speed
-*/
+ */
 // ----------------------------------------------------------------------
 
 const boost::optional<bool>& StormType::isThunderStorm() const { return itsIsThunderStorm; }

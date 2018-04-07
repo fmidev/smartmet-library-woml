@@ -25,7 +25,7 @@ void PressureCenterType::tendency(const std::string& theTendency) { itsTendency 
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the tendency
-*/
+ */
 // ----------------------------------------------------------------------
 
 const std::string& PressureCenterType::tendency() const { return itsTendency; }
@@ -44,7 +44,7 @@ void PressureCenterType::maxwindspeed(
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the max wind speed
-*/
+ */
 // ----------------------------------------------------------------------
 
 const boost::optional<NumericalSingleValueMeasure>& PressureCenterType::maxwindspeed() const

@@ -7,8 +7,8 @@
 #pragma once
 
 #include "AbstractPointObject.h"
-#include "MeasureValue.h"
 #include "FeatureVisitor.h"
+#include "MeasureValue.h"
 #include "RainPhase.h"
 
 #define StormTypeClass(c)                                                     \
@@ -46,4 +46,3 @@ StormTypeClass(ConvectiveStorm);
 StormTypeClass(Storm);
 
 }  // namespace woml
-

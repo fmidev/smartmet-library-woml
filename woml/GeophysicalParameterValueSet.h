@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "GeophysicalParameterValue.h"
 #include "Elevation.h"
+#include "GeophysicalParameterValue.h"
 #include <list>
 
 namespace woml
@@ -34,4 +34,3 @@ class GeophysicalParameterValueSet
 };  // class GeophysicalParameterValueSet
 
 }  // namespace woml
-

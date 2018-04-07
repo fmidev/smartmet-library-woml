@@ -16,6 +16,7 @@ class Point
   Point(double theLon, double theLat) : itsLon(theLon), itsLat(theLat) {}
   double lon() const { return itsLon; }
   double lat() const { return itsLat; }
+
  private:
   Point();
   double itsLon;
@@ -32,6 +33,7 @@ class Rect
   }
   const boost::optional<Point>& lowerCorner() const { return itsLowerCorner; }
   const boost::optional<Point>& upperCorner() const { return itsUpperCorner; }
+
  private:
   Rect();
   boost::optional<Point> itsLowerCorner;
@@ -39,4 +41,3 @@ class Rect
 
 };  // class Rect
 }  // namespace woml
-

@@ -8,8 +8,8 @@
 
 #include "Feature.h"
 #include "FeatureVisitor.h"
-#include "TimeSeriesSlot.h"
 #include "GeophysicalParameterValueSet.h"
+#include "TimeSeriesSlot.h"
 
 #define ParameterTimeSeriesPointDerivedClass(c)                                    \
   class c : public ParameterTimeSeriesPoint                                        \
@@ -57,4 +57,3 @@ ParameterTimeSeriesPointDerivedClass(Winds);
 ParameterTimeSeriesPointDerivedClass(ZeroTolerance);
 
 }  // namespace woml
-
