@@ -3,7 +3,7 @@
 %define SPECNAME smartmet-library-%{DIRNAME}
 Summary: woml library
 Name: %{SPECNAME}
-Version: 18.4.7
+Version: 18.7.26
 Release: 1%{?dist}.fmi
 License: MIT
 Group: Development/Libraries
@@ -13,11 +13,11 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: boost-devel
-BuildRequires: smartmet-library-macgyver-devel >= 18.4.7
+BuildRequires: smartmet-library-macgyver-devel >= 18.7.26
 BuildRequires: libxml++-devel
 BuildRequires: smartmet-library-regression >= 16.12.20
 BuildRequires: xqilla-devel
-Requires: smartmet-library-macgyver >= 18.4.7
+Requires: smartmet-library-macgyver >= 18.7.26
 Requires: xqilla
 Requires: xerces-c
 Provides: %{SPECNAME}
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib%{LIBNAME}.so
 
 %changelog
+* Thu Jul 26 2018 Mika Heiskanen <mika.heiskanen@fmi.fi> - 18.7.26-1.fmi
+- Prefer nullptr over NULL
+
 * Sat Apr  7 2018 Mika Heiskanen <mika.heiskanen@fmi.fi> - 18.4.7-1.fmi
 - Upgrade to boost 1.66
 

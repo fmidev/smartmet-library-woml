@@ -76,8 +76,8 @@ class nsResolver
   static const char *_namespaces[];
 };
 
-DOMDocument *nsResolver::_doc = NULL;
-DOMXPathNSResolver *nsResolver::_nsR = NULL;
+DOMDocument *nsResolver::_doc = nullptr;
+DOMXPathNSResolver *nsResolver::_nsR = nullptr;
 
 const char *nsResolver::_namespaces[] = {"gml",
                                          "http://www.opengis.net/gml/3.2",
@@ -89,8 +89,8 @@ const char *nsResolver::_namespaces[] = {"gml",
                                          "http://xml.fmi.fi/namespace/woml/swo/2011/11/15",
                                          "dc",
                                          "http://purl.org/dc/elements/1.1/",
-                                         NULL,
-                                         NULL};
+                                         nullptr,
+                                         nullptr};
 
 #define EXPR(expr) (nsResolver::createExpression(expr))
 #define ATTR(elem, attr) \
@@ -149,8 +149,8 @@ std::string XMLChptr2str(const XMLCh *xp)
 
 DOMNode *searchNode(DOMNode *node, const char *pathExpr);
 
-DOMNode *getResultNode(DOMXPathResult *result, DOMText **text = NULL, bool textRequired = true){
-    TRY(){DOMNode *node = (result->iterateNext() ? result->getNodeValue() : NULL);
+DOMNode *getResultNode(DOMXPathResult *result, DOMText **text = nullptr, bool textRequired = true){
+    TRY(){DOMNode *node = (result->iterateNext() ? result->getNodeValue() : nullptr);
 
 if (node && text)
 {
@@ -1105,7 +1105,7 @@ T *parse_woml_abstract_line(DOMNode *node)
 
       delete line;
 
-      return NULL;
+      return nullptr;
     }
 
     return line;
@@ -1241,7 +1241,7 @@ CATCH
 JetStream *parse_woml_jet_stream(DOMNode *node){
     TRY(){JetStream *stream = parse_woml_abstract_line<JetStream>(node);
 
-if (!stream) return NULL;
+if (!stream) return nullptr;
 
 const char *segmentPathExpr = "womlswo:segmentMaximumWinds/womlswo:SegmentMaximumWind";
 
@@ -1310,7 +1310,7 @@ CATCH
 OccludedFront *parse_woml_occluded_front(DOMNode *node){
     TRY(){OccludedFront *front = parse_woml_abstract_line<OccludedFront>(node);
 
-if (!front) return NULL;
+if (!front) return nullptr;
 
 if (!(node = searchNode(node, "womlswo:stationary/text()[1]")))
   front->stationary(false);
@@ -1456,7 +1456,7 @@ std::string codebase(ATTR(elem, "codebase"));
 return new CategoryValueMeasure(category, codebase);
 }
 else if (nodeIndex == 1) throw std::runtime_error("Required category element missing");
-else return NULL;
+else return nullptr;
 }
 CATCH
 }
@@ -1649,7 +1649,7 @@ T *parse_woml_parameter_timeseriespoint(
     const boost::posix_time::time_period &timePeriod,
     DOMNode *node,
     bool multipleValues = false,  // By default load only parameter's first value (category)
-    const char *classNameExt = NULL,
+    const char *classNameExt = nullptr,
     const char *pathExpr = "womlqty:timeSlots/womlqty:TimeSeriesSlot")
 {
   TRYFA(pathExpr)
