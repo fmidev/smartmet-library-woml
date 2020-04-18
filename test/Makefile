@@ -30,10 +30,18 @@ endif
 CC = g++
 CFLAGS = -DUNIX -O0 -g $(MAINFLAGS)
 
-INCLUDES = -I../woml -I/usr/include/smartmet \
+# Boost 1.69
+
+ifneq "$(wildcard /usr/include/boost169)" ""
+  INCLUDES += -I/usr/include/boost169
+  LIBS += -L/usr/lib64/boost169
+endif
+
+
+INCLUDES += -I../woml -I/usr/include/smartmet \
 	`pkg-config --cflags libxml++-2.6`
 
-LIBS = -L.. -lsmartmet_woml \
+LIBS += -L.. -lsmartmet_woml \
 	-lsmartmet-macgyver \
 	-lboost_filesystem\
 	-lboost_system \
