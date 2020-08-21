@@ -3,7 +3,7 @@
 %define SPECNAME smartmet-library-%{DIRNAME}
 Summary: woml library
 Name: %{SPECNAME}
-Version: 20.4.18
+Version: 20.8.21
 Release: 1%{?dist}.fmi
 License: MIT
 Group: Development/Libraries
@@ -14,11 +14,11 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: boost169-devel
-BuildRequires: smartmet-library-macgyver-devel >= 20.4.18
+BuildRequires: smartmet-library-macgyver-devel >= 20.8.21
 BuildRequires: libxml++-devel
-BuildRequires: smartmet-library-regression >= 16.12.20
+BuildRequires: smartmet-library-regression >= 20.5.7
 BuildRequires: xqilla-devel
-Requires: smartmet-library-macgyver >= 20.4.18
+Requires: smartmet-library-macgyver >= 20.8.21
 Requires: xqilla
 Requires: xerces-c
 Provides: %{SPECNAME}
@@ -48,6 +48,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib%{LIBNAME}.so
 
 %changelog
+* Fri Aug 21 2020 Mika Heiskanen <mika.heiskanen@fmi.fi> - 20.8.21-1.fmi
+- Upgrade to fmt 6.2
+
 * Sat Apr 18 2020 Mika Heiskanen <mika.heiskanen@fmi.fi> - 20.4.18-1.fmi
 - Upgrade to Boost 1.69
 
