@@ -20,7 +20,7 @@ class Feature
 {
  public:
   virtual ~Feature() {}
-  Feature();
+  Feature(const std::string &theClassNameExt = "");
   virtual void visit(FeatureVisitor& theVisitor) const {}
   void creationTime(const boost::posix_time::ptime& theTime);
   void validTime(const boost::optional<boost::posix_time::ptime>& theTime);
@@ -30,6 +30,10 @@ class Feature
   void addShortInfo(const std::string& theLanguage, const std::string& theShortInfo);
   void addShortInfos(const MeteorologicalObjectInfo& theShortInfos);
   const std::string& text(const std::string& theLanguage) const;
+  const std::string& classNameExt() const { return itsClassNameExt; }
+
+  protected:
+  std::string itsClassNameExt;
 
  private:
   boost::posix_time::ptime itsCreationTime;

@@ -29,7 +29,6 @@ class ParameterTimeSeriesPoint : public Feature
  public:
   ParameterTimeSeriesPoint(const std::string& theClassNameExt);
   virtual ~ParameterTimeSeriesPoint() {}
-  const std::string& classNameExt() const;
 
   void timePeriod(const boost::posix_time::time_period& theTimePeriod);
   const boost::posix_time::time_period& timePeriod() const;
@@ -40,7 +39,6 @@ class ParameterTimeSeriesPoint : public Feature
   const std::list<TimeSeriesSlot>& timeseries() const;
 
  private:
-  std::string itsClassNameExt;
   boost::posix_time::time_period itsTimePeriod;
   std::list<TimeSeriesSlot> itsTimeSeriesSlots;
 

@@ -17,8 +17,9 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-Feature::Feature()
-    : itsCreationTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time)),
+Feature::Feature(const std::string & theClassNameExt)
+    : itsClassNameExt(theClassNameExt),
+      itsCreationTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time)),
       itsValidTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time)),
       itsShortInfos()
 {

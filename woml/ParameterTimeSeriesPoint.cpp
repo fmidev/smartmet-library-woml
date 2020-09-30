@@ -19,20 +19,13 @@ namespace woml
 // ----------------------------------------------------------------------
 
 ParameterTimeSeriesPoint::ParameterTimeSeriesPoint(const std::string& theClassNameExt)
-    : itsClassNameExt(theClassNameExt),
+    : Feature(theClassNameExt),
       itsTimePeriod(boost::posix_time::ptime(boost::posix_time::not_a_date_time),
                     boost::posix_time::ptime(boost::posix_time::not_a_date_time)),
       itsTimeSeriesSlots()
 {
 }
 
-// ----------------------------------------------------------------------
-/*!
- * \brief Return the class name extension
- */
-// ----------------------------------------------------------------------
-
-const std::string& ParameterTimeSeriesPoint::classNameExt() const { return itsClassNameExt; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the time period

@@ -1701,7 +1701,8 @@ void parse_woml_parameter_timeseriespoint(T &theWeatherObject, DOMNode *node)
 
     if (className == "cloudLayers")
       theWeatherObject.addFeature(
-          parse_woml_parameter_timeseriespoint<CloudLayers>(theWeatherObject.validTime(), node));
+          parse_woml_parameter_timeseriespoint<CloudLayers>(theWeatherObject.validTime(), node,
+                                                            false, className.c_str()));
     else if (className == "contrails")
       theWeatherObject.addFeature(
           parse_woml_parameter_timeseriespoint<Contrails>(theWeatherObject.validTime(), node));
