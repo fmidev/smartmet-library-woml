@@ -3,7 +3,7 @@
 %define SPECNAME smartmet-library-%{DIRNAME}
 Summary: woml library
 Name: %{SPECNAME}
-Version: 20.8.21
+Version: 20.9.30
 Release: 1%{?dist}.fmi
 License: MIT
 Group: Development/Libraries
@@ -14,11 +14,10 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: boost169-devel
-BuildRequires: smartmet-library-macgyver-devel >= 20.8.21
+BuildRequires: smartmet-library-macgyver-devel >= 20.9.29
 BuildRequires: libxml++-devel
-BuildRequires: smartmet-library-regression >= 20.5.7
 BuildRequires: xqilla-devel
-Requires: smartmet-library-macgyver >= 20.8.21
+Requires: smartmet-library-macgyver >= 20.9.29
 Requires: xqilla
 Requires: xerces-c
 Provides: %{SPECNAME}
@@ -48,6 +47,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib%{LIBNAME}.so
 
 %changelog
+* Wed Sep 30 2020 Pertti Kinnia <pertti.kinnia@fmi.fi> - 20.9.30-1.fmi
+- Added feature's class name to base class to render cloud layers first for better cloud label placement (no reserved areas yet exist); LENTOSAA-1143
+- Removed obsolete smartmet-library-regression dependency
+
 * Fri Aug 21 2020 Mika Heiskanen <mika.heiskanen@fmi.fi> - 20.8.21-1.fmi
 - Upgrade to fmt 6.2
 
