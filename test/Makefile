@@ -41,7 +41,7 @@ endif
 INCLUDES += -I../woml -I/usr/include/smartmet \
 	`pkg-config --cflags libxml++-2.6`
 
-LIBS += -L.. -lsmartmet-woml \
+LIBS += -L.. -Wl,--rpath,$(shell pwd)/.. -lsmartmet-woml \
 	-lsmartmet-macgyver \
 	-lboost_filesystem\
 	-lboost_system \
