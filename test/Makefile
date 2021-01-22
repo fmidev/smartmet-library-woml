@@ -2,41 +2,7 @@ PROG = $(patsubst %.cpp,%,$(wildcard *.cpp))
 PHPPROG = $(wildcard *.php)
 # OBS = $(wildcard ../obj/*.o)
 
-MAINFLAGS = -Wall -W -Wno-unused-parameter
-
-EXTRAFLAGS = -Werror -pedantic -Wpointer-arith -Wcast-qual \
-	-Wcast-align -Wwrite-strings -Wconversion -Winline \
-	-Wctor-dtor-privacy -Wnon-virtual-dtor -Wno-pmf-conversions \
-	-Wsign-promo -Wchar-subscripts -Wold-style-cast \
-	-Wshadow -Woverloaded-virtual
-
-DIFFICULTFLAGS = -Weffc++ -Wunreachable-code -Wredundant-decls
-
-processor := $(shell uname -p)
-UNAME_S := $(shell uname -s)
-
-ifeq ($(origin PREFIX), undefined)
-  PREFIX = /usr
-else
-  PREFIX = $(PREFIX)
-endif
-
-ifeq ($(processor), x86_64)
-  libdir = $(PREFIX)/lib64
-else
-  libdir = $(PREFIX)/lib
-endif
-
-CC = g++
-CFLAGS = -DUNIX -O0 -g $(MAINFLAGS)
-
-# Boost 1.69
-
-ifneq "$(wildcard /usr/include/boost169)" ""
-  INCLUDES += -I/usr/include/boost169
-  LIBS += -L/usr/lib64/boost169
-endif
-
+include $(shell echo $${PREFIX-/usr})/share/smartmet/devel/makefile.inc
 
 INCLUDES += -I../woml -I/usr/include/smartmet \
 	`pkg-config --cflags libxml++-2.6`
@@ -64,5 +30,5 @@ test: $(PROG)
 	done
 
 $(PROG) : % : %.cpp ../libsmartmet-woml.so
-	$(CC) $(CFLAGS) -o $@ $@.cpp $(INCLUDES) $(LIBS)
+	$(CXX) $(CFLAGS) -o $@ $@.cpp $(INCLUDES) $(LIBS)
 
