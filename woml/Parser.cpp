@@ -1699,7 +1699,7 @@ void parse_woml_parameter_timeseriespoint(T &theWeatherObject, DOMNode *node)
     std::string className = ATTR(elem, "gml:id"), classNameExt;
     const char *p;
 
-    if (className == "cloudLayers")
+    if ((className == "cloudLayers") || (className == "cloudLayersCB"))
       theWeatherObject.addFeature(
           parse_woml_parameter_timeseriespoint<CloudLayers>(theWeatherObject.validTime(), node,
                                                             false, className.c_str()));
