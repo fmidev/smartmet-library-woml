@@ -22,6 +22,7 @@ Requires: xqilla
 Requires: xerces-c
 Provides: %{SPECNAME}
 Obsoletes: libsmartmet-woml < 17.1.4
+#TestRequires: smartmet-library-macgyver-devel >= 21.1.14
 
 %description
 FMI WOML library
