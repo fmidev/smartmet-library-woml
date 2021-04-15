@@ -21,6 +21,7 @@ Requires: xqilla
 Requires: xerces-c
 Provides: %{SPECNAME}
 Obsoletes: libsmartmet-woml < 17.1.4
+#TestRequires: boost169-devel
 #TestRequires: smartmet-library-macgyver-devel >= 21.1.14
 #TestRequires: smartmet-library-regression
 #TestRequires: gcc-c++
