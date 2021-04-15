@@ -25,6 +25,7 @@ Obsoletes: libsmartmet-woml < 17.1.4
 #TestRequires: smartmet-library-macgyver-devel >= 21.1.14
 #TestRequires: smartmet-library-regression
 #TestRequires: gcc-c++
+#TestRequires: xqilla-devel
 
 %description
 FMI WOML library
