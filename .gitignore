@@ -1,5 +1,5 @@
 .sconsign.dblite
 obj/
-libsmartmet_woml.a
-test/WomlTest
+/libsmartmet-woml.so
+/test/WomlTest
 *~

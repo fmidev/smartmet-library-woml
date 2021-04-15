@@ -3,7 +3,7 @@
 %define SPECNAME smartmet-library-%{DIRNAME}
 Summary: woml library
 Name: %{SPECNAME}
-Version: 21.1.14
+Version: 21.3.25
 Release: 1%{?dist}.fmi
 License: MIT
 Group: Development/Libraries
@@ -15,7 +15,6 @@ BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: boost169-devel
 BuildRequires: smartmet-library-macgyver-devel >= 21.1.14
-BuildRequires: libxml++-devel
 BuildRequires: xqilla-devel
 Requires: smartmet-library-macgyver >= 21.1.14
 Requires: xqilla
@@ -48,6 +47,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib%{LIBNAME}.so
 
 %changelog
+* Thu Mar 25 2021 Pertti Kinnia <pertti.kinnia@fmi.fi> - 21.3.25-1.fmi
+- CB clouds ('cloudLayersCB') are stored separately in woml; LENTOSAA-1155
+- Removed obsolete libxml++-devel build dependency
+
 * Thu Jan 14 2021 Mika Heiskanen <mika.heiskanen@fmi.fi> - 21.1.14-1.fmi
 - Repackaged smartmet to resolve debuginfo issues
 
