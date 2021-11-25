@@ -4,8 +4,7 @@ PHPPROG = $(wildcard *.php)
 
 include $(shell echo $${PREFIX-/usr})/share/smartmet/devel/makefile.inc
 
-INCLUDES += -I../woml -I/usr/include/smartmet \
-	`pkg-config --cflags libxml++-2.6`
+INCLUDES += -I../woml -I/usr/include/smartmet
 
 LIBS += -L.. -Wl,--rpath,$(shell pwd)/.. -lsmartmet-woml \
 	-lsmartmet-macgyver \
