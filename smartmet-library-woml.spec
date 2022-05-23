@@ -3,7 +3,7 @@
 %define SPECNAME smartmet-library-%{DIRNAME}
 Summary: woml library
 Name: %{SPECNAME}
-Version: 21.5.6
+Version: 22.5.23
 Release: 1%{?dist}.fmi
 License: MIT
 Group: Development/Libraries
@@ -46,11 +46,15 @@ make %{_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 
 %files
+%defattr(0775,root,root,0775)
+%{_libdir}/lib%{LIBNAME}.so
 %defattr(0664,root,root,0775)
 %{_includedir}/smartmet/%{DIRNAME}/*.h
-%{_libdir}/lib%{LIBNAME}.so
 
 %changelog
+* Mon May 23 2022 Mika Heiskanen <mika.heiskanen@fmi.fi> - 22.5.23-1.fmi
+- Fixed so-file to be executable
+
 * Thu May  6 2021 Mika Heiskanen <mika.heiskanen@fmi.fi> - 21.5.6-1.fmi
 - Repackaged due to NFmiAzimuthalArea ABI changes
 
