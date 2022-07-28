@@ -3,26 +3,33 @@
 %define SPECNAME smartmet-library-%{DIRNAME}
 Summary: woml library
 Name: %{SPECNAME}
-Version: 22.5.23
+Version: 22.6.17
 Release: 1%{?dist}.fmi
 License: MIT
 Group: Development/Libraries
 URL: https://github.com/fmidev/smartmet-library-woml
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+%if 0%{?rhel} && 0%{rhel} < 9
+%define smartmet_boost boost169
+%else
+%define smartmet_boost boost
+%endif
+
 BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
-BuildRequires: boost169-devel
-BuildRequires: smartmet-library-macgyver-devel >= 21.2.25
+BuildRequires: %{smartmet_boost}-devel
+BuildRequires: smartmet-library-macgyver-devel >= 22.6.16
 BuildRequires: xqilla-devel
-Requires: smartmet-library-macgyver >= 21.2.25
+Requires: smartmet-library-macgyver >= 22.6.16
 Requires: xqilla
 Requires: xerces-c
 Provides: %{SPECNAME}
 Obsoletes: libsmartmet-woml < 17.1.4
-#TestRequires: boost169-devel
-#TestRequires: smartmet-library-macgyver-devel >= 21.2.25
+#TestRequires: %{smartmet_boost}-devel
+#TestRequires: smartmet-library-macgyver-devel >= 22.6.16
 #TestRequires: smartmet-library-regression
 #TestRequires: gcc-c++
 #TestRequires: xqilla-devel
@@ -52,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/smartmet/%{DIRNAME}/*.h
 
 %changelog
+* Fri Jun 17 2022 Andris Pavēnis <andris.pavenis@fmi.fi> 22.6.17-1.fmi
+- Add support for RHEL9. Update libpqxx to 7.7.0 (rhel8+) and fmt to 8.1.1
+
 * Mon May 23 2022 Mika Heiskanen <mika.heiskanen@fmi.fi> - 22.5.23-1.fmi
 - Fixed so-file to be executable
 
