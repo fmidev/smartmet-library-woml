@@ -21,15 +21,15 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: %{smartmet_boost}-devel
-BuildRequires: smartmet-library-macgyver-devel >= 22.6.16
+BuildRequires: smartmet-library-macgyver-devel >= 23.7.28
 BuildRequires: xqilla-devel
-Requires: smartmet-library-macgyver >= 22.6.16
+Requires: smartmet-library-macgyver >= 23.7.28
 Requires: xqilla
 Requires: xerces-c
 Provides: %{SPECNAME}
 Obsoletes: libsmartmet-woml < 17.1.4
 #TestRequires: %{smartmet_boost}-devel
-#TestRequires: smartmet-library-macgyver-devel >= 22.6.16
+#TestRequires: smartmet-library-macgyver-devel >= 23.7.28
 #TestRequires: smartmet-library-regression
 #TestRequires: gcc-c++
 #TestRequires: xqilla-devel
