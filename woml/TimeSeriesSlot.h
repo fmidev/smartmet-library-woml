@@ -18,19 +18,19 @@ class GeophysicalParameterValueSet;
 class TimeSeriesSlot
 {
  public:
-  TimeSeriesSlot(const boost::posix_time::ptime& theValidTime,
+  TimeSeriesSlot(const Fmi::DateTime& theValidTime,
                  GeophysicalParameterValueSet* theValues);
 
   void add(GeophysicalParameterValueSet* theValues);
   void sort();
   bool operator<(const TimeSeriesSlot& theOther) const;
 
-  const boost::posix_time::ptime& validTime() const;
+  const Fmi::DateTime& validTime() const;
   const std::list<boost::shared_ptr<GeophysicalParameterValueSet> >& values() const;
   std::list<boost::shared_ptr<GeophysicalParameterValueSet> >& editableValues();
 
  private:
-  boost::posix_time::ptime itsValidTime;
+  Fmi::DateTime itsValidTime;
   std::list<boost::shared_ptr<GeophysicalParameterValueSet> > itsValues;
 
 };  // class TimeSeriesSlot

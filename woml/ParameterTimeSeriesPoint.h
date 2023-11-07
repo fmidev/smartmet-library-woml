@@ -33,7 +33,7 @@ class ParameterTimeSeriesPoint : public Feature
   void timePeriod(const boost::posix_time::time_period& theTimePeriod);
   const boost::posix_time::time_period& timePeriod() const;
 
-  void add(const boost::optional<boost::posix_time::ptime>& validTime,
+  void add(const boost::optional<Fmi::DateTime>& validTime,
            GeophysicalParameterValueSet* values);
   void sort();
   const std::list<TimeSeriesSlot>& timeseries() const;

@@ -7,7 +7,7 @@
 #pragma once
 
 #include <map>
-#include <boost/date_time/posix_time/posix_time_types.hpp>
+#include <macgyver/DateTime.h>
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 
@@ -23,11 +23,11 @@ class Feature
   virtual ~Feature() {}
   Feature(const std::string &theClassNameExt = "");
   virtual void visit(FeatureVisitor& theVisitor) const {}
-  void creationTime(const boost::posix_time::ptime& theTime);
-  void validTime(const boost::optional<boost::posix_time::ptime>& theTime);
-  const boost::optional<boost::posix_time::ptime>& validTime() const;
-  void latestModificationTime(const boost::optional<boost::posix_time::ptime>& theTime);
-  const boost::optional<boost::posix_time::ptime>& latestModificationTime() const;
+  void creationTime(const Fmi::DateTime& theTime);
+  void validTime(const boost::optional<Fmi::DateTime>& theTime);
+  const boost::optional<Fmi::DateTime>& validTime() const;
+  void latestModificationTime(const boost::optional<Fmi::DateTime>& theTime);
+  const boost::optional<Fmi::DateTime>& latestModificationTime() const;
   void addShortInfo(const std::string& theLanguage, const std::string& theShortInfo);
   void addShortInfos(const MeteorologicalObjectInfo& theShortInfos);
   const std::string& text(const std::string& theLanguage) const;
@@ -37,9 +37,9 @@ class Feature
   std::string itsClassNameExt;
 
  private:
-  boost::posix_time::ptime itsCreationTime;
-  boost::optional<boost::posix_time::ptime> itsValidTime;
-  boost::optional<boost::posix_time::ptime> itslatestModificationTime;
+  Fmi::DateTime itsCreationTime;
+  boost::optional<Fmi::DateTime> itsValidTime;
+  boost::optional<Fmi::DateTime> itslatestModificationTime;
   MeteorologicalObjectInfo itsShortInfos;
 
 };  // class Feature

@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "MeteorologicalObject.h"
-#include <boost/date_time/posix_time/posix_time.hpp>
+#include <macgyver/DateTime.h>
 #include <set>
 
 namespace woml
@@ -52,7 +52,7 @@ void MeteorologicalObject::synchronize()
 
   std::list<woml::TimeSeriesSlot>::const_iterator tsbeg, tsend, itts, pitts;
 
-  std::set<boost::posix_time::ptime> ti;
+  std::set<Fmi::DateTime> ti;
 
   // Get all time instants
 
@@ -79,7 +79,7 @@ void MeteorologicalObject::synchronize()
   for (bool missing = true; missing;)
   {
     missing = false;
-    std::set<boost::posix_time::ptime>::iterator tibeg = ti.begin(), tiend = ti.end(), itti;
+    std::set<Fmi::DateTime>::iterator tibeg = ti.begin(), tiend = ti.end(), itti;
 
     for (itpp = ppbeg, itti = tibeg; (itpp != ppend); itpp++)
     {
@@ -97,7 +97,7 @@ void MeteorologicalObject::synchronize()
           // to_iso_string(itts->validTime()).c_str(),to_iso_string(*itti).c_str());
           GeophysicalParameterValueSet *pvs =
               new GeophysicalParameterValueSet(**(pitts->values().begin()));
-          (*itpp)->add(boost::optional<boost::posix_time::ptime>(*itti), pvs);
+          (*itpp)->add(boost::optional<Fmi::DateTime>(*itti), pvs);
 
           missing = true;
         }

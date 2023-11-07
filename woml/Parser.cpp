@@ -26,7 +26,7 @@
 #include <smartmet/macgyver/TimeParser.h>
 
 #include <boost/algorithm/string.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
+#include <macgyver/DateTime.h>
 #include <boost/filesystem.hpp>
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
@@ -556,8 +556,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<boost::posix_time::ptime> read_text_time(DOMNode *node, const char *pathExpr){
-    TRYFA(pathExpr){boost::optional<boost::posix_time::ptime> t;
+boost::optional<Fmi::DateTime> read_text_time(DOMNode *node, const char *pathExpr){
+    TRYFA(pathExpr){boost::optional<Fmi::DateTime> t;
 
 AutoRelease<DOMXPathExpression> expression(EXPR(std::string(pathExpr) + "/text()[1]"));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
@@ -624,7 +624,7 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<boost::posix_time::ptime> parse_gml_time_position_union(DOMNode *node,
+boost::optional<Fmi::DateTime> parse_gml_time_position_union(DOMNode *node,
                                                                         const char *pathExpr){TRY(){
     // TODO: parse_gml_time_position_union: only read_text_time/Fmi::TimeParser::parse_xml used
     return read_text_time(node, pathExpr);
@@ -638,7 +638,7 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<boost::posix_time::ptime> parse_gml_time_instant(DOMNode *node,
+boost::optional<Fmi::DateTime> parse_gml_time_instant(DOMNode *node,
                                                                  const char *pathExpr){
     TRY(){return parse_gml_time_position_union(node, pathExpr);
 }
@@ -654,9 +654,9 @@ CATCH
 boost::optional<boost::posix_time::time_period> parse_gml_time_period(
     DOMNode *node, const char *beginPositionPathExpr, const char *endPositionPathExpr){
     TRY(){boost::optional<boost::posix_time::time_period> period;
-boost::optional<boost::posix_time::ptime> starttime =
+boost::optional<Fmi::DateTime> starttime =
     parse_gml_time_position_union(node, beginPositionPathExpr);
-boost::optional<boost::posix_time::ptime> endtime =
+boost::optional<Fmi::DateTime> endtime =
     parse_gml_time_position_union(node, endPositionPathExpr);
 
 if (starttime && endtime) period = boost::posix_time::time_period(*starttime, *endtime);
@@ -672,8 +672,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::posix_time::ptime parse_woml_required_time(DOMNode *node, const char *pathExpr){
-    TRYFA(pathExpr){boost::optional<boost::posix_time::ptime> t = read_text_time(node, pathExpr);
+Fmi::DateTime parse_woml_required_time(DOMNode *node, const char *pathExpr){
+    TRYFA(pathExpr){boost::optional<Fmi::DateTime> t = read_text_time(node, pathExpr);
 
 if (!t) throw std::runtime_error("Required datetime element missing");
 
@@ -688,7 +688,7 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::posix_time::ptime parse_woml_creation_time(DOMNode *node){
+Fmi::DateTime parse_woml_creation_time(DOMNode *node){
     TRY(){return parse_woml_required_time(node, "womlcore:creationTime");
 }
 CATCH
@@ -700,7 +700,7 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<boost::posix_time::ptime> parse_woml_latest_modification_time(DOMNode *node){
+boost::optional<Fmi::DateTime> parse_woml_latest_modification_time(DOMNode *node){
     TRY(){return read_text_time(node, "womlcore:latestModificationTime");
 }
 CATCH
@@ -714,7 +714,7 @@ CATCH
 
 boost::optional<boost::posix_time::time_period> parse_gml_valid_time(DOMNode *node){
     TRY(){boost::optional<boost::posix_time::time_period> period;
-boost::optional<boost::posix_time::ptime> t =
+boost::optional<Fmi::DateTime> t =
     parse_gml_time_instant(node, "gml:validTime/gml:TimeInstant/gml:timePosition");
 
 if (t)
@@ -735,7 +735,7 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<boost::posix_time::ptime> parse_gml_valid_time_instant(DOMNode *node){
+boost::optional<Fmi::DateTime> parse_gml_valid_time_instant(DOMNode *node){
     TRYFA(XMLChptr2str(node->getNodeName())){
         boost::optional<boost::posix_time::time_period> p = parse_gml_valid_time(node);
 
@@ -1147,7 +1147,7 @@ CATCH
 
 boost::optional<NumericalModelRun> parse_woml_numerical_model_run(DOMNode *theNode){
     TRYFA(XMLChptr2str(theNode->getNodeName())){DOMNode * node;
-boost::posix_time::ptime analysisTime = parse_woml_required_time(theNode, "womlcore:analysisTime");
+Fmi::DateTime analysisTime = parse_woml_required_time(theNode, "womlcore:analysisTime");
 
 if (!(node = searchNode(
           theNode,
@@ -1624,7 +1624,7 @@ CATCH
 
 GeophysicalParameterValueSet *parse_woml_parameter_timeseriesslot(
     DOMNode *node,
-    boost::optional<boost::posix_time::ptime> &validTime,
+    boost::optional<Fmi::DateTime> &validTime,
     bool multipleValues = false)  // By default load only parameter's first value (category)
 {
   TRY()
@@ -1666,7 +1666,7 @@ T *parse_woml_parameter_timeseriespoint(
     AutoRelease<DOMXPathResult> result(
         expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
 
-    boost::optional<boost::posix_time::ptime> validTime;
+    boost::optional<Fmi::DateTime> validTime;
 
     while ((node = getResultNode(result)))
     {

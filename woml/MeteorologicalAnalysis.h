@@ -16,7 +16,7 @@
 #include "MeteorologicalObject.h"
 #include "Point.h"
 #include "TargetRegion.h"
-#include <boost/date_time/posix_time/posix_time_types.hpp>
+#include <macgyver/DateTime.h>
 #include <boost/ptr_container/ptr_list.hpp>
 
 typedef std::multimap<std::string, std::string> MeteorologicalAnalysisInfo;
@@ -33,12 +33,12 @@ class MeteorologicalAnalysis : public MeteorologicalObject
   const boost::posix_time::time_period& validTime() const;
   void creator(const std::string& theCreator);
   const std::string& creator() const;
-  void creationTime(const boost::posix_time::ptime& theTime);
-  const boost::posix_time::ptime& creationTime() const;
-  void latestModificationTime(const boost::optional<boost::posix_time::ptime>& theTime);
-  const boost::optional<boost::posix_time::ptime>& latestModificationTime() const;
-  void analysisTime(const boost::posix_time::ptime& theTime);
-  const boost::posix_time::ptime& analysisTime() const;
+  void creationTime(const Fmi::DateTime& theTime);
+  const Fmi::DateTime& creationTime() const;
+  void latestModificationTime(const boost::optional<Fmi::DateTime>& theTime);
+  const boost::optional<Fmi::DateTime>& latestModificationTime() const;
+  void analysisTime(const Fmi::DateTime& theTime);
+  const Fmi::DateTime& analysisTime() const;
   //	void addShortInfo(const std::string & theLanguage,const std::string & theShortInfo);
   void addShortInfos(const MeteorologicalAnalysisInfo& theShortInfos);
   //	void addLongInfo(const std::string & theLanguage,const std::string & theLongInfo);
@@ -62,9 +62,9 @@ class MeteorologicalAnalysis : public MeteorologicalObject
   boost::optional<Envelope> itsBoundedBy;
   boost::posix_time::time_period itsValidTime;
   std::string itsCreator;
-  boost::posix_time::ptime itsCreationTime;
-  boost::optional<boost::posix_time::ptime> itsLatestModificationTime;
-  boost::posix_time::ptime itsAnalysisTime;
+  Fmi::DateTime itsCreationTime;
+  boost::optional<Fmi::DateTime> itsLatestModificationTime;
+  Fmi::DateTime itsAnalysisTime;
   TargetRegionList itsTargetRegions;
   //	MeteorologicalAnalysisInfo itsShortInfos;
   //	MeteorologicalAnalysisInfo itsLongInfos;

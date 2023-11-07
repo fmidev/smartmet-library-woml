@@ -21,8 +21,8 @@ namespace woml
 WeatherForecast::WeatherForecast()
     : MeteorologicalObject(),
       itsFeatureMembers(),
-      itsValidTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time),
-                   boost::posix_time::ptime(boost::posix_time::not_a_date_time)),
+      itsValidTime(Fmi::DateTime(boost::posix_time::not_a_date_time),
+                   Fmi::DateTime(boost::posix_time::not_a_date_time)),
       itsCreator(),
       itsCreationTime(boost::posix_time::not_a_date_time),
       itsLatestModificationTime(boost::posix_time::not_a_date_time),
@@ -99,7 +99,7 @@ const std::string &WeatherForecast::creator() const { return itsCreator; }
  */
 // ----------------------------------------------------------------------
 
-void WeatherForecast::creationTime(const boost::posix_time::ptime &theTime)
+void WeatherForecast::creationTime(const Fmi::DateTime &theTime)
 {
   itsCreationTime = theTime;
 }
@@ -110,7 +110,7 @@ void WeatherForecast::creationTime(const boost::posix_time::ptime &theTime)
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::ptime &WeatherForecast::creationTime() const { return itsCreationTime; }
+const Fmi::DateTime &WeatherForecast::creationTime() const { return itsCreationTime; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the latest modification time
@@ -118,7 +118,7 @@ const boost::posix_time::ptime &WeatherForecast::creationTime() const { return i
 // ----------------------------------------------------------------------
 
 void WeatherForecast::latestModificationTime(
-    const boost::optional<boost::posix_time::ptime> &theTime)
+    const boost::optional<Fmi::DateTime> &theTime)
 {
   itsLatestModificationTime = theTime;
 }
@@ -129,7 +129,7 @@ void WeatherForecast::latestModificationTime(
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<boost::posix_time::ptime> &WeatherForecast::latestModificationTime() const
+const boost::optional<Fmi::DateTime> &WeatherForecast::latestModificationTime() const
 {
   return itsLatestModificationTime;
 }
@@ -140,7 +140,7 @@ const boost::optional<boost::posix_time::ptime> &WeatherForecast::latestModifica
  */
 // ----------------------------------------------------------------------
 
-void WeatherForecast::forecastTime(const boost::posix_time::ptime &theTime)
+void WeatherForecast::forecastTime(const Fmi::DateTime &theTime)
 {
   itsForecastTime = theTime;
 }
@@ -151,7 +151,7 @@ void WeatherForecast::forecastTime(const boost::posix_time::ptime &theTime)
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::ptime &WeatherForecast::forecastTime() const { return itsForecastTime; }
+const Fmi::DateTime &WeatherForecast::forecastTime() const { return itsForecastTime; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Add a target region

@@ -15,7 +15,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-TimeSeriesSlot::TimeSeriesSlot(const boost::posix_time::ptime& theValidTime,
+TimeSeriesSlot::TimeSeriesSlot(const Fmi::DateTime& theValidTime,
                                GeophysicalParameterValueSet* theValues)
     : itsValidTime(theValidTime), itsValues()
 {
@@ -66,7 +66,7 @@ bool TimeSeriesSlot::operator<(const TimeSeriesSlot& theOther) const
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::ptime& TimeSeriesSlot::validTime() const { return itsValidTime; }
+const Fmi::DateTime& TimeSeriesSlot::validTime() const { return itsValidTime; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the parameter values

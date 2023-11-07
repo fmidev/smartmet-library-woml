@@ -21,8 +21,8 @@ namespace woml
 MeteorologicalAnalysis::MeteorologicalAnalysis()
     : MeteorologicalObject(),
       itsFeatureMembers(),
-      itsValidTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time),
-                   boost::posix_time::ptime(boost::posix_time::not_a_date_time)),
+      itsValidTime(Fmi::DateTime(boost::posix_time::not_a_date_time),
+                   Fmi::DateTime(boost::posix_time::not_a_date_time)),
       itsCreator(),
       itsCreationTime(boost::posix_time::not_a_date_time),
       itsLatestModificationTime(boost::posix_time::not_a_date_time),
@@ -103,7 +103,7 @@ const std::string &MeteorologicalAnalysis::creator() const { return itsCreator; 
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::creationTime(const boost::posix_time::ptime &theTime)
+void MeteorologicalAnalysis::creationTime(const Fmi::DateTime &theTime)
 {
   itsCreationTime = theTime;
 }
@@ -114,7 +114,7 @@ void MeteorologicalAnalysis::creationTime(const boost::posix_time::ptime &theTim
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::ptime &MeteorologicalAnalysis::creationTime() const
+const Fmi::DateTime &MeteorologicalAnalysis::creationTime() const
 {
   return itsCreationTime;
 }
@@ -126,7 +126,7 @@ const boost::posix_time::ptime &MeteorologicalAnalysis::creationTime() const
 // ----------------------------------------------------------------------
 
 void MeteorologicalAnalysis::latestModificationTime(
-    const boost::optional<boost::posix_time::ptime> &theTime)
+    const boost::optional<Fmi::DateTime> &theTime)
 {
   itsLatestModificationTime = theTime;
 }
@@ -137,7 +137,7 @@ void MeteorologicalAnalysis::latestModificationTime(
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<boost::posix_time::ptime> &MeteorologicalAnalysis::latestModificationTime()
+const boost::optional<Fmi::DateTime> &MeteorologicalAnalysis::latestModificationTime()
     const
 {
   return itsLatestModificationTime;
@@ -149,7 +149,7 @@ const boost::optional<boost::posix_time::ptime> &MeteorologicalAnalysis::latestM
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::analysisTime(const boost::posix_time::ptime &theTime)
+void MeteorologicalAnalysis::analysisTime(const Fmi::DateTime &theTime)
 {
   itsAnalysisTime = theTime;
 }
@@ -160,7 +160,7 @@ void MeteorologicalAnalysis::analysisTime(const boost::posix_time::ptime &theTim
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::ptime &MeteorologicalAnalysis::analysisTime() const
+const Fmi::DateTime &MeteorologicalAnalysis::analysisTime() const
 {
   return itsAnalysisTime;
 }

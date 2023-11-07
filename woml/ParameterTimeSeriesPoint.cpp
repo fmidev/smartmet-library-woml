@@ -8,7 +8,7 @@
 #include "FeatureVisitor.h"
 #include "TimeSeriesSlot.h"
 
-#include <boost/date_time/posix_time/posix_time.hpp>
+#include <macgyver/DateTime.h>
 
 namespace woml
 {
@@ -20,8 +20,8 @@ namespace woml
 
 ParameterTimeSeriesPoint::ParameterTimeSeriesPoint(const std::string& theClassNameExt)
     : Feature(theClassNameExt),
-      itsTimePeriod(boost::posix_time::ptime(boost::posix_time::not_a_date_time),
-                    boost::posix_time::ptime(boost::posix_time::not_a_date_time)),
+      itsTimePeriod(Fmi::DateTime(boost::posix_time::not_a_date_time),
+                    Fmi::DateTime(boost::posix_time::not_a_date_time)),
       itsTimeSeriesSlots()
 {
 }
@@ -54,7 +54,7 @@ const boost::posix_time::time_period& ParameterTimeSeriesPoint::timePeriod() con
  */
 // ----------------------------------------------------------------------
 
-void ParameterTimeSeriesPoint::add(const boost::optional<boost::posix_time::ptime>& theValidTime,
+void ParameterTimeSeriesPoint::add(const boost::optional<Fmi::DateTime>& theValidTime,
                                    GeophysicalParameterValueSet* theValues)
 {
   std::list<TimeSeriesSlot>::iterator it = itsTimeSeriesSlots.begin();

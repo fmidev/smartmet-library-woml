@@ -19,8 +19,8 @@ namespace woml
 
 Feature::Feature(const std::string & theClassNameExt)
     : itsClassNameExt(theClassNameExt),
-      itsCreationTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time)),
-      itsValidTime(boost::posix_time::ptime(boost::posix_time::not_a_date_time)),
+      itsCreationTime(Fmi::DateTime(boost::posix_time::not_a_date_time)),
+      itsValidTime(Fmi::DateTime(boost::posix_time::not_a_date_time)),
       itsShortInfos()
 {
 }
@@ -31,14 +31,14 @@ Feature::Feature(const std::string & theClassNameExt)
  */
 // ----------------------------------------------------------------------
 
-void Feature::creationTime(const boost::posix_time::ptime& theTime) { itsCreationTime = theTime; }
+void Feature::creationTime(const Fmi::DateTime& theTime) { itsCreationTime = theTime; }
 // ----------------------------------------------------------------------
 /*
  * \brief Set the latest modification time
  */
 // ----------------------------------------------------------------------
 
-void Feature::latestModificationTime(const boost::optional<boost::posix_time::ptime>& theTime)
+void Feature::latestModificationTime(const boost::optional<Fmi::DateTime>& theTime)
 {
   itslatestModificationTime = theTime;
 }
@@ -49,7 +49,7 @@ void Feature::latestModificationTime(const boost::optional<boost::posix_time::pt
  */
 // ----------------------------------------------------------------------
 
-void Feature::validTime(const boost::optional<boost::posix_time::ptime>& theTime)
+void Feature::validTime(const boost::optional<Fmi::DateTime>& theTime)
 {
   itsValidTime = theTime;
 }
@@ -116,14 +116,14 @@ const std::string& Feature::text(const std::string& theLanguage) const
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<boost::posix_time::ptime>& Feature::validTime() const { return itsValidTime; }
+const boost::optional<Fmi::DateTime>& Feature::validTime() const { return itsValidTime; }
 // ----------------------------------------------------------------------
 /*
  * \brief Get the latest modification time
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<boost::posix_time::ptime>& Feature::latestModificationTime() const
+const boost::optional<Fmi::DateTime>& Feature::latestModificationTime() const
 {
   return itslatestModificationTime;
 }
