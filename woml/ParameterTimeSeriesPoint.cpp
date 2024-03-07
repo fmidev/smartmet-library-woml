@@ -20,8 +20,8 @@ namespace woml
 
 ParameterTimeSeriesPoint::ParameterTimeSeriesPoint(const std::string& theClassNameExt)
     : Feature(theClassNameExt),
-      itsTimePeriod(Fmi::DateTime(boost::posix_time::not_a_date_time),
-                    Fmi::DateTime(boost::posix_time::not_a_date_time)),
+      itsTimePeriod(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME),
+                    Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME)),
       itsTimeSeriesSlots()
 {
 }
@@ -32,7 +32,7 @@ ParameterTimeSeriesPoint::ParameterTimeSeriesPoint(const std::string& theClassNa
  */
 // ----------------------------------------------------------------------
 
-void ParameterTimeSeriesPoint::timePeriod(const boost::posix_time::time_period& theTimePeriod)
+void ParameterTimeSeriesPoint::timePeriod(const Fmi::TimePeriod& theTimePeriod)
 {
   itsTimePeriod = theTimePeriod;
 }
@@ -43,7 +43,7 @@ void ParameterTimeSeriesPoint::timePeriod(const boost::posix_time::time_period& 
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::time_period& ParameterTimeSeriesPoint::timePeriod() const
+const Fmi::TimePeriod& ParameterTimeSeriesPoint::timePeriod() const
 {
   return itsTimePeriod;
 }

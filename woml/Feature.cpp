@@ -19,8 +19,8 @@ namespace woml
 
 Feature::Feature(const std::string & theClassNameExt)
     : itsClassNameExt(theClassNameExt),
-      itsCreationTime(Fmi::DateTime(boost::posix_time::not_a_date_time)),
-      itsValidTime(Fmi::DateTime(boost::posix_time::not_a_date_time)),
+      itsCreationTime(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME)),
+      itsValidTime(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME)),
       itsShortInfos()
 {
 }

@@ -28,6 +28,7 @@
 #include <boost/algorithm/string.hpp>
 #include <macgyver/DateTime.h>
 #include <boost/filesystem.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
 
@@ -651,15 +652,15 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<boost::posix_time::time_period> parse_gml_time_period(
+boost::optional<Fmi::TimePeriod> parse_gml_time_period(
     DOMNode *node, const char *beginPositionPathExpr, const char *endPositionPathExpr){
-    TRY(){boost::optional<boost::posix_time::time_period> period;
+    TRY(){boost::optional<Fmi::TimePeriod> period;
 boost::optional<Fmi::DateTime> starttime =
     parse_gml_time_position_union(node, beginPositionPathExpr);
 boost::optional<Fmi::DateTime> endtime =
     parse_gml_time_position_union(node, endPositionPathExpr);
 
-if (starttime && endtime) period = boost::posix_time::time_period(*starttime, *endtime);
+if (starttime && endtime) period = Fmi::TimePeriod(*starttime, *endtime);
 
 return period;
 }
@@ -712,13 +713,13 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<boost::posix_time::time_period> parse_gml_valid_time(DOMNode *node){
-    TRY(){boost::optional<boost::posix_time::time_period> period;
+boost::optional<Fmi::TimePeriod> parse_gml_valid_time(DOMNode *node){
+    TRY(){boost::optional<Fmi::TimePeriod> period;
 boost::optional<Fmi::DateTime> t =
     parse_gml_time_instant(node, "gml:validTime/gml:TimeInstant/gml:timePosition");
 
 if (t)
-  period = boost::posix_time::time_period(*t, *t);
+  period = Fmi::TimePeriod(*t, *t);
 else
   period = parse_gml_time_period(node,
                                  "gml:validTime/gml:TimePeriod/gml:beginPosition",
@@ -737,7 +738,7 @@ CATCH
 
 boost::optional<Fmi::DateTime> parse_gml_valid_time_instant(DOMNode *node){
     TRYFA(XMLChptr2str(node->getNodeName())){
-        boost::optional<boost::posix_time::time_period> p = parse_gml_valid_time(node);
+        boost::optional<Fmi::TimePeriod> p = parse_gml_valid_time(node);
 
 if (p)
 {
@@ -758,11 +759,11 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::posix_time::time_period parse_gml_required_valid_time(DOMNode *node)
+Fmi::TimePeriod parse_gml_required_valid_time(DOMNode *node)
 {
   TRYFA(XMLChptr2str(node->getNodeName()))
   {
-    boost::optional<boost::posix_time::time_period> period = parse_gml_valid_time(node);
+    boost::optional<Fmi::TimePeriod> period = parse_gml_valid_time(node);
 
     if (!period) throw std::runtime_error("Required validtime element missing");
 
@@ -1646,7 +1647,7 @@ GeophysicalParameterValueSet *parse_woml_parameter_timeseriesslot(
 
 template <typename T>
 T *parse_woml_parameter_timeseriespoint(
-    const boost::posix_time::time_period &timePeriod,
+    const Fmi::TimePeriod &timePeriod,
     DOMNode *node,
     bool multipleValues = false,  // By default load only parameter's first value (category)
     const char *classNameExt = nullptr,

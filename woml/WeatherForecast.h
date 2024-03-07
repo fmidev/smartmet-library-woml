@@ -29,8 +29,8 @@ class WeatherForecast : public MeteorologicalObject
   WeatherForecast();
   void addFeature(Feature* theFeature, bool timeSynchronized = false);
   void envelope(const boost::optional<Envelope>& theEnvelope);
-  void validTime(const boost::posix_time::time_period& thePeriod);
-  const boost::posix_time::time_period& validTime() const;
+  void validTime(const Fmi::TimePeriod& thePeriod);
+  const Fmi::TimePeriod& validTime() const;
   void creator(const std::string& theCreator);
   const std::string& creator() const;
   void creationTime(const Fmi::DateTime& theTime);
@@ -60,7 +60,7 @@ class WeatherForecast : public MeteorologicalObject
  private:
   boost::ptr_list<Feature> itsFeatureMembers;
   boost::optional<Envelope> itsBoundedBy;
-  boost::posix_time::time_period itsValidTime;
+  Fmi::TimePeriod itsValidTime;
   std::string itsCreator;
   Fmi::DateTime itsCreationTime;
   boost::optional<Fmi::DateTime> itsLatestModificationTime;

@@ -21,12 +21,12 @@ namespace woml
 WeatherForecast::WeatherForecast()
     : MeteorologicalObject(),
       itsFeatureMembers(),
-      itsValidTime(Fmi::DateTime(boost::posix_time::not_a_date_time),
-                   Fmi::DateTime(boost::posix_time::not_a_date_time)),
+      itsValidTime(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME),
+                   Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME)),
       itsCreator(),
-      itsCreationTime(boost::posix_time::not_a_date_time),
-      itsLatestModificationTime(boost::posix_time::not_a_date_time),
-      itsForecastTime(boost::posix_time::not_a_date_time),
+      itsCreationTime(Fmi::DateTime::NOT_A_DATE_TIME),
+      itsLatestModificationTime(Fmi::DateTime::NOT_A_DATE_TIME),
+      itsForecastTime(Fmi::DateTime::NOT_A_DATE_TIME),
       itsTargetRegions()
 //, itsShortInfos()
 //, itsLongInfos()
@@ -67,7 +67,7 @@ void WeatherForecast::envelope(const boost::optional<Envelope> &theEnvelope)
  */
 // ----------------------------------------------------------------------
 
-void WeatherForecast::validTime(const boost::posix_time::time_period &thePeriod)
+void WeatherForecast::validTime(const Fmi::TimePeriod &thePeriod)
 {
   itsValidTime = thePeriod;
 }
@@ -78,7 +78,7 @@ void WeatherForecast::validTime(const boost::posix_time::time_period &thePeriod)
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::time_period &WeatherForecast::validTime() const { return itsValidTime; }
+const Fmi::TimePeriod &WeatherForecast::validTime() const { return itsValidTime; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the creator

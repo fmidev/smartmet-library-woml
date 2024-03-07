@@ -21,12 +21,12 @@ namespace woml
 MeteorologicalAnalysis::MeteorologicalAnalysis()
     : MeteorologicalObject(),
       itsFeatureMembers(),
-      itsValidTime(Fmi::DateTime(boost::posix_time::not_a_date_time),
-                   Fmi::DateTime(boost::posix_time::not_a_date_time)),
+      itsValidTime(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME),
+                   Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME)),
       itsCreator(),
-      itsCreationTime(boost::posix_time::not_a_date_time),
-      itsLatestModificationTime(boost::posix_time::not_a_date_time),
-      itsAnalysisTime(boost::posix_time::not_a_date_time),
+      itsCreationTime(Fmi::DateTime::NOT_A_DATE_TIME),
+      itsLatestModificationTime(Fmi::DateTime::NOT_A_DATE_TIME),
+      itsAnalysisTime(Fmi::DateTime::NOT_A_DATE_TIME),
       itsTargetRegions()
 //, itsShortInfos()
 //, itsLongInfos()
@@ -67,7 +67,7 @@ void MeteorologicalAnalysis::envelope(const boost::optional<Envelope> &theEnvelo
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::validTime(const boost::posix_time::time_period &thePeriod)
+void MeteorologicalAnalysis::validTime(const Fmi::TimePeriod &thePeriod)
 {
   itsValidTime = thePeriod;
 }
@@ -78,7 +78,7 @@ void MeteorologicalAnalysis::validTime(const boost::posix_time::time_period &the
  */
 // ----------------------------------------------------------------------
 
-const boost::posix_time::time_period &MeteorologicalAnalysis::validTime() const
+const Fmi::TimePeriod &MeteorologicalAnalysis::validTime() const
 {
   return itsValidTime;
 }
