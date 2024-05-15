@@ -11,8 +11,7 @@ LIBS += -L.. -Wl,--rpath,$(shell pwd)/.. -lsmartmet-woml \
 	-lboost_filesystem\
 	-lboost_system \
 	-lxerces-c \
-	-lxqilla \
-	-lboost_date_time
+	-lxqilla
 
 all: $(PROG)
 clean:
