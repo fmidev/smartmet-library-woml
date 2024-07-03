@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace woml
 {
@@ -34,8 +34,8 @@ class Weather
   const MeteorologicalAnalysis& analysis() const;
   const WeatherForecast& forecast() const;
 
-  void analysis(boost::shared_ptr<MeteorologicalAnalysis> theAnalysis);
-  void forecast(boost::shared_ptr<WeatherForecast> theForecast);
+  void analysis(std::shared_ptr<MeteorologicalAnalysis> theAnalysis);
+  void forecast(std::shared_ptr<WeatherForecast> theForecast);
 
   void synchronize();
 
@@ -45,8 +45,8 @@ class Weather
  private:
   static bool strictParsing;  // Terminate on broken/unexpected woml input
 
-  boost::shared_ptr<MeteorologicalAnalysis> itsAnalysis;
-  boost::shared_ptr<WeatherForecast> itsForecast;
+  std::shared_ptr<MeteorologicalAnalysis> itsAnalysis;
+  std::shared_ptr<WeatherForecast> itsForecast;
 
 };  // class Woml
 }  // namespace woml

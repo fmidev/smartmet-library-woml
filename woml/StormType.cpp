@@ -36,7 +36,7 @@ RainPhase StormType::rainPhase() const { return itsRainPhase; }
 // ----------------------------------------------------------------------
 
 void StormType::approximateRainFall(
-    const boost::optional<NumericalSingleValueMeasure>& theApproximateRainFall)
+    const std::optional<NumericalSingleValueMeasure>& theApproximateRainFall)
 {
   itsApproximateRainFall = theApproximateRainFall;
 }
@@ -47,7 +47,7 @@ void StormType::approximateRainFall(
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<NumericalSingleValueMeasure>& StormType::approximateRainFall() const
+const std::optional<NumericalSingleValueMeasure>& StormType::approximateRainFall() const
 {
   return itsApproximateRainFall;
 }
@@ -58,7 +58,7 @@ const boost::optional<NumericalSingleValueMeasure>& StormType::approximateRainFa
  */
 // ----------------------------------------------------------------------
 
-void StormType::isThunderStorm(const boost::optional<bool>& theIsThunderStorm)
+void StormType::isThunderStorm(const std::optional<bool>& theIsThunderStorm)
 {
   itsIsThunderStorm = theIsThunderStorm;
 }
@@ -69,5 +69,5 @@ void StormType::isThunderStorm(const boost::optional<bool>& theIsThunderStorm)
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<bool>& StormType::isThunderStorm() const { return itsIsThunderStorm; }
+const std::optional<bool>& StormType::isThunderStorm() const { return itsIsThunderStorm; }
 }  // namespace woml

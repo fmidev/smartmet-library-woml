@@ -27,8 +27,8 @@ class CloudArea : public AbstractSurfaceObject
   CloudType cloudType() const;
   const std::string& cloudTypeName() const;
 
-  void cloudCoverPercent(const boost::optional<double>& theCloudCoverPercent);
-  const boost::optional<double>& cloudCoverPercent() const;
+  void cloudCoverPercent(const std::optional<double>& theCloudCoverPercent);
+  const std::optional<double>& cloudCoverPercent() const;
 
   void cloudCoverEighths(const std::string& theCloudCoverEighths);
   const std::string& cloudCoverEighths() const;
@@ -36,7 +36,7 @@ class CloudArea : public AbstractSurfaceObject
  private:
   CloudType itsCloudType;
   std::string itsCloudTypeName;
-  boost::optional<double> itsCloudCoverPercent;
+  std::optional<double> itsCloudCoverPercent;
   std::string itsCloudCoverEighths;
 
 };  // class CloudArea

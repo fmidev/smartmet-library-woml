@@ -56,7 +56,7 @@ void MeteorologicalAnalysis::addFeature(Feature *theFeature, bool timeSynchroniz
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::envelope(const boost::optional<Envelope> &theEnvelope)
+void MeteorologicalAnalysis::envelope(const std::optional<Envelope> &theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
@@ -126,7 +126,7 @@ const Fmi::DateTime &MeteorologicalAnalysis::creationTime() const
 // ----------------------------------------------------------------------
 
 void MeteorologicalAnalysis::latestModificationTime(
-    const boost::optional<Fmi::DateTime> &theTime)
+    const std::optional<Fmi::DateTime> &theTime)
 {
   itsLatestModificationTime = theTime;
 }
@@ -137,7 +137,7 @@ void MeteorologicalAnalysis::latestModificationTime(
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Fmi::DateTime> &MeteorologicalAnalysis::latestModificationTime()
+const std::optional<Fmi::DateTime> &MeteorologicalAnalysis::latestModificationTime()
     const
 {
   return itsLatestModificationTime;

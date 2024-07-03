@@ -23,12 +23,12 @@ class ParameterValueSetArea : public AbstractSurfaceObject
   virtual void visit(FeatureVisitor& theVisitor) const;
 
   void param(GeophysicalParameterValueSet* theParameterValueSet);
-  boost::shared_ptr<GeophysicalParameterValueSet> parameters() const;
+  std::shared_ptr<GeophysicalParameterValueSet> parameters() const;
 
   void innerArea(ParameterValueSetArea* theArea);
 
  private:
-  boost::shared_ptr<GeophysicalParameterValueSet> itsParameterValueSet;
+  std::shared_ptr<GeophysicalParameterValueSet> itsParameterValueSet;
 
   boost::ptr_list<ParameterValueSetArea> itsInnerArea;
 

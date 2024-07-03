@@ -26,12 +26,12 @@ class TimeSeriesSlot
   bool operator<(const TimeSeriesSlot& theOther) const;
 
   const Fmi::DateTime& validTime() const;
-  const std::list<boost::shared_ptr<GeophysicalParameterValueSet> >& values() const;
-  std::list<boost::shared_ptr<GeophysicalParameterValueSet> >& editableValues();
+  const std::list<std::shared_ptr<GeophysicalParameterValueSet> >& values() const;
+  std::list<std::shared_ptr<GeophysicalParameterValueSet> >& editableValues();
 
  private:
   Fmi::DateTime itsValidTime;
-  std::list<boost::shared_ptr<GeophysicalParameterValueSet> > itsValues;
+  std::list<std::shared_ptr<GeophysicalParameterValueSet> > itsValues;
 
 };  // class TimeSeriesSlot
 

@@ -17,13 +17,13 @@ class AbstractPointObject : public Feature
 {
  public:
   virtual ~AbstractPointObject() {}
-  void envelope(const boost::optional<Envelope>& theEnvelope);
-  void point(const boost::optional<Point>& thePoint);
-  const boost::optional<Point>& point() const;
+  void envelope(const std::optional<Envelope>& theEnvelope);
+  void point(const std::optional<Point>& thePoint);
+  const std::optional<Point>& point() const;
 
  protected:
-  boost::optional<Envelope> itsBoundedBy;
-  boost::optional<Point> itsPoint;
+  std::optional<Envelope> itsBoundedBy;
+  std::optional<Point> itsPoint;
 
 };  // class AbstractPointObject
 

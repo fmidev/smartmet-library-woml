@@ -29,12 +29,12 @@ class PressureCenterType : public AbstractPointObject
   void tendency(const std::string& theTendency);
   const std::string& tendency() const;
 
-  void maxwindspeed(const boost::optional<NumericalSingleValueMeasure>& theMaxWindSpeed);
-  const boost::optional<NumericalSingleValueMeasure>& maxwindspeed() const;
+  void maxwindspeed(const std::optional<NumericalSingleValueMeasure>& theMaxWindSpeed);
+  const std::optional<NumericalSingleValueMeasure>& maxwindspeed() const;
 
  private:
   std::string itsTendency;
-  boost::optional<NumericalSingleValueMeasure> itsMaxWindSpeed;
+  std::optional<NumericalSingleValueMeasure> itsMaxWindSpeed;
 
 };  // class PressureCenterType
 

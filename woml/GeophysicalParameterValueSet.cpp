@@ -22,7 +22,7 @@ GeophysicalParameterValueSet::GeophysicalParameterValueSet() : itsElevation(), i
  */
 // ----------------------------------------------------------------------
 
-void GeophysicalParameterValueSet::elevation(const boost::optional<Elevation>& theElevation)
+void GeophysicalParameterValueSet::elevation(const std::optional<Elevation>& theElevation)
 {
   itsElevation = theElevation;
 }
@@ -33,7 +33,7 @@ void GeophysicalParameterValueSet::elevation(const boost::optional<Elevation>& t
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Elevation>& GeophysicalParameterValueSet::elevation() const
+const std::optional<Elevation>& GeophysicalParameterValueSet::elevation() const
 {
   return itsElevation;
 }

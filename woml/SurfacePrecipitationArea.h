@@ -28,18 +28,18 @@ class SurfacePrecipitationArea : public AbstractSurfaceObject
   RainPhase rainPhase() const;
   const std::string& rainPhaseName() const;
 
-  void continuity(boost::optional<double> thePercentage);
-  void showeriness(boost::optional<double> thePercentage);
-  void approximateRainFall(const boost::optional<NumericalSingleValueMeasure>& theAmount);
+  void continuity(std::optional<double> thePercentage);
+  void showeriness(std::optional<double> thePercentage);
+  void approximateRainFall(const std::optional<NumericalSingleValueMeasure>& theAmount);
 
   void innerArea(SurfacePrecipitationArea* theArea);
 
  private:
   RainPhase itsRainPhase;
   std::string itsRainPhaseName;
-  boost::optional<double> itsContinuity;
-  boost::optional<double> itsShoweriness;
-  boost::optional<NumericalSingleValueMeasure> itsApproximateRainFall;
+  std::optional<double> itsContinuity;
+  std::optional<double> itsShoweriness;
+  std::optional<NumericalSingleValueMeasure> itsApproximateRainFall;
 
   boost::ptr_list<SurfacePrecipitationArea> itsInnerArea;
 

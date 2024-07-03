@@ -36,7 +36,7 @@ const std::string& PressureCenterType::tendency() const { return itsTendency; }
 // ----------------------------------------------------------------------
 
 void PressureCenterType::maxwindspeed(
-    const boost::optional<NumericalSingleValueMeasure>& theMaxWindSpeed)
+    const std::optional<NumericalSingleValueMeasure>& theMaxWindSpeed)
 {
   itsMaxWindSpeed = theMaxWindSpeed;
 }
@@ -47,7 +47,7 @@ void PressureCenterType::maxwindspeed(
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<NumericalSingleValueMeasure>& PressureCenterType::maxwindspeed() const
+const std::optional<NumericalSingleValueMeasure>& PressureCenterType::maxwindspeed() const
 {
   return itsMaxWindSpeed;
 }

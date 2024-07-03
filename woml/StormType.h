@@ -30,15 +30,15 @@ class StormType : public AbstractPointObject
   void rainPhase(RainPhase theRainPhase);
   RainPhase rainPhase() const;
   void approximateRainFall(
-      const boost::optional<NumericalSingleValueMeasure>& theApproximateRainFall);
-  const boost::optional<NumericalSingleValueMeasure>& approximateRainFall() const;
-  void isThunderStorm(const boost::optional<bool>& IsThunderStorm);
-  const boost::optional<bool>& isThunderStorm() const;
+      const std::optional<NumericalSingleValueMeasure>& theApproximateRainFall);
+  const std::optional<NumericalSingleValueMeasure>& approximateRainFall() const;
+  void isThunderStorm(const std::optional<bool>& IsThunderStorm);
+  const std::optional<bool>& isThunderStorm() const;
 
  private:
   RainPhase itsRainPhase;
-  boost::optional<NumericalSingleValueMeasure> itsApproximateRainFall;
-  boost::optional<bool> itsIsThunderStorm;
+  std::optional<NumericalSingleValueMeasure> itsApproximateRainFall;
+  std::optional<bool> itsIsThunderStorm;
 
 };  // class StormType
 
