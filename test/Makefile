@@ -8,7 +8,6 @@ INCLUDES += -I../woml -I/usr/include/smartmet
 
 LIBS += -L.. -Wl,--rpath,$(shell pwd)/.. -lsmartmet-woml \
 	-lsmartmet-macgyver \
-	-lboost_filesystem\
 	-lboost_system \
 	-lxerces-c \
 	-lxqilla

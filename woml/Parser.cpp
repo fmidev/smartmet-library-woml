@@ -27,7 +27,7 @@
 
 #include <boost/algorithm/string.hpp>
 #include <macgyver/DateTime.h>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <boost/lexical_cast.hpp>
 #include <optional>
 #include <memory>
@@ -1934,11 +1934,11 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-Weather parse(const boost::filesystem::path &thePath, documentType docType, bool strict)
+Weather parse(const std::filesystem::path &thePath, documentType docType, bool strict)
 {
   TRY()
   {
-    if (!boost::filesystem::exists(thePath))
+    if (!std::filesystem::exists(thePath))
       throw std::runtime_error("The file '" + thePath.string() + "' does not exist");
 
     // Initialise Xerces-C and XQilla
