@@ -7,13 +7,13 @@
 #pragma once
 
 #include "Weather.h"
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 
 namespace woml
 {
 class Woml;
 
-Weather parse(const boost::filesystem::path& thePath,
+Weather parse(const std::filesystem::path& thePath,
               woml::documentType docType,
               bool strict = true);
 

@@ -56,7 +56,7 @@ void WeatherForecast::addFeature(Feature *theFeature, bool timeSynchronized)
  */
 // ----------------------------------------------------------------------
 
-void WeatherForecast::envelope(const boost::optional<Envelope> &theEnvelope)
+void WeatherForecast::envelope(const std::optional<Envelope> &theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
@@ -118,7 +118,7 @@ const Fmi::DateTime &WeatherForecast::creationTime() const { return itsCreationT
 // ----------------------------------------------------------------------
 
 void WeatherForecast::latestModificationTime(
-    const boost::optional<Fmi::DateTime> &theTime)
+    const std::optional<Fmi::DateTime> &theTime)
 {
   itsLatestModificationTime = theTime;
 }
@@ -129,7 +129,7 @@ void WeatherForecast::latestModificationTime(
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Fmi::DateTime> &WeatherForecast::latestModificationTime() const
+const std::optional<Fmi::DateTime> &WeatherForecast::latestModificationTime() const
 {
   return itsLatestModificationTime;
 }

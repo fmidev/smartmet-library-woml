@@ -28,15 +28,15 @@ class MeteorologicalAnalysis : public MeteorologicalObject
  public:
   MeteorologicalAnalysis();
   void addFeature(Feature* theFeature, bool timeSynchronized = false);
-  void envelope(const boost::optional<Envelope>& theEnvelope);
+  void envelope(const std::optional<Envelope>& theEnvelope);
   void validTime(const Fmi::TimePeriod& thePeriod);
   const Fmi::TimePeriod& validTime() const;
   void creator(const std::string& theCreator);
   const std::string& creator() const;
   void creationTime(const Fmi::DateTime& theTime);
   const Fmi::DateTime& creationTime() const;
-  void latestModificationTime(const boost::optional<Fmi::DateTime>& theTime);
-  const boost::optional<Fmi::DateTime>& latestModificationTime() const;
+  void latestModificationTime(const std::optional<Fmi::DateTime>& theTime);
+  const std::optional<Fmi::DateTime>& latestModificationTime() const;
   void analysisTime(const Fmi::DateTime& theTime);
   const Fmi::DateTime& analysisTime() const;
   //	void addShortInfo(const std::string & theLanguage,const std::string & theShortInfo);
@@ -59,11 +59,11 @@ class MeteorologicalAnalysis : public MeteorologicalObject
 
  private:
   boost::ptr_list<Feature> itsFeatureMembers;
-  boost::optional<Envelope> itsBoundedBy;
+  std::optional<Envelope> itsBoundedBy;
   Fmi::TimePeriod itsValidTime;
   std::string itsCreator;
   Fmi::DateTime itsCreationTime;
-  boost::optional<Fmi::DateTime> itsLatestModificationTime;
+  std::optional<Fmi::DateTime> itsLatestModificationTime;
   Fmi::DateTime itsAnalysisTime;
   TargetRegionList itsTargetRegions;
   //	MeteorologicalAnalysisInfo itsShortInfos;

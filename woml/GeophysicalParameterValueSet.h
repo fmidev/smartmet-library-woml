@@ -19,8 +19,8 @@ class GeophysicalParameterValueSet
  public:
   GeophysicalParameterValueSet();
 
-  void elevation(const boost::optional<Elevation>& theElevation);
-  const boost::optional<Elevation>& elevation() const;
+  void elevation(const std::optional<Elevation>& theElevation);
+  const std::optional<Elevation>& elevation() const;
 
   void add(const GeophysicalParameterValue& theValue);
   void sort();
@@ -28,7 +28,7 @@ class GeophysicalParameterValueSet
   GeophysicalParameterValueList& editableValues();
 
  private:
-  boost::optional<Elevation> itsElevation;
+  std::optional<Elevation> itsElevation;
   GeophysicalParameterValueList itsValues;
 
 };  // class GeophysicalParameterValueSet

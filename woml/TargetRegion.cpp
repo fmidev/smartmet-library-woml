@@ -21,7 +21,7 @@ TargetRegion::TargetRegion() : itsBoundedBy(), itsRegionIds(), itsLocalizedNames
  */
 // ----------------------------------------------------------------------
 
-void TargetRegion::envelope(const boost::optional<Envelope>& theEnvelope)
+void TargetRegion::envelope(const std::optional<Envelope>& theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
@@ -32,7 +32,7 @@ void TargetRegion::envelope(const boost::optional<Envelope>& theEnvelope)
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Envelope>& TargetRegion::envelope() const { return itsBoundedBy; }
+const std::optional<Envelope>& TargetRegion::envelope() const { return itsBoundedBy; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Add a region id

@@ -54,7 +54,7 @@ const Fmi::TimePeriod& ParameterTimeSeriesPoint::timePeriod() const
  */
 // ----------------------------------------------------------------------
 
-void ParameterTimeSeriesPoint::add(const boost::optional<Fmi::DateTime>& theValidTime,
+void ParameterTimeSeriesPoint::add(const std::optional<Fmi::DateTime>& theValidTime,
                                    GeophysicalParameterValueSet* theValues)
 {
   std::list<TimeSeriesSlot>::iterator it = itsTimeSeriesSlots.begin();

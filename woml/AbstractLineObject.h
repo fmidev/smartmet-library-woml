@@ -28,10 +28,10 @@ class AbstractLineObject : public Feature
   virtual ~AbstractLineObject() {}
   virtual void visit(FeatureVisitor& theVisitor) const = 0;
 
-  void orientation(const boost::optional<std::string>& theOrientation);
+  void orientation(const std::optional<std::string>& theOrientation);
   const std::string& orientation() const;
 
-  void envelope(const boost::optional<Envelope>& theEnvelope);
+  void envelope(const std::optional<Envelope>& theEnvelope);
 
   void controlCurve(const CubicSplineCurve& theControlCurve);
   const CubicSplineCurve& controlCurve() const;
@@ -40,8 +40,8 @@ class AbstractLineObject : public Feature
   void connectEndPoint(const std::string& theName);
 
  protected:
-  boost::optional<std::string> itsOrientation;
-  boost::optional<Envelope> itsBoundedBy;
+  std::optional<std::string> itsOrientation;
+  std::optional<Envelope> itsBoundedBy;
   CubicSplineCurve itsControlCurve;
   std::string itsStartPointConnectsTo;
   std::string itsEndPointConnectsTo;

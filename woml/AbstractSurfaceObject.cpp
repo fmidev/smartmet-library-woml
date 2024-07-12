@@ -26,7 +26,7 @@ AbstractSurfaceObject::AbstractSurfaceObject()
  */
 // ----------------------------------------------------------------------
 
-void AbstractSurfaceObject::envelope(const boost::optional<Envelope>& theEnvelope)
+void AbstractSurfaceObject::envelope(const std::optional<Envelope>& theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
@@ -37,7 +37,7 @@ void AbstractSurfaceObject::envelope(const boost::optional<Envelope>& theEnvelop
  */
 // ----------------------------------------------------------------------
 
-void AbstractSurfaceObject::elevation(const boost::optional<Elevation>& theElevation)
+void AbstractSurfaceObject::elevation(const std::optional<Elevation>& theElevation)
 {
   itsElevation = theElevation;
 }

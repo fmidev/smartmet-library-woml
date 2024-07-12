@@ -8,8 +8,8 @@
 
 #include <map>
 #include <macgyver/DateTime.h>
-#include <boost/optional.hpp>
-#include <boost/shared_ptr.hpp>
+#include <optional>
+#include <memory>
 
 typedef std::multimap<std::string, std::string> MeteorologicalObjectInfo;
 
@@ -24,10 +24,10 @@ class Feature
   Feature(const std::string &theClassNameExt = "");
   virtual void visit(FeatureVisitor& theVisitor) const {}
   void creationTime(const Fmi::DateTime& theTime);
-  void validTime(const boost::optional<Fmi::DateTime>& theTime);
-  const boost::optional<Fmi::DateTime>& validTime() const;
-  void latestModificationTime(const boost::optional<Fmi::DateTime>& theTime);
-  const boost::optional<Fmi::DateTime>& latestModificationTime() const;
+  void validTime(const std::optional<Fmi::DateTime>& theTime);
+  const std::optional<Fmi::DateTime>& validTime() const;
+  void latestModificationTime(const std::optional<Fmi::DateTime>& theTime);
+  const std::optional<Fmi::DateTime>& latestModificationTime() const;
   void addShortInfo(const std::string& theLanguage, const std::string& theShortInfo);
   void addShortInfos(const MeteorologicalObjectInfo& theShortInfos);
   const std::string& text(const std::string& theLanguage) const;
@@ -38,8 +38,8 @@ class Feature
 
  private:
   Fmi::DateTime itsCreationTime;
-  boost::optional<Fmi::DateTime> itsValidTime;
-  boost::optional<Fmi::DateTime> itslatestModificationTime;
+  std::optional<Fmi::DateTime> itsValidTime;
+  std::optional<Fmi::DateTime> itslatestModificationTime;
   MeteorologicalObjectInfo itsShortInfos;
 
 };  // class Feature

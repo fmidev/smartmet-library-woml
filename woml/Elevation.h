@@ -7,7 +7,7 @@
 #pragma once
 
 #include "MeasureValue.h"
-#include <boost/optional.hpp>
+#include <optional>
 
 namespace woml
 {
@@ -15,17 +15,17 @@ class Elevation
 {
  public:
   Elevation();
-  Elevation(const boost::optional<NumericalSingleValueMeasure>& theValue);
-  Elevation(const boost::optional<NumericalValueRangeMeasure>& theRange);
+  Elevation(const std::optional<NumericalSingleValueMeasure>& theValue);
+  Elevation(const std::optional<NumericalValueRangeMeasure>& theRange);
   bool bounded() const;
-  const boost::optional<NumericalSingleValueMeasure>& value() const;
-  boost::optional<NumericalSingleValueMeasure> lowerLimit() const;
-  boost::optional<NumericalSingleValueMeasure> upperLimit() const;
+  const std::optional<NumericalSingleValueMeasure>& value() const;
+  std::optional<NumericalSingleValueMeasure> lowerLimit() const;
+  std::optional<NumericalSingleValueMeasure> upperLimit() const;
 
  private:
   bool itsBounded;
-  boost::optional<NumericalSingleValueMeasure> itsValue;
-  boost::optional<NumericalValueRangeMeasure> itsRange;
+  std::optional<NumericalSingleValueMeasure> itsValue;
+  std::optional<NumericalValueRangeMeasure> itsRange;
 
 };  // class Elevation
 }  // namespace woml

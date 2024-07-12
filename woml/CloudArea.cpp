@@ -63,7 +63,7 @@ const std::string& CloudArea::cloudTypeName() const { return itsCloudTypeName; }
  */
 // ----------------------------------------------------------------------
 
-void CloudArea::cloudCoverPercent(const boost::optional<double>& theCloudCoverPercent)
+void CloudArea::cloudCoverPercent(const std::optional<double>& theCloudCoverPercent)
 {
   itsCloudCoverPercent = theCloudCoverPercent;
 }
@@ -74,7 +74,7 @@ void CloudArea::cloudCoverPercent(const boost::optional<double>& theCloudCoverPe
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<double>& CloudArea::cloudCoverPercent() const { return itsCloudCoverPercent; }
+const std::optional<double>& CloudArea::cloudCoverPercent() const { return itsCloudCoverPercent; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the cloud cover eighths

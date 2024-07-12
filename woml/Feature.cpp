@@ -38,7 +38,7 @@ void Feature::creationTime(const Fmi::DateTime& theTime) { itsCreationTime = the
  */
 // ----------------------------------------------------------------------
 
-void Feature::latestModificationTime(const boost::optional<Fmi::DateTime>& theTime)
+void Feature::latestModificationTime(const std::optional<Fmi::DateTime>& theTime)
 {
   itslatestModificationTime = theTime;
 }
@@ -49,7 +49,7 @@ void Feature::latestModificationTime(const boost::optional<Fmi::DateTime>& theTi
  */
 // ----------------------------------------------------------------------
 
-void Feature::validTime(const boost::optional<Fmi::DateTime>& theTime)
+void Feature::validTime(const std::optional<Fmi::DateTime>& theTime)
 {
   itsValidTime = theTime;
 }
@@ -116,14 +116,14 @@ const std::string& Feature::text(const std::string& theLanguage) const
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Fmi::DateTime>& Feature::validTime() const { return itsValidTime; }
+const std::optional<Fmi::DateTime>& Feature::validTime() const { return itsValidTime; }
 // ----------------------------------------------------------------------
 /*
  * \brief Get the latest modification time
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Fmi::DateTime>& Feature::latestModificationTime() const
+const std::optional<Fmi::DateTime>& Feature::latestModificationTime() const
 {
   return itslatestModificationTime;
 }

@@ -32,7 +32,7 @@ void ParameterValueSetPoint::param(GeophysicalParameterValueSet* theParameterVal
  */
 // ----------------------------------------------------------------------
 
-boost::shared_ptr<GeophysicalParameterValueSet> ParameterValueSetPoint::parameters() const
+std::shared_ptr<GeophysicalParameterValueSet> ParameterValueSetPoint::parameters() const
 {
   return itsParameterValueSet;
 }

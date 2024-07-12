@@ -21,10 +21,10 @@ class AbstractSurfaceObject : public Feature
  public:
   AbstractSurfaceObject();
   virtual ~AbstractSurfaceObject() {}
-  void envelope(const boost::optional<Envelope>& theEnvelope);
+  void envelope(const std::optional<Envelope>& theEnvelope);
 
-  void elevation(const boost::optional<Elevation>& theElevation);
-  const boost::optional<Elevation>& elevation() const;
+  void elevation(const std::optional<Elevation>& theElevation);
+  const std::optional<Elevation>& elevation() const;
 
   void controlSurface(const CubicSplineSurface& theControlSurface);
   const CubicSplineSurface& controlSurface() const;
@@ -36,8 +36,8 @@ class AbstractSurfaceObject : public Feature
   TargetRegions_const_iterator TargetRegions_end() const;
 
  protected:
-  boost::optional<Envelope> itsBoundedBy;
-  boost::optional<Elevation> itsElevation;
+  std::optional<Envelope> itsBoundedBy;
+  std::optional<Elevation> itsElevation;
   CubicSplineSurface itsControlSurface;
   TargetRegionList itsTargetRegions;
 
