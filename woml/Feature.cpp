@@ -81,7 +81,7 @@ void Feature::addShortInfo(const std::string& theLanguage, const std::string& th
 
 void Feature::addShortInfos(const MeteorologicalObjectInfo& theShortInfos)
 {
-  BOOST_FOREACH (const MeteorologicalObjectInfo::value_type& shortInfo, theShortInfos)
+  for (const MeteorologicalObjectInfo::value_type& shortInfo, theShortInfos)
   {
     addShortInfo(shortInfo.first, shortInfo.second);
   }
