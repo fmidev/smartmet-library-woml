@@ -8,7 +8,6 @@
 // ======================================================================
 
 #include "MeteorologicalAnalysis.h"
-#include <boost/foreach.hpp>
 
 namespace woml
 {

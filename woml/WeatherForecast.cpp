@@ -8,7 +8,6 @@
 // ======================================================================
 
 #include "WeatherForecast.h"
-#include <boost/foreach.hpp>
 
 namespace woml
 {

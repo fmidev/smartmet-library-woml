@@ -7,7 +7,6 @@
 #include "Feature.h"
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/replace.hpp>
-#include <boost/foreach.hpp>
 
 namespace woml
 {
