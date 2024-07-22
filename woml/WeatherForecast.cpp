@@ -209,7 +209,7 @@ void WeatherForecast::addShortInfos(const WeatherForecastInfo &theShortInfos)
 {
   // shortInfos is stored as a feature
 
-  //  for(const WeatherForecastInfo::value_type & shortInfo, theShortInfos)
+  //  for(const WeatherForecastInfo::value_type & shortInfo :  theShortInfos)
   //	{
   //	  addShortInfo(shortInfo.first, shortInfo.second);
   //	}
@@ -240,7 +240,7 @@ void WeatherForecast::addLongInfos(const WeatherForecastInfo &theLongInfos)
 {
   // longInfos is stored as a feature
 
-  //  for(const WeatherForecastInfo::value_type & longInfo, theLongInfos)
+  //  for(const WeatherForecastInfo::value_type & longInfo : theLongInfos)
   //	{
   //	  addLongInfo(longInfo.first, longInfo.second);
   //	}

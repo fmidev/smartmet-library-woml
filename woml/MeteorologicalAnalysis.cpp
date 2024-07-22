@@ -224,7 +224,7 @@ void MeteorologicalAnalysis::addShortInfos(const MeteorologicalAnalysisInfo &the
 {
   // shortInfos is stored as a feature
 
-  //  for(const MeteorologicalAnalysis::value_type & shortInfo, theShortInfos)
+  //  for(const MeteorologicalAnalysis::value_type & shortInfo : theShortInfos)
   //	{
   //	  addShortInfo(shortInfo.first, shortInfo.second);
   //	}
@@ -255,7 +255,7 @@ void MeteorologicalAnalysis::addLongInfos(const MeteorologicalAnalysisInfo &theL
 {
   // longInfos is stored as a feature
 
-  //  for(const MeteorologicalAnalysis::value_type & longInfo, theLongInfos)
+  //  for(const MeteorologicalAnalysis::value_type & longInfo : theLongInfos)
   //	{
   //	  addLongInfo(longInfo.first, longInfo.second);
   //	}
