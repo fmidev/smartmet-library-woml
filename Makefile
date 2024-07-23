@@ -39,11 +39,12 @@ release: all
 profile: all
 
 $(LIBFILE): $(OBJS)
-	$(CXX) $(CFLAGS) -shared -rdynamic -o $(LIBFILE) $(OBJS) $(LIBS)
+	$(CXX) $(CFLAGS) -shared -rdynamic -o $(LIBFILE) $(OBJS) $(PREFIX_LDFLAGS) $(LIBS)
 
 clean:
 	rm -f $(LIBFILE) *~ $(SUBNAME)/*~
 	rm -rf $(objdir)
+	$(MAKE) -C test clean
 
 format:
 	clang-format -i -style=file $(SUBNAME)/*.h $(SUBNAME)/*.cpp test/*.cpp
