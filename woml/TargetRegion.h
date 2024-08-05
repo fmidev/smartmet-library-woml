@@ -17,8 +17,8 @@ class TargetRegion
  public:
   TargetRegion();
 
-  void envelope(const boost::optional<Envelope>& theEnvelope);
-  const boost::optional<Envelope>& envelope() const;
+  void envelope(const std::optional<Envelope>& theEnvelope);
+  const std::optional<Envelope>& envelope() const;
 
   typedef std::list<std::pair<std::string, std::string> > regionIdList;
   void addRegionId(const std::string& theScheme, const std::string& theRegionId);
@@ -33,7 +33,7 @@ class TargetRegion
   LocalizedNames_const_iterator LocalizedNames_end() const;
 
  private:
-  boost::optional<Envelope> itsBoundedBy;
+  std::optional<Envelope> itsBoundedBy;
   regionIdList itsRegionIds;
   localizedNameList itsLocalizedNames;
 

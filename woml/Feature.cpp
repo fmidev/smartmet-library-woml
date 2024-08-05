@@ -7,7 +7,6 @@
 #include "Feature.h"
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/algorithm/string/replace.hpp>
-#include <boost/foreach.hpp>
 
 namespace woml
 {
@@ -38,7 +37,7 @@ void Feature::creationTime(const Fmi::DateTime& theTime) { itsCreationTime = the
  */
 // ----------------------------------------------------------------------
 
-void Feature::latestModificationTime(const boost::optional<Fmi::DateTime>& theTime)
+void Feature::latestModificationTime(const std::optional<Fmi::DateTime>& theTime)
 {
   itslatestModificationTime = theTime;
 }
@@ -49,7 +48,7 @@ void Feature::latestModificationTime(const boost::optional<Fmi::DateTime>& theTi
  */
 // ----------------------------------------------------------------------
 
-void Feature::validTime(const boost::optional<Fmi::DateTime>& theTime)
+void Feature::validTime(const std::optional<Fmi::DateTime>& theTime)
 {
   itsValidTime = theTime;
 }
@@ -81,7 +80,7 @@ void Feature::addShortInfo(const std::string& theLanguage, const std::string& th
 
 void Feature::addShortInfos(const MeteorologicalObjectInfo& theShortInfos)
 {
-  BOOST_FOREACH (const MeteorologicalObjectInfo::value_type& shortInfo, theShortInfos)
+  for (const MeteorologicalObjectInfo::value_type& shortInfo : theShortInfos)
   {
     addShortInfo(shortInfo.first, shortInfo.second);
   }
@@ -116,14 +115,14 @@ const std::string& Feature::text(const std::string& theLanguage) const
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Fmi::DateTime>& Feature::validTime() const { return itsValidTime; }
+const std::optional<Fmi::DateTime>& Feature::validTime() const { return itsValidTime; }
 // ----------------------------------------------------------------------
 /*
  * \brief Get the latest modification time
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Fmi::DateTime>& Feature::latestModificationTime() const
+const std::optional<Fmi::DateTime>& Feature::latestModificationTime() const
 {
   return itslatestModificationTime;
 }

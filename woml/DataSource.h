@@ -7,25 +7,25 @@
 #pragma once
 
 #include "NumericalModelRun.h"
-#include <boost/optional.hpp>
+#include <optional>
 
 namespace woml
 {
 class DataSource
 {
  public:
-  void numericalModelRun(const boost::optional<NumericalModelRun>& theRun)
+  void numericalModelRun(const std::optional<NumericalModelRun>& theRun)
   {
     itsNumericalModelRun = theRun;
   }
 
-  const boost::optional<NumericalModelRun>& numericalModelRun() const
+  const std::optional<NumericalModelRun>& numericalModelRun() const
   {
     return itsNumericalModelRun;
   }
 
  private:
-  boost::optional<NumericalModelRun> itsNumericalModelRun;
+  std::optional<NumericalModelRun> itsNumericalModelRun;
 
 };  // class DataSource
 }  // namespace woml

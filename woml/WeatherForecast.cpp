@@ -8,7 +8,6 @@
 // ======================================================================
 
 #include "WeatherForecast.h"
-#include <boost/foreach.hpp>
 
 namespace woml
 {
@@ -56,7 +55,7 @@ void WeatherForecast::addFeature(Feature *theFeature, bool timeSynchronized)
  */
 // ----------------------------------------------------------------------
 
-void WeatherForecast::envelope(const boost::optional<Envelope> &theEnvelope)
+void WeatherForecast::envelope(const std::optional<Envelope> &theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
@@ -118,7 +117,7 @@ const Fmi::DateTime &WeatherForecast::creationTime() const { return itsCreationT
 // ----------------------------------------------------------------------
 
 void WeatherForecast::latestModificationTime(
-    const boost::optional<Fmi::DateTime> &theTime)
+    const std::optional<Fmi::DateTime> &theTime)
 {
   itsLatestModificationTime = theTime;
 }
@@ -129,7 +128,7 @@ void WeatherForecast::latestModificationTime(
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Fmi::DateTime> &WeatherForecast::latestModificationTime() const
+const std::optional<Fmi::DateTime> &WeatherForecast::latestModificationTime() const
 {
   return itsLatestModificationTime;
 }
@@ -209,7 +208,7 @@ void WeatherForecast::addShortInfos(const WeatherForecastInfo &theShortInfos)
 {
   // shortInfos is stored as a feature
 
-  //  BOOST_FOREACH(const WeatherForecastInfo::value_type & shortInfo, theShortInfos)
+  //  for(const WeatherForecastInfo::value_type & shortInfo :  theShortInfos)
   //	{
   //	  addShortInfo(shortInfo.first, shortInfo.second);
   //	}
@@ -240,7 +239,7 @@ void WeatherForecast::addLongInfos(const WeatherForecastInfo &theLongInfos)
 {
   // longInfos is stored as a feature
 
-  //  BOOST_FOREACH(const WeatherForecastInfo::value_type & longInfo, theLongInfos)
+  //  for(const WeatherForecastInfo::value_type & longInfo : theLongInfos)
   //	{
   //	  addLongInfo(longInfo.first, longInfo.second);
   //	}

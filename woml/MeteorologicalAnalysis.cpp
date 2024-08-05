@@ -8,7 +8,6 @@
 // ======================================================================
 
 #include "MeteorologicalAnalysis.h"
-#include <boost/foreach.hpp>
 
 namespace woml
 {
@@ -56,7 +55,7 @@ void MeteorologicalAnalysis::addFeature(Feature *theFeature, bool timeSynchroniz
  */
 // ----------------------------------------------------------------------
 
-void MeteorologicalAnalysis::envelope(const boost::optional<Envelope> &theEnvelope)
+void MeteorologicalAnalysis::envelope(const std::optional<Envelope> &theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }
@@ -126,7 +125,7 @@ const Fmi::DateTime &MeteorologicalAnalysis::creationTime() const
 // ----------------------------------------------------------------------
 
 void MeteorologicalAnalysis::latestModificationTime(
-    const boost::optional<Fmi::DateTime> &theTime)
+    const std::optional<Fmi::DateTime> &theTime)
 {
   itsLatestModificationTime = theTime;
 }
@@ -137,7 +136,7 @@ void MeteorologicalAnalysis::latestModificationTime(
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Fmi::DateTime> &MeteorologicalAnalysis::latestModificationTime()
+const std::optional<Fmi::DateTime> &MeteorologicalAnalysis::latestModificationTime()
     const
 {
   return itsLatestModificationTime;
@@ -224,7 +223,7 @@ void MeteorologicalAnalysis::addShortInfos(const MeteorologicalAnalysisInfo &the
 {
   // shortInfos is stored as a feature
 
-  //  BOOST_FOREACH(const MeteorologicalAnalysis::value_type & shortInfo, theShortInfos)
+  //  for(const MeteorologicalAnalysis::value_type & shortInfo : theShortInfos)
   //	{
   //	  addShortInfo(shortInfo.first, shortInfo.second);
   //	}
@@ -255,7 +254,7 @@ void MeteorologicalAnalysis::addLongInfos(const MeteorologicalAnalysisInfo &theL
 {
   // longInfos is stored as a feature
 
-  //  BOOST_FOREACH(const MeteorologicalAnalysis::value_type & longInfo, theLongInfos)
+  //  for(const MeteorologicalAnalysis::value_type & longInfo : theLongInfos)
   //	{
   //	  addLongInfo(longInfo.first, longInfo.second);
   //	}

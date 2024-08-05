@@ -27,10 +27,10 @@
 
 #include <boost/algorithm/string.hpp>
 #include <macgyver/DateTime.h>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <boost/lexical_cast.hpp>
-#include <boost/optional.hpp>
-#include <boost/shared_ptr.hpp>
+#include <optional>
+#include <memory>
 
 #include <iostream>
 #include <sstream>
@@ -190,8 +190,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<std::string> parse_woml_orientation(DOMNode *node){
-    TRY(){boost::optional<std::string> orientation;
+std::optional<std::string> parse_woml_orientation(DOMNode *node){
+    TRY(){std::optional<std::string> orientation;
 
 DOMElement *elem = (DOMElement *)node;
 std::string o = ATTR(elem, "orientation");
@@ -209,8 +209,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Point> parse_gml_point(DOMNode *node, const char *pathExpr){
-    TRYFA(pathExpr){boost::optional<Point> p;
+std::optional<Point> parse_gml_point(DOMNode *node, const char *pathExpr){
+    TRYFA(pathExpr){std::optional<Point> p;
 
 AutoRelease<DOMXPathExpression> expression(EXPR(std::string(pathExpr) + "/text()[1]"));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
@@ -238,12 +238,12 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Rect> parse_rect_corners(DOMNode *node,
+std::optional<Rect> parse_rect_corners(DOMNode *node,
                                          const char *lowerCornerPathExpr,
                                          const char *upperCornerPathExpr){
-    TRY(){boost::optional<Rect> rect;
-boost::optional<Point> lowerCorner = parse_gml_point(node, lowerCornerPathExpr);
-boost::optional<Point> upperCorner = parse_gml_point(node, upperCornerPathExpr);
+    TRY(){std::optional<Rect> rect;
+std::optional<Point> lowerCorner = parse_gml_point(node, lowerCornerPathExpr);
+std::optional<Point> upperCorner = parse_gml_point(node, upperCornerPathExpr);
 
 if (lowerCorner && upperCorner) rect = Rect(lowerCorner, upperCorner);
 
@@ -258,20 +258,20 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Envelope> parse_gml_envelope(DOMNode *node){
-    TRY(){boost::optional<Envelope> envelope;
+std::optional<Envelope> parse_gml_envelope(DOMNode *node){
+    TRY(){std::optional<Envelope> envelope;
 
 DOMElement *elem = (DOMElement *)node;
 std::string srsName = ATTR(elem, "srsName");
 std::string srsDimension = ATTR(elem, "srsDimension");
 
-boost::optional<Rect> rect = parse_rect_corners(node, "gml:lowerCorner", "gml:upperCorner");
+std::optional<Rect> rect = parse_rect_corners(node, "gml:lowerCorner", "gml:upperCorner");
 
 if (rect)
   envelope = Envelope(rect, srsName, srsDimension);
 else
 {
-  boost::optional<Point> point = parse_gml_point(node, "gml:coordinates");
+  std::optional<Point> point = parse_gml_point(node, "gml:coordinates");
 
   if (point) envelope = Envelope(point, srsName, srsDimension);
 }
@@ -287,10 +287,10 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Envelope> parse_gml_bounded_by(DOMNode *node,
+std::optional<Envelope> parse_gml_bounded_by(DOMNode *node,
                                                const char *pathExpr = "gml:boundedBy/gml:Envelope")
 {
-  boost::optional<Envelope> envelope;
+  std::optional<Envelope> envelope;
 
   TRYFA(pathExpr)
   {
@@ -311,9 +311,9 @@ boost::optional<Envelope> parse_gml_bounded_by(DOMNode *node,
  */
 // ----------------------------------------------------------------------
 
-boost::optional<NumericalSingleValueMeasure> parse_woml_numerical_single_value_measure(
+std::optional<NumericalSingleValueMeasure> parse_woml_numerical_single_value_measure(
     DOMNode *node,
-    const char *pathExpr){TRYFA(pathExpr){boost::optional<NumericalSingleValueMeasure> meas;
+    const char *pathExpr){TRYFA(pathExpr){std::optional<NumericalSingleValueMeasure> meas;
 
 AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
@@ -346,12 +346,12 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<NumericalValueRangeMeasure> parse_woml_numerical_value_range_measure(
+std::optional<NumericalValueRangeMeasure> parse_woml_numerical_value_range_measure(
     DOMNode *node, const char *lowerLimitPathExpr, const char *upperLimitPathExpr){
-    TRY(){boost::optional<NumericalValueRangeMeasure> meas;
-boost::optional<NumericalSingleValueMeasure> lowerLimit =
+    TRY(){std::optional<NumericalValueRangeMeasure> meas;
+std::optional<NumericalSingleValueMeasure> lowerLimit =
     parse_woml_numerical_single_value_measure(node, lowerLimitPathExpr);
-boost::optional<NumericalSingleValueMeasure> upperLimit =
+std::optional<NumericalSingleValueMeasure> upperLimit =
     parse_woml_numerical_single_value_measure(node, upperLimitPathExpr);
 
 if (lowerLimit && upperLimit) meas = NumericalValueRangeMeasure(*lowerLimit, *upperLimit);
@@ -368,7 +368,7 @@ CATCH
 // ----------------------------------------------------------------------
 
 Elevation parse_woml_elevation(DOMNode *node){TRY(){
-    boost::optional<NumericalValueRangeMeasure> range = parse_woml_numerical_value_range_measure(
+    std::optional<NumericalValueRangeMeasure> range = parse_woml_numerical_value_range_measure(
         node,
         "womlqty:elevation/womlcore:Elevation/womlcore:valueLowerLimit",
         "womlqty:elevation/womlcore:Elevation/womlcore:valueUpperLimit");
@@ -557,8 +557,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Fmi::DateTime> read_text_time(DOMNode *node, const char *pathExpr){
-    TRYFA(pathExpr){boost::optional<Fmi::DateTime> t;
+std::optional<Fmi::DateTime> read_text_time(DOMNode *node, const char *pathExpr){
+    TRYFA(pathExpr){std::optional<Fmi::DateTime> t;
 
 AutoRelease<DOMXPathExpression> expression(EXPR(std::string(pathExpr) + "/text()[1]"));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
@@ -625,7 +625,7 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Fmi::DateTime> parse_gml_time_position_union(DOMNode *node,
+std::optional<Fmi::DateTime> parse_gml_time_position_union(DOMNode *node,
                                                                         const char *pathExpr){TRY(){
     // TODO: parse_gml_time_position_union: only read_text_time/Fmi::TimeParser::parse_xml used
     return read_text_time(node, pathExpr);
@@ -639,7 +639,7 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Fmi::DateTime> parse_gml_time_instant(DOMNode *node,
+std::optional<Fmi::DateTime> parse_gml_time_instant(DOMNode *node,
                                                                  const char *pathExpr){
     TRY(){return parse_gml_time_position_union(node, pathExpr);
 }
@@ -652,12 +652,12 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Fmi::TimePeriod> parse_gml_time_period(
+std::optional<Fmi::TimePeriod> parse_gml_time_period(
     DOMNode *node, const char *beginPositionPathExpr, const char *endPositionPathExpr){
-    TRY(){boost::optional<Fmi::TimePeriod> period;
-boost::optional<Fmi::DateTime> starttime =
+    TRY(){std::optional<Fmi::TimePeriod> period;
+std::optional<Fmi::DateTime> starttime =
     parse_gml_time_position_union(node, beginPositionPathExpr);
-boost::optional<Fmi::DateTime> endtime =
+std::optional<Fmi::DateTime> endtime =
     parse_gml_time_position_union(node, endPositionPathExpr);
 
 if (starttime && endtime) period = Fmi::TimePeriod(*starttime, *endtime);
@@ -674,7 +674,7 @@ CATCH
 // ----------------------------------------------------------------------
 
 Fmi::DateTime parse_woml_required_time(DOMNode *node, const char *pathExpr){
-    TRYFA(pathExpr){boost::optional<Fmi::DateTime> t = read_text_time(node, pathExpr);
+    TRYFA(pathExpr){std::optional<Fmi::DateTime> t = read_text_time(node, pathExpr);
 
 if (!t) throw std::runtime_error("Required datetime element missing");
 
@@ -701,7 +701,7 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Fmi::DateTime> parse_woml_latest_modification_time(DOMNode *node){
+std::optional<Fmi::DateTime> parse_woml_latest_modification_time(DOMNode *node){
     TRY(){return read_text_time(node, "womlcore:latestModificationTime");
 }
 CATCH
@@ -713,9 +713,9 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Fmi::TimePeriod> parse_gml_valid_time(DOMNode *node){
-    TRY(){boost::optional<Fmi::TimePeriod> period;
-boost::optional<Fmi::DateTime> t =
+std::optional<Fmi::TimePeriod> parse_gml_valid_time(DOMNode *node){
+    TRY(){std::optional<Fmi::TimePeriod> period;
+std::optional<Fmi::DateTime> t =
     parse_gml_time_instant(node, "gml:validTime/gml:TimeInstant/gml:timePosition");
 
 if (t)
@@ -736,9 +736,9 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<Fmi::DateTime> parse_gml_valid_time_instant(DOMNode *node){
+std::optional<Fmi::DateTime> parse_gml_valid_time_instant(DOMNode *node){
     TRYFA(XMLChptr2str(node->getNodeName())){
-        boost::optional<Fmi::TimePeriod> p = parse_gml_valid_time(node);
+        std::optional<Fmi::TimePeriod> p = parse_gml_valid_time(node);
 
 if (p)
 {
@@ -763,7 +763,7 @@ Fmi::TimePeriod parse_gml_required_valid_time(DOMNode *node)
 {
   TRYFA(XMLChptr2str(node->getNodeName()))
   {
-    boost::optional<Fmi::TimePeriod> period = parse_gml_valid_time(node);
+    std::optional<Fmi::TimePeriod> period = parse_gml_valid_time(node);
 
     if (!period) throw std::runtime_error("Required validtime element missing");
 
@@ -997,7 +997,7 @@ T *parse_woml_abstract_point(DOMNode *node)
     point->envelope(parse_gml_bounded_by(node));
     point->validTime(parse_gml_valid_time_instant(node));
 
-    boost::optional<Point> p = parse_gml_point(node, "womlcore:controlPoint/gml:Point/gml:pos");
+    std::optional<Point> p = parse_gml_point(node, "womlcore:controlPoint/gml:Point/gml:pos");
     if (!p) throw std::runtime_error("Required point element missing");
 
     point->point(p);
@@ -1051,7 +1051,7 @@ T *parse_woml_storm_type(DOMNode *theNode)
   {
     T *st = parse_woml_abstract_point<T>(theNode);
     RainPhase rainPhase = unknown;
-    boost::optional<bool> isThunderStorm;
+    std::optional<bool> isThunderStorm;
 
     DOMNode *node;
 
@@ -1146,7 +1146,7 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::optional<NumericalModelRun> parse_woml_numerical_model_run(DOMNode *theNode){
+std::optional<NumericalModelRun> parse_woml_numerical_model_run(DOMNode *theNode){
     TRYFA(XMLChptr2str(theNode->getNodeName())){DOMNode * node;
 Fmi::DateTime analysisTime = parse_woml_required_time(theNode, "womlcore:analysisTime");
 
@@ -1179,7 +1179,7 @@ DataSource parse_woml_used_reference_data(DOMNode *node)
   TRYFA(XMLChptr2str(node->getNodeName()))
   {
     DataSource source;
-    boost::optional<NumericalModelRun> model;
+    std::optional<NumericalModelRun> model;
 
     AutoRelease<DOMXPathExpression> expression(
         EXPR("womlcore:usedReferenceData/womlcore:NumericalModelRunForecastReference"));
@@ -1218,7 +1218,7 @@ TRYA(segmentIndexPathExpr)
   {
     int index = boost::lexical_cast<int>(XMLChptr2str(((DOMText *)node)->getNodeValue()));
 
-    boost::optional<NumericalSingleValueMeasure> meas =
+    std::optional<NumericalSingleValueMeasure> meas =
         parse_woml_numerical_single_value_measure(theNode, "womlswo:maximumWindSpeed");
     if (!meas) throw std::runtime_error("Required maximum wind speed element missing");
 
@@ -1272,7 +1272,7 @@ CloudArea *parse_woml_cloud_area(DOMNode *theNode){
 
 CloudType cloudType = UNKNOWN;
 std::string cloudTypeName("");
-boost::optional<double> cloudCoverPercent;
+std::optional<double> cloudCoverPercent;
 std::string cloudCoverEighths;
 
 DOMNode *node;
@@ -1333,7 +1333,7 @@ SurfacePrecipitationArea *parse_woml_surface_precipitation_area(DOMNode *theNode
     SurfacePrecipitationArea *area = parse_woml_abstract_surface<SurfacePrecipitationArea>(theNode);
 RainPhase rainPhase = unknown;
 std::string rainPhaseName;
-boost::optional<double> continuity, showeriness;
+std::optional<double> continuity, showeriness;
 
 DOMNode *node;
 if ((node = searchNode(theNode, "womlswo:rainPhase/text()[1]")))
@@ -1521,7 +1521,7 @@ MeasureValue *parse_woml_parameter_measure_value(DOMNode *node,
         return parse_woml_flow_direction_measure(node);
       else if (tagName == "NumericalSingleValueMeasure")
       {
-        boost::optional<NumericalSingleValueMeasure> meas =
+        std::optional<NumericalSingleValueMeasure> meas =
             parse_woml_numerical_single_value_measure(node, "womlqty:numericalValue");
 
         if (meas) return new NumericalSingleValueMeasure(*meas);
@@ -1530,7 +1530,7 @@ MeasureValue *parse_woml_parameter_measure_value(DOMNode *node,
       }
       else if (tagName == "NumericalValueRangeMeasure")
       {
-        boost::optional<NumericalValueRangeMeasure> meas = parse_woml_numerical_value_range_measure(
+        std::optional<NumericalValueRangeMeasure> meas = parse_woml_numerical_value_range_measure(
             node, "womlqty:numericalValueLowerLimit", "womlqty:numericalValueUpperLimit");
 
         if (meas) return new NumericalValueRangeMeasure(*meas);
@@ -1625,7 +1625,7 @@ CATCH
 
 GeophysicalParameterValueSet *parse_woml_parameter_timeseriesslot(
     DOMNode *node,
-    boost::optional<Fmi::DateTime> &validTime,
+    std::optional<Fmi::DateTime> &validTime,
     bool multipleValues = false)  // By default load only parameter's first value (category)
 {
   TRY()
@@ -1667,7 +1667,7 @@ T *parse_woml_parameter_timeseriespoint(
     AutoRelease<DOMXPathResult> result(
         expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
 
-    boost::optional<Fmi::DateTime> validTime;
+    std::optional<Fmi::DateTime> validTime;
 
     while ((node = getResultNode(result)))
     {
@@ -1860,8 +1860,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::shared_ptr<MeteorologicalAnalysis> parse_woml_meteorological_analysis(DOMNode *node){
-    TRY(){boost::shared_ptr<MeteorologicalAnalysis> analysis(new MeteorologicalAnalysis());
+std::shared_ptr<MeteorologicalAnalysis> parse_woml_meteorological_analysis(DOMNode *node){
+    TRY(){std::shared_ptr<MeteorologicalAnalysis> analysis(new MeteorologicalAnalysis());
 
 // Note: envelope is taken from targetRegion
 
@@ -1897,8 +1897,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-boost::shared_ptr<WeatherForecast> parse_woml_weather_forecast(documentType docType, DOMNode *node){
-    TRY(){boost::shared_ptr<WeatherForecast> forecast(new WeatherForecast());
+std::shared_ptr<WeatherForecast> parse_woml_weather_forecast(documentType docType, DOMNode *node){
+    TRY(){std::shared_ptr<WeatherForecast> forecast(new WeatherForecast());
 
 // Note: envelope is taken from targetRegion
 
@@ -1934,11 +1934,11 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-Weather parse(const boost::filesystem::path &thePath, documentType docType, bool strict)
+Weather parse(const std::filesystem::path &thePath, documentType docType, bool strict)
 {
   TRY()
   {
-    if (!boost::filesystem::exists(thePath))
+    if (!std::filesystem::exists(thePath))
       throw std::runtime_error("The file '" + thePath.string() + "' does not exist");
 
     // Initialise Xerces-C and XQilla

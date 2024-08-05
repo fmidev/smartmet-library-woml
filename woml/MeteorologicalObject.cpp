@@ -97,7 +97,7 @@ void MeteorologicalObject::synchronize()
           // to_iso_string(itts->validTime()).c_str(),to_iso_string(*itti).c_str());
           GeophysicalParameterValueSet *pvs =
               new GeophysicalParameterValueSet(**(pitts->values().begin()));
-          (*itpp)->add(boost::optional<Fmi::DateTime>(*itti), pvs);
+          (*itpp)->add(std::optional<Fmi::DateTime>(*itti), pvs);
 
           missing = true;
         }

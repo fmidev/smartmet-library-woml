@@ -19,7 +19,7 @@ TimeSeriesSlot::TimeSeriesSlot(const Fmi::DateTime& theValidTime,
                                GeophysicalParameterValueSet* theValues)
     : itsValidTime(theValidTime), itsValues()
 {
-  itsValues.push_back(boost::shared_ptr<GeophysicalParameterValueSet>(theValues));
+  itsValues.push_back(std::shared_ptr<GeophysicalParameterValueSet>(theValues));
 }
 
 // ----------------------------------------------------------------------
@@ -30,7 +30,7 @@ TimeSeriesSlot::TimeSeriesSlot(const Fmi::DateTime& theValidTime,
 
 void TimeSeriesSlot::add(GeophysicalParameterValueSet* theValues)
 {
-  itsValues.push_back(boost::shared_ptr<GeophysicalParameterValueSet>(theValues));
+  itsValues.push_back(std::shared_ptr<GeophysicalParameterValueSet>(theValues));
 }
 
 // ----------------------------------------------------------------------
@@ -41,7 +41,7 @@ void TimeSeriesSlot::add(GeophysicalParameterValueSet* theValues)
 
 void TimeSeriesSlot::sort()
 {
-  std::list<boost::shared_ptr<GeophysicalParameterValueSet> >::iterator it = itsValues.begin();
+  std::list<std::shared_ptr<GeophysicalParameterValueSet> >::iterator it = itsValues.begin();
 
   for (; (it != itsValues.end()); it++)
     (*it)->sort();
@@ -73,12 +73,12 @@ const Fmi::DateTime& TimeSeriesSlot::validTime() const { return itsValidTime; }
  */
 // ----------------------------------------------------------------------
 
-const std::list<boost::shared_ptr<GeophysicalParameterValueSet> >& TimeSeriesSlot::values() const
+const std::list<std::shared_ptr<GeophysicalParameterValueSet> >& TimeSeriesSlot::values() const
 {
   return itsValues;
 }
 
-std::list<boost::shared_ptr<GeophysicalParameterValueSet> >& TimeSeriesSlot::editableValues()
+std::list<std::shared_ptr<GeophysicalParameterValueSet> >& TimeSeriesSlot::editableValues()
 {
   return itsValues;
 }

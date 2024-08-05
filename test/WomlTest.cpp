@@ -2,14 +2,14 @@
 
 #include "Parser.h"
 #include "Weather.h"
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 #include <iostream>
 #include <stdexcept>
 #include <string>
 
 using namespace std;
-using namespace boost::filesystem;
+using namespace std::filesystem;
 
 path inputdir = "input";
 path outputdir = "results";

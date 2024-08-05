@@ -15,7 +15,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-void AbstractLineObject::orientation(const boost::optional<std::string>& theOrientation)
+void AbstractLineObject::orientation(const std::optional<std::string>& theOrientation)
 {
   itsOrientation = (theOrientation ? *theOrientation : "+");
 }
@@ -33,7 +33,7 @@ const std::string& AbstractLineObject::orientation() const { return *itsOrientat
  */
 // ----------------------------------------------------------------------
 
-void AbstractLineObject::envelope(const boost::optional<Envelope>& theEnvelope)
+void AbstractLineObject::envelope(const std::optional<Envelope>& theEnvelope)
 {
   itsBoundedBy = theEnvelope;
 }

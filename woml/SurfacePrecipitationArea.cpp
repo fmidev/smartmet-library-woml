@@ -50,7 +50,7 @@ void SurfacePrecipitationArea::rainPhase(RainPhase thePhase, const std::string& 
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::continuity(boost::optional<double> thePercentage)
+void SurfacePrecipitationArea::continuity(std::optional<double> thePercentage)
 {
   itsContinuity = thePercentage;
 }
@@ -61,7 +61,7 @@ void SurfacePrecipitationArea::continuity(boost::optional<double> thePercentage)
  */
 // ----------------------------------------------------------------------
 
-void SurfacePrecipitationArea::showeriness(boost::optional<double> thePercentage)
+void SurfacePrecipitationArea::showeriness(std::optional<double> thePercentage)
 {
   itsShoweriness = thePercentage;
 }
@@ -73,7 +73,7 @@ void SurfacePrecipitationArea::showeriness(boost::optional<double> thePercentage
 // ----------------------------------------------------------------------
 
 void SurfacePrecipitationArea::approximateRainFall(
-    const boost::optional<NumericalSingleValueMeasure>& theAmount)
+    const std::optional<NumericalSingleValueMeasure>& theAmount)
 {
   itsApproximateRainFall = theAmount;
 }

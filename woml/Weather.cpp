@@ -69,7 +69,7 @@ const WeatherForecast& Weather::forecast() const
  */
 // ----------------------------------------------------------------------
 
-void Weather::analysis(boost::shared_ptr<MeteorologicalAnalysis> theAnalysis)
+void Weather::analysis(std::shared_ptr<MeteorologicalAnalysis> theAnalysis)
 {
   itsAnalysis = theAnalysis;
 }
@@ -80,7 +80,7 @@ void Weather::analysis(boost::shared_ptr<MeteorologicalAnalysis> theAnalysis)
  */
 // ----------------------------------------------------------------------
 
-void Weather::forecast(boost::shared_ptr<WeatherForecast> theForecast)
+void Weather::forecast(std::shared_ptr<WeatherForecast> theForecast)
 {
   itsForecast = theForecast;
 }

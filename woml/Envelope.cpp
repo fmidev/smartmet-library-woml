@@ -22,7 +22,7 @@ Envelope::Envelope() : itsBounded(false), itsPoint(), itsRect(), itsSrsName(), i
  */
 // ----------------------------------------------------------------------
 
-Envelope::Envelope(const boost::optional<Point>& thePoint,
+Envelope::Envelope(const std::optional<Point>& thePoint,
                    std::string theSrsName,
                    std::string theSrsDimension)
     : itsBounded(false),
@@ -39,7 +39,7 @@ Envelope::Envelope(const boost::optional<Point>& thePoint,
  */
 // ----------------------------------------------------------------------
 
-Envelope::Envelope(const boost::optional<Rect>& theRect,
+Envelope::Envelope(const std::optional<Rect>& theRect,
                    std::string theSrsName,
                    std::string theSrsDimension)
     : itsBounded(theRect ? true : false),
@@ -63,16 +63,16 @@ bool Envelope::bounded() const { return itsBounded; }
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Point>& Envelope::point() const { return itsPoint; }
+const std::optional<Point>& Envelope::point() const { return itsPoint; }
 // ----------------------------------------------------------------------
 /*!
  * \brief Lower corner accessor
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Point> Envelope::lowerCorner() const
+const std::optional<Point> Envelope::lowerCorner() const
 {
-  boost::optional<Point> lc;
+  std::optional<Point> lc;
 
   if (itsRect) lc = itsRect->lowerCorner();
 
@@ -85,9 +85,9 @@ const boost::optional<Point> Envelope::lowerCorner() const
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<Point> Envelope::upperCorner() const
+const std::optional<Point> Envelope::upperCorner() const
 {
-  boost::optional<Point> uc;
+  std::optional<Point> uc;
 
   if (itsRect) uc = itsRect->upperCorner();
 

@@ -31,15 +31,15 @@ GeophysicalParameterValue::GeophysicalParameterValue(const GeophysicalParameter&
 
 bool GeophysicalParameterValue::operator<(const GeophysicalParameterValue& theOther) const
 {
-  boost::optional<NumericalSingleValueMeasure> itsBoundedUpper =
+  std::optional<NumericalSingleValueMeasure> itsBoundedUpper =
       (itsElevation.bounded() ? itsElevation.upperLimit() : NumericalSingleValueMeasure());
-  const boost::optional<NumericalSingleValueMeasure>& itsUpperLimit =
+  const std::optional<NumericalSingleValueMeasure>& itsUpperLimit =
       (itsElevation.bounded() ? itsBoundedUpper : itsElevation.value());
 
-  boost::optional<NumericalSingleValueMeasure> theBoundedUpper =
+  std::optional<NumericalSingleValueMeasure> theBoundedUpper =
       (theOther.elevation().bounded() ? theOther.elevation().upperLimit()
                                       : NumericalSingleValueMeasure());
-  const boost::optional<NumericalSingleValueMeasure>& theUpperLimit =
+  const std::optional<NumericalSingleValueMeasure>& theUpperLimit =
       (theOther.elevation().bounded() ? theBoundedUpper : theOther.elevation().value());
 
   if (!itsUpperLimit)
@@ -61,13 +61,13 @@ bool GeophysicalParameterValue::operator<(const GeophysicalParameterValue& theOt
 void GeophysicalParameterValue::labelElevation(const Elevation& theLabelElevation)
 {
   const woml::Elevation& e = theLabelElevation;
-  boost::optional<woml::NumericalSingleValueMeasure> itsBoundedLo =
+  std::optional<woml::NumericalSingleValueMeasure> itsBoundedLo =
       (e.bounded() ? e.lowerLimit() : woml::NumericalSingleValueMeasure());
-  const boost::optional<woml::NumericalSingleValueMeasure>& itsLoLimit =
+  const std::optional<woml::NumericalSingleValueMeasure>& itsLoLimit =
       (e.bounded() ? itsBoundedLo : e.value());
-  boost::optional<woml::NumericalSingleValueMeasure> itsBoundedHi =
+  std::optional<woml::NumericalSingleValueMeasure> itsBoundedHi =
       (e.bounded() ? e.upperLimit() : woml::NumericalSingleValueMeasure());
-  const boost::optional<woml::NumericalSingleValueMeasure>& itsHiLimit =
+  const std::optional<woml::NumericalSingleValueMeasure>& itsHiLimit =
       (e.bounded() ? itsBoundedHi : e.value());
 
   if ((!itsLoLimit) || (!itsHiLimit))

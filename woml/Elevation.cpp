@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "Elevation.h"
-#include <boost/optional.hpp>
+#include <optional>
 #include <cassert>
 
 namespace woml
@@ -23,7 +23,7 @@ Elevation::Elevation() : itsBounded(false), itsValue(), itsRange() {}
  */
 // ----------------------------------------------------------------------
 
-Elevation::Elevation(const boost::optional<NumericalSingleValueMeasure>& theValue)
+Elevation::Elevation(const std::optional<NumericalSingleValueMeasure>& theValue)
     : itsBounded(false), itsValue(theValue), itsRange()
 {
 }
@@ -34,7 +34,7 @@ Elevation::Elevation(const boost::optional<NumericalSingleValueMeasure>& theValu
  */
 // ----------------------------------------------------------------------
 
-Elevation::Elevation(const boost::optional<NumericalValueRangeMeasure>& theRange)
+Elevation::Elevation(const std::optional<NumericalValueRangeMeasure>& theRange)
     : itsBounded(theRange ? true : false), itsValue(), itsRange(theRange)
 {
 }
@@ -52,7 +52,7 @@ bool Elevation::bounded() const { return itsBounded; }
  */
 // ----------------------------------------------------------------------
 
-const boost::optional<NumericalSingleValueMeasure>& Elevation::value() const
+const std::optional<NumericalSingleValueMeasure>& Elevation::value() const
 {
   assert(itsValue);
   return itsValue;
@@ -64,11 +64,11 @@ const boost::optional<NumericalSingleValueMeasure>& Elevation::value() const
  */
 // ----------------------------------------------------------------------
 
-boost::optional<NumericalSingleValueMeasure> Elevation::lowerLimit() const
+std::optional<NumericalSingleValueMeasure> Elevation::lowerLimit() const
 {
   assert(itsBounded);
 
-  boost::optional<NumericalSingleValueMeasure> limit;
+  std::optional<NumericalSingleValueMeasure> limit;
   if (itsRange) limit = itsRange->lowerLimit();
 
   return limit;
@@ -80,11 +80,11 @@ boost::optional<NumericalSingleValueMeasure> Elevation::lowerLimit() const
  */
 // ----------------------------------------------------------------------
 
-boost::optional<NumericalSingleValueMeasure> Elevation::upperLimit() const
+std::optional<NumericalSingleValueMeasure> Elevation::upperLimit() const
 {
   assert(itsBounded);
 
-  boost::optional<NumericalSingleValueMeasure> limit;
+  std::optional<NumericalSingleValueMeasure> limit;
   if (itsRange) limit = itsRange->upperLimit();
 
   return limit;
