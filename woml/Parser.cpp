@@ -27,6 +27,7 @@
 
 #include <boost/algorithm/string.hpp>
 #include <macgyver/DateTime.h>
+#include <macgyver/StringConversion.h>
 #include <filesystem>
 #include <boost/lexical_cast.hpp>
 #include <optional>
@@ -101,10 +102,10 @@ const char *nsResolver::_namespaces[] = {"gml",
   throw std::runtime_error(std::string(EXCFUNC) + ": XQillaException: " + std::string(msg))
 #define DXPEXC(code)                              \
   throw std::runtime_error(std::string(EXCFUNC) + \
-                           ": DOMXPathException: " + boost::lexical_cast<std::string>(code))
+                           ": DOMXPathException: " + Fmi::to_string(code))
 #define DEXC(code)                                \
   throw std::runtime_error(std::string(EXCFUNC) + \
-                           ": DOMException: " + boost::lexical_cast<std::string>(code))
+                           ": DOMException: " + Fmi::to_string(code))
 #define REXC(msg) throw std::runtime_error(std::string(msg) + "\nat " + std::string(EXCFUNC))
 #define UEXC REXC("unknown exception")
 #define TRY()                                 \
@@ -1447,7 +1448,7 @@ MeasureValue *parse_woml_category_value_measure(
     DOMNode *node, uint nodeIndex, const char *pathExpr = "womlqty:category"){TRYFA(pathExpr){
     if ((node = searchNode(node,
                            (std::string(pathExpr) + "[" +
-                            boost::lexical_cast<std::string>(nodeIndex) + "]")
+                            Fmi::to_string(nodeIndex) + "]")
                                .c_str()))){DOMNode *text = ((DOMText *)searchNode(node, "text()"));
 DOMElement *elem = (DOMElement *)node;
 
