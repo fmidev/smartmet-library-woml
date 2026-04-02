@@ -1,27 +1,25 @@
-# Weather Object Model Library
+# smartmet-library-woml
 
-The WOML provides tools for reading WOML files created by the SmartMet Mirwa Editor
-and used for example by smartmet-frontier to render SVG weather charts.
+Part of [SmartMet Server](https://github.com/fmidev/smartmet-library-spine). See the [SmartMet Server documentation](https://github.com/fmidev/smartmet-library-spine) for an overview of the ecosystem.
 
-## Licence
-The library is not currently public.
+## Overview
 
-## How to contribute
-Found a bug? Want to implement a new feature? Your contribution is very welcome!
+The WOML (Weather Object Model) library provides tools for reading WOML files. WOML is an XML-based format used by the SmartMet Mirwa editor to represent weather analysis and forecast objects (fronts, pressure systems, precipitation areas).
 
-Small changes and bug fixes can be submitted via pull request. In larger contributions, premilinary plan is recommended (in GitHub wiki). 
+## Features
 
-CLA is required in order to contribute. Please contact us for more information!
+- WOML file parsing
+- Weather object data structures (fronts, pressure centers, precipitation areas)
+- Used by the frontier renderer for SVG chart generation
 
-## Documentation
-Each module is documented in module [module wiki](../../wiki). 
+## Usage
 
-## Communication and Resources
-You may contact us from following channels:
-* Email: beta@fmi.fi
-* Facebook: https://www.facebook.com/fmibeta/
-* GitHub: [issues](../../issues)
+Used by [smartmet-frontier](https://github.com/fmidev/smartmet-frontier) to read WOML files and render SVG weather charts.
 
-Other resources which may be useful:
-* Presentation about the server: http://www.slideshare.net/tervo/smartmet-server-providing-metocean-data
-* Our public web pages (in Finnish):  http://ilmatieteenlaitos.fi/avoin-lahdekoodi
+## License
+
+This library is not currently public.
+
+## Contributing
+
+Contact us at beta@fmi.fi for more information.
