@@ -3,7 +3,7 @@
 %define SPECNAME smartmet-library-%{DIRNAME}
 Summary: woml library
 Name: %{SPECNAME}
-Version: 26.2.4
+Version: 26.4.13
 Release: 1%{?dist}.fmi
 License: MIT
 Group: Development/Libraries
@@ -21,15 +21,15 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: %{smartmet_boost}-devel
-BuildRequires: smartmet-library-macgyver-devel >= 26.2.4
+BuildRequires: smartmet-library-macgyver-devel >= 26.4.13
 BuildRequires: xqilla-devel
-Requires: smartmet-library-macgyver >= 26.2.4
+Requires: smartmet-library-macgyver >= 26.4.13
 Requires: xqilla
 Requires: xerces-c
 Provides: %{SPECNAME}
 Obsoletes: libsmartmet-woml < 17.1.4
 #TestRequires: %{smartmet_boost}-devel
-#TestRequires: smartmet-library-macgyver-devel >= 26.2.4
+#TestRequires: smartmet-library-macgyver-devel >= 26.4.13
 #TestRequires: smartmet-library-regression
 #TestRequires: gcc-c++
 #TestRequires: xqilla-devel
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/smartmet/%{DIRNAME}/*.h
 
 %changelog
+* Mon Apr 13 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> 26.4.13-1.fmi
+- Repackaged due to API changes
+
 * Wed Feb  4 2026 Andris Pavēnis <andris.pavenis@fmi.fi> 26.2.4-1.fmi
 - Update to proj-9.7, gdal-3.12, fmt-12
 
