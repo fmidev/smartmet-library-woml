@@ -67,7 +67,7 @@ class nsResolver
 
     return nsR;
   }
-  static DOMXPathExpression *createExpression(std::string expr)
+  static DOMXPathExpression *createExpression(const std::string& expr)
   {
     return _doc->createExpression(X(expr.c_str()), _nsR);
   }
