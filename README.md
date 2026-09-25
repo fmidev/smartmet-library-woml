@@ -16,6 +16,10 @@ The WOML (Weather Object Model) library provides tools for reading WOML files. W
 
 Used by [smartmet-frontier](https://github.com/fmidev/smartmet-frontier) to read WOML files and render SVG weather charts.
 
+## Documentation
+
+- [Developer guide](docs/developer-guide.md): parsing, object model, adding feature types, pitfalls
+
 ## License
 
 This library is not currently public.

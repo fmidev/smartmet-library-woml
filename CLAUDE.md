@@ -4,6 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
+Full developer documentation: `docs/developer-guide.md`.
+
 `smartmet-library-woml` — a C++17 library for parsing WOML (Weather Object Model) XML files. WOML is the format used by FMI's Mirwa editor to represent weather analysis and forecast objects (fronts, pressure systems, precipitation areas, cloud layers, etc.). The primary consumer is `smartmet-frontier`, which renders WOML data into SVG weather charts.
 
 ## Build commands
