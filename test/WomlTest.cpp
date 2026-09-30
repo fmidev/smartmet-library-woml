@@ -81,6 +81,26 @@ void jet()
   TEST_PASSED();
 }
 
+void unknownobject()
+{
+  // Strict mode rejects unknown meteorological object types
+  bool thrown = false;
+  try
+  {
+    woml::parse(inputdir / "unknownobject.xml", woml::conceptualmodelanalysis, true);
+  }
+  catch (...)
+  {
+    thrown = true;
+  }
+  if (!thrown)
+    TEST_FAILED("Unknown object type should be an error in strict mode");
+
+  // Non-strict mode skips them
+  woml::parse(inputdir / "unknownobject.xml", woml::conceptualmodelanalysis, false);
+  TEST_PASSED();
+}
+
 void occlusion()
 {
   woml::Weather weather = woml::parse(inputdir / "occlusion.xml", woml::conceptualmodelanalysis);
@@ -171,6 +191,7 @@ class tests : public tframe::tests
     TEST(heavyrain);
     TEST(value);
     TEST(values);
+    TEST(unknownobject);
     //	  TEST(text);
     //	  TEST(graphic);
     //	  TEST(suomitv);

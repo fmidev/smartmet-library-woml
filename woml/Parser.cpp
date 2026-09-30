@@ -1851,6 +1851,10 @@ else if (name == /*"womlswo:*/ "SurfacePrecipitationArea")
   theWeatherObject.addFeature(parse_woml_surface_precipitation_area(node));
 else if (name == /*"womlswo:*/ "ParameterValueSetArea")
   theWeatherObject.addFeature(parse_woml_parameter_value_set_area(node));
+else if (Weather::strictMode())
+  throw std::runtime_error("Unknown meteorological object type '" + name + "'");
+else
+  std::cerr << "Warning: ignoring unknown WOML meteorological object type '" << name << "'\n";
 }
 CATCH
 }
