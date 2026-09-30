@@ -11,7 +11,7 @@
 
 namespace woml
 {
-bool Weather::strictParsing = true;
+thread_local bool Weather::strictParsing = true;
 
 // ----------------------------------------------------------------------
 /*!

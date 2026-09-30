@@ -1960,7 +1960,15 @@ Weather parse(const std::filesystem::path &thePath, documentType docType, bool s
 
     Weather weather;
 
-    Weather::strictMode(strict);
+    // Strict mode applies to this call only
+    struct StrictModeGuard
+    {
+      bool previous = Weather::strictMode();
+      explicit StrictModeGuard(bool theStrict) { Weather::strictMode(theStrict); }
+      ~StrictModeGuard() { Weather::strictMode(previous); }
+      StrictModeGuard(const StrictModeGuard&) = delete;
+      StrictModeGuard& operator=(const StrictModeGuard&) = delete;
+    } strictModeGuard(strict);
 
     // Autoreleases must be released before XQillaPlatformUtils::terminate()
     //
