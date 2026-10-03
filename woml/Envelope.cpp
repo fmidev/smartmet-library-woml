@@ -6,6 +6,7 @@
 
 #include "Envelope.h"
 #include <cassert>
+#include <utility>
 
 namespace woml
 {
@@ -28,8 +29,8 @@ Envelope::Envelope(const std::optional<Point>& thePoint,
     : itsBounded(false),
       itsPoint(thePoint),
       itsRect(),
-      itsSrsName(theSrsName),
-      itsSrsDimension(theSrsDimension)
+      itsSrsName(std::move(theSrsName)),
+      itsSrsDimension(std::move(theSrsDimension))
 {
 }
 
@@ -45,8 +46,8 @@ Envelope::Envelope(const std::optional<Rect>& theRect,
     : itsBounded(theRect ? true : false),
       itsPoint(),
       itsRect(theRect),
-      itsSrsName(theSrsName),
-      itsSrsDimension(theSrsDimension)
+      itsSrsName(std::move(theSrsName)),
+      itsSrsDimension(std::move(theSrsDimension))
 {
 }
 

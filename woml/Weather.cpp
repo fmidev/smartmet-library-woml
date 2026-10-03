@@ -8,10 +8,11 @@
 #include "MeteorologicalAnalysis.h"
 #include "WeatherForecast.h"
 #include <stdexcept>
+#include <utility>
 
 namespace woml
 {
-bool Weather::strictParsing = true;
+thread_local bool Weather::strictParsing = true;
 
 // ----------------------------------------------------------------------
 /*!
@@ -71,7 +72,7 @@ const WeatherForecast& Weather::forecast() const
 
 void Weather::analysis(std::shared_ptr<MeteorologicalAnalysis> theAnalysis)
 {
-  itsAnalysis = theAnalysis;
+  itsAnalysis = std::move(theAnalysis);
 }
 
 // ----------------------------------------------------------------------
@@ -82,7 +83,7 @@ void Weather::analysis(std::shared_ptr<MeteorologicalAnalysis> theAnalysis)
 
 void Weather::forecast(std::shared_ptr<WeatherForecast> theForecast)
 {
-  itsForecast = theForecast;
+  itsForecast = std::move(theForecast);
 }
 
 // ----------------------------------------------------------------------

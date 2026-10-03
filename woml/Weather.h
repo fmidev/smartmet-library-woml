@@ -43,7 +43,9 @@ class Weather
   static bool strictMode() { return strictParsing; }
 
  private:
-  static bool strictParsing;  // Terminate on broken/unexpected woml input
+  // Terminate on broken/unexpected woml input. Set by parse() for the duration of
+  // the call, per thread so that concurrent parses do not affect each other.
+  static thread_local bool strictParsing;
 
   std::shared_ptr<MeteorologicalAnalysis> itsAnalysis;
   std::shared_ptr<WeatherForecast> itsForecast;

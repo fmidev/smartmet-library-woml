@@ -67,7 +67,7 @@ class nsResolver
 
     return nsR;
   }
-  static DOMXPathExpression *createExpression(std::string expr)
+  static DOMXPathExpression *createExpression(const std::string& expr)
   {
     return _doc->createExpression(X(expr.c_str()), _nsR);
   }
@@ -1851,6 +1851,10 @@ else if (name == /*"womlswo:*/ "SurfacePrecipitationArea")
   theWeatherObject.addFeature(parse_woml_surface_precipitation_area(node));
 else if (name == /*"womlswo:*/ "ParameterValueSetArea")
   theWeatherObject.addFeature(parse_woml_parameter_value_set_area(node));
+else if (Weather::strictMode())
+  throw std::runtime_error("Unknown meteorological object type '" + name + "'");
+else
+  std::cerr << "Warning: ignoring unknown WOML meteorological object type '" << name << "'\n";
 }
 CATCH
 }
@@ -1956,7 +1960,15 @@ Weather parse(const std::filesystem::path &thePath, documentType docType, bool s
 
     Weather weather;
 
-    Weather::strictMode(strict);
+    // Strict mode applies to this call only
+    struct StrictModeGuard
+    {
+      bool previous = Weather::strictMode();
+      explicit StrictModeGuard(bool theStrict) { Weather::strictMode(theStrict); }
+      ~StrictModeGuard() { Weather::strictMode(previous); }
+      StrictModeGuard(const StrictModeGuard&) = delete;
+      StrictModeGuard& operator=(const StrictModeGuard&) = delete;
+    } strictModeGuard(strict);
 
     // Autoreleases must be released before XQillaPlatformUtils::terminate()
     //
