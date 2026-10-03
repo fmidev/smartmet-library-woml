@@ -41,9 +41,9 @@ woml::Weather weather = woml::parse(path, woml::conceptualmodelanalysis);  // st
 * The root element must match the document type: `MeteorologicalAnalysis` for
   `conceptualmodelanalysis`, `WeatherForecast` for `conceptualmodelforecast` or
   `aerodromeforecast`. Anything else throws.
-* **Unknown feature types are silently ignored**: `parse_woml_meteorologicalobject()`
-  dispatches on the element name and has no fallback. Unknown measure elements, on the
-  other hand, throw `Unknown element <name>`.
+* **Unknown feature types** are an error in strict mode. In non-strict mode they are
+  skipped with a warning on standard error. Unknown measure elements always throw
+  `Unknown element <name>`.
 * **Strict mode** (the default) throws on malformed features. In non-strict mode, a line
   object whose control curve cannot be parsed (for example an empty `gml:posList`) is
   skipped instead; other errors still throw. Surfaces with an empty exterior are always
@@ -81,10 +81,11 @@ updated and rebuilt together with the library.
 
 ## 6. Known pitfalls
 
-* **Strict mode is a process-wide static** (`Weather::strictMode()`), set by every `parse()`
-  call; concurrent parses with different modes affect each other.
+* **Strict mode is per thread** (`Weather::strictMode()`), and `parse()` restores the
+  previous mode when it returns.
 * **Parsing is not meant for concurrent use**, since each call initialises and terminates
   XQilla.
 * **Non-strict mode only skips broken line objects** (§2).
-* **New feature types are dropped without warning** (§2): a newer Mirwa version with a new
-  object type produces charts without those objects until woml and frontier support it.
+* **New feature types fail strict parsing** (§2): a newer Mirwa version with a new object
+  type is rejected in strict mode, and in non-strict mode produces charts without those
+  objects (with a warning) until woml and frontier support it.
