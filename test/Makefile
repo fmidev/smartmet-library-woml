@@ -18,9 +18,9 @@ clean:
 
 test: $(PROG)
 	@echo Running tests:
-	@for prog in $(PROG); do \
-	 ./$$prog; \
-	done
+	@ok=true; for prog in $(PROG); do \
+	 ./$$prog || ok=false; \
+	done; $$ok
 	@echo
 	@for prog in $(PHPPROG); do \
 	 php -q $$prog; \

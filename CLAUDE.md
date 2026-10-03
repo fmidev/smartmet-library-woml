@@ -19,7 +19,7 @@ make rpm            # Build RPM package
 make install        # Install headers to /usr/include/smartmet/woml/, lib to /usr/lib64/
 ```
 
-Tests use the `regression/tframe.h` framework (not Boost.Test). Each test parses a WOML XML file from `test/input/` and verifies successful parsing.
+Tests use the `regression/tframe.h` framework (not Boost.Test). `WomlTest` parses each WOML XML file in `test/input/`; `WomlContentTest` also checks the parsed feature types, counts and curve geometry.
 
 ## Dependencies
 
