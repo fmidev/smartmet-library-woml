@@ -45,7 +45,7 @@ void MeteorologicalSymbol::addDefinitionReference(const std::string& theScheme,
     throw std::runtime_error("Invalid definition reference: (" + theScheme + ") " +
                              theDefinitionReference);
 
-  itsDefinitionReferences.push_back(make_pair(theScheme, make_pair(cols[0], cols[1])));
+  itsDefinitionReferences.emplace_back(theScheme, make_pair(cols[0], cols[1]));
 }
 
 // ----------------------------------------------------------------------
@@ -100,7 +100,7 @@ void MeteorologicalSymbol::addLocalizedSymbolName(const std::string& theLanguage
                                                   const std::string& theLocalizedSymbolName)
 {
   if ((theLanguage.length() > 0) && (theLocalizedSymbolName.length() > 0))
-    itsLocalizedSymbolNames.push_back(make_pair(theLanguage, theLocalizedSymbolName));
+    itsLocalizedSymbolNames.emplace_back(theLanguage, theLocalizedSymbolName);
 }
 
 // ----------------------------------------------------------------------

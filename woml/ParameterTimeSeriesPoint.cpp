@@ -66,7 +66,7 @@ void ParameterTimeSeriesPoint::add(const std::optional<Fmi::DateTime>& theValidT
       return;
     }
 
-  itsTimeSeriesSlots.push_back(TimeSeriesSlot(*theValidTime, theValues));
+  itsTimeSeriesSlots.emplace_back(*theValidTime, theValues);
 }
 
 // ----------------------------------------------------------------------

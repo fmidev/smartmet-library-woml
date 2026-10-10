@@ -24,7 +24,7 @@ void JetStream::visit(FeatureVisitor& theVisitor) const { theVisitor.visit(*this
 void JetStream::maximumWindSpeed(const int segmentIndex,
                                  const NumericalSingleValueMeasure& theMaximumWindSpeed)
 {
-  itsMaximumWindSpeeds.push_back(std::make_pair(segmentIndex, theMaximumWindSpeed));
+  itsMaximumWindSpeeds.emplace_back(segmentIndex, theMaximumWindSpeed);
 }
 
 // ----------------------------------------------------------------------

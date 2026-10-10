@@ -42,7 +42,7 @@ const std::optional<Envelope>& TargetRegion::envelope() const { return itsBounde
 void TargetRegion::addRegionId(const std::string& theScheme, const std::string& theRegionId)
 {
   if ((theScheme.length() > 0) && (theRegionId.length() > 0))
-    itsRegionIds.push_back(std::make_pair(theScheme, theRegionId));
+    itsRegionIds.emplace_back(theScheme, theRegionId);
 }
 
 // ----------------------------------------------------------------------
@@ -77,7 +77,7 @@ void TargetRegion::addLocalizedName(const std::string& theLanguage,
                                     const std::string& theLocalizedName)
 {
   if ((theLanguage.length() > 0) && (theLocalizedName.length() > 0))
-    itsLocalizedNames.push_back(std::make_pair(theLanguage, theLocalizedName));
+    itsLocalizedNames.emplace_back(theLanguage, theLocalizedName);
 }
 
 // ----------------------------------------------------------------------
