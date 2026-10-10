@@ -194,7 +194,7 @@ CATCH
 std::optional<std::string> parse_woml_orientation(DOMNode *node){
     TRY(){std::optional<std::string> orientation;
 
-DOMElement *elem = (DOMElement *)node;
+auto* elem = (DOMElement*)node;
 std::string o = ATTR(elem, "orientation");
 
 if (o.length() > 0) orientation = o;
@@ -262,7 +262,7 @@ CATCH
 std::optional<Envelope> parse_gml_envelope(DOMNode *node){
     TRY(){std::optional<Envelope> envelope;
 
-DOMElement *elem = (DOMElement *)node;
+auto* elem = (DOMElement*)node;
 std::string srsName = ATTR(elem, "srsName");
 std::string srsDimension = ATTR(elem, "srsDimension");
 
@@ -324,14 +324,14 @@ AutoRelease<DOMXPathResult> result(expression->evaluate(node,
 DOMText *text;
 if ((node = getResultNode(result, &text)))
 {
-  DOMElement *elem = (DOMElement *)node;
+  auto* elem = (DOMElement*)node;
 
   std::string valstr(XMLChptr2str(text->getNodeValue()));
   std::string unit(ATTR(elem, "uom"));
 
   if (valstr != "")
   {
-    double value = boost::lexical_cast<double>(valstr);
+    auto value = boost::lexical_cast<double>(valstr);
     meas = NumericalSingleValueMeasure(value, valstr, unit);
   }
 }
@@ -410,7 +410,7 @@ TargetRegion parse_woml_target_region(DOMNode *theNode,
       DOMText *text;
       while ((node = getResultNode(result, &text)))
       {
-        DOMElement *elem = (DOMElement *)node;
+        auto* elem = (DOMElement*)node;
         std::string scheme = ATTR(elem, "scheme");
 
         tr.addRegionId(scheme, XMLChptr2str(text->getNodeValue()));
@@ -424,7 +424,7 @@ TargetRegion parse_woml_target_region(DOMNode *theNode,
 
         while ((node = getResultNode(result2, &text)))
         {
-          DOMElement *elem = (DOMElement *)node;
+          auto* elem = (DOMElement*)node;
           std::string lang = ATTR(elem, "xml:lang");
 
           tr.addLocalizedName(lang, XMLChptr2str(text->getNodeValue()));
@@ -463,7 +463,7 @@ while ((node = getResultNode(result)))
   theWeatherObject.addTargetRegion(parse_woml_target_region(node));
 }
 
-WeatherForecast::TargetRegions_const_iterator it = theWeatherObject.TargetRegions_begin();
+auto it = theWeatherObject.TargetRegions_begin();
 
 if (it != theWeatherObject.TargetRegions_end())
   theWeatherObject.envelope(it->envelope());
@@ -493,7 +493,7 @@ DOMText *text;
 while ((node = getResultNode(result, &text, false)))
   if (text)
   {
-    DOMElement *elem = (DOMElement *)node;
+    auto* elem = (DOMElement*)node;
     std::string lang = ATTR(elem, "xml:lang");
 
     if (lang.length() > 0) infos.insert(std::make_pair(lang, XMLChptr2str(text->getNodeValue())));
@@ -956,7 +956,7 @@ MeteorologicalSymbol parse_woml_meteorological_symbol(
     DOMText *text;
     while ((node = getResultNode(result, &text)))
     {
-      DOMElement *elem = (DOMElement *)node;
+      auto* elem = (DOMElement*)node;
       std::string scheme = ATTR(elem, "scheme");
 
       symbol.addDefinitionReference(scheme, XMLChptr2str(text->getNodeValue()));
@@ -970,7 +970,7 @@ MeteorologicalSymbol parse_woml_meteorological_symbol(
 
       while ((node = getResultNode(result2, &text)))
       {
-        DOMElement *elem = (DOMElement *)node;
+        auto* elem = (DOMElement*)node;
         std::string lang = ATTR(elem, "xml:lang");
 
         symbol.addLocalizedSymbolName(lang, XMLChptr2str(text->getNodeValue()));
@@ -1240,8 +1240,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-JetStream *parse_woml_jet_stream(DOMNode *node){
-    TRY(){JetStream *stream = parse_woml_abstract_line<JetStream>(node);
+JetStream* parse_woml_jet_stream(DOMNode* node){
+    TRY(){auto* stream = parse_woml_abstract_line<JetStream>(node);
 
 if (!stream) return nullptr;
 
@@ -1268,8 +1268,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-CloudArea *parse_woml_cloud_area(DOMNode *theNode){
-    TRY(){CloudArea *area = parse_woml_abstract_surface<CloudArea>(theNode);
+CloudArea* parse_woml_cloud_area(DOMNode* theNode){
+    TRY(){auto* area = parse_woml_abstract_surface<CloudArea>(theNode);
 
 CloudType cloudType = UNKNOWN;
 std::string cloudTypeName("");
@@ -1309,8 +1309,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-OccludedFront *parse_woml_occluded_front(DOMNode *node){
-    TRY(){OccludedFront *front = parse_woml_abstract_line<OccludedFront>(node);
+OccludedFront* parse_woml_occluded_front(DOMNode* node){
+    TRY(){auto* front = parse_woml_abstract_line<OccludedFront>(node);
 
 if (!front) return nullptr;
 
@@ -1330,8 +1330,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-SurfacePrecipitationArea *parse_woml_surface_precipitation_area(DOMNode *theNode){TRY(){
-    SurfacePrecipitationArea *area = parse_woml_abstract_surface<SurfacePrecipitationArea>(theNode);
+SurfacePrecipitationArea* parse_woml_surface_precipitation_area(DOMNode* theNode){
+    TRY(){auto* area = parse_woml_abstract_surface<SurfacePrecipitationArea>(theNode);
 RainPhase rainPhase = unknown;
 std::string rainPhaseName;
 std::optional<double> continuity, showeriness;
@@ -1373,8 +1373,8 @@ GeophysicalParameterValueSet *parse_woml_geophysical_parameter_value_set(
         "womlqty:parameterValueSet/womlqty:GeophysicalParameterValueSet/womlqty:parameterValue/"
         "womlqty:GeophysicalParameterValue");
 
-ParameterValueSetArea *parse_woml_parameter_value_set_area(DOMNode *node){
-    TRY(){ParameterValueSetArea *area = parse_woml_abstract_surface<ParameterValueSetArea>(node);
+ParameterValueSetArea* parse_woml_parameter_value_set_area(DOMNode* node){
+    TRY(){auto* area = parse_woml_abstract_surface<ParameterValueSetArea>(node);
 
 area->param(parse_woml_geophysical_parameter_value_set(node, true));
 
@@ -1389,8 +1389,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-PointMeteorologicalSymbol *parse_woml_point_meteorological_symbol(DOMNode *node){TRY(){
-    PointMeteorologicalSymbol *symbol = parse_woml_abstract_point<PointMeteorologicalSymbol>(node);
+PointMeteorologicalSymbol* parse_woml_point_meteorological_symbol(DOMNode* node){
+    TRY(){auto* symbol = parse_woml_abstract_point<PointMeteorologicalSymbol>(node);
 symbol->symbol(parse_woml_meteorological_symbol(node));
 
 // Using 'shortInfos' member to store component info text
@@ -1450,7 +1450,7 @@ MeasureValue *parse_woml_category_value_measure(
                            (std::string(pathExpr) + "[" +
                             Fmi::to_string(nodeIndex) + "]")
                                .c_str()))){DOMNode *text = ((DOMText *)searchNode(node, "text()"));
-DOMElement *elem = (DOMElement *)node;
+auto* elem = (DOMElement*)node;
 
 std::string category(text ? XMLChptr2str(text->getNodeValue()) : "");
 std::string codebase(ATTR(elem, "codebase"));
@@ -1579,10 +1579,10 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-GeophysicalParameterValueSet *parse_woml_geophysical_parameter_value_set(DOMNode *node,
+GeophysicalParameterValueSet* parse_woml_geophysical_parameter_value_set(DOMNode* node,
                                                                          bool multipleValues,
-                                                                         const char *pathExpr){
-    TRYFA(pathExpr){GeophysicalParameterValueSet *values = new GeophysicalParameterValueSet;
+                                                                         const char* pathExpr){
+    TRYFA(pathExpr){auto* values = new GeophysicalParameterValueSet;
 
 AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
@@ -1603,8 +1603,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-ParameterValueSetPoint *parse_woml_parameter_value_set_point(DOMNode *node){
-    TRY(){ParameterValueSetPoint *point = parse_woml_abstract_point<ParameterValueSetPoint>(node);
+ParameterValueSetPoint* parse_woml_parameter_value_set_point(DOMNode* node){
+    TRY(){auto* point = parse_woml_abstract_point<ParameterValueSetPoint>(node);
 
 point->param(parse_woml_geophysical_parameter_value_set(node));
 
@@ -1697,7 +1697,7 @@ void parse_woml_parameter_timeseriespoint(T &theWeatherObject, DOMNode *node)
     // Class name extension is used for surfaceWeather[Tempo|Prob] and surfaceVisibility[Tempo|Prob]
     // to identify the basic (""), tempo ("Tempo") and prob ("Prob") values
     //
-    DOMElement *elem = (DOMElement *)node;
+    auto* elem = (DOMElement*)node;
     std::string className = ATTR(elem, "gml:id"), classNameExt;
     const char *p;
 
@@ -1765,13 +1765,13 @@ if (name == /*"womlqty:*/ "ParameterTimeSeriesPoint")
   parse_woml_parameter_timeseriespoint(theWeatherObject, node);
 else if (name == /*"womlswo:*/ "ColdAdvection")
 {
-  ColdAdvection *coldAdvection = parse_woml_abstract_line<ColdAdvection>(node);
+  auto* coldAdvection = parse_woml_abstract_line<ColdAdvection>(node);
 
   if (coldAdvection) theWeatherObject.addFeature(coldAdvection);
 }
 else if (name == /*"womlswo:*/ "ColdFront")
 {
-  ColdFront *coldFront = parse_woml_abstract_line<ColdFront>(node);
+  auto* coldFront = parse_woml_abstract_line<ColdFront>(node);
 
   if (coldFront) theWeatherObject.addFeature(coldFront);
 }
@@ -1789,31 +1789,31 @@ else if (name == /*"womlswo:*/ "OccludedFront")
 }
 else if (name == /*"womlswo:*/ "Ridge")
 {
-  Ridge *ridge = parse_woml_abstract_line<Ridge>(node);
+  auto* ridge = parse_woml_abstract_line<Ridge>(node);
 
   if (ridge) theWeatherObject.addFeature(ridge);
 }
 else if (name == /*"womlswo:*/ "Trough")
 {
-  Trough *trough = parse_woml_abstract_line<Trough>(node);
+  auto* trough = parse_woml_abstract_line<Trough>(node);
 
   if (trough) theWeatherObject.addFeature(trough);
 }
 else if (name == /*"womlswo:*/ "UpperTrough")
 {
-  UpperTrough *upperTrough = parse_woml_abstract_line<UpperTrough>(node);
+  auto* upperTrough = parse_woml_abstract_line<UpperTrough>(node);
 
   if (upperTrough) theWeatherObject.addFeature(upperTrough);
 }
 else if (name == /*"womlswo:*/ "WarmAdvection")
 {
-  WarmAdvection *warmAdvection = parse_woml_abstract_line<WarmAdvection>(node);
+  auto* warmAdvection = parse_woml_abstract_line<WarmAdvection>(node);
 
   if (warmAdvection) theWeatherObject.addFeature(warmAdvection);
 }
 else if (name == /*"womlswo:*/ "WarmFront")
 {
-  WarmFront *warmFront = parse_woml_abstract_line<WarmFront>(node);
+  auto* warmFront = parse_woml_abstract_line<WarmFront>(node);
 
   if (warmFront) theWeatherObject.addFeature(warmFront);
 }

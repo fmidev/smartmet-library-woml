@@ -94,7 +94,7 @@ void Feature::addShortInfos(const MeteorologicalObjectInfo& theShortInfos)
 
 const std::string& Feature::text(const std::string& theLanguage) const
 {
-  MeteorologicalObjectInfo::const_iterator it = itsShortInfos.find(theLanguage);
+  auto it = itsShortInfos.find(theLanguage);
 
   if (it == itsShortInfos.end())
   {

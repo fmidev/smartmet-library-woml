@@ -46,8 +46,8 @@ void MeteorologicalObject::synchronize()
   //
   // SurfaceWeather and SurfaceVisibility are rendered synchronized in frontier
 
-  std::list<ParameterTimeSeriesPoint *>::iterator ppbeg = itsTimeSynchronizedFeatureMembers.begin();
-  std::list<ParameterTimeSeriesPoint *>::iterator ppend = itsTimeSynchronizedFeatureMembers.end();
+  auto ppbeg = itsTimeSynchronizedFeatureMembers.begin();
+  auto ppend = itsTimeSynchronizedFeatureMembers.end();
   std::list<ParameterTimeSeriesPoint *>::iterator itpp;
 
   std::list<woml::TimeSeriesSlot>::const_iterator tsbeg, tsend, itts, pitts;
@@ -95,8 +95,7 @@ void MeteorologicalObject::synchronize()
           //
           // printf("> Sync itts=%s add itti=%s\n",(itts == tsend) ? "<end>":
           // to_iso_string(itts->validTime()).c_str(),to_iso_string(*itti).c_str());
-          GeophysicalParameterValueSet *pvs =
-              new GeophysicalParameterValueSet(**(pitts->values().begin()));
+          auto* pvs = new GeophysicalParameterValueSet(**(pitts->values().begin()));
           (*itpp)->add(std::optional<Fmi::DateTime>(*itti), pvs);
 
           missing = true;

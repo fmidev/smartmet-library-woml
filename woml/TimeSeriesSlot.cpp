@@ -41,7 +41,7 @@ void TimeSeriesSlot::add(GeophysicalParameterValueSet* theValues)
 
 void TimeSeriesSlot::sort()
 {
-  std::list<std::shared_ptr<GeophysicalParameterValueSet> >::iterator it = itsValues.begin();
+  auto it = itsValues.begin();
 
   for (; (it != itsValues.end()); it++)
     (*it)->sort();
