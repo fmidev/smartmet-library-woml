@@ -16,8 +16,8 @@ class SimpleCubicSpline
  public:
   void add(const Point& thePoint);
 
-  typedef std::vector<Point> value_type;
-  typedef value_type::size_type size_type;
+  using value_type = std::vector<Point>;
+  using size_type = value_type::size_type;
 
   bool empty() const;
   size_type size() const;

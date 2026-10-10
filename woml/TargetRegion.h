@@ -20,15 +20,15 @@ class TargetRegion
   void envelope(const std::optional<Envelope>& theEnvelope);
   const std::optional<Envelope>& envelope() const;
 
-  typedef std::list<std::pair<std::string, std::string> > regionIdList;
+  using regionIdList = std::list<std::pair<std::string, std::string> >;
   void addRegionId(const std::string& theScheme, const std::string& theRegionId);
-  typedef regionIdList::const_iterator RegionIds_const_iterator;
+  using RegionIds_const_iterator = regionIdList::const_iterator;
   RegionIds_const_iterator RegionIds_begin() const;
   RegionIds_const_iterator RegionIds_end() const;
 
-  typedef std::list<std::pair<std::string, std::string> > localizedNameList;
+  using localizedNameList = std::list<std::pair<std::string, std::string> >;
   void addLocalizedName(const std::string& theLanguage, const std::string& theLocalizedName);
-  typedef localizedNameList::const_iterator LocalizedNames_const_iterator;
+  using LocalizedNames_const_iterator = localizedNameList::const_iterator;
   LocalizedNames_const_iterator LocalizedNames_begin() const;
   LocalizedNames_const_iterator LocalizedNames_end() const;
 

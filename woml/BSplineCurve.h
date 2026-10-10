@@ -18,8 +18,8 @@ class BSplineCurve
   void lineString(const BSpline& theLineStringPoints);
   const BSpline& lineString() const;
 
-  typedef std::list<BSpline> BSplineList;
-  typedef BSplineCurve::BSplineList::const_iterator BSplines_const_iterator;
+  using BSplineList = std::list<BSpline>;
+  using BSplines_const_iterator = BSplineCurve::BSplineList::const_iterator;
   BSplines_const_iterator BSplines_begin() const;
   BSplines_const_iterator BSplines_end() const;
 

@@ -29,9 +29,9 @@ class AbstractSurfaceObject : public Feature
   void controlSurface(const CubicSplineSurface& theControlSurface);
   const CubicSplineSurface& controlSurface() const;
 
-  typedef std::list<TargetRegion> TargetRegionList;
+  using TargetRegionList = std::list<TargetRegion>;
   void addTargetRegion(const TargetRegion& theTargetRegion);
-  typedef TargetRegionList::const_iterator TargetRegions_const_iterator;
+  using TargetRegions_const_iterator = TargetRegionList::const_iterator;
   TargetRegions_const_iterator TargetRegions_begin() const;
   TargetRegions_const_iterator TargetRegions_end() const;
 

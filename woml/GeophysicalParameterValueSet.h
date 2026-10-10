@@ -12,7 +12,7 @@
 
 namespace woml
 {
-typedef std::list<GeophysicalParameterValue> GeophysicalParameterValueList;
+using GeophysicalParameterValueList = std::list<GeophysicalParameterValue>;
 
 class GeophysicalParameterValueSet
 {

@@ -11,7 +11,7 @@
 #include <optional>
 #include <memory>
 
-typedef std::multimap<std::string, std::string> MeteorologicalObjectInfo;
+using MeteorologicalObjectInfo = std::multimap<std::string, std::string>;
 
 namespace woml
 {

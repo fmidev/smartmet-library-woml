@@ -18,7 +18,7 @@ class CubicSplineCurve
   void lineString(const SimpleCubicSpline& theLineStringPoints);
   const SimpleCubicSpline& lineString() const;
 
-  typedef std::list<SimpleCubicSpline>::const_iterator const_iterator;
+  using const_iterator = std::list<SimpleCubicSpline>::const_iterator;
   const_iterator begin() const;
   const_iterator end() const;
 

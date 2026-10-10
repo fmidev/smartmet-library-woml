@@ -19,7 +19,7 @@ class CubicSplineSurface
 
   const CubicSplineRing& exterior() const;
 
-  typedef std::list<CubicSplineRing>::const_iterator const_iterator;
+  using const_iterator = std::list<CubicSplineRing>::const_iterator;
   const_iterator begin() const;
   const_iterator end() const;
 

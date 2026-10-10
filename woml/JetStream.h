@@ -17,10 +17,10 @@ class JetStream : public AbstractLineObject
  public:
   void visit(FeatureVisitor& theVisitor) const override;
 
-  typedef std::list<std::pair<int, NumericalSingleValueMeasure> > maximumWindSpeedList;
+  using maximumWindSpeedList = std::list<std::pair<int, NumericalSingleValueMeasure> >;
   void maximumWindSpeed(const int segmentIndex,
                         const NumericalSingleValueMeasure& theMaximumWindSpeed);
-  typedef maximumWindSpeedList::const_iterator MaximumWindSpeeds_const_iterator;
+  using MaximumWindSpeeds_const_iterator = maximumWindSpeedList::const_iterator;
   MaximumWindSpeeds_const_iterator MaximumWindSpeeds_begin() const;
   MaximumWindSpeeds_const_iterator MaximumWindSpeeds_end() const;
 

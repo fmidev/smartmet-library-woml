@@ -19,7 +19,7 @@
 #include <macgyver/DateTime.h>
 #include <boost/ptr_container/ptr_list.hpp>
 
-typedef std::multimap<std::string, std::string> WeatherForecastInfo;
+using WeatherForecastInfo = std::multimap<std::string, std::string>;
 
 namespace woml
 {
@@ -44,16 +44,16 @@ class WeatherForecast : public MeteorologicalObject
   //	void addLongInfo(const std::string & theLanguage,const std::string & theLongInfo);
   void addLongInfos(const WeatherForecastInfo& theLongInfos);
 
-  typedef std::list<TargetRegion> TargetRegionList;
+  using TargetRegionList = std::list<TargetRegion>;
   void addTargetRegion(const TargetRegion& theTargetRegion);
-  typedef TargetRegionList::const_iterator TargetRegions_const_iterator;
+  using TargetRegions_const_iterator = TargetRegionList::const_iterator;
   TargetRegions_const_iterator TargetRegions_begin() const;
   TargetRegions_const_iterator TargetRegions_end() const;
 
   void dataSource(const DataSource& theSource);
   const DataSource& dataSource() const;
 
-  typedef boost::ptr_list<Feature>::const_iterator const_iterator;
+  using const_iterator = boost::ptr_list<Feature>::const_iterator;
   const_iterator begin() const;
   const_iterator end() const;
 
