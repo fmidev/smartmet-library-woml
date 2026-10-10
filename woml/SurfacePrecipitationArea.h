@@ -22,7 +22,7 @@ class SurfacePrecipitationArea : public AbstractSurfaceObject
  public:
   SurfacePrecipitationArea();
 
-  virtual void visit(FeatureVisitor& theVisitor) const;
+  void visit(FeatureVisitor& theVisitor) const override;
 
   void rainPhase(RainPhase thePhase, const std::string& thePhaseName);
   RainPhase rainPhase() const;

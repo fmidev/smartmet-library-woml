@@ -28,7 +28,7 @@ class ParameterTimeSeriesPoint : public Feature
 {
  public:
   ParameterTimeSeriesPoint(const std::string& theClassNameExt);
-  virtual ~ParameterTimeSeriesPoint() {}
+  ~ParameterTimeSeriesPoint() override {}
 
   void timePeriod(const Fmi::TimePeriod& theTimePeriod);
   const Fmi::TimePeriod& timePeriod() const;

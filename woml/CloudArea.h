@@ -21,7 +21,7 @@ class CloudArea : public AbstractSurfaceObject
  public:
   CloudArea();
 
-  virtual void visit(FeatureVisitor& theVisitor) const;
+  void visit(FeatureVisitor& theVisitor) const override;
 
   void cloudType(CloudType theCloudType, const std::string& theCloudTypeName);
   CloudType cloudType() const;

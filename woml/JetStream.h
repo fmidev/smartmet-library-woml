@@ -15,7 +15,7 @@ namespace woml
 class JetStream : public AbstractLineObject
 {
  public:
-  virtual void visit(FeatureVisitor& theVisitor) const;
+  void visit(FeatureVisitor& theVisitor) const override;
 
   typedef std::list<std::pair<int, NumericalSingleValueMeasure> > maximumWindSpeedList;
   void maximumWindSpeed(const int segmentIndex,

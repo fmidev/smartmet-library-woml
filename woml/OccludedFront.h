@@ -13,7 +13,7 @@ namespace woml
 class OccludedFront : public AbstractLineObject
 {
  public:
-  virtual void visit(FeatureVisitor& theVisitor) const;
+  void visit(FeatureVisitor& theVisitor) const override;
 
   void stationary(bool theStationary);
   bool stationary() const;

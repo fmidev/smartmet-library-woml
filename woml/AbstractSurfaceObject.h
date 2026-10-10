@@ -20,7 +20,7 @@ class AbstractSurfaceObject : public Feature
 {
  public:
   AbstractSurfaceObject();
-  virtual ~AbstractSurfaceObject() {}
+  ~AbstractSurfaceObject() override {}
   void envelope(const std::optional<Envelope>& theEnvelope);
 
   void elevation(const std::optional<Elevation>& theElevation);

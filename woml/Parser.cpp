@@ -178,7 +178,7 @@ DOMNode *searchNode(DOMNode *node, const char *pathExpr){
     TRYFA(pathExpr){AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
-                                                        0));
+                                                        nullptr));
 
 return getResultNode(result);
 }
@@ -216,7 +216,7 @@ std::optional<Point> parse_gml_point(DOMNode *node, const char *pathExpr){
 AutoRelease<DOMXPathExpression> expression(EXPR(std::string(pathExpr) + "/text()[1]"));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
-                                                        0));
+                                                        nullptr));
 
 if ((node = getResultNode(result)))
 {
@@ -297,7 +297,7 @@ std::optional<Envelope> parse_gml_bounded_by(DOMNode *node,
   {
     AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
     AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
     if ((node = getResultNode(result))) envelope = parse_gml_envelope(node);
 
@@ -319,7 +319,7 @@ std::optional<NumericalSingleValueMeasure> parse_woml_numerical_single_value_mea
 AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
-                                                        0));
+                                                        nullptr));
 
 DOMText *text;
 if ((node = getResultNode(result, &text)))
@@ -404,7 +404,7 @@ TargetRegion parse_woml_target_region(DOMNode *theNode,
     {
       AutoRelease<DOMXPathExpression> expression(EXPR(regionIdPathExpr));
       AutoRelease<DOMXPathResult> result(
-          expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+          expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
       DOMNode *node;
       DOMText *text;
@@ -420,7 +420,7 @@ TargetRegion parse_woml_target_region(DOMNode *theNode,
       {
         AutoRelease<DOMXPathExpression> expression2(EXPR(localizedNamePathExpr));
         AutoRelease<DOMXPathResult> result2(
-            expression2->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+            expression2->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
         while ((node = getResultNode(result2, &text)))
         {
@@ -456,7 +456,7 @@ void parse_woml_target_regions(T &theWeatherObject,
     TRYFA(pathExpr){AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
-                                                        0));
+                                                        nullptr));
 
 while ((node = getResultNode(result)))
 {
@@ -487,7 +487,7 @@ std::multimap<std::string, std::string> &parse_woml_info_texts(
     TRYFA(pathExpr){AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
-                                                        0));
+                                                        nullptr));
 
 DOMText *text;
 while ((node = getResultNode(result, &text, false)))
@@ -543,7 +543,7 @@ std::string parse_woml_creator(
 AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
-                                                        0));
+                                                        nullptr));
 
 if ((node = getResultNode(result))) creator = XMLChptr2str(((DOMText *)node)->getNodeValue());
 
@@ -564,7 +564,7 @@ std::optional<Fmi::DateTime> read_text_time(DOMNode *node, const char *pathExpr)
 AutoRelease<DOMXPathExpression> expression(EXPR(std::string(pathExpr) + "/text()[1]"));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
-                                                        0));
+                                                        nullptr));
 
 if ((node = getResultNode(result)))
 {
@@ -818,7 +818,7 @@ CubicSplineCurve parse_woml_spline_segments(DOMNode *node,
 
     AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
     AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
     while ((node = getResultNode(result)))
       curve.add(parse_woml_spline<SimpleCubicSpline>(node));
@@ -842,7 +842,7 @@ void parse_woml_spline_string(DOMNode *node,
     TRYFA(pathExpr){AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
-                                                        0));
+                                                        nullptr));
 
 if ((node = getResultNode(result)))
   curve.lineString(parse_woml_spline<SimpleCubicSpline>(node));
@@ -894,7 +894,7 @@ CubicSplineSurface parse_woml_cubic_spline_surface(DOMNode *theNode, const char 
 
     AutoRelease<DOMXPathExpression> expression(EXPR(exteriorPathExpr));
     AutoRelease<DOMXPathResult> result(
-        expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+        expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
     DOMNode *node;
     if ((node = getResultNode(result)))
@@ -918,7 +918,7 @@ CubicSplineSurface parse_woml_cubic_spline_surface(DOMNode *theNode, const char 
     {
       AutoRelease<DOMXPathExpression> expression2(EXPR(interiorPathExpr));
       AutoRelease<DOMXPathResult> result2(
-          expression2->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+          expression2->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
       while ((node = getResultNode(result2)))
         surface.interior(parse_woml_spline<CubicSplineRing>(node));
@@ -950,7 +950,7 @@ MeteorologicalSymbol parse_woml_meteorological_symbol(
 
     AutoRelease<DOMXPathExpression> expression(EXPR(definitionReferencePathExpr));
     AutoRelease<DOMXPathResult> result(
-        expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+        expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
     DOMNode *node;
     DOMText *text;
@@ -966,7 +966,7 @@ MeteorologicalSymbol parse_woml_meteorological_symbol(
     {
       AutoRelease<DOMXPathExpression> expression2(EXPR(localizedSymbolNamePathExpr));
       AutoRelease<DOMXPathResult> result2(
-          expression2->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+          expression2->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
       while ((node = getResultNode(result2, &text)))
       {
@@ -1185,7 +1185,7 @@ DataSource parse_woml_used_reference_data(DOMNode *node)
     AutoRelease<DOMXPathExpression> expression(
         EXPR("womlcore:usedReferenceData/womlcore:NumericalModelRunForecastReference"));
     AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
     if ((node = getResultNode(result))) model = parse_woml_numerical_model_run(node);
 
@@ -1212,7 +1212,7 @@ TRYA(segmentIndexPathExpr)
 {
   AutoRelease<DOMXPathExpression> expression(EXPR(segmentIndexPathExpr));
   AutoRelease<DOMXPathResult> result(
-      expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+      expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
   DOMNode *node;
   if ((node = getResultNode(result)))
@@ -1251,7 +1251,7 @@ TRYA(segmentPathExpr)
 {
   AutoRelease<DOMXPathExpression> expression(EXPR(segmentPathExpr));
   AutoRelease<DOMXPathResult> result(
-      expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+      expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
   while ((node = getResultNode(result)))
     parse_woml_jet_stream_maximum_wind_speed(node, stream);
@@ -1418,7 +1418,7 @@ int number = -1;
 AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
-                                                        0));
+                                                        nullptr));
 
 DOMText *text;
 if ((node = getResultNode(result, &text, false)))
@@ -1507,7 +1507,7 @@ MeasureValue *parse_woml_parameter_measure_value(DOMNode *node,
   {
     AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
     AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
     if ((node = getResultNode(result)))
     {
@@ -1587,7 +1587,7 @@ GeophysicalParameterValueSet* parse_woml_geophysical_parameter_value_set(DOMNode
 AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
-                                                        0));
+                                                        nullptr));
 
 while ((node = getResultNode(result)))
   parse_woml_geophysical_parameter_value(node, values, multipleValues);
@@ -1666,7 +1666,7 @@ T *parse_woml_parameter_timeseriespoint(
 
     AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
     AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, 0));
+        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
     std::optional<Fmi::DateTime> validTime;
 
@@ -1886,7 +1886,7 @@ analysis->addLongInfos(parse_woml_longinfo(node, longInfos));
 AutoRelease<DOMXPathExpression> expression(EXPR("womlcore:member/*[1]"));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
-                                                        0));
+                                                        nullptr));
 
 while ((node = getResultNode(result)))
   parse_woml_meteorologicalobject(*analysis, node);
@@ -1923,7 +1923,7 @@ forecast->addLongInfos(parse_woml_longinfo(node, longInfos));
 AutoRelease<DOMXPathExpression> expression(EXPR("womlcore:member/*[1]"));
 AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
-                                                        0));
+                                                        nullptr));
 
 while ((node = getResultNode(result)))
   parse_woml_meteorologicalobject(*forecast, node);
@@ -1976,7 +1976,7 @@ Weather parse(const std::filesystem::path &thePath, documentType docType, bool s
     {
       // Create a DOMLSParser object
       AutoRelease<DOMLSParser> parser(
-          xqillaImplementation->createLSParser(DOMImplementationLS::MODE_SYNCHRONOUS, 0));
+          xqillaImplementation->createLSParser(DOMImplementationLS::MODE_SYNCHRONOUS, nullptr));
       parser->getDomConfig()->setParameter(XMLUni::fgDOMNamespaces, true);
       parser->getDomConfig()->setParameter(XMLUni::fgXercesSchema, false);
       parser->getDomConfig()->setParameter(XMLUni::fgDOMValidateIfSchema, false);

@@ -17,7 +17,7 @@ class InfoText : public Feature
  public:
   InfoText(const std::string& theName, const MeteorologicalObjectInfo& theLangTexts);
 
-  virtual void visit(FeatureVisitor& theVisitor) const;
+  void visit(FeatureVisitor& theVisitor) const override;
 
   const std::string& name() const;
 

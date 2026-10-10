@@ -26,7 +26,7 @@ class StormType : public AbstractPointObject
 {
  public:
   StormType();
-  virtual ~StormType() {}
+  ~StormType() override {}
   void rainPhase(RainPhase theRainPhase);
   RainPhase rainPhase() const;
   void approximateRainFall(

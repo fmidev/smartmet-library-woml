@@ -26,8 +26,8 @@ class CategoryValueMeasure : public MeasureValue
   CategoryValueMeasure();
   CategoryValueMeasure(const std::string& theCategory, const std::string& theCodebase);
 
-  const std::string& value() const;  // <==> category
-  const std::string& unit() const;   // <==> codebase
+  const std::string& value() const override;  // <==> category
+  const std::string& unit() const override;   // <==> codebase
   const std::string& category() const;
   const std::string& codebase() const;
 
@@ -47,8 +47,8 @@ class FlowDirectionMeasure : public MeasureValue
   FlowDirectionMeasure();
   FlowDirectionMeasure(const std::string& theCompassPoint, const std::string& theDirectionVector);
 
-  const std::string& value() const;  // <==> compassPoint
-  const std::string& unit() const;   // <==> ""
+  const std::string& value() const override;  // <==> compassPoint
+  const std::string& unit() const override;   // <==> ""
   const std::string& compassPoint() const;
   const std::string& directionVector() const;
 
@@ -67,8 +67,8 @@ class NumericalSingleValueMeasure : public MeasureValue
                               const std::string& theStringValue,
                               const std::string& theUnit);
 
-  const std::string& value() const;
-  const std::string& unit() const;
+  const std::string& value() const override;
+  const std::string& unit() const override;
   double numericValue() const;
 
  private:
@@ -85,8 +85,8 @@ class NumericalValueRangeMeasure : public MeasureValue
   NumericalValueRangeMeasure(const NumericalSingleValueMeasure& theLowerLimit,
                              const NumericalSingleValueMeasure& theUpperLimit);
 
-  const std::string& value() const;
-  const std::string& unit() const;
+  const std::string& value() const override;
+  const std::string& unit() const override;
 
   const NumericalSingleValueMeasure& lowerLimit() const;
   const NumericalSingleValueMeasure& upperLimit() const;

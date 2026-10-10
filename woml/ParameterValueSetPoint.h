@@ -16,7 +16,7 @@ namespace woml
 class ParameterValueSetPoint : public AbstractPointObject
 {
  public:
-  void visit(FeatureVisitor& theVisitor) const;
+  void visit(FeatureVisitor& theVisitor) const override;
 
   void param(GeophysicalParameterValueSet* theParameterValueSet);
   std::shared_ptr<GeophysicalParameterValueSet> parameters() const;

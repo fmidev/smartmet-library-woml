@@ -20,7 +20,7 @@ class ParameterValueSetArea : public AbstractSurfaceObject
  public:
   ParameterValueSetArea();
 
-  virtual void visit(FeatureVisitor& theVisitor) const;
+  void visit(FeatureVisitor& theVisitor) const override;
 
   void param(GeophysicalParameterValueSet* theParameterValueSet);
   std::shared_ptr<GeophysicalParameterValueSet> parameters() const;

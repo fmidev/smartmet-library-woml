@@ -17,7 +17,7 @@ class PointMeteorologicalSymbol : public AbstractPointObject
 {
  public:
   PointMeteorologicalSymbol();
-  virtual void visit(FeatureVisitor& theVisitor) const;
+  void visit(FeatureVisitor& theVisitor) const override;
   void symbol(const MeteorologicalSymbol& theSymbol);
   const MeteorologicalSymbol& symbol() const;
 
