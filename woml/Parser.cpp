@@ -96,7 +96,7 @@ const char *nsResolver::_namespaces[] = {"gml",
 
 #define EXPR(expr) (nsResolver::createExpression(expr))
 #define ATTR(elem, attr) \
-  (elem->hasAttribute(X(attr)) ? XMLChptr2str(elem->getAttribute(X(attr))) : "")
+  ((elem)->hasAttribute(X(attr)) ? XMLChptr2str((elem)->getAttribute(X(attr))) : "")
 
 #define XQEXC(msg) \
   throw std::runtime_error(std::string(EXCFUNC) + ": XQillaException: " + std::string(msg))
@@ -114,13 +114,13 @@ const char *nsResolver::_namespaces[] = {"gml",
   (void)_EXCFUNC;                             \
   const char *EXCFUNC = __EXCFUNC.c_str();    \
   try
-#define TRYA(arg)                                        \
-  _EXCFUNC = (__EXCFUNC + std::string("(") + arg + ")"); \
+#define TRYA(arg)                                          \
+  _EXCFUNC = (__EXCFUNC + std::string("(") + (arg) + ")"); \
   EXCFUNC = _EXCFUNC.c_str();
-#define TRYFA(arg)                                   \
-  std::string __EXCFUNC(__PRETTY_FUNCTION__);        \
-  std::string _EXCFUNC(__EXCFUNC + "(" + arg + ")"); \
-  const char *EXCFUNC = _EXCFUNC.c_str();            \
+#define TRYFA(arg)                                     \
+  std::string __EXCFUNC(__PRETTY_FUNCTION__);          \
+  std::string _EXCFUNC(__EXCFUNC + "(" + (arg) + ")"); \
+  const char *EXCFUNC = _EXCFUNC.c_str();              \
   try
 #define CATCH                                                                     \
   catch (DOMXPathException & exc) { DXPEXC(exc.code); }                           \

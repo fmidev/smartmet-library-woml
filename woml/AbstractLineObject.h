@@ -12,6 +12,8 @@
 #include "FeatureVisitor.h"
 #include <string>
 
+// c is the class name, it cannot be parenthesized
+// NOLINTBEGIN(bugprone-macro-parentheses)
 #define AbstractLineObjectDerivedClass(c)                                             \
   class c : public AbstractLineObject                                                 \
   {                                                                                   \
@@ -19,6 +21,7 @@
     c() : AbstractLineObject() {}                                                     \
     virtual void visit(FeatureVisitor& theVisitor) const { theVisitor.visit(*this); } \
   }
+// NOLINTEND(bugprone-macro-parentheses)
 
 namespace woml
 {

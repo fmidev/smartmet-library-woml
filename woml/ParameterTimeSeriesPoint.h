@@ -11,6 +11,8 @@
 #include "GeophysicalParameterValueSet.h"
 #include "TimeSeriesSlot.h"
 
+// c is the class name, it cannot be parenthesized
+// NOLINTBEGIN(bugprone-macro-parentheses)
 #define ParameterTimeSeriesPointDerivedClass(c)                                    \
   class c : public ParameterTimeSeriesPoint                                        \
   {                                                                                \
@@ -19,6 +21,7 @@
     void visit(FeatureVisitor& theVisitor) const { theVisitor.visit(*this); }      \
     const char* className() const { return #c; }                                   \
   }
+// NOLINTEND(bugprone-macro-parentheses)
 
 namespace woml
 {

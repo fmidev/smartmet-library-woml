@@ -11,6 +11,8 @@
 #include "MeasureValue.h"
 #include "RainPhase.h"
 
+// c is the class name, it cannot be parenthesized
+// NOLINTBEGIN(bugprone-macro-parentheses)
 #define StormTypeClass(c)                                                     \
   class c : public StormType                                                  \
   {                                                                           \
@@ -19,6 +21,7 @@
     void visit(FeatureVisitor& theVisitor) const { theVisitor.visit(*this); } \
     const char* className() const { return #c; }                              \
   }
+// NOLINTEND(bugprone-macro-parentheses)
 
 namespace woml
 {

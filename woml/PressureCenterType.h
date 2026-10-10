@@ -10,6 +10,8 @@
 #include "FeatureVisitor.h"
 #include "MeasureValue.h"
 
+// c is the class name, it cannot be parenthesized
+// NOLINTBEGIN(bugprone-macro-parentheses)
 #define PressureCenterTypeDerivedClass(c)                                     \
   class c : public PressureCenterType                                         \
   {                                                                           \
@@ -18,6 +20,7 @@
     void visit(FeatureVisitor& theVisitor) const { theVisitor.visit(*this); } \
     const char* className() const { return #c; }                              \
   }
+// NOLINTEND(bugprone-macro-parentheses)
 
 namespace woml
 {
