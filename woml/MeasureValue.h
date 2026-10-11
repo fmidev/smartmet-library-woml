@@ -14,7 +14,7 @@ namespace woml
 class MeasureValue
 {
  public:
-  virtual ~MeasureValue() {}
+  virtual ~MeasureValue() = default;
   virtual const std::string& value() const = 0;
   virtual const std::string& unit() const = 0;
 

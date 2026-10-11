@@ -28,7 +28,7 @@ namespace woml
 class AbstractLineObject : public Feature
 {
  public:
-  ~AbstractLineObject() override {}
+  ~AbstractLineObject() override = default;
   void visit(FeatureVisitor& theVisitor) const override = 0;
 
   void orientation(const std::optional<std::string>& theOrientation);

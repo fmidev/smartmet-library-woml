@@ -56,7 +56,7 @@ class ZeroTolerance;
 class FeatureVisitor
 {
  public:
-  virtual ~FeatureVisitor() {}
+  virtual ~FeatureVisitor() = default;
   virtual void visit(const ColdAdvection& theFeature) = 0;
   virtual void visit(const ColdFront& theFeature) = 0;
   virtual void visit(const JetStream& theFeature) = 0;

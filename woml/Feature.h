@@ -20,7 +20,7 @@ class FeatureVisitor;
 class Feature
 {
  public:
-  virtual ~Feature() {}
+  virtual ~Feature() = default;
   Feature(const std::string &theClassNameExt = "");
   virtual void visit(FeatureVisitor& theVisitor) const {}
   void creationTime(const Fmi::DateTime& theTime);

@@ -29,7 +29,7 @@ class StormType : public AbstractPointObject
 {
  public:
   StormType();
-  ~StormType() override {}
+  ~StormType() override = default;
   void rainPhase(RainPhase theRainPhase);
   RainPhase rainPhase() const;
   void approximateRainFall(

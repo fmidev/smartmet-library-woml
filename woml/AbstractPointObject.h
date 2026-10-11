@@ -16,7 +16,7 @@ namespace woml
 class AbstractPointObject : public Feature
 {
  public:
-  ~AbstractPointObject() override {}
+  ~AbstractPointObject() override = default;
   void envelope(const std::optional<Envelope>& theEnvelope);
   void point(const std::optional<Point>& thePoint);
   const std::optional<Point>& point() const;

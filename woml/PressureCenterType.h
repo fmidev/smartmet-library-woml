@@ -28,7 +28,7 @@ class PressureCenterType : public AbstractPointObject
 {
  public:
   PressureCenterType();
-  ~PressureCenterType() override {}
+  ~PressureCenterType() override = default;
   void tendency(const std::string& theTendency);
   const std::string& tendency() const;
 

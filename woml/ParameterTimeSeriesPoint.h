@@ -31,7 +31,7 @@ class ParameterTimeSeriesPoint : public Feature
 {
  public:
   ParameterTimeSeriesPoint(const std::string& theClassNameExt);
-  ~ParameterTimeSeriesPoint() override {}
+  ~ParameterTimeSeriesPoint() override = default;
 
   void timePeriod(const Fmi::TimePeriod& theTimePeriod);
   const Fmi::TimePeriod& timePeriod() const;
