@@ -27,7 +27,7 @@ class Point
 class Rect
 {
  public:
-  Rect(std::optional<Point>& theLowerCorner, std::optional<Point>& theUpperCorner)
+  Rect(const std::optional<Point>& theLowerCorner, const std::optional<Point>& theUpperCorner)
       : itsLowerCorner(theLowerCorner), itsUpperCorner(theUpperCorner)
   {
   }
