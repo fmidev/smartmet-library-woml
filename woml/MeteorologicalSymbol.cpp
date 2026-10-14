@@ -17,9 +17,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-MeteorologicalSymbol::MeteorologicalSymbol() : itsDefinitionReferences(), itsLocalizedSymbolNames()
-{
-}
+MeteorologicalSymbol::MeteorologicalSymbol() {}
 
 // ----------------------------------------------------------------------
 /*!
@@ -41,7 +39,7 @@ void MeteorologicalSymbol::addDefinitionReference(const std::string& theScheme,
     boost::trim(cols[1]);
   }
 
-  if ((cols.size() != 2) || (cols[0] == "") || (cols[1] == ""))
+  if ((cols.size() != 2) || (cols[0].empty()) || (cols[1].empty()))
     throw std::runtime_error("Invalid definition reference: (" + theScheme + ") " +
                              theDefinitionReference);
 
@@ -99,7 +97,7 @@ std::string MeteorologicalSymbol::symbolDefinition(const DefinitionReferences_co
 void MeteorologicalSymbol::addLocalizedSymbolName(const std::string& theLanguage,
                                                   const std::string& theLocalizedSymbolName)
 {
-  if ((theLanguage.length() > 0) && (theLocalizedSymbolName.length() > 0))
+  if ((!theLanguage.empty()) && (!theLocalizedSymbolName.empty()))
     itsLocalizedSymbolNames.emplace_back(theLanguage, theLocalizedSymbolName);
 }
 

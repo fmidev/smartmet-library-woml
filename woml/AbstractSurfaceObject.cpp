@@ -15,10 +15,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-AbstractSurfaceObject::AbstractSurfaceObject()
-    : itsBoundedBy(), itsElevation(), itsControlSurface(), itsTargetRegions()
-{
-}
+AbstractSurfaceObject::AbstractSurfaceObject() : itsControlSurface() {}
 
 // ----------------------------------------------------------------------
 /*!

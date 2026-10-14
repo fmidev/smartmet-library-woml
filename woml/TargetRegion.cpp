@@ -14,7 +14,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-TargetRegion::TargetRegion() : itsBoundedBy(), itsRegionIds(), itsLocalizedNames() {}
+TargetRegion::TargetRegion() {}
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the envelope
@@ -41,7 +41,7 @@ const std::optional<Envelope>& TargetRegion::envelope() const { return itsBounde
 
 void TargetRegion::addRegionId(const std::string& theScheme, const std::string& theRegionId)
 {
-  if ((theScheme.length() > 0) && (theRegionId.length() > 0))
+  if ((!theScheme.empty()) && (!theRegionId.empty()))
     itsRegionIds.emplace_back(theScheme, theRegionId);
 }
 
@@ -76,7 +76,7 @@ TargetRegion::RegionIds_const_iterator TargetRegion::RegionIds_end() const
 void TargetRegion::addLocalizedName(const std::string& theLanguage,
                                     const std::string& theLocalizedName)
 {
-  if ((theLanguage.length() > 0) && (theLocalizedName.length() > 0))
+  if ((!theLanguage.empty()) && (!theLocalizedName.empty()))
     itsLocalizedNames.emplace_back(theLanguage, theLocalizedName);
 }
 

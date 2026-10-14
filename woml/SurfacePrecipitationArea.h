@@ -35,7 +35,7 @@ class SurfacePrecipitationArea : public AbstractSurfaceObject
   void innerArea(SurfacePrecipitationArea* theArea);
 
  private:
-  RainPhase itsRainPhase;
+  RainPhase itsRainPhase = unknown;
   std::string itsRainPhaseName;
   std::optional<double> itsContinuity;
   std::optional<double> itsShoweriness;

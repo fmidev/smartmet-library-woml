@@ -17,7 +17,7 @@ namespace woml
 
 TimeSeriesSlot::TimeSeriesSlot(const Fmi::DateTime& theValidTime,
                                GeophysicalParameterValueSet* theValues)
-    : itsValidTime(theValidTime), itsValues()
+    : itsValidTime(theValidTime)
 {
   itsValues.push_back(std::shared_ptr<GeophysicalParameterValueSet>(theValues));
 }

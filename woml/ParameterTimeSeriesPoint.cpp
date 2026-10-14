@@ -21,8 +21,7 @@ namespace woml
 ParameterTimeSeriesPoint::ParameterTimeSeriesPoint(const std::string& theClassNameExt)
     : Feature(theClassNameExt),
       itsTimePeriod(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME),
-                    Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME)),
-      itsTimeSeriesSlots()
+                    Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME))
 {
 }
 

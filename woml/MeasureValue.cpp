@@ -17,9 +17,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-CategoryValueMeasure::CategoryValueMeasure() : itsCategory(""), itsCodebase(""), itsGroupNumber(0)
-{
-}
+CategoryValueMeasure::CategoryValueMeasure() : itsGroupNumber(0) {}
 
 // ----------------------------------------------------------------------
 /*!
@@ -83,10 +81,7 @@ unsigned int CategoryValueMeasure::groupNumber() const { return itsGroupNumber; 
  */
 // ----------------------------------------------------------------------
 
-FlowDirectionMeasure::FlowDirectionMeasure()
-    : itsCompassPoint(""), itsDirectionVector(""), itsUnit("")
-{
-}
+FlowDirectionMeasure::FlowDirectionMeasure() {}
 
 // ----------------------------------------------------------------------
 /*!
@@ -96,7 +91,7 @@ FlowDirectionMeasure::FlowDirectionMeasure()
 
 FlowDirectionMeasure::FlowDirectionMeasure(const std::string& theCompassPoint,
                                            const std::string& theDirectionVector)
-    : itsCompassPoint(theCompassPoint), itsDirectionVector(theDirectionVector), itsUnit("")
+    : itsCompassPoint(theCompassPoint), itsDirectionVector(theDirectionVector)
 {
 }
 
@@ -136,10 +131,7 @@ const std::string& FlowDirectionMeasure::unit() const { return itsUnit; }
  */
 // ----------------------------------------------------------------------
 
-NumericalSingleValueMeasure::NumericalSingleValueMeasure()
-    : itsValue(0.0), itsStringValue(""), itsUnit("")
-{
-}
+NumericalSingleValueMeasure::NumericalSingleValueMeasure() : itsValue(0.0) {}
 
 // ----------------------------------------------------------------------
 /*!
@@ -183,12 +175,7 @@ const std::string& NumericalSingleValueMeasure::unit() const { return itsUnit; }
  */
 // ----------------------------------------------------------------------
 
-NumericalValueRangeMeasure::NumericalValueRangeMeasure()
-    : itsLowerLimit(NumericalSingleValueMeasure()),
-      itsUpperLimit(NumericalSingleValueMeasure()),
-      itsStringValue("")
-{
-}
+NumericalValueRangeMeasure::NumericalValueRangeMeasure() {}
 
 // ----------------------------------------------------------------------
 /*!

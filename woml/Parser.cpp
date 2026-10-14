@@ -24,6 +24,7 @@
 #include "WeatherForecast.h"
 
 #include <smartmet/macgyver/TimeParser.h>
+#include <cmath>
 
 #include <boost/algorithm/string.hpp>
 #include <macgyver/DateTime.h>
@@ -134,6 +135,8 @@ const char *nsResolver::_namespaces[] = {"gml",
  */
 // ----------------------------------------------------------------------
 
+namespace
+{
 std::string XMLChptr2str(const XMLCh *xp)
 {
   char *p = XMLString::transcode(xp);
@@ -197,7 +200,8 @@ std::optional<std::string> parse_woml_orientation(DOMNode *node){
 auto* elem = (DOMElement*)node;
 std::string o = ATTR(elem, "orientation");
 
-if (o.length() > 0) orientation = o;
+if (!o.empty())
+  orientation = o;
 
 return orientation;
 }
@@ -221,7 +225,7 @@ AutoRelease<DOMXPathResult> result(expression->evaluate(node,
 if ((node = getResultNode(result)))
 {
   std::stringstream s(XMLChptr2str(((DOMText *)node)->getNodeValue()));
-  double lat, lon;
+  double lat = NAN, lon = NAN;
   s >> lat >> lon;
   if (s.fail()) throw std::runtime_error("Invalid coordinate: " + s.str());
 
@@ -321,7 +325,7 @@ AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
                                                         nullptr));
 
-DOMText *text;
+DOMText* text = nullptr;
 if ((node = getResultNode(result, &text)))
 {
   auto* elem = (DOMElement*)node;
@@ -329,7 +333,7 @@ if ((node = getResultNode(result, &text)))
   std::string valstr(XMLChptr2str(text->getNodeValue()));
   std::string unit(ATTR(elem, "uom"));
 
-  if (valstr != "")
+  if (!valstr.empty())
   {
     auto value = boost::lexical_cast<double>(valstr);
     meas = NumericalSingleValueMeasure(value, valstr, unit);
@@ -406,8 +410,8 @@ TargetRegion parse_woml_target_region(DOMNode *theNode,
       AutoRelease<DOMXPathResult> result(
           expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
-      DOMNode *node;
-      DOMText *text;
+      DOMNode* node = nullptr;
+      DOMText* text = nullptr;
       while ((node = getResultNode(result, &text)))
       {
         auto* elem = (DOMElement*)node;
@@ -489,14 +493,15 @@ AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
                                                         nullptr));
 
-DOMText *text;
+DOMText* text = nullptr;
 while ((node = getResultNode(result, &text, false)))
   if (text)
   {
     auto* elem = (DOMElement*)node;
     std::string lang = ATTR(elem, "xml:lang");
 
-    if (lang.length() > 0) infos.insert(std::make_pair(lang, XMLChptr2str(text->getNodeValue())));
+    if (!lang.empty())
+      infos.insert(std::make_pair(lang, XMLChptr2str(text->getNodeValue())));
   }
 
 return infos;
@@ -611,7 +616,7 @@ Point read_text_point(DOMNode *node){TRY(){
     if (!(node = searchNode(node, "/text()[1]"))) throw std::runtime_error("Text element missing");
 
 std::stringstream s(XMLChptr2str(((DOMText *)node)->getNodeValue()));
-double lat, lon;
+double lat = NAN, lon = NAN;
 s >> lat >> lon;
 if (s.fail()) throw std::runtime_error("Invalid coordinate: " + s.str());
 
@@ -788,7 +793,7 @@ std::stringstream s(latlons);
 
 while (s.good())
 {
-  double lon, lat;
+  double lon = NAN, lat = NAN;
   s >> lat >> lon;
   if (s.fail()) throw std::runtime_error("Invalid coordinate: " + s.str());
 
@@ -896,7 +901,7 @@ CubicSplineSurface parse_woml_cubic_spline_surface(DOMNode *theNode, const char 
     AutoRelease<DOMXPathResult> result(
         expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
-    DOMNode *node;
+    DOMNode* node = nullptr;
     if ((node = getResultNode(result)))
     {
       std::string latlons(XMLChptr2str(((DOMText *)node)->getNodeValue()));
@@ -952,8 +957,8 @@ MeteorologicalSymbol parse_woml_meteorological_symbol(
     AutoRelease<DOMXPathResult> result(
         expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
-    DOMNode *node;
-    DOMText *text;
+    DOMNode* node = nullptr;
+    DOMText* text = nullptr;
     while ((node = getResultNode(result, &text)))
     {
       auto* elem = (DOMElement*)node;
@@ -1021,7 +1026,7 @@ T *parse_woml_pressure_center_type(DOMNode *theNode)
   {
     T *pct = parse_woml_abstract_point<T>(theNode);
 
-    DOMNode *node;
+    DOMNode* node = nullptr;
     if (!(node = searchNode(theNode, "womlswo:tendency/text()[1]")))
       throw std::runtime_error("Required tendency element missing");
 
@@ -1054,7 +1059,7 @@ T *parse_woml_storm_type(DOMNode *theNode)
     RainPhase rainPhase = unknown;
     std::optional<bool> isThunderStorm;
 
-    DOMNode *node;
+    DOMNode* node = nullptr;
 
     if ((node = searchNode(theNode, "womlswo:rainPhase/text()[1]")))
       rainPhase = parseRainPhase(XMLChptr2str(((DOMText *)node)->getNodeValue()));
@@ -1147,8 +1152,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-std::optional<NumericalModelRun> parse_woml_numerical_model_run(DOMNode *theNode){
-    TRYFA(XMLChptr2str(theNode->getNodeName())){DOMNode * node;
+std::optional<NumericalModelRun> parse_woml_numerical_model_run(DOMNode* theNode){
+    TRYFA(XMLChptr2str(theNode -> getNodeName())){DOMNode* node = nullptr;
 Fmi::DateTime analysisTime = parse_woml_required_time(theNode, "womlcore:analysisTime");
 
 if (!(node = searchNode(
@@ -1214,7 +1219,7 @@ TRYA(segmentIndexPathExpr)
   AutoRelease<DOMXPathResult> result(
       expression->evaluate(theNode, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
 
-  DOMNode *node;
+  DOMNode* node = nullptr;
   if ((node = getResultNode(result)))
   {
     int index = boost::lexical_cast<int>(XMLChptr2str(((DOMText *)node)->getNodeValue()));
@@ -1272,11 +1277,11 @@ CloudArea* parse_woml_cloud_area(DOMNode* theNode){
     TRY(){auto* area = parse_woml_abstract_surface<CloudArea>(theNode);
 
 CloudType cloudType = UNKNOWN;
-std::string cloudTypeName("");
+std::string cloudTypeName;
 std::optional<double> cloudCoverPercent;
 std::string cloudCoverEighths;
 
-DOMNode *node;
+DOMNode* node = nullptr;
 
 if ((node = searchNode(theNode, "womlswo:cloudType/text()[1]")))
 {
@@ -1336,7 +1341,7 @@ RainPhase rainPhase = unknown;
 std::string rainPhaseName;
 std::optional<double> continuity, showeriness;
 
-DOMNode *node;
+DOMNode* node = nullptr;
 if ((node = searchNode(theNode, "womlswo:rainPhase/text()[1]")))
 {
   rainPhaseName = XMLChptr2str(((DOMText *)node)->getNodeValue());
@@ -1410,9 +1415,9 @@ CATCH
 // ----------------------------------------------------------------------
 
 GeophysicalParameter parse_woml_geophysical_parameter(
-    DOMNode *node,
-    const char *pathExpr = "womlqty:parameter/womlqty:GeophysicalParameter/womlqty:reference"){
-    TRYFA(pathExpr){std::string param = "";
+    DOMNode* node,
+    const char* pathExpr = "womlqty:parameter/womlqty:GeophysicalParameter/womlqty:reference"){
+    TRYFA(pathExpr){std::string param;
 int number = -1;
 
 AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
@@ -1420,7 +1425,7 @@ AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         DOMXPathResult::ITERATOR_RESULT_TYPE,
                                                         nullptr));
 
-DOMText *text;
+DOMText* text = nullptr;
 if ((node = getResultNode(result, &text, false)))
   if (text)
   {
@@ -1469,12 +1474,12 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-MeasureValue *parse_woml_flow_direction_measure(
-    DOMNode *theNode,
-    const char *compassPointPathExpr = "womlqty:direction/gml:CompassPoint",
-    const char *directionVectorPathExpr = "womlqty:direction/gml:DirectionVector/gml:vector"){
-    TRY(){DOMNode * node;
-DOMNode *text;
+MeasureValue* parse_woml_flow_direction_measure(
+    DOMNode* theNode,
+    const char* compassPointPathExpr = "womlqty:direction/gml:CompassPoint",
+    const char* directionVectorPathExpr = "womlqty:direction/gml:DirectionVector/gml:vector"){
+    TRY(){DOMNode* node = nullptr;
+DOMNode* text = nullptr;
 
 std::string compassPoint;
 
@@ -1559,7 +1564,7 @@ void parse_woml_geophysical_parameter_value(DOMNode *node,
     TRY(){GeophysicalParameter param(parse_woml_geophysical_parameter(node));
 Elevation elevation(parse_woml_elevation(node));
 
-MeasureValue *measValue;
+MeasureValue* measValue = nullptr;
 uint nodeIndex = 0;
 
 do
@@ -1699,7 +1704,7 @@ void parse_woml_parameter_timeseriespoint(T &theWeatherObject, DOMNode *node)
     //
     auto* elem = (DOMElement*)node;
     std::string className = ATTR(elem, "gml:id"), classNameExt;
-    const char *p;
+    const char* p = nullptr;
 
     if ((className == "cloudLayers") || (className == "cloudLayersCB"))
       theWeatherObject.addFeature(
@@ -1902,7 +1907,8 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-std::shared_ptr<WeatherForecast> parse_woml_weather_forecast(documentType docType, DOMNode *node){
+std::shared_ptr<WeatherForecast> parse_woml_weather_forecast(documentType /*docType*/,
+                                                             DOMNode* node){
     TRY(){std::shared_ptr<WeatherForecast> forecast(new WeatherForecast());
 
 // Note: envelope is taken from targetRegion
@@ -1932,6 +1938,7 @@ return forecast;
 }
 CATCH
 }
+}  // namespace
 
 // ----------------------------------------------------------------------
 /*!

@@ -16,7 +16,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-Envelope::Envelope() : itsBounded(false), itsPoint(), itsRect(), itsSrsName(), itsSrsDimension() {}
+Envelope::Envelope() : itsBounded(false) {}
 // ----------------------------------------------------------------------
 /*!
  * \brief Constructor
@@ -28,7 +28,6 @@ Envelope::Envelope(const std::optional<Point>& thePoint,
                    std::string theSrsDimension)
     : itsBounded(false),
       itsPoint(thePoint),
-      itsRect(),
       itsSrsName(std::move(theSrsName)),
       itsSrsDimension(std::move(theSrsDimension))
 {
@@ -43,8 +42,7 @@ Envelope::Envelope(const std::optional<Point>& thePoint,
 Envelope::Envelope(const std::optional<Rect>& theRect,
                    std::string theSrsName,
                    std::string theSrsDimension)
-    : itsBounded(theRect ? true : false),
-      itsPoint(),
+    : itsBounded(static_cast<bool>(theRect)),
       itsRect(theRect),
       itsSrsName(std::move(theSrsName)),
       itsSrsDimension(std::move(theSrsDimension))

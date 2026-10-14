@@ -18,17 +18,11 @@ namespace woml
 // ----------------------------------------------------------------------
 
 MeteorologicalAnalysis::MeteorologicalAnalysis()
-    : MeteorologicalObject(),
-      itsFeatureMembers(),
-      itsValidTime(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME),
+    : itsValidTime(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME),
                    Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME)),
-      itsCreator(),
       itsCreationTime(Fmi::DateTime::NOT_A_DATE_TIME),
       itsLatestModificationTime(Fmi::DateTime::NOT_A_DATE_TIME),
-      itsAnalysisTime(Fmi::DateTime::NOT_A_DATE_TIME),
-      itsTargetRegions()
-//, itsShortInfos()
-//, itsLongInfos()
+      itsAnalysisTime(Fmi::DateTime::NOT_A_DATE_TIME)
 {
 }
 

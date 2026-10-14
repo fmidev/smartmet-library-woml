@@ -34,7 +34,7 @@ class CloudArea : public AbstractSurfaceObject
   const std::string& cloudCoverEighths() const;
 
  private:
-  CloudType itsCloudType;
+  CloudType itsCloudType = UNKNOWN;
   std::string itsCloudTypeName;
   std::optional<double> itsCloudCoverPercent;
   std::string itsCloudCoverEighths;

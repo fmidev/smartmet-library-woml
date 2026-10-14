@@ -15,7 +15,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-ParameterValueSetArea::ParameterValueSetArea() : AbstractSurfaceObject() {}
+ParameterValueSetArea::ParameterValueSetArea() {}
 // ----------------------------------------------------------------------
 /*!
  * \brief Visit handler

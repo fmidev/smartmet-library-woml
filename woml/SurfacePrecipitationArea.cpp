@@ -15,15 +15,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-SurfacePrecipitationArea::SurfacePrecipitationArea()
-    : AbstractSurfaceObject(),
-      itsRainPhase(unknown),
-      itsRainPhaseName(""),
-      itsContinuity(),
-      itsShoweriness(),
-      itsApproximateRainFall()
-{
-}
+SurfacePrecipitationArea::SurfacePrecipitationArea() {}
 
 // ----------------------------------------------------------------------
 /*!

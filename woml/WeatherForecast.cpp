@@ -18,17 +18,11 @@ namespace woml
 // ----------------------------------------------------------------------
 
 WeatherForecast::WeatherForecast()
-    : MeteorologicalObject(),
-      itsFeatureMembers(),
-      itsValidTime(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME),
+    : itsValidTime(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME),
                    Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME)),
-      itsCreator(),
       itsCreationTime(Fmi::DateTime::NOT_A_DATE_TIME),
       itsLatestModificationTime(Fmi::DateTime::NOT_A_DATE_TIME),
-      itsForecastTime(Fmi::DateTime::NOT_A_DATE_TIME),
-      itsTargetRegions()
-//, itsShortInfos()
-//, itsLongInfos()
+      itsForecastTime(Fmi::DateTime::NOT_A_DATE_TIME)
 {
 }
 
@@ -213,7 +207,8 @@ void WeatherForecast::addShortInfos(const WeatherForecastInfo &theShortInfos)
   //	  addShortInfo(shortInfo.first, shortInfo.second);
   //	}
 
-  if (theShortInfos.size() > 0) addFeature(new InfoText("shortInfo", theShortInfos));
+  if (!theShortInfos.empty())
+    addFeature(new InfoText("shortInfo", theShortInfos));
 }
 
 // ----------------------------------------------------------------------
@@ -244,7 +239,8 @@ void WeatherForecast::addLongInfos(const WeatherForecastInfo &theLongInfos)
   //	  addLongInfo(longInfo.first, longInfo.second);
   //	}
 
-  if (theLongInfos.size() > 0) addFeature(new InfoText("longInfo", theLongInfos));
+  if (!theLongInfos.empty())
+    addFeature(new InfoText("longInfo", theLongInfos));
 }
 
 // ----------------------------------------------------------------------

@@ -61,6 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Tue Oct 13 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.10.13-1.fmi
 - Declare member functions and parameters const where nothing is modified (const correctness), no functional changes
+- Fixed mechanical clang-tidy findings (internal linkage, unused parameters, initialization, redundant code), no functional changes
 
 * Sun Oct 11 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.10.11-1.fmi
 - Use auto and return {} where clang-tidy suggests it, no functional changes

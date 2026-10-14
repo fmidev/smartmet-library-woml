@@ -15,14 +15,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-CloudArea::CloudArea()
-    : AbstractSurfaceObject(),
-      itsCloudType(UNKNOWN),
-      itsCloudTypeName(""),
-      itsCloudCoverPercent(),
-      itsCloudCoverEighths()
-{
-}
+CloudArea::CloudArea() {}
 
 // ----------------------------------------------------------------------
 /*!

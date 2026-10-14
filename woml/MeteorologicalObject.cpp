@@ -16,7 +16,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-MeteorologicalObject::MeteorologicalObject() : itsTimeSynchronizedFeatureMembers() {}
+MeteorologicalObject::MeteorologicalObject() {}
 // ----------------------------------------------------------------------
 /*!
  * \brief Add a time synchronized feature member

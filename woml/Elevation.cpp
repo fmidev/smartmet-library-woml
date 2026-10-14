@@ -16,7 +16,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-Elevation::Elevation() : itsBounded(false), itsValue(), itsRange() {}
+Elevation::Elevation() : itsBounded(false) {}
 // ----------------------------------------------------------------------
 /*!
  * \brief Constructor
@@ -24,7 +24,7 @@ Elevation::Elevation() : itsBounded(false), itsValue(), itsRange() {}
 // ----------------------------------------------------------------------
 
 Elevation::Elevation(const std::optional<NumericalSingleValueMeasure>& theValue)
-    : itsBounded(false), itsValue(theValue), itsRange()
+    : itsBounded(false), itsValue(theValue)
 {
 }
 
@@ -35,7 +35,7 @@ Elevation::Elevation(const std::optional<NumericalSingleValueMeasure>& theValue)
 // ----------------------------------------------------------------------
 
 Elevation::Elevation(const std::optional<NumericalValueRangeMeasure>& theRange)
-    : itsBounded(theRange ? true : false), itsValue(), itsRange(theRange)
+    : itsBounded(static_cast<bool>(theRange)), itsRange(theRange)
 {
 }
 

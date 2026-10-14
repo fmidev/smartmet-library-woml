@@ -15,10 +15,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-PointMeteorologicalSymbol::PointMeteorologicalSymbol()
-    : AbstractPointObject(), itsMeteorologicalSymbol()
-{
-}
+PointMeteorologicalSymbol::PointMeteorologicalSymbol() : AbstractPointObject() {}
 
 // ----------------------------------------------------------------------
 /*!

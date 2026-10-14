@@ -16,11 +16,10 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-Feature::Feature(const std::string & theClassNameExt)
+Feature::Feature(const std::string& theClassNameExt)
     : itsClassNameExt(theClassNameExt),
       itsCreationTime(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME)),
-      itsValidTime(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME)),
-      itsShortInfos()
+      itsValidTime(Fmi::DateTime(Fmi::DateTime::NOT_A_DATE_TIME))
 {
 }
 
@@ -61,7 +60,7 @@ void Feature::validTime(const std::optional<Fmi::DateTime>& theTime)
 
 void Feature::addShortInfo(const std::string& theLanguage, const std::string& theShortInfo)
 {
-  if ((theLanguage.length() > 0) && (theShortInfo.length() > 0))
+  if ((!theLanguage.empty()) && (!theShortInfo.empty()))
   {
     // The locale string is used for case insensitive comparisons (only)
     //
@@ -100,7 +99,7 @@ const std::string& Feature::text(const std::string& theLanguage) const
   {
     // First text is returned if the queried language is undefined
     //
-    if (theLanguage.empty() && (itsShortInfos.size() > 0))
+    if (theLanguage.empty() && (!itsShortInfos.empty()))
       it = itsShortInfos.begin();
     else
       return theLanguage;

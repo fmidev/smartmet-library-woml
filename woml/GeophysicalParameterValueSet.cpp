@@ -15,7 +15,7 @@ namespace woml
  */
 // ----------------------------------------------------------------------
 
-GeophysicalParameterValueSet::GeophysicalParameterValueSet() : itsElevation(), itsValues() {}
+GeophysicalParameterValueSet::GeophysicalParameterValueSet() {}
 // ----------------------------------------------------------------------
 /*!
  * \brief Set the elevation
