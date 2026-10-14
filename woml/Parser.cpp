@@ -225,7 +225,8 @@ AutoRelease<DOMXPathResult> result(expression->evaluate(node,
 if ((node = getResultNode(result)))
 {
   std::stringstream s(XMLChptr2str(((DOMText *)node)->getNodeValue()));
-  double lat = NAN, lon = NAN;
+  double lat = NAN;
+  double lon = NAN;
   s >> lat >> lon;
   if (s.fail()) throw std::runtime_error("Invalid coordinate: " + s.str());
 
@@ -612,19 +613,6 @@ CATCH
  */
 // ----------------------------------------------------------------------
 
-Point read_text_point(DOMNode *node){TRY(){
-    if (!(node = searchNode(node, "/text()[1]"))) throw std::runtime_error("Text element missing");
-
-std::stringstream s(XMLChptr2str(((DOMText *)node)->getNodeValue()));
-double lat = NAN, lon = NAN;
-s >> lat >> lon;
-if (s.fail()) throw std::runtime_error("Invalid coordinate: " + s.str());
-
-return Point(lon, lat);
-}
-CATCH
-}
-
 // ----------------------------------------------------------------------
 /*!
  * \brief Parse gml:TimePositionUnion
@@ -793,7 +781,8 @@ std::stringstream s(latlons);
 
 while (s.good())
 {
-  double lon = NAN, lat = NAN;
+  double lon = NAN;
+  double lat = NAN;
   s >> lat >> lon;
   if (s.fail()) throw std::runtime_error("Invalid coordinate: " + s.str());
 
@@ -810,28 +799,6 @@ CATCH
  * \brief Parse line segments
  */
 // ----------------------------------------------------------------------
-
-CubicSplineCurve parse_woml_spline_segments(DOMNode *node,
-                                            const char *pathExpr =
-                                                "womlcore:controlCurve/gml:CompositeCurve/"
-                                                "gml:curveMember/gml:Curve/gml:segments/gml:Bezier/"
-                                                "gml:posList/text()[1]")
-{
-  TRYFA(pathExpr)
-  {
-    CubicSplineCurve curve;
-
-    AutoRelease<DOMXPathExpression> expression(EXPR(pathExpr));
-    AutoRelease<DOMXPathResult> result(
-        expression->evaluate(node, DOMXPathResult::ITERATOR_RESULT_TYPE, nullptr));
-
-    while ((node = getResultNode(result)))
-      curve.add(parse_woml_spline<SimpleCubicSpline>(node));
-
-    return curve;
-  }
-  CATCH
-}
 
 // ----------------------------------------------------------------------
 /*!
@@ -1339,7 +1306,8 @@ SurfacePrecipitationArea* parse_woml_surface_precipitation_area(DOMNode* theNode
     TRY(){auto* area = parse_woml_abstract_surface<SurfacePrecipitationArea>(theNode);
 RainPhase rainPhase = unknown;
 std::string rainPhaseName;
-std::optional<double> continuity, showeriness;
+std::optional<double> continuity;
+std::optional<double> showeriness;
 
 DOMNode* node = nullptr;
 if ((node = searchNode(theNode, "womlswo:rainPhase/text()[1]")))
@@ -1462,8 +1430,10 @@ std::string codebase(ATTR(elem, "codebase"));
 
 return new CategoryValueMeasure(category, codebase);
 }
-else if (nodeIndex == 1) throw std::runtime_error("Required category element missing");
-else return nullptr;
+if (nodeIndex == 1)
+  throw std::runtime_error("Required category element missing");
+else
+  return nullptr;
 }
 CATCH
 }
@@ -1523,14 +1493,15 @@ MeasureValue *parse_woml_parameter_measure_value(DOMNode *node,
         // node index (1,2, ...)
         //
         return parse_woml_category_value_measure(node, nodeIndex);
-      else if (tagName == "FlowDirectionMeasure")
+      if (tagName == "FlowDirectionMeasure")
         return parse_woml_flow_direction_measure(node);
       else if (tagName == "NumericalSingleValueMeasure")
       {
         std::optional<NumericalSingleValueMeasure> meas =
             parse_woml_numerical_single_value_measure(node, "womlqty:numericalValue");
 
-        if (meas) return new NumericalSingleValueMeasure(*meas);
+        if (meas)
+          return new NumericalSingleValueMeasure(*meas);
 
         throw std::runtime_error("Invalid NumericalSingleValueMeasure element");
       }
@@ -1539,7 +1510,8 @@ MeasureValue *parse_woml_parameter_measure_value(DOMNode *node,
         std::optional<NumericalValueRangeMeasure> meas = parse_woml_numerical_value_range_measure(
             node, "womlqty:numericalValueLowerLimit", "womlqty:numericalValueUpperLimit");
 
-        if (meas) return new NumericalValueRangeMeasure(*meas);
+        if (meas)
+          return new NumericalValueRangeMeasure(*meas);
 
         throw std::runtime_error("Invalid NumericalValueRangeMeasure element");
       }
@@ -1567,13 +1539,13 @@ Elevation elevation(parse_woml_elevation(node));
 MeasureValue* measValue = nullptr;
 uint nodeIndex = 0;
 
-do
+for (bool more = true; more; more = measValue && multipleValues)
 {
   nodeIndex++;
 
   if ((measValue = parse_woml_parameter_measure_value(node, nodeIndex)))
     values->add(GeophysicalParameterValue(param, measValue, elevation));
-} while (measValue && multipleValues);
+}
 }
 CATCH
 }
@@ -1703,7 +1675,8 @@ void parse_woml_parameter_timeseriespoint(T &theWeatherObject, DOMNode *node)
     // to identify the basic (""), tempo ("Tempo") and prob ("Prob") values
     //
     auto* elem = (DOMElement*)node;
-    std::string className = ATTR(elem, "gml:id"), classNameExt;
+    std::string className = ATTR(elem, "gml:id");
+    std::string classNameExt;
     const char* p = nullptr;
 
     if ((className == "cloudLayers") || (className == "cloudLayersCB"))
@@ -1884,7 +1857,8 @@ analysis->validTime(parse_gml_required_valid_time(node));
 analysis->analysisTime(parse_woml_required_time(node, "womlcore:analysisTime"));
 analysis->latestModificationTime(parse_woml_latest_modification_time(node));
 
-MeteorologicalAnalysisInfo shortInfos, longInfos;
+MeteorologicalAnalysisInfo shortInfos;
+MeteorologicalAnalysisInfo longInfos;
 analysis->addShortInfos(parse_woml_shortinfo(node, shortInfos));
 analysis->addLongInfos(parse_woml_longinfo(node, longInfos));
 
@@ -1922,7 +1896,8 @@ forecast->validTime(parse_gml_required_valid_time(node));
 forecast->forecastTime(parse_woml_required_time(node, "womlcore:forecastTime"));
 forecast->latestModificationTime(parse_woml_latest_modification_time(node));
 
-WeatherForecastInfo shortInfos, longInfos;
+WeatherForecastInfo shortInfos;
+WeatherForecastInfo longInfos;
 forecast->addShortInfos(parse_woml_shortinfo(node, shortInfos));
 forecast->addLongInfos(parse_woml_longinfo(node, longInfos));
 

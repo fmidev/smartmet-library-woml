@@ -50,7 +50,10 @@ void MeteorologicalObject::synchronize()
   auto ppend = itsTimeSynchronizedFeatureMembers.end();
   std::list<ParameterTimeSeriesPoint *>::iterator itpp;
 
-  std::list<woml::TimeSeriesSlot>::const_iterator tsbeg, tsend, itts, pitts;
+  std::list<woml::TimeSeriesSlot>::const_iterator tsbeg;
+  std::list<woml::TimeSeriesSlot>::const_iterator tsend;
+  std::list<woml::TimeSeriesSlot>::const_iterator itts;
+  std::list<woml::TimeSeriesSlot>::const_iterator pitts;
 
   std::set<Fmi::DateTime> ti;
 
@@ -79,7 +82,9 @@ void MeteorologicalObject::synchronize()
   for (bool missing = true; missing;)
   {
     missing = false;
-    std::set<Fmi::DateTime>::iterator tibeg = ti.begin(), tiend = ti.end(), itti;
+    std::set<Fmi::DateTime>::iterator tibeg = ti.begin();
+    std::set<Fmi::DateTime>::iterator tiend = ti.end();
+    std::set<Fmi::DateTime>::iterator itti;
 
     for (itpp = ppbeg, itti = tibeg; (itpp != ppend); itpp++)
     {

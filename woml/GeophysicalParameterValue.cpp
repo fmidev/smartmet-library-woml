@@ -44,7 +44,7 @@ bool GeophysicalParameterValue::operator<(const GeophysicalParameterValue& theOt
 
   if (!itsUpperLimit)
     return false;
-  else if (!theUpperLimit)
+  if (!theUpperLimit)
     return true;
 
   // Sort to descending elevation
