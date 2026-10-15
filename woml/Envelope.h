@@ -23,8 +23,8 @@ class Envelope
            std::string theSrsDimension);
   bool bounded() const;
   const std::optional<Point>& point() const;
-  const std::optional<Point> lowerCorner() const;
-  const std::optional<Point> upperCorner() const;
+  std::optional<Point> lowerCorner() const;
+  std::optional<Point> upperCorner() const;
   const std::string& srsName() const;
   const std::string& srsDimension() const;
 

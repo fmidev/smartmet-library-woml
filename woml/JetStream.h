@@ -18,8 +18,7 @@ class JetStream : public AbstractLineObject
   void visit(FeatureVisitor& theVisitor) const override;
 
   using maximumWindSpeedList = std::list<std::pair<int, NumericalSingleValueMeasure> >;
-  void maximumWindSpeed(const int segmentIndex,
-                        const NumericalSingleValueMeasure& theMaximumWindSpeed);
+  void maximumWindSpeed(int segmentIndex, const NumericalSingleValueMeasure& theMaximumWindSpeed);
   using MaximumWindSpeeds_const_iterator = maximumWindSpeedList::const_iterator;
   MaximumWindSpeeds_const_iterator MaximumWindSpeeds_begin() const;
   MaximumWindSpeeds_const_iterator MaximumWindSpeeds_end() const;

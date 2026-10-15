@@ -860,7 +860,7 @@ CubicSplineSurface parse_woml_cubic_spline_surface(DOMNode *theNode, const char 
   std::string interiorPathExpr =
       std::string(pathExpr) + "/gml:interior/gml:LinearRing/gml:posList/text()[1]";
 
-  TRYFA(exteriorPathExpr.c_str())
+  TRYFA(exteriorPathExpr)
   {
     CubicSplineSurface surface;
 
@@ -886,7 +886,7 @@ CubicSplineSurface parse_woml_cubic_spline_surface(DOMNode *theNode, const char 
     else
       return surface;
 
-    TRYA(interiorPathExpr.c_str())
+    TRYA(interiorPathExpr)
     {
       AutoRelease<DOMXPathExpression> expression2(EXPR(interiorPathExpr));
       AutoRelease<DOMXPathResult> result2(
@@ -2008,7 +2008,9 @@ Weather parse(const std::filesystem::path &thePath, documentType docType, bool s
 
     return weather;
   }
-  catch (XQillaException &exc) { XQEXC(std::string(UTF8(exc.getString())).c_str()); }
+  catch (XQillaException &exc) {
+    XQEXC(std::string(UTF8(exc.getString())));
+  }
   CATCH
 }
 

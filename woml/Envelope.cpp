@@ -69,7 +69,7 @@ const std::optional<Point>& Envelope::point() const { return itsPoint; }
  */
 // ----------------------------------------------------------------------
 
-const std::optional<Point> Envelope::lowerCorner() const
+std::optional<Point> Envelope::lowerCorner() const
 {
   std::optional<Point> lc;
 
@@ -84,7 +84,7 @@ const std::optional<Point> Envelope::lowerCorner() const
  */
 // ----------------------------------------------------------------------
 
-const std::optional<Point> Envelope::upperCorner() const
+std::optional<Point> Envelope::upperCorner() const
 {
   std::optional<Point> uc;
 
