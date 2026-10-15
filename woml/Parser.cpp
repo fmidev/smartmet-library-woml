@@ -1073,7 +1073,7 @@ T *parse_woml_abstract_line(DOMNode *node)
     {
       line->controlCurve(parse_woml_control_curve(node));
     }
-    catch (std::runtime_error &exc)
+    catch (std::runtime_error &)
     {
       if (Weather::strictMode()) throw;
 
@@ -1394,7 +1394,7 @@ AutoRelease<DOMXPathResult> result(expression->evaluate(node,
                                                         nullptr));
 
 DOMText* text = nullptr;
-if ((node = getResultNode(result, &text, false)))
+if (getResultNode(result, &text, false))
   if (text)
   {
     param = XMLChptr2str(text->getNodeValue());

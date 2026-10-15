@@ -19,7 +19,7 @@ class OccludedFront : public AbstractLineObject
   bool stationary() const;
 
  private:
-  bool itsStationary;
+  bool itsStationary = false;
 
 };  // class OccludedFront
 
