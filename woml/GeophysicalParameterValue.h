@@ -37,7 +37,7 @@ class GeophysicalParameterValue
   unsigned int getFlags() const { return itsFlagBits; }
 
  private:
-  GeophysicalParameterValue();
+  GeophysicalParameterValue() = delete;
 
   const GeophysicalParameter itsParameter;
   const std::shared_ptr<MeasureValue> itsValue;

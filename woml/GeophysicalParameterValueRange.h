@@ -22,7 +22,7 @@ class GeophysicalParameterValueRange
   double upperLimit() const { return itsUpperLimit; }
 
  private:
-  GeophysicalParameterValueRange();
+  GeophysicalParameterValueRange() = delete;
 
   GeophysicalParameter itsParameter;
   double itsLowerLimit;

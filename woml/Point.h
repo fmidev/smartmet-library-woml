@@ -18,7 +18,7 @@ class Point
   double lat() const { return itsLat; }
 
  private:
-  Point();
+  Point() = delete;
   double itsLon;
   double itsLat;
 
@@ -35,7 +35,7 @@ class Rect
   const std::optional<Point>& upperCorner() const { return itsUpperCorner; }
 
  private:
-  Rect();
+  Rect() = delete;
   std::optional<Point> itsLowerCorner;
   std::optional<Point> itsUpperCorner;
 

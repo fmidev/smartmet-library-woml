@@ -22,7 +22,7 @@ CloudType parseCloudType(const std::string& theName)
     return CC;
   if (theName == "CS")
     return CS;
-  else if (theName == "AC")
+  if (theName == "AC")
     return AC;
   else if (theName == "AS")
     return AS;

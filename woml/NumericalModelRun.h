@@ -26,7 +26,7 @@ class NumericalModelRun
   const Fmi::DateTime& analysisTime() const { return itsAnalysisTime; }
 
  private:
-  NumericalModelRun();
+  NumericalModelRun() = delete;
   std::string itsName;
   std::string itsSpecifier;
   Fmi::DateTime itsAnalysisTime;

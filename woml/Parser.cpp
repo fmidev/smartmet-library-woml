@@ -1432,8 +1432,7 @@ return new CategoryValueMeasure(category, codebase);
 }
 if (nodeIndex == 1)
   throw std::runtime_error("Required category element missing");
-else
-  return nullptr;
+return nullptr;
 }
 CATCH
 }
@@ -1495,7 +1494,7 @@ MeasureValue *parse_woml_parameter_measure_value(DOMNode *node,
         return parse_woml_category_value_measure(node, nodeIndex);
       if (tagName == "FlowDirectionMeasure")
         return parse_woml_flow_direction_measure(node);
-      else if (tagName == "NumericalSingleValueMeasure")
+      if (tagName == "NumericalSingleValueMeasure")
       {
         std::optional<NumericalSingleValueMeasure> meas =
             parse_woml_numerical_single_value_measure(node, "womlqty:numericalValue");

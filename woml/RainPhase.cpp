@@ -22,7 +22,7 @@ RainPhase parseRainPhase(const std::string& theName)
     return snow;
   if (theName == "fog")
     return fog;
-  else if (theName == "sleet")
+  if (theName == "sleet")
     return sleet;
   else if (theName == "hail")
     return hail;
