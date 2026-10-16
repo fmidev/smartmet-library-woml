@@ -1728,6 +1728,94 @@ void parse_woml_parameter_timeseriespoint(T &theWeatherObject, DOMNode *node)
   CATCH
 }
 
+// Add a feature to a weather object if the feature was parsed successfully
+template <typename T, typename F>
+void add_feature_if_valid(T &theWeatherObject, F *theFeature)
+{
+  if (theFeature)
+    theWeatherObject.addFeature(theFeature);
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse line type meteorological objects, returns false for other types
+ */
+// ----------------------------------------------------------------------
+
+template <typename T>
+bool parse_woml_line_object(T &theWeatherObject, const std::string &name, DOMNode *node)
+{
+  if (name == /*"womlswo:*/ "ColdAdvection")
+    add_feature_if_valid(theWeatherObject, parse_woml_abstract_line<ColdAdvection>(node));
+  else if (name == /*"womlswo:*/ "ColdFront")
+    add_feature_if_valid(theWeatherObject, parse_woml_abstract_line<ColdFront>(node));
+  else if (name == /*"womlswo:*/ "JetStream")
+    add_feature_if_valid(theWeatherObject, parse_woml_jet_stream(node));
+  else if (name == /*"womlswo:*/ "OccludedFront")
+    add_feature_if_valid(theWeatherObject, parse_woml_occluded_front(node));
+  else if (name == /*"womlswo:*/ "Ridge")
+    add_feature_if_valid(theWeatherObject, parse_woml_abstract_line<Ridge>(node));
+  else if (name == /*"womlswo:*/ "Trough")
+    add_feature_if_valid(theWeatherObject, parse_woml_abstract_line<Trough>(node));
+  else if (name == /*"womlswo:*/ "UpperTrough")
+    add_feature_if_valid(theWeatherObject, parse_woml_abstract_line<UpperTrough>(node));
+  else if (name == /*"womlswo:*/ "WarmAdvection")
+    add_feature_if_valid(theWeatherObject, parse_woml_abstract_line<WarmAdvection>(node));
+  else if (name == /*"womlswo:*/ "WarmFront")
+    add_feature_if_valid(theWeatherObject, parse_woml_abstract_line<WarmFront>(node));
+  else
+    return false;
+  return true;
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Parse point and area type meteorological objects, returns false for other types
+ */
+// ----------------------------------------------------------------------
+
+template <typename T>
+bool parse_woml_point_or_area_object(T &theWeatherObject, const std::string &name, DOMNode *node)
+{
+  if (name == /*"womlswo:*/ "PointMeteorologicalSymbol")
+    theWeatherObject.addFeature(parse_woml_point_meteorological_symbol(node));
+  else if (name == /*"womlswo:*/ "AntiCyclone")
+    theWeatherObject.addFeature(parse_woml_pressure_center_type<AntiCyclone>(node));
+  else if (name == /*"womlswo:*/ "Antimesocyclone")
+    theWeatherObject.addFeature(parse_woml_pressure_center_type<Antimesocyclone>(node));
+  else if (name == /*"womlswo:*/ "Cyclone")
+    theWeatherObject.addFeature(parse_woml_pressure_center_type<Cyclone>(node));
+  else if (name == /*"womlswo:*/ "HighPressureCenter")
+    theWeatherObject.addFeature(parse_woml_pressure_center_type<HighPressureCenter>(node));
+  else if (name == /*"womlswo:*/ "LowPressureCenter")
+    theWeatherObject.addFeature(parse_woml_pressure_center_type<LowPressureCenter>(node));
+  else if (name == /*"womlswo:*/ "Mesocyclone")
+    theWeatherObject.addFeature(parse_woml_pressure_center_type<Mesocyclone>(node));
+  else if (name == /*"womlswo:*/ "Mesolow")
+    theWeatherObject.addFeature(parse_woml_pressure_center_type<Mesolow>(node));
+  else if (name == /*"womlswo:*/ "PolarCyclone")
+    theWeatherObject.addFeature(parse_woml_pressure_center_type<PolarCyclone>(node));
+  else if (name == /*"womlswo:*/ "PolarLow")
+    theWeatherObject.addFeature(parse_woml_pressure_center_type<PolarLow>(node));
+  else if (name == /*"womlswo:*/ "TropicalCyclone")
+    theWeatherObject.addFeature(parse_woml_pressure_center_type<TropicalCyclone>(node));
+  else if (name == /*"womlswo:*/ "ConvectiveStorm")
+    theWeatherObject.addFeature(parse_woml_storm_type<ConvectiveStorm>(node));
+  else if (name == /*"womlswo:*/ "Storm")
+    theWeatherObject.addFeature(parse_woml_storm_type<Storm>(node));
+  else if (name == /*"womlswo:*/ "ParameterValueSetPoint")
+    theWeatherObject.addFeature(parse_woml_parameter_value_set_point(node));
+  else if (name == /*"womlswo:*/ "CloudArea")
+    theWeatherObject.addFeature(parse_woml_cloud_area(node));
+  else if (name == /*"womlswo:*/ "SurfacePrecipitationArea")
+    theWeatherObject.addFeature(parse_woml_surface_precipitation_area(node));
+  else if (name == /*"womlswo:*/ "ParameterValueSetArea")
+    theWeatherObject.addFeature(parse_woml_parameter_value_set_area(node));
+  else
+    return false;
+  return true;
+}
+
 // ----------------------------------------------------------------------
 /*!
  * \brief Parse meteorological objects
@@ -1740,98 +1828,13 @@ void parse_woml_meteorologicalobject(T &theWeatherObject, DOMNode *node){
 
 if (name == /*"womlqty:*/ "ParameterTimeSeriesPoint")
   parse_woml_parameter_timeseriespoint(theWeatherObject, node);
-else if (name == /*"womlswo:*/ "ColdAdvection")
+else if (!parse_woml_line_object(theWeatherObject, name, node) &&
+         !parse_woml_point_or_area_object(theWeatherObject, name, node))
 {
-  auto* coldAdvection = parse_woml_abstract_line<ColdAdvection>(node);
-
-  if (coldAdvection) theWeatherObject.addFeature(coldAdvection);
-}
-else if (name == /*"womlswo:*/ "ColdFront")
-{
-  auto* coldFront = parse_woml_abstract_line<ColdFront>(node);
-
-  if (coldFront) theWeatherObject.addFeature(coldFront);
-}
-else if (name == /*"womlswo:*/ "JetStream")
-{
-  JetStream *jetStream = parse_woml_jet_stream(node);
-
-  if (jetStream) theWeatherObject.addFeature(jetStream);
-}
-else if (name == /*"womlswo:*/ "OccludedFront")
-{
-  OccludedFront *occludedFront = parse_woml_occluded_front(node);
-
-  if (occludedFront) theWeatherObject.addFeature(occludedFront);
-}
-else if (name == /*"womlswo:*/ "Ridge")
-{
-  auto* ridge = parse_woml_abstract_line<Ridge>(node);
-
-  if (ridge) theWeatherObject.addFeature(ridge);
-}
-else if (name == /*"womlswo:*/ "Trough")
-{
-  auto* trough = parse_woml_abstract_line<Trough>(node);
-
-  if (trough) theWeatherObject.addFeature(trough);
-}
-else if (name == /*"womlswo:*/ "UpperTrough")
-{
-  auto* upperTrough = parse_woml_abstract_line<UpperTrough>(node);
-
-  if (upperTrough) theWeatherObject.addFeature(upperTrough);
-}
-else if (name == /*"womlswo:*/ "WarmAdvection")
-{
-  auto* warmAdvection = parse_woml_abstract_line<WarmAdvection>(node);
-
-  if (warmAdvection) theWeatherObject.addFeature(warmAdvection);
-}
-else if (name == /*"womlswo:*/ "WarmFront")
-{
-  auto* warmFront = parse_woml_abstract_line<WarmFront>(node);
-
-  if (warmFront) theWeatherObject.addFeature(warmFront);
-}
-else if (name == /*"womlswo:*/ "PointMeteorologicalSymbol")
-  theWeatherObject.addFeature(parse_woml_point_meteorological_symbol(node));
-else if (name == /*"womlswo:*/ "AntiCyclone")
-  theWeatherObject.addFeature(parse_woml_pressure_center_type<AntiCyclone>(node));
-else if (name == /*"womlswo:*/ "Antimesocyclone")
-  theWeatherObject.addFeature(parse_woml_pressure_center_type<Antimesocyclone>(node));
-else if (name == /*"womlswo:*/ "Cyclone")
-  theWeatherObject.addFeature(parse_woml_pressure_center_type<Cyclone>(node));
-else if (name == /*"womlswo:*/ "HighPressureCenter")
-  theWeatherObject.addFeature(parse_woml_pressure_center_type<HighPressureCenter>(node));
-else if (name == /*"womlswo:*/ "LowPressureCenter")
-  theWeatherObject.addFeature(parse_woml_pressure_center_type<LowPressureCenter>(node));
-else if (name == /*"womlswo:*/ "Mesocyclone")
-  theWeatherObject.addFeature(parse_woml_pressure_center_type<Mesocyclone>(node));
-else if (name == /*"womlswo:*/ "Mesolow")
-  theWeatherObject.addFeature(parse_woml_pressure_center_type<Mesolow>(node));
-else if (name == /*"womlswo:*/ "PolarCyclone")
-  theWeatherObject.addFeature(parse_woml_pressure_center_type<PolarCyclone>(node));
-else if (name == /*"womlswo:*/ "PolarLow")
-  theWeatherObject.addFeature(parse_woml_pressure_center_type<PolarLow>(node));
-else if (name == /*"womlswo:*/ "TropicalCyclone")
-  theWeatherObject.addFeature(parse_woml_pressure_center_type<TropicalCyclone>(node));
-else if (name == /*"womlswo:*/ "ConvectiveStorm")
-  theWeatherObject.addFeature(parse_woml_storm_type<ConvectiveStorm>(node));
-else if (name == /*"womlswo:*/ "Storm")
-  theWeatherObject.addFeature(parse_woml_storm_type<Storm>(node));
-else if (name == /*"womlswo:*/ "ParameterValueSetPoint")
-  theWeatherObject.addFeature(parse_woml_parameter_value_set_point(node));
-else if (name == /*"womlswo:*/ "CloudArea")
-  theWeatherObject.addFeature(parse_woml_cloud_area(node));
-else if (name == /*"womlswo:*/ "SurfacePrecipitationArea")
-  theWeatherObject.addFeature(parse_woml_surface_precipitation_area(node));
-else if (name == /*"womlswo:*/ "ParameterValueSetArea")
-  theWeatherObject.addFeature(parse_woml_parameter_value_set_area(node));
-else if (Weather::strictMode())
-  throw std::runtime_error("Unknown meteorological object type '" + name + "'");
-else
+  if (Weather::strictMode())
+    throw std::runtime_error("Unknown meteorological object type '" + name + "'");
   std::cerr << "Warning: ignoring unknown WOML meteorological object type '" << name << "'\n";
+}
 }
 CATCH
 }
