@@ -23,12 +23,13 @@ documents as SVG weather charts.
 
 ```bash
 make
-make test        # test/WomlTest parses every file in test/input/
+make test        # test/WomlTest and test/WomlContentTest
 ```
 
-The test (`regression/tframe.h`) only checks that the sample documents parse. Add a sample
-to `test/input/` for every new element or feature type, and check frontier's output for
-real changes.
+The tests use `regression/tframe.h`. `WomlTest` checks that every sample document in
+`test/input/` parses, and `WomlContentTest` also checks the parsed feature types, counts and
+curve geometry of the samples. Add a sample to `test/input/` for every new element or
+feature type, and check frontier's output for real changes.
 
 ## 2. Parsing
 
@@ -69,8 +70,10 @@ woml::Weather weather = woml::parse(path, woml::conceptualmodelanalysis);  // st
 1. Add the class (for a simple line object, the `AbstractLineObjectDerivedClass` macro in
    `AbstractLineObject.h` is enough).
 2. Add a `visit()` overload to `FeatureVisitor`, and `visit()` in the class.
-3. Add the element to the dispatch in `parse_woml_meteorologicalobject()` in `Parser.cpp`
-   (otherwise it is ignored), and a sample document to `test/input/`.
+3. Add the element to the dispatch in `Parser.cpp`: `parse_woml_line_object()` for line
+   objects, `parse_woml_point_or_area_object()` for point and area objects (both are called
+   from `parse_woml_meteorologicalobject()`; otherwise the type is unknown, see §2), and a
+   sample document to `test/input/`.
 4. Handle it in frontier, which otherwise does not draw it.
 
 ## 5. Compatibility
