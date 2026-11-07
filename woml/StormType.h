@@ -39,7 +39,7 @@ class StormType : public AbstractPointObject
   const std::optional<bool>& isThunderStorm() const;
 
  private:
-  RainPhase itsRainPhase;
+  RainPhase itsRainPhase = unknown;
   std::optional<NumericalSingleValueMeasure> itsApproximateRainFall;
   std::optional<bool> itsIsThunderStorm;
 

@@ -3,7 +3,7 @@
 %define SPECNAME smartmet-library-%{DIRNAME}
 Summary: woml library
 Name: %{SPECNAME}
-Version: 26.10.17
+Version: 26.11.7
 Release: 1%{?dist}.fmi
 License: MIT
 Group: Development/Libraries
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/smartmet/%{DIRNAME}/*.h
 
 %changelog
+* Sat Nov 7 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.11.7-1.fmi
+- Initialize member variables that some constructors left uninitialized
+
 * Sat Oct 17 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.10.17-1.fmi
 - Split functions with a cognitive complexity above 25 into smaller helpers, no functional changes
 
