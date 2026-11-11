@@ -40,8 +40,8 @@ void MeteorologicalObject::addTimeSynchronizedFeature(ParameterTimeSeriesPoint *
 
 void MeteorologicalObject::synchronize()
 {
-  // Syncronize the time series feature members (ParameterTimeSeriesPoint derived objects)
-  // to have common time instants by copying the values from the preceeding time instants
+  // Synchronize the time series feature members (ParameterTimeSeriesPoint derived objects)
+  // to have common time instants by copying the values from the preceding time instants
   // to the missing time instants (if any)
   //
   // SurfaceWeather and SurfaceVisibility are rendered synchronized in frontier

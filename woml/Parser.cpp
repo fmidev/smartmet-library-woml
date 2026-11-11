@@ -1939,7 +1939,7 @@ Weather parse(const std::filesystem::path &thePath, documentType docType, bool s
 
     if (!xqillaImplementation)
     {
-      throw std::runtime_error("Could not get DOM impelementation");
+      throw std::runtime_error("Could not get DOM implementation");
     }
 
     Weather weather;
