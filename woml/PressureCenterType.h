@@ -9,6 +9,13 @@
 #include "AbstractPointObject.h"
 #include "FeatureVisitor.h"
 #include "MeasureValue.h"
+#include <optional>
+#include <string>
+
+namespace woml
+{
+class PressureCenterType;
+}  // namespace woml
 
 // c is the class name, it cannot be parenthesized
 // NOLINTBEGIN(bugprone-macro-parentheses)

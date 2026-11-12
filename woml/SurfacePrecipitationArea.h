@@ -7,15 +7,14 @@
 #pragma once
 
 #include "AbstractSurfaceObject.h"
-#include "Feature.h"
 #include "MeasureValue.h"
 #include "RainPhase.h"
 #include <boost/ptr_container/ptr_list.hpp>
+#include <optional>
 #include <string>
 
 namespace woml
 {
-class FeatureVisitor;
 
 class SurfacePrecipitationArea : public AbstractSurfaceObject
 {

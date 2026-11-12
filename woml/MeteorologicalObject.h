@@ -6,10 +6,12 @@
 
 #pragma once
 
-#include "ParameterTimeSeriesPoint.h"
+#include <list>
 
 namespace woml
 {
+class ParameterTimeSeriesPoint;
+
 class MeteorologicalObject
 {
  public:

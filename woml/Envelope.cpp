@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "Envelope.h"
-#include <cassert>
 #include <utility>
 
 namespace woml

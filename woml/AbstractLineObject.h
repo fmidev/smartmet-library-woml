@@ -10,7 +10,13 @@
 #include "Envelope.h"
 #include "Feature.h"
 #include "FeatureVisitor.h"
+#include <optional>
 #include <string>
+
+namespace woml
+{
+class AbstractLineObject;
+}  // namespace woml
 
 // c is the class name, it cannot be parenthesized
 // NOLINTBEGIN(bugprone-macro-parentheses)

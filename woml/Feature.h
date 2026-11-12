@@ -6,10 +6,10 @@
 
 #pragma once
 
-#include <map>
 #include <macgyver/DateTime.h>
+#include <map>
 #include <optional>
-#include <memory>
+#include <string>
 
 using MeteorologicalObjectInfo = std::multimap<std::string, std::string>;
 

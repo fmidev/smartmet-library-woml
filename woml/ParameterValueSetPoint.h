@@ -7,7 +7,6 @@
 #pragma once
 
 #include "AbstractPointObject.h"
-#include "FeatureVisitor.h"
 #include "GeophysicalParameterValueSet.h"
 #include <memory>
 

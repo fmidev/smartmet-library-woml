@@ -5,8 +5,14 @@
 // ======================================================================
 
 #include "MeteorologicalObject.h"
+#include "GeophysicalParameterValueSet.h"
+#include "ParameterTimeSeriesPoint.h"
+#include "TimeSeriesSlot.h"
 #include <macgyver/DateTime.h>
+#include <memory>
+#include <optional>
 #include <set>
+#include <stdexcept>
 
 namespace woml
 {

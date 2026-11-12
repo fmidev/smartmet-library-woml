@@ -7,6 +7,8 @@
 #include "Weather.h"
 #include "MeteorologicalAnalysis.h"
 #include "WeatherForecast.h"
+#include <boost/ptr_container/ptr_list.hpp>
+#include <list>
 #include <stdexcept>
 #include <utility>
 

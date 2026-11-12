@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Point.h"
+#include <optional>
 #include <string>
 
 namespace woml

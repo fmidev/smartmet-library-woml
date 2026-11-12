@@ -8,7 +8,9 @@
 
 #include "Envelope.h"
 #include <list>
+#include <optional>
 #include <string>
+#include <utility>
 
 namespace woml
 {

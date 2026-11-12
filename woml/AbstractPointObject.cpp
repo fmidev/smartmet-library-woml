@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "AbstractPointObject.h"
-#include "FeatureVisitor.h"
 
 namespace woml
 {

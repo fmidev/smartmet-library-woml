@@ -8,8 +8,17 @@
 
 #include "Feature.h"
 #include "FeatureVisitor.h"
-#include "GeophysicalParameterValueSet.h"
 #include "TimeSeriesSlot.h"
+#include <macgyver/DateTime.h>
+#include <list>
+#include <optional>
+#include <string>
+
+namespace woml
+{
+class GeophysicalParameterValueSet;
+class ParameterTimeSeriesPoint;
+}  // namespace woml
 
 // c is the class name, it cannot be parenthesized
 // NOLINTBEGIN(bugprone-macro-parentheses)
@@ -25,7 +34,6 @@
 
 namespace woml
 {
-class FeatureVisitor;
 
 class ParameterTimeSeriesPoint : public Feature
 {

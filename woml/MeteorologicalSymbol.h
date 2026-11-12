@@ -6,8 +6,10 @@
 
 #pragma once
 
+#include <iterator>
 #include <list>
 #include <string>
+#include <utility>
 
 namespace woml
 {

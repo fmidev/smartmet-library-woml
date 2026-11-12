@@ -5,13 +5,12 @@
 // ======================================================================
 
 #include "ParameterTimeSeriesPoint.h"
-#include "FeatureVisitor.h"
 #include "TimeSeriesSlot.h"
-
 #include <macgyver/DateTime.h>
 
 namespace woml
 {
+class GeophysicalParameterValueSet;
 // ----------------------------------------------------------------------
 /*!
  * \brief Constructor

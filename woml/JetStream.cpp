@@ -5,6 +5,7 @@
 // ======================================================================
 
 #include "JetStream.h"
+#include "FeatureVisitor.h"
 
 namespace woml
 {

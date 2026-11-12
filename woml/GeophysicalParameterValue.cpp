@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "GeophysicalParameterValue.h"
-
+#include "MeasureValue.h"
 #include <stdexcept>
 
 namespace woml

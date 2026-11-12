@@ -5,6 +5,7 @@
 // ======================================================================
 
 #include "ParameterValueSetPoint.h"
+#include "FeatureVisitor.h"
 
 namespace woml
 {

@@ -8,12 +8,13 @@
 
 #include "Elevation.h"
 #include "GeophysicalParameter.h"
-#include "MeasureValue.h"
-
 #include <memory>
+#include <optional>
 
 namespace woml
 {
+class MeasureValue;
+
 class GeophysicalParameterValue
 {
  public:

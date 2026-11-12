@@ -8,7 +8,9 @@
 
 #include "AbstractLineObject.h"
 #include "MeasureValue.h"
+#include <iterator>
 #include <list>
+#include <utility>
 
 namespace woml
 {

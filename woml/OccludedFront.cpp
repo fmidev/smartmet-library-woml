@@ -5,6 +5,7 @@
 // ======================================================================
 
 #include "OccludedFront.h"
+#include "FeatureVisitor.h"
 
 namespace woml
 {

@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "GeophysicalParameterValueSet.h"
-#include "FeatureVisitor.h"
 
 namespace woml
 {

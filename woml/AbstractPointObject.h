@@ -9,7 +9,7 @@
 #include "Envelope.h"
 #include "Feature.h"
 #include "Point.h"
-#include <string>
+#include <optional>
 
 namespace woml
 {

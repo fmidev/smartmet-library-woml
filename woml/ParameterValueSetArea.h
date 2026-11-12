@@ -7,13 +7,12 @@
 #pragma once
 
 #include "AbstractSurfaceObject.h"
-#include "Feature.h"
 #include "GeophysicalParameterValueSet.h"
 #include <boost/ptr_container/ptr_list.hpp>
+#include <memory>
 
 namespace woml
 {
-class FeatureVisitor;
 
 class ParameterValueSetArea : public AbstractSurfaceObject
 {

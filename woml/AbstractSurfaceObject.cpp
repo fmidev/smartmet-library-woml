@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "AbstractSurfaceObject.h"
-#include "FeatureVisitor.h"
 
 namespace woml
 {

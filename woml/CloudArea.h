@@ -8,13 +8,11 @@
 
 #include "AbstractSurfaceObject.h"
 #include "CloudType.h"
-#include "CubicSplineCurve.h"
+#include <optional>
 #include <string>
 
 namespace woml
 {
-class Envelope;
-class FeatureVisitor;
 
 class CloudArea : public AbstractSurfaceObject
 {

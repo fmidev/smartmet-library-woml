@@ -23,7 +23,7 @@
 #include "Weather.h"
 #include "WeatherForecast.h"
 
-#include <smartmet/macgyver/TimeParser.h>
+#include <macgyver/TimeParser.h>
 #include <cmath>
 
 #include <boost/algorithm/string.hpp>

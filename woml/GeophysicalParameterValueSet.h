@@ -9,6 +9,7 @@
 #include "Elevation.h"
 #include "GeophysicalParameterValue.h"
 #include <list>
+#include <optional>
 
 namespace woml
 {

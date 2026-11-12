@@ -12,12 +12,14 @@
 #include "DataSource.h"
 #include "Envelope.h"
 #include "Feature.h"
-#include "InfoText.h"
 #include "MeteorologicalObject.h"
-#include "Point.h"
 #include "TargetRegion.h"
-#include <macgyver/DateTime.h>
 #include <boost/ptr_container/ptr_list.hpp>
+#include <macgyver/DateTime.h>
+#include <list>
+#include <map>
+#include <optional>
+#include <string>
 
 using MeteorologicalAnalysisInfo = std::multimap<std::string, std::string>;
 

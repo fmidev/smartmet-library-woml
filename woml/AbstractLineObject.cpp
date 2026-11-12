@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "AbstractLineObject.h"
-#include "FeatureVisitor.h"
 
 namespace woml
 {

@@ -10,6 +10,12 @@
 #include "FeatureVisitor.h"
 #include "MeasureValue.h"
 #include "RainPhase.h"
+#include <optional>
+
+namespace woml
+{
+class StormType;
+}  // namespace woml
 
 // c is the class name, it cannot be parenthesized
 // NOLINTBEGIN(bugprone-macro-parentheses)

@@ -12,7 +12,7 @@
 #include "Feature.h"
 #include "TargetRegion.h"
 #include <list>
-#include <string>
+#include <optional>
 
 namespace woml
 {

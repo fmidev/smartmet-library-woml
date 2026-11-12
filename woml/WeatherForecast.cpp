@@ -8,6 +8,8 @@
 // ======================================================================
 
 #include "WeatherForecast.h"
+#include "InfoText.h"
+#include "ParameterTimeSeriesPoint.h"
 
 namespace woml
 {

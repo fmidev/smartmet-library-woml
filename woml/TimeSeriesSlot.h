@@ -6,13 +6,12 @@
 
 #pragma once
 
-#include "Feature.h"
-#include <boost/ptr_container/ptr_list.hpp>
+#include <macgyver/DateTime.h>
 #include <list>
+#include <memory>
 
 namespace woml
 {
-class FeatureVisitor;
 class GeophysicalParameterValueSet;
 
 class TimeSeriesSlot

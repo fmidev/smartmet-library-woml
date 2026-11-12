@@ -11,7 +11,6 @@
 
 namespace woml
 {
-class FeatureVisitor;
 
 class PointMeteorologicalSymbol : public AbstractPointObject
 {

@@ -1,16 +1,24 @@
 // Checks the contents of the parsed WOML documents, not just that parsing succeeds
 
-#include <regression/tframe.h>
-
 #include "AbstractLineObject.h"
+#include "CubicSplineCurve.h"
+#include "Feature.h"
 #include "FeatureVisitor.h"
 #include "MeteorologicalAnalysis.h"
 #include "Parser.h"
+#include "Point.h"
+#include "SimpleCubicSpline.h"
 #include "Weather.h"
+#include <regression/tframe.h>
 #include <cmath>
+#include <exception>
 #include <filesystem>
+#include <iostream>
+#include <list>
 #include <map>
+#include <stdexcept>
 #include <string>
+#include <utility>
 
 using namespace std;
 

@@ -7,8 +7,7 @@
 #pragma once
 
 #include "Feature.h"
-#include "FeatureVisitor.h"
-#include <map>
+#include <string>
 
 namespace woml
 {
