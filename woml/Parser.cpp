@@ -38,7 +38,6 @@
 #include <sstream>
 #include <stdexcept>
 
-#include <boost/algorithm/string.hpp>
 #include <xercesc/dom/DOM.hpp>
 #include <xercesc/parsers/XercesDOMParser.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
